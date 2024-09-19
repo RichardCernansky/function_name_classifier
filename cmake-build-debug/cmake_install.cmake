@@ -1,4 +1,4 @@
-# Install script for directory: /Users/richardcernansky/bakalarka/psycheC_ast
+# Install script for directory: /Users/richardcernansky/Desktop/bakalarka/psycheC_ast
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/richardcernansky/bakalarka/psycheC_ast/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

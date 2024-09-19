@@ -1,3 +1,3 @@
-/Users/richardcernansky/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/psycheC_ast.dir
-/Users/richardcernansky/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/richardcernansky/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/psycheC_ast.dir
+/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/rebuild_cache.dir

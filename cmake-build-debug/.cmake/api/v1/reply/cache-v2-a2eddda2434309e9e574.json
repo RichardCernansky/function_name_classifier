@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/richardcernansky/bakalarka/psycheC_ast/cmake-build-debug"
+			"value" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/richardcernansky/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -539,7 +539,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/richardcernansky/bakalarka/psycheC_ast"
+			"value" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -1127,7 +1127,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/richardcernansky/bakalarka/psycheC_ast/cmake-build-debug"
+			"value" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/cmake-build-debug"
 		},
 		{
 			"name" : "psycheC_ast_IS_TOP_LEVEL",
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/richardcernansky/bakalarka/psycheC_ast"
+			"value" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast"
 		}
 	],
 	"kind" : "cache",
