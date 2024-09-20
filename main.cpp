@@ -1,37 +1,14 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
 
-// Include necessary Psyche-C headers
 #include <SyntaxTree.h>
-#include <parser/ParseOptions.h>
-#include <syntax/SyntaxNode.h>  // Assuming this is where SyntaxNode is defined
-#include <syntax/SyntaxVisitor.h>
-#include <syntax/SyntaxToken.h>
+#include <syntax/SyntaxNode.h>
+
+#include "AnalysisVisitor.h"
 
 
-class AnalysisVisitor final : public psy::C::SyntaxVisitor {
-public:
-    explicit AnalysisVisitor(const psy::C::SyntaxTree* tree)
-        : SyntaxVisitor(tree)
-    {}
 
-    // Method to start visiting the syntax tree from the root
-    void run(const psy::C::SyntaxNode* root) {
-        if (root) {
-            visit(root);  // This will start visiting from the root node
-        }
-    }
-
-    bool preVisit(const psy::C::SyntaxNode *node) {
-        if (node) {
-            std::cout << "Visiting node kind: " << to_string(node->kind())  << std::endl;
-            return true;
-        }
-        return false;
-    }
-
-};
 
 
 // Function to read the content of the .c file
@@ -46,13 +23,16 @@ std::string readFile(const std::string& filePath) {
 
 int main() {
     // Path to the C file to be parsed
-    const std::string filePath = "ast_test_correct.c";
+    const std::string filePath = "../datasets/codeforces1/1000.csv";
+
 
     // Step 1: Read the file content
     const std::string sourceCode = readFile(filePath);
     if (sourceCode.empty()) {
         return 1; // Exit if the file could not be read
     }
+
+    std::cout << "hi";
 
     // Step 2: Set up parsing options
     psy::C::ParseOptions parseOpts;
@@ -64,7 +44,7 @@ int main() {
         psy::C::TextPreprocessingState::Preprocessed, // You can set Preprocessed or Raw depending on the state of the text
         psy::C::TextCompleteness::Fragment,           // Indicate whether the input is a full translation unit or a fragment
         parseOpts,                            // Parse options
-        filePath                              // File name (used for reference or error reporting)
+        filePath//File name (used for reference or error reporting)
     );
 
     // Step 5: Get the root node of the syntax tree
@@ -74,7 +54,6 @@ int main() {
     std::cout << "Traversing the syntax tree:" << std::endl;
     AnalysisVisitor analyse_visitor(syntaxTree.get());
     analyse_visitor.run(rootNode);
-
     std::cout << "Parsing complete for file: " << filePath << std::endl;
 
     return 0;

@@ -27,31 +27,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 15,
+				"line" : 17,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 10,
+				"line" : 13,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 12,
+				"line" : 14,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 20,
+				"line" : 22,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 7,
+				"line" : 10,
 				"parent" : 0
 			}
 		]
@@ -69,7 +69,7 @@
 			[
 				{
 					"backtrace" : 5,
-					"path" : "/Users/richardcernansky/Desktop/bakalarka/psychec/C"
+					"path" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C"
 				}
 			],
 			"language" : "CXX",
@@ -103,16 +103,16 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/Users/richardcernansky/Desktop/bakalarka/psychec/C",
+				"fragment" : "-L/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "-L/Users/richardcernansky/Desktop/bakalarka/psychec/common",
+				"fragment" : "-L/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/common",
 				"role" : "libraryPath"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psychec/C -Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psychec/common",
+				"fragment" : "-Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C -Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/common",
 				"role" : "libraries"
 			},
 			{

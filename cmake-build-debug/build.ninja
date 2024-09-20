@@ -52,14 +52,14 @@ build cmake_object_order_depends_target_psycheC_ast: phony || .
 build CMakeFiles/psycheC_ast.dir/main.cpp.o: CXX_COMPILER__psycheC_ast_unscanned_Debug /Users/richardcernansky/Desktop/bakalarka/psycheC_ast/main.cpp || cmake_object_order_depends_target_psycheC_ast
   DEP_FILE = CMakeFiles/psycheC_ast.dir/main.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psychec/C
+  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C
   OBJECT_DIR = CMakeFiles/psycheC_ast.dir
   OBJECT_FILE_DIR = CMakeFiles/psycheC_ast.dir
 
 build CMakeFiles/psycheC_ast.dir/AnalysisVisitor.cpp.o: CXX_COMPILER__psycheC_ast_unscanned_Debug /Users/richardcernansky/Desktop/bakalarka/psycheC_ast/AnalysisVisitor.cpp || cmake_object_order_depends_target_psycheC_ast
   DEP_FILE = CMakeFiles/psycheC_ast.dir/AnalysisVisitor.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psychec/C
+  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C
   OBJECT_DIR = CMakeFiles/psycheC_ast.dir
   OBJECT_FILE_DIR = CMakeFiles/psycheC_ast.dir
 
@@ -74,8 +74,8 @@ build CMakeFiles/psycheC_ast.dir/AnalysisVisitor.cpp.o: CXX_COMPILER__psycheC_as
 build psycheC_ast: CXX_EXECUTABLE_LINKER__psycheC_ast_Debug CMakeFiles/psycheC_ast.dir/main.cpp.o CMakeFiles/psycheC_ast.dir/AnalysisVisitor.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   LINK_FLAGS = -L/opt/homebrew/opt/libomp/lib
-  LINK_LIBRARIES = -Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psychec/C -Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psychec/common  -lpsychecfe  -lpsychecstd  -lpsychecommon
-  LINK_PATH = -L/Users/richardcernansky/Desktop/bakalarka/psychec/C   -L/Users/richardcernansky/Desktop/bakalarka/psychec/common
+  LINK_LIBRARIES = -Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C -Wl,-rpath,/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/common  -lpsychecfe  -lpsychecstd  -lpsychecommon
+  LINK_PATH = -L/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C   -L/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/common
   OBJECT_DIR = CMakeFiles/psycheC_ast.dir
   POST_BUILD = :
   PRE_LINK = :

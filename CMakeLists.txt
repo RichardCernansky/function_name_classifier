@@ -3,13 +3,15 @@ project(psycheC_ast)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Include directories for Psyche-C headers
-include_directories("/Users/richardcernansky/Desktop/bakalarka/psychec/C")
+# Find the parent directory of the project (one level up)
+set(PARENT_DIR ${CMAKE_SOURCE_DIR}/..)
 
-# Add the path to the Psyche-C dynamic libraries
-link_directories("/Users/richardcernansky/Desktop/bakalarka/psychec/C")
+# Include directories for Psyche-C headers using relative path
+include_directories(${PARENT_DIR}/psychec/C)
 
-link_directories("/Users/richardcernansky/Desktop/bakalarka/psychec/common")
+# Link directories for Psyche-C dynamic libraries using relative path
+link_directories(${PARENT_DIR}/psychec/C)
+link_directories(${PARENT_DIR}/psychec/common)
 
 # Add the executable
 add_executable(psycheC_ast main.cpp
@@ -18,3 +20,4 @@ add_executable(psycheC_ast main.cpp
 
 # Link the Psyche-C libraries
 target_link_libraries(psycheC_ast PRIVATE psychecfe psychecstd psychecommon)
+
