@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 # Find the parent directory of the project (one level up)
 set(PARENT_DIR ${CMAKE_SOURCE_DIR}/..)
 
+# Add the include directory for csv2
+include_directories(${CMAKE_SOURCE_DIR}/include)
 # Include directories for Psyche-C headers using relative path
 include_directories(${PARENT_DIR}/psychec/C)
 

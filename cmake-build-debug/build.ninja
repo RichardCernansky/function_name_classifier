@@ -52,14 +52,14 @@ build cmake_object_order_depends_target_psycheC_ast: phony || .
 build CMakeFiles/psycheC_ast.dir/main.cpp.o: CXX_COMPILER__psycheC_ast_unscanned_Debug /Users/richardcernansky/Desktop/bakalarka/psycheC_ast/main.cpp || cmake_object_order_depends_target_psycheC_ast
   DEP_FILE = CMakeFiles/psycheC_ast.dir/main.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C
+  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/include -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C
   OBJECT_DIR = CMakeFiles/psycheC_ast.dir
   OBJECT_FILE_DIR = CMakeFiles/psycheC_ast.dir
 
 build CMakeFiles/psycheC_ast.dir/AnalysisVisitor.cpp.o: CXX_COMPILER__psycheC_ast_unscanned_Debug /Users/richardcernansky/Desktop/bakalarka/psycheC_ast/AnalysisVisitor.cpp || cmake_object_order_depends_target_psycheC_ast
   DEP_FILE = CMakeFiles/psycheC_ast.dir/AnalysisVisitor.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C
+  INCLUDES = -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/include -I/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C
   OBJECT_DIR = CMakeFiles/psycheC_ast.dir
   OBJECT_FILE_DIR = CMakeFiles/psycheC_ast.dir
 

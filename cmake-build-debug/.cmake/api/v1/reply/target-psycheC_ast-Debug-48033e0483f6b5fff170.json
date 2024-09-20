@@ -27,31 +27,37 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 17,
+				"line" : 19,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 13,
+				"line" : 15,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 14,
+				"line" : 16,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 22,
+				"line" : 24,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
 				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 12,
 				"parent" : 0
 			}
 		]
@@ -69,6 +75,10 @@
 			[
 				{
 					"backtrace" : 5,
+					"path" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/include"
+				},
+				{
+					"backtrace" : 6,
 					"path" : "/Users/richardcernansky/Desktop/bakalarka/psycheC_ast/../psychec/C"
 				}
 			],

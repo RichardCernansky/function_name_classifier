@@ -21,7 +21,7 @@ void AnalysisVisitor::run(const psy::C::SyntaxNode* root) {
 // Override preVisit to print node kinds
 bool AnalysisVisitor::preVisit(const psy::C::SyntaxNode *node) {
     if (node) {
-        std::cout << "Visiting node-kind: " << to_string(node->kind()) << std::endl;
+        //std::cout << "Visiting node-kind: " << to_string(node->kind()) << std::endl;
         return true;
     }
     return false;
