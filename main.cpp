@@ -118,7 +118,6 @@ int main(const int argc, char* argv[]) {
 
     const std::string filePath = argv[1];
     //Running response
-    std::cout << "Continue on row_index: " << start_row_index << ", for file: " << filePath << std::endl;
     runAllConstructionAndAnalysis(filePath, start_row_index);
 
     return 0;
