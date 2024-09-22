@@ -119,6 +119,11 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 build all: phony psycheC_ast
 
 # =============================================================================
+# Unknown Build Time Dependencies.
+# Tell Ninja that they may appear as side effects of build rules
+# otherwise ordered by order-only dependencies.
+
+# =============================================================================
 # Built-in targets
 
 

@@ -39,7 +39,7 @@ std::string readFile(const std::string& filePath) {
 }
 
 //helper function to get only the rows of .csv dataset that end with '.c'
-bool endsWithC(const std::string& filename) {
+bool isFileC(const std::string& filename) {
     // Check if the string ends with ".c"
     if (filename.size() >= 2 && filename.rfind(".c") == (filename.size() - 2)) {
         return true;
@@ -56,30 +56,36 @@ void analyseAST(const std::unique_ptr<psy::C::SyntaxTree>& syntaxTree) {
     analyse_visitor.run(rootNode);
 }
 
-ASTConstructStatus constructAST(const std::string& sourceCode, const std::string& filePath) {
+std::pair<ASTConstructStatus, std::unique_ptr<psy::C::SyntaxTree>>
+constructAST(const std::string& sourceCode, const std::string& filePath) {
 
     // Step 2: Set up parsing options
     psy::C::ParseOptions parseOpts;
     parseOpts.setAmbiguityMode(psy::C::ParseOptions::AmbiguityMode::DisambiguateAlgorithmically); // Adjust as necessary
 
     // Step 3: Parse the file content
-    const auto syntaxTree = psy::C::SyntaxTree::parseText(
-        sourceCode,                                   // The content of the C file
-        psy::C::TextPreprocessingState::Preprocessed,       // You can set Preprocessed or Raw depending on the state of the text
-        psy::C::TextCompleteness::Fragment,             // Indicate whether the input is a full translation unit or a fragment
+    auto syntaxTree = psy::C::SyntaxTree::parseText(
+        sourceCode,                                     // The content of the C file
+        psy::C::TextPreprocessingState::Preprocessed,   // Preprocessed or Raw, depending on the state of the text
+        psy::C::TextCompleteness::Fragment,             // Full translation unit or fragment
         parseOpts,                                      // Parse options
-        filePath                                        //File name (used for reference or error reporting)
+        filePath                                        // File name (used for reference or error reporting)
     );
     incrementGeneralCounter();
 
+    // Check diagnostics for errors
     if (const auto diagnostics = syntaxTree->diagnostics(); !diagnostics.empty()) {
-        if (diagnostics.front().severity() == psy::DiagnosticSeverity::Error)
-            return ASTConstructStatus::Error;
-        //for now ignore warning
+        if (diagnostics.front().severity() == psy::DiagnosticSeverity::Error) {
+            return std::pair<ASTConstructStatus, std::unique_ptr<psy::C::SyntaxTree>>(
+                ASTConstructStatus::Error, std::move(syntaxTree));
+        }
+        // For now, ignore warnings
     }
 
-    return ASTConstructStatus::Success;
+    return std::pair<ASTConstructStatus, std::unique_ptr<psy::C::SyntaxTree>>(
+        ASTConstructStatus::Success, std::move(syntaxTree));
 }
+
 
 void runAllConstructionAndAnalysis(const std::string& filePath) {
     csv::CSVFormat format;
@@ -89,22 +95,29 @@ void runAllConstructionAndAnalysis(const std::string& filePath) {
     csv::CSVReader reader(filePath, format);
 
     // Iterate over the rows of the CSV file
-    int row_count = 0;
+    int row_index = 0; //debug variable
     for (const csv::CSVRow& row : reader) {
-        if (endsWithC(row["file"].get<std::string>())) {
+        std::cout << "row_index: " << row_index << std::endl;
+        if (isFileC(row["file"].get<std::string>())) {
             const auto sourceCode = row["flines"].get<std::string>();  // Get the last column (source code)
 
-            constructAST(sourceCode, filePath);
+            // if (row_count == 2) {
+            //     std::cout << "hello" << std::endl;
+            // }
+            auto output_construct = constructAST(sourceCode, filePath);
+            // Declare variables for unpacking
+            ASTConstructStatus status;
+            std::unique_ptr<psy::C::SyntaxTree> syntaxTree;
 
-            if (constructStatus != ASTConstructStatus::Error) {
-                try analyseAST(syntaxTree);
-                except(successful analysis) {
-                    incrementSuccessCounter();
-                }
+            // Unpack the pair into separate variables
+            std::tie(status, syntaxTree) = std::move(output_construct);
+            if (status != ASTConstructStatus::Error) {
+                analyseAST(syntaxTree);  // This may throw an exception
+                incrementSuccessCounter();  // Only increment if no exception is thrown
             }
 
-            ++row_count;
-            if (row_count == 3) break;
+            ++row_index;
+            if (row_index == 3) break;
         }
     }
 }
@@ -114,11 +127,13 @@ int main(const int argc, char* argv[]) {
     // Check if there is at least one argument (excluding the program name)
     if (argc > 1) {
         const std::string filePath = argv[1];
-
+        //Running response
         std::cout << "Construction for file: " << filePath << "started." << std::endl;
         runAllConstructionAndAnalysis(filePath);
     }
 
+
+    //Output response
     std::cout << "Number of successful: " << sucess_counter << std::endl;
     std::cout << "Number of general: " << general_counter << std::endl;
     if (general_counter > 0) {
