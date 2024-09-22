@@ -11,15 +11,7 @@
 #include "AnalysisVisitor.h"
 
 // Global counter
-int sucess_counter = 0;
-int general_counter = 0;
 
-void incrementSuccessCounter() {
-    ++sucess_counter;
-}
-void incrementGeneralCounter() {
-    ++general_counter;
-}
 
 enum class ASTConstructStatus {
     Success,
@@ -56,7 +48,7 @@ void analyseAST(const std::unique_ptr<psy::C::SyntaxTree>& syntaxTree) {
     analyse_visitor.run(rootNode);
 }
 
-std::pair<ASTConstructStatus, std::unique_ptr<psy::C::SyntaxTree>>
+std::unique_ptr<psy::C::SyntaxTree>
 constructAST(const std::string& sourceCode, const std::string& filePath) {
 
     // Step 2: Set up parsing options
@@ -71,78 +63,63 @@ constructAST(const std::string& sourceCode, const std::string& filePath) {
         parseOpts,                                      // Parse options
         filePath                                        // File name (used for reference or error reporting)
     );
-    incrementGeneralCounter();
 
-    // Check diagnostics for errors
-    if (const auto diagnostics = syntaxTree->diagnostics(); !diagnostics.empty()) {
-        if (diagnostics.front().severity() == psy::DiagnosticSeverity::Error) {
-            return std::pair<ASTConstructStatus, std::unique_ptr<psy::C::SyntaxTree>>(
-                ASTConstructStatus::Error, std::move(syntaxTree));
-        }
-        // For now, ignore warnings
-    }
-
-    return std::pair<ASTConstructStatus, std::unique_ptr<psy::C::SyntaxTree>>(
-        ASTConstructStatus::Success, std::move(syntaxTree));
+    return syntaxTree;
 }
 
 
-void runAllConstructionAndAnalysis(const std::string& filePath) {
+void runAllConstructionAndAnalysis(const std::string& filePath, const long int start_row_index) {
     csv::CSVFormat format;
     format.delimiter(',')
           .quote('"')
           .header_row(0);
     csv::CSVReader reader(filePath, format);
 
+
+    long int row_index = 0;
     // Iterate over the rows of the CSV file
-    int row_index = 0; //debug variable
     for (const csv::CSVRow& row : reader) {
-        std::cout << "row_index: " << row_index << std::endl;
-        if (isFileC(row["file"].get<std::string>())) {
-            const auto sourceCode = row["flines"].get<std::string>();  // Get the last column (source code)
-
-            // if (row_count == 2) {
-            //     std::cout << "hello" << std::endl;
-            // }
-            auto output_construct = constructAST(sourceCode, filePath);
-            // Declare variables for unpacking
-            ASTConstructStatus status;
-            std::unique_ptr<psy::C::SyntaxTree> syntaxTree;
-
-            // Unpack the pair into separate variables
-            std::tie(status, syntaxTree) = std::move(output_construct);
-            if (status != ASTConstructStatus::Error) {
-                analyseAST(syntaxTree);  // This may throw an exception
-                incrementSuccessCounter();  // Only increment if no exception is thrown
-            }
-
+        if (row_index < start_row_index) {
             ++row_index;
-            if (row_index == 3) break;
+            continue;
         }
+
+        //log the row_index before segmentation fault
+        std::cout << "row_index: " << row_index << std::endl;
+
+        // Get the last column (source code)
+        const auto sourceCode = row["flines"].get<std::string>();
+
+        //Construct the tree
+        auto syntaxTree = constructAST(sourceCode, filePath);
+        //Analyse the tree
+        analyseAST(syntaxTree);  // This may throw an exception
+
+        //handle row index
+        ++row_index;
     }
+
+    // Signal end of the file
+    std::cout << "EOF" << std::endl;
 }
 
 int main(const int argc, char* argv[]) {
 
-    // Check if there is at least one argument (excluding the program name)
-    if (argc > 1) {
-        const std::string filePath = argv[1];
-        //Running response
-        std::cout << "Construction for file: " << filePath << "started." << std::endl;
-        runAllConstructionAndAnalysis(filePath);
+    // Check if the required arguments are provided
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <csv_file> <start_row_index>" << std::endl;
+        return 1;
     }
 
+    // Get the CSV file name and start row index from command-line arguments
+    std::string csv_file = argv[1];
+    //TODO resolve long int row_index
+    const long int start_row_index = std::stoi(argv[2]);
 
-    //Output response
-    std::cout << "Number of successful: " << sucess_counter << std::endl;
-    std::cout << "Number of general: " << general_counter << std::endl;
-    if (general_counter > 0) {
-        // Calculate the percentage and cast to double for proper division
-        double percentage = (static_cast<double>(sucess_counter) / general_counter) * 100;
-        std::cout << "Percentage: " << percentage << "%" << std::endl;
-    } else {
-        std::cout << "General counter is zero, cannot calculate percentage." << std::endl;
-    }
+    const std::string filePath = argv[1];
+    //Running response
+    std::cout << "Continue on row_index: " << start_row_index << ", for file: " << filePath << std::endl;
+    runAllConstructionAndAnalysis(filePath, start_row_index);
 
     return 0;
 }
