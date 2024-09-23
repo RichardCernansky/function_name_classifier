@@ -5,22 +5,8 @@
 #include <sstream>
 
 #include <csv-parser/csv.hpp>
-#include <SyntaxTree.h>
-#include <syntax/SyntaxNode.h>
 
-#include "AnalysisVisitor.h"
-
-// Global counter
-
-
-enum class ASTConstructStatus {
-    Success,
-    Warning,
-    Error
-};
-
-//TEMPORARY
-// Function to read the content of the .c file
+// Function to read the content of the .c file for '.c' mode
 std::string readFile(const std::string& filePath) {
     std::ifstream file(filePath);
     if (!file.is_open()) {
@@ -31,7 +17,7 @@ std::string readFile(const std::string& filePath) {
 }
 
 //return exit code
-int constructAST(const std::string& sourceCode) {
+int constructAST(const std::string& sourceCode, const std::string& mode) {
     // Step 1: Use a fixed file name (this will be overwritten each time)
     const char* tempFileName = "./tmp/tempSourceCode.c";
 
@@ -45,10 +31,14 @@ int constructAST(const std::string& sourceCode) {
     tempFile.close();  // Close the file after writing
 
     // Step 3: Run the external command using system()
-    const std::string command = "(./psychec/cnip -l C -d " + std::string(tempFileName) + ") >/dev/null 2>/dev/null";
-    const int returnCode = system(command.c_str());
+    if (mode == ".csv") {
+        const std::string command = "(./psychec/cnip -l C -d " + std::string(tempFileName) + ") >/dev/null 2>/dev/null";
+        return system(command.c_str());
+    } else {
+        const std::string command = "./psychec/cnip -l C -d " + std::string(tempFileName);
+        return system(command.c_str());
+    }
 
-    return returnCode;
 }
 
 void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec, std::string& mode) {
@@ -75,7 +65,7 @@ void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec,
             const auto sourceCode = row["flines"].get<std::string>();
 
             // Construct the AST
-            if (constructAST(sourceCode) != 0) {
+            if (constructAST(sourceCode, mode) != 0) {
                 // If the AST construction fails, log the row index
                 logFile << row_index << std::endl;
             }
@@ -91,9 +81,16 @@ void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec,
 
         // Close the log file
         logFile.close();
-    } else {
-        for (int i = 0; i < pathsVec.size(); ++i) {
-            
+    }
+    else {
+        for (const auto & i : pathsVec) {
+            int exit_status = constructAST(i, mode);
+            if (exit_status != 0) {
+                std::cerr << "The AST for file:" << i << "was NOT successfully created." << std::endl << std::endl;
+            } else {
+                std::cout << "The AST for file:" << i << "was INDEED successfully created." << std::endl << std::endl;
+            }
+            std::cout << "------------------------------------------------------------------------------" << std::endl;
         }
     }
 }
@@ -101,8 +98,8 @@ void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec,
 int main(const int argc, char* argv[]) {
 
     // Check if the required arguments are provided
-    if (argc <= 3) {
-        std::cerr << "Usage: " << argv[0] << " <csv_file> <mode>" << std::endl << "Modes: [.csv, .c]" << std::endl;
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << "<mode> <string_path>" << std::endl << "Modes: [.csv, .c]" << std::endl;
         return 1;
     }
 
@@ -117,9 +114,6 @@ int main(const int argc, char* argv[]) {
             pathsVec.emplace_back(argv[i]);
         }
     }
-
-
-
 
     //Running response
     runForFile(filePath, pathsVec, mode);

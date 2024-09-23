@@ -19,7 +19,7 @@ fi
 for csv_file in "$dataset_dir"/*_only_c.csv; do
     if [ -f "$csv_file" ]; then
         # Run the script on each CSV file, suppressing all output (stdout and stderr)
-				(./psycheC_ast/build/psycheC_ast  "$csv_file") 2>/dev/null
+				(./psycheC_ast/build/psycheC_ast ".csv"  "$csv_file" ) 2>/dev/null
     fi
 
 		# Get the total number of lines
