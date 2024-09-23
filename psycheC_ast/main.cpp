@@ -30,6 +30,7 @@ std::string readFile(const std::string& filePath) {
     return {(std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>()};
 }
 
+//return exit code
 int constructAST(const std::string& sourceCode) {
     // Step 1: Use a fixed file name (this will be overwritten each time)
     const char* tempFileName = "./tmp/tempSourceCode.c";
@@ -50,62 +51,78 @@ int constructAST(const std::string& sourceCode) {
     return returnCode;
 }
 
+void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec, std::string& mode) {
+    if (mode == ".csv") {
+        csv::CSVFormat format;
+        format.delimiter(',')
+              .quote('"')
+              .header_row(0);
+        csv::CSVReader reader(filePath, format);
 
-void runForFile(const std::string& filePath) {
-    csv::CSVFormat format;
-    format.delimiter(',')
-          .quote('"')
-          .header_row(0);
-    csv::CSVReader reader(filePath, format);
+        long int row_index = 0;
 
-    long int row_index = 0;
-
-    // Open the row_index.log file (overwrites the file at each run)
-    std::ofstream logFile("row_index.log");
-    if (!logFile.is_open()) {
-        std::cerr << "Error: Could not open row_index.log for writing." << std::endl;
-        return;
-    }
-
-    // Iterate over the rows of the CSV file
-    for (const csv::CSVRow& row : reader) {
-
-        // Get the last column (source code)
-        const auto sourceCode = row["flines"].get<std::string>();
-
-        // Construct the AST
-        if (constructAST(sourceCode) != 0) {
-            // If the AST construction fails, log the row index
-            logFile << row_index << std::endl;
+        // Open the row_index.log file (overwrites the file at each run)
+        std::ofstream logFile("row_index.log");
+        if (!logFile.is_open()) {
+            std::cerr << "Error: Could not open row_index.log for writing." << std::endl;
+            return;
         }
 
-        // Analyse the AST (you can add your analysis logic here)
+        // Iterate over the rows of the CSV file
+        for (const csv::CSVRow& row : reader) {
 
-        // Increment the row index
-        ++row_index;
+            // Get the last column (source code)
+            const auto sourceCode = row["flines"].get<std::string>();
+
+            // Construct the AST
+            if (constructAST(sourceCode) != 0) {
+                // If the AST construction fails, log the row index
+                logFile << row_index << std::endl;
+            }
+
+            // Analyse the AST (you can add your analysis logic here)
+
+            // Increment the row index
+            ++row_index;
+        }
+
+        // Signal the end of the file
+        std::cout << "EOF" << std::endl;
+
+        // Close the log file
+        logFile.close();
+    } else {
+        for (int i = 0; i < pathsVec.size(); ++i) {
+            
+        }
     }
-
-    // Signal the end of the file
-    std::cout << "EOF" << std::endl;
-
-    // Close the log file
-    logFile.close();
 }
 
 int main(const int argc, char* argv[]) {
 
     // Check if the required arguments are provided
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <csv_file> " << std::endl;
+    if (argc <= 3) {
+        std::cerr << "Usage: " << argv[0] << " <csv_file> <mode>" << std::endl << "Modes: [.csv, .c]" << std::endl;
         return 1;
     }
 
-    // Get the CSV file name and start row index from command-line arguments
-    std::string csv_file = argv[1];
+    // Convert argv[2] to std::string
+    std::string mode = argv[1];
+    std::string filePath;
+    std::vector<std::string> pathsVec;
+    if (mode == ".csv") {
+        filePath = argv[2];
+    }  else {
+        for (int i = 2; i < argc; i++) {
+            pathsVec.emplace_back(argv[i]);
+        }
+    }
 
-    const std::string filePath = argv[1];
+
+
+
     //Running response
-    runForFile(filePath);
+    runForFile(filePath, pathsVec, mode);
 
     return 0;
 }
