@@ -30,95 +30,82 @@ std::string readFile(const std::string& filePath) {
     return {(std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>()};
 }
 
-//helper function to get only the rows of .csv dataset that end with '.c'
-bool isFileC(const std::string& filename) {
-    // Check if the string ends with ".c"
-    if (filename.size() >= 2 && filename.rfind(".c") == (filename.size() - 2)) {
-        return true;
+int constructAST(const std::string& sourceCode) {
+    // Step 1: Use a fixed file name (this will be overwritten each time)
+    const char* tempFileName = "./tmp/tempSourceCode.c";
+
+    // Step 2: Write the source code into the file (this will overwrite the file each time)
+    std::ofstream tempFile(tempFileName);
+    if (!tempFile.is_open()) {
+        std::cerr << "Failed to open temporary file for writing." << std::endl;
+        return 1;
     }
-    return false;
-}
+    tempFile << sourceCode;
+    tempFile.close();  // Close the file after writing
 
-void analyseAST(const std::unique_ptr<psy::C::SyntaxTree>& syntaxTree) {
-    // Step 5: Get the root node of the syntax tree
-    const auto rootNode = syntaxTree->root();
+    // Step 3: Run the external command using system()
+    const std::string command = "(./psychec/cnip -l C -d " + std::string(tempFileName) + ") >/dev/null 2>/dev/null";
+    const int returnCode = system(command.c_str());
 
-    // Step 6: Create the AnalysisVisitor and traverse the syntax tree
-    AnalysisVisitor analyse_visitor(syntaxTree.get());
-    analyse_visitor.run(rootNode);
-}
-
-std::unique_ptr<psy::C::SyntaxTree>
-constructAST(const std::string& sourceCode, const std::string& filePath) {
-
-    // Step 2: Set up parsing options
-    psy::C::ParseOptions parseOpts;
-    parseOpts.setAmbiguityMode(psy::C::ParseOptions::AmbiguityMode::DisambiguateAlgorithmically); // Adjust as necessary
-
-    // Step 3: Parse the file content
-    auto syntaxTree = psy::C::SyntaxTree::parseText(
-        sourceCode,                                     // The content of the C file
-        psy::C::TextPreprocessingState::Preprocessed,   // Preprocessed or Raw, depending on the state of the text
-        psy::C::TextCompleteness::Fragment,             // Full translation unit or fragment
-        parseOpts,                                      // Parse options
-        filePath                                        // File name (used for reference or error reporting)
-    );
-
-    return syntaxTree;
+    return returnCode;
 }
 
 
-void runAllConstructionAndAnalysis(const std::string& filePath, const long int start_row_index) {
+void runForFile(const std::string& filePath) {
     csv::CSVFormat format;
     format.delimiter(',')
           .quote('"')
           .header_row(0);
     csv::CSVReader reader(filePath, format);
 
-
     long int row_index = 0;
+
+    // Open the row_index.log file (overwrites the file at each run)
+    std::ofstream logFile("row_index.log");
+    if (!logFile.is_open()) {
+        std::cerr << "Error: Could not open row_index.log for writing." << std::endl;
+        return;
+    }
+
     // Iterate over the rows of the CSV file
     for (const csv::CSVRow& row : reader) {
-        if (row_index < start_row_index) {
-            ++row_index;
-            continue;
-        }
-
-        //log the row_index before segmentation fault
-        std::cout << "row_index: " << row_index << std::endl;
 
         // Get the last column (source code)
         const auto sourceCode = row["flines"].get<std::string>();
 
-        //Construct the tree
-        auto syntaxTree = constructAST(sourceCode, filePath);
-        //Analyse the tree
-        analyseAST(syntaxTree);  // This may throw an exception
+        // Construct the AST
+        if (constructAST(sourceCode) != 0) {
+            // If the AST construction fails, log the row index
+            logFile << row_index << std::endl;
+        }
 
-        //handle row index
+        // Analyse the AST (you can add your analysis logic here)
+
+        // Increment the row index
         ++row_index;
     }
 
-    // Signal end of the file
+    // Signal the end of the file
     std::cout << "EOF" << std::endl;
+
+    // Close the log file
+    logFile.close();
 }
 
 int main(const int argc, char* argv[]) {
 
     // Check if the required arguments are provided
-    if (argc != 3) {
-        std::cerr << "Usage: " << argv[0] << " <csv_file> <start_row_index>" << std::endl;
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <csv_file> " << std::endl;
         return 1;
     }
 
     // Get the CSV file name and start row index from command-line arguments
     std::string csv_file = argv[1];
-    //TODO resolve long int row_index
-    const long int start_row_index = std::stoi(argv[2]);
 
     const std::string filePath = argv[1];
     //Running response
-    runAllConstructionAndAnalysis(filePath, start_row_index);
+    runForFile(filePath);
 
     return 0;
 }
