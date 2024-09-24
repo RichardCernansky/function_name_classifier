@@ -31,17 +31,17 @@ int constructAST(const std::string& sourceCode, const std::string& mode) {
     tempFile.close();  // Close the file after writing
 
     // Step 3: Run the external command using system()
+    std::string command;
     if (mode == ".csv") {
-        const std::string command = "(./psychec/cnip -l C -d " + std::string(tempFileName) + ") >/dev/null 2>/dev/null";
-        return system(command.c_str());
+        command = "(./psychec/cnip -l C -d " + std::string(tempFileName) + ") >/dev/null 2>/dev/null";
     } else {
-        const std::string command = "./psychec/cnip -l C -d " + std::string(tempFileName);
-        return system(command.c_str());
+        command = "./psychec/cnip -l C -d " + std::string(tempFileName);
     }
+        return system(command.c_str());
 
 }
 
-void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec, std::string& mode) {
+void run(const std::string& filePath, std::vector<std::string>& pathsVec, std::string& mode) {
     if (mode == ".csv") {
         csv::CSVFormat format;
         format.delimiter(',')
@@ -65,7 +65,9 @@ void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec,
             const auto sourceCode = row["flines"].get<std::string>();
 
             // Construct the AST
-            if (constructAST(sourceCode, mode) != 0) {
+
+            int exit_code = constructAST(sourceCode, mode);
+            if (exit_code != 0) {
                 // If the AST construction fails, log the row index
                 logFile << row_index << std::endl;
             }
@@ -84,7 +86,8 @@ void runForFile(const std::string& filePath, std::vector<std::string>& pathsVec,
     }
     else {
         for (const auto & i : pathsVec) {
-            int exit_status = constructAST(i, mode);
+            auto source_code = readFile(i);
+            int exit_status = constructAST(source_code, mode);
             if (exit_status != 0) {
                 std::cerr << "The AST for file:" << i << "was NOT successfully created." << std::endl << std::endl;
             } else {
@@ -116,7 +119,7 @@ int main(const int argc, char* argv[]) {
     }
 
     //Running response
-    runForFile(filePath, pathsVec, mode);
+    run(filePath, pathsVec, mode);
 
     return 0;
 }

@@ -20,5 +20,5 @@ add_executable(psycheC_ast main.cpp
 )
 
 # Link the Psyche-C libraries
-target_link_libraries(psycheC_ast PRIVATE psychecfe psychecstd psychecommon)
+target_link_libraries(psycheC_ast PRIVATE psychecfe psychecstd psychecommon pthread)
 
