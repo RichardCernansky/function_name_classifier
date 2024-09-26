@@ -1,6 +1,5 @@
 datasets/
 psychec/
-client.ovpn
-psycheC_ast/build/
-psycheC_ast/cmake-build-debug/
+processAST/.venv
+processAST/.idea
 

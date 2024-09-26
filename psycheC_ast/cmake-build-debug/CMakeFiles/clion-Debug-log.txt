@@ -1,0 +1,1 @@
+CMakeLists.txt not found in /Users/richardcernansky/Desktop/bakalarka/psycheC_ast Select CMakeLists.txt
