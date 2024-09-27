@@ -2,6 +2,7 @@ from Node import Node
 from typing import List
 import copy
 
+
 class AsciiTreeProcessor:
     def __init__(self, tree: str):
         self.lines = self.remove_empty_back(tree.split("\n")[1:])

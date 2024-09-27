@@ -1,3 +1,5 @@
+
+
 class Node:
     def __init__(self, b_i: int, kind: str, code_pos: str, data: str):
         self.branching_idx = b_i

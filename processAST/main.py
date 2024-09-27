@@ -8,7 +8,7 @@ import json
 from AsciiTreeProcessor import AsciiTreeProcessor
 from NodeTree import NodeTree
 
-#Consts
+#consts
 ndjson_path = "ASTs.ndjson"
 temp_file_path = "tmp/tempSourceCode.c"
 # Increase the CSV field size limit
