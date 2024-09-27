@@ -3,8 +3,11 @@ import argparse
 import csv
 import subprocess
 import sys
+import json
 
 from AsciiTreeProcessor import AsciiTreeProcessor
+from NodeTree import NodeTree
+from Node import Node
 
 #Consts
 ndjson_path = "ASTs.ndjson"
@@ -12,16 +15,26 @@ temp_file_path = "tmp/tempSourceCode.c"
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
 
-def ascii_to_json(ascii_tree: str):
+def save_tree_to_ndjson(root: Node, filename: str):
+    """Save the entire tree as a single JSON object in NDJSON format."""
+    with open(filename, "a") as f:
+        # Convert the root node and its entire tree to a single dictionary
+        tree_dict = root.to_dict()
+        # Write the dictionary as a single JSON object (as one line in the NDJSON file)
+        json_line = json.dumps(tree_dict)
+        f.write(json_line + "\n")
+    return
+
+def ascii_to_ndjson(ascii_tree: str):
     # print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
-    root_node = atp.produce_tree()
-
+    node_tree = NodeTree(atp.produce_tree())
+    save_tree_to_ndjson(node_tree.root_node, ndjson_path)
     return
 
 def run_cnip():
     # Construct and execute the command
-    command = f"./psychec/cnip -l C -d {temp_file_path}"  # >/dev/null 2>/dev/null"
+    command = f"./psychec/cnip -l C -d {temp_file_path}"
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')
 
 def process_c_file():
@@ -40,7 +53,7 @@ def process_csv_file(csv_file_path: str, file_name_column: str):
         num_successful_rows = 0
         for line in reader:
             # Check if the specified filename_column ends with '.c'
-            if line[file_name_column].lower().endswith('.c'):
+            if line[file_name_column].endswith('.c'):
                 num_all_rows_c += 1
 
                 with open(temp_file_path, 'w') as temp_file:
@@ -55,7 +68,7 @@ def process_csv_file(csv_file_path: str, file_name_column: str):
                 #if successful, process the ascii-tree
                 else:
                     num_successful_rows += 1
-                    ascii_to_json(result.stdout)
+                    ascii_to_ndjson(result.stdout)
 
     print(f"        Finished processing: {csv_file_path}. Success rate: {round(num_successful_rows/num_all_rows_c*100, 2)}%. N.o. rows in csv: {num_all_rows_c}.")
 
