@@ -3,68 +3,19 @@ import argparse
 import csv
 import subprocess
 import sys
-from typing import List
+
+from AsciiTreeProcessor import AsciiTreeProcessor
 
 #Consts
+ndjson_path = "ASTs.ndjson"
 temp_file_path = "tmp/tempSourceCode.c"
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
 
-class Node:
-    def __init__(self, b_i: int):
-        self.branching_idx = b_i
-        self.parent = None
-        self.children = []
-        self.kind = None
-        self.code_pos = None
-        self.data = None
-
-    def set_parent(self, parent: 'Node'):
-        self.parent = parent
-
-    def add_child(self, child: 'Node'):
-        self.children.append(child)
-
-
-class AsciiTreeProcessor:
-    def __init__(self, tree: str):
-        self.lines = self.remove_empty_back(tree.split("\n")[1:])
-
-    def visit(self, line_idx: int, cur_node: Node):
-        if line_idx >= len(self.lines):
-            return
-        else:
-            b_i = cur_node.branching_idx
-            line_b_i = self.lines[line_idx].find('|--')
-            if line_b_i > b_i:
-                new_node = Node(line_b_i)
-                new_node.set_parent(cur_node)
-                cur_node.add_child(new_node)
-                self.visit(line_idx + 1, new_node)
-                return
-            elif line_b_i == b_i:
-                new_node = Node(line_b_i)
-                cur_node.parent.add_child(new_node)
-                new_node.set_parent(cur_node.parent)
-                self.visit(line_idx + 1, new_node)
-                return
-            else:
-                self.visit(line_idx, cur_node.parent)
-                return
-
-    def remove_empty_back(self, lines: List[str]) -> List[str]:
-        idx = 0
-        while lines[len(lines) - 1 - idx] == "":
-            lines.pop()
-        return lines
-
-
-
 def ascii_to_json(ascii_tree: str):
-    print(ascii_tree)
+    # print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
-    root_node = Node(-1)
-    atp.visit(1, root_node)
+    root_node = atp.produce_tree()
 
     return
 
@@ -82,7 +33,6 @@ def process_csv_file(csv_file_path: str, file_name_column: str):
 
     # Open the CSV file
     with open(csv_file_path, mode='r', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
         reader = csv.DictReader((line.replace('\0', '') for line in file))
 
         # Iterate over each line in the CSV
@@ -102,11 +52,12 @@ def process_csv_file(csv_file_path: str, file_name_column: str):
                 #check exitcode, if error -> thrash the tree
                 if result.returncode != 0:
                     pass
+                #if successful, process the ascii-tree
                 else:
                     num_successful_rows += 1
                     ascii_to_json(result.stdout)
 
-    print(f"        Finished processing: {csv_file_path}. Success rate: {round(num_successful_rows/num_all_rows_c*100, 2)}%")
+    print(f"        Finished processing: {csv_file_path}. Success rate: {round(num_successful_rows/num_all_rows_c*100, 2)}%. N.o. rows in csv: {num_all_rows_c}.")
 
 
 # Main function to parse arguments and call processing
@@ -135,7 +86,7 @@ def main():
                 for file in files:
                     if file.endswith(".csv"):
                         csv_file_path = os.path.join(root, file)
-                        process_csv_file(csv_file_path, file_name_column)
+                        process_csv_file(str(csv_file_path), file_name_column)
         else:
             print(f"Folder not found: {folder}")
 
