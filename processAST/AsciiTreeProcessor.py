@@ -1,5 +1,6 @@
 from Node import Node
 from typing import List
+import copy
 
 class AsciiTreeProcessor:
     def __init__(self, tree: str):
@@ -13,9 +14,30 @@ class AsciiTreeProcessor:
 
     @staticmethod
     def process_line(raw_line: str) -> List[str]:
-        return raw_line.lstrip('|--').split()
+        while True:
+            raw_line_before = copy.deepcopy(raw_line)
+            raw_line = raw_line.lstrip("|").lstrip("--").lstrip()
 
-    def produce_tree(self):
+            if raw_line == raw_line_before:
+                break
+
+        line_split = raw_line.split()
+
+        if len(line_split) != 3:
+            first = True if len(line_split[0]) != 0 else False
+            second = True if len(line_split) > 1 and line_split[1][0] == '<' else False
+            third = True if len(line_split) > 2 and line_split[2][0] == '`' else False
+
+            if not first:
+                line_split.insert(0, '')
+            if not second:
+                line_split.insert(1, '')
+            if not third:
+                line_split.insert(2, '')
+        return line_split
+
+
+    def produce_tree(self) -> Node:
         root_node = Node(-1, "TranslationUnit", "", "")
         cur_node = root_node
         line_idx = 1

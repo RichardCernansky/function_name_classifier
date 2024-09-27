@@ -7,7 +7,6 @@ import json
 
 from AsciiTreeProcessor import AsciiTreeProcessor
 from NodeTree import NodeTree
-from Node import Node
 
 #Consts
 ndjson_path = "ASTs.ndjson"
@@ -15,24 +14,22 @@ temp_file_path = "tmp/tempSourceCode.c"
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
 
-def save_tree_to_ndjson(root: Node, filename: str):
+def save_tree_to_ndjson(node_tree: NodeTree, filename: str):
     """Save the entire tree as a single JSON object in NDJSON format."""
     with open(filename, "a") as f:
         # Convert the root node and its entire tree to a single dictionary
-        tree_dict = root.to_dict()
+        tree_dict = node_tree.root_node.to_dict()
         # Write the dictionary as a single JSON object (as one line in the NDJSON file)
         json_line = json.dumps(tree_dict)
         f.write(json_line + "\n")
-    return
 
 def ascii_to_ndjson(ascii_tree: str):
-    # print(ascii_tree)
+    print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
-    save_tree_to_ndjson(node_tree.root_node, ndjson_path)
-    return
+    save_tree_to_ndjson(node_tree, ndjson_path)
 
-def run_cnip():
+def run_cnip() -> subprocess.CompletedProcess[str]:
     # Construct and execute the command
     command = f"./psychec/cnip -l C -d {temp_file_path}"
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')

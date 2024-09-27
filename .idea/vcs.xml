@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/datasets/gcj-dataset" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/psycheC_ast" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/psychec" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sources" vcs="Git" />
   </component>

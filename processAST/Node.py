@@ -16,7 +16,6 @@ class Node:
     def to_dict(self):
         """Convert the node and its children to a dictionary."""
         return {
-            'branching_idx': self.branching_idx,
             'kind': self.kind,
             'code_pos': self.code_pos,
             'data': self.data,
