@@ -24,7 +24,6 @@ def save_tree_to_ndjson(node_tree: NodeTree, filename: str):
         f.write(json_line + "\n")
 
 def ascii_to_ndjson(ascii_tree: str):
-    print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
     save_tree_to_ndjson(node_tree, ndjson_path)
@@ -34,10 +33,24 @@ def run_cnip() -> subprocess.CompletedProcess[str]:
     command = f"./psychec/cnip -l C -d {temp_file_path}"
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')
 
-def process_c_file():
-    pass
+def process_c_file(line: dict[str, str], num_all_rows_c: int, num_successful_rows: int) -> [int, int]:
+    num_all_rows_c += 1
 
-# Function to process each .csv file
+    with open(temp_file_path, 'w') as temp_file:
+        # Write the cleaned content to the temp file
+        temp_file.write(line["flines"])
+
+    result = run_cnip()
+
+    # check exitcode, if error -> thrash the tree
+    if result.returncode != 0:
+        pass
+    # if successful, process the ascii-tree
+    else:
+        num_successful_rows += 1
+        ascii_to_ndjson(result.stdout)
+    return num_all_rows_c, num_successful_rows
+
 def process_csv_file(csv_file_path: str, file_name_column: str):
     print(f"    Processing: {csv_file_path} with file_name_column: {file_name_column}")
 
@@ -51,33 +64,26 @@ def process_csv_file(csv_file_path: str, file_name_column: str):
         for line in reader:
             # Check if the specified filename_column ends with '.c'
             if line[file_name_column].endswith('.c'):
-                num_all_rows_c += 1
-
-                with open(temp_file_path, 'w') as temp_file:
-                    # Write the cleaned content to the temp file
-                    temp_file.write(line["flines"])
-
-                result = run_cnip()
-
-                #check exitcode, if error -> thrash the tree
-                if result.returncode != 0:
-                    pass
-                #if successful, process the ascii-tree
-                else:
-                    num_successful_rows += 1
-                    ascii_to_ndjson(result.stdout)
+                num_all_rows_c, num_successful_rows = process_c_file(line, num_all_rows_c, num_successful_rows)
 
     print(f"        Finished processing: {csv_file_path}. Success rate: {round(num_successful_rows/num_all_rows_c*100, 2)}%. N.o. rows in csv: {num_all_rows_c}.")
 
+def process_folder(folder, file_name_column):
+    print(f"Processing folder: {folder} with file_name_column: {file_name_column}")
+    # Loop through each .csv file in the folder
+    for root, dirs, files in os.walk(folder):
+        for file in files:
+            if file.endswith(".csv"):
+                csv_file_path = os.path.join(root, file)
+                process_csv_file(str(csv_file_path), file_name_column)
 
-# Main function to parse arguments and call processing
-def main():
+def get_args():
     parser = argparse.ArgumentParser(description="Process .csv files from dataset folders.")
-
-    # Accept pairs of folders and file_name_column as arguments
     parser.add_argument("folder_column_pairs", nargs='+', help="Pairs of dataset folders and file_name_column.")
+    return parser.parse_args()
 
-    args = parser.parse_args()
+def main():
+    args = get_args()
 
     # Ensure we have pairs (folder, file_name_column)
     if len(args.folder_column_pairs) % 2 != 0:
@@ -90,13 +96,7 @@ def main():
         file_name_column = args.folder_column_pairs[i + 1]
 
         if os.path.exists(folder):
-            print(f"Processing folder: {folder} with file_name_column: {file_name_column}")
-            # Loop through each .csv file in the folder
-            for root, dirs, files in os.walk(folder):
-                for file in files:
-                    if file.endswith(".csv"):
-                        csv_file_path = os.path.join(root, file)
-                        process_csv_file(str(csv_file_path), file_name_column)
+            process_folder(folder, file_name_column)
         else:
             print(f"Folder not found: {folder}")
 
