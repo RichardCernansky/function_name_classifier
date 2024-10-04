@@ -66,3 +66,8 @@ def find_leaf_to_leaf_paths_iterative(root):
             leaf_to_leaf_paths.append(complete_path)
 
     return leaf_to_leaf_paths
+
+#for all the functions in functions.ndjson
+    # load one function into tree
+    # get all the leaf-to-leaf paths
+    # train

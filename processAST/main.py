@@ -4,6 +4,7 @@ import csv
 import subprocess
 import sys
 import json
+import re
 
 from AsciiTreeProcessor import AsciiTreeProcessor
 from NodeTree import NodeTree
@@ -17,12 +18,31 @@ csv.field_size_limit(sys.maxsize)
 num_all_rows_c = 0
 num_successful_rows = 0
 
-def save_tree_to_ndjson(node_tree: NodeTree, filename: str):
+def extract_function_names(file_path):
+
+    # might be broken by some complicated  function pointer arguments, or macros and so on...
+    function_pattern = re.compile(
+        r'^\s*(unsigned|signed)?\s*(void|int|char|short|long|float|double)\s+\**(\w+)\s*\([^)]*\)\s*\{',
+        re.MULTILINE
+    )
+
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    # Find all function names using the pattern
+    function_names = function_pattern.findall(content)
+
+    return function_names
+
+def save_tree_to_ndjson(node_tree: NodeTree):
     """Save the entire tree as a single JSON object in NDJSON format."""
-    with open(filename, "a") as f:
+    with open(ndjson_path, "a") as f:
         # Convert the root node and its entire tree to a single dictionary
         tree_dict = node_tree.root_node.to_dict()
-        # Write the dictionary as a single JSON object (as one line in the NDJSON file)
+
+        #write to dictionary functions.ndjson if is function and is not main
+
+
         json_line = json.dumps(tree_dict)
         f.write(json_line + "\n")
 
@@ -30,7 +50,7 @@ def ascii_to_ndjson(ascii_tree: str):
     print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
-    save_tree_to_ndjson(node_tree, ndjson_path)
+    save_tree_to_ndjson(node_tree)
 
 def run_cnip() -> subprocess.CompletedProcess[str]:
     # Construct and execute the command
@@ -38,6 +58,9 @@ def run_cnip() -> subprocess.CompletedProcess[str]:
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')
 
 def process_c_file(line: str):
+    names_file_name = 'csv_names.txt'
+    # names_file_name = 'json_names.txt'
+
     global num_all_rows_c, num_successful_rows
     num_all_rows_c += 1
 
@@ -45,7 +68,7 @@ def process_c_file(line: str):
         # Write the cleaned content to the temp file
         temp_file.write(line)
 
-    result = run_cnip()
+    result = run_cnip() #------------------------------------------RUN--------------------
 
     # check exitcode, if error -> thrash the tree (don't save it)
     if result.returncode != 0:
@@ -54,7 +77,7 @@ def process_c_file(line: str):
     else:
         num_successful_rows += 1
         ascii_to_ndjson(result.stdout)
-    return num_all_rows_c, num_successful_rows
+    return
 
 
 #-------------------------------------------------------------------------------------------------------------------
@@ -71,7 +94,7 @@ def process_file_csv(csv_file_path: str, file_name_column: str):
             if line["file"].endswith('.c'):
                 process_c_file(line["flines"])
 
-    print(f"        Finished processing: {csv_file_path}. Success rate: {round(num_successful_rows/num_all_rows_c*100, 2)}%. N.o. rows in csv: {num_all_rows_c}.")
+    print(f"        Finished processing: {csv_file_path}. Success rate: {round(num_successful_rows/num_all_rows_c *100, 2)}%. N.o. rows in csv: {num_all_rows_c}.")
 
 def process_folder_csv(folder, file_name_column):
     print(f"Processing folder: {folder} with file_name_column: {file_name_column}")
