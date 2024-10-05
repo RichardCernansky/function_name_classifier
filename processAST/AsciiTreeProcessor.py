@@ -35,6 +35,8 @@ class AsciiTreeProcessor:
                 line_split.insert(1, '')
             if not third:
                 line_split.insert(2, '')
+
+        line_split[2] = line_split[2].replace("`", "")
         return line_split
 
 

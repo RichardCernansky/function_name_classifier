@@ -10,7 +10,7 @@ from AsciiTreeProcessor import AsciiTreeProcessor
 from NodeTree import NodeTree
 
 #consts
-ndjson_path = "functionsASTs.json"
+ndjson_path = "functionsASTs.ndjson"
 temp_file_path = "tmp/tempSourceCode.c"
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
@@ -61,8 +61,6 @@ def run_cnip() -> subprocess.CompletedProcess[str]:
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')
 
 def process_c_file(line: str):
-    names_file_name = 'csv_names.txt'
-    # names_file_name = 'json_names.txt'
 
     global num_all_rows_c, num_successful_rows
     num_all_rows_c += 1

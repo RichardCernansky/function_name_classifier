@@ -1,7 +1,8 @@
+from typing import Optional
 
 
 class Node:
-    def __init__(self, b_i: int, kind: str, code_pos: str, data: str):
+    def __init__(self, b_i: Optional[int], kind: str, code_pos: str, data: str):
         self.branching_idx = b_i
         self.parent = None
         self.children = []
