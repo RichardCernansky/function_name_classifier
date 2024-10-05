@@ -5,4 +5,5 @@ processAST/.idea
 .idea
 ASTs.json
 ASTs.ndjson
+functionsASTs.ndjson
 
