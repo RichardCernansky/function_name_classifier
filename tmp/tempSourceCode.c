@@ -1,84 +1,113 @@
 #include <stdio.h>
- #include <memory.h>
- #define MAXARR 10000
- long n;
- long base[20];
- int sumbase;
- long arr[MAXARR];
- long arrsum;
- void main()
- {
- 	int i,j,k,p,q;
- 	int sum;
- 	char c;
- 	int yu;
- 	int flag;
- 	int f,f2;
  
+ #define SINK 0
+ #define NORTH 1
+ #define WEST 2
+ #define SOUTH 3
+ #define EAST 4
  
- 	freopen("input.txt", "rt", stdin);
-     freopen("output.txt", "wt", stdout);
+ int basin[102][102], direction[102][102];
+ char result[102][102];
+ char latestBasin;
  
+ char sinkFinder(int x, int y);
  
- 	scanf("%d",&n);
- 	for (i=1;i<=n;i++)
- 	{
- 		sumbase=0;
- 		c=0;
- 		c=getchar();
- 		while (c=='\n'||c=='\r') c=getchar();
- 		while (c!='\n'&&c!='\r')
- 		{
- 			if (c=='\n'||c=='\r')break;
- 			while(c==' ') c=getchar();
- 			if (c=='\n'||c=='\r') break;
- 			base[sumbase]=c-48;
- 			if (c==49) 
- 			{
- 				if ((c=getchar())=='0') base[sumbase]=10;
- 			}
- 			sumbase++;
- 			c=getchar();
- 		}
- 		//2
- 		for (j=2;1;j++)//ÿ
- 		{
- 			flag=1;
- 			for (k=0;k<sumbase;k++)//ÿbase
- 			{
- 				sum=j;					
- 				memset(arr,sizeof(arr),0);
- 				arrsum=0;
- 				f2=1;
- 				while (f2&flag&&sum!=1)
- 				{
- 					yu=0;
- 					p=sum;
- 					sum=0;
- 					while (p>0)
- 					{
- 						yu=p%base[k];
- 						sum+=yu*yu; p=p/base[k];
- 					}
- 					if (sum==1) {f2=0;continue;}
- 					else {
- 						f=1;
- 						for (q=0;q<arrsum;q++)
- 						{
- 							if (arr[q]==sum) {f=0;break;}
- 						}
- 						if (f) {
- 							arr[arrsum]=sum;
- 							arrsum++;
- 						}
- 						else {
- 							flag=0;
- 							break;
- 						}
- 					}
- 				}
- 			}
- 			if (flag) {printf("Case #%d: %d\n",i,j);break;}
- 		}
- 	}
+ int main() {
+   int n;
+   int h, w;
+   int chooseDir, minorValue;
+   int i, j, k;
+ 
+   scanf("%d", &n);
+   for (i = 1; i <= n; i++) {
+     scanf("%d %d", &h, &w);
+ 
+     for (j = 0; j <= h+1; j++) {
+       for (k = 0; k <= w+1; k++) {
+         if (j == 0 || k == 0 || j == h+1 || k == w+1) {
+           basin[j][k] = 10000;
+         } else {
+           scanf("%d", &basin[j][k]);
+         }
+         result[j][k] = ' ';
+         direction[j][k] = SINK;
+       }
+     }
+ 
+     latestBasin = 'a';
+ 
+     for (j = 1; j <= h; j++) {
+       for (k = 1; k <= w; k++) {
+         minorValue = 10000;
+         if (basin[j+1][k] <= minorValue) {
+           chooseDir = SOUTH;
+           minorValue = basin[j+1][k];
+         }
+         if (basin[j][k+1] <= minorValue) {
+           chooseDir = EAST;
+           minorValue = basin[j][k+1];
+         }
+         if (basin[j][k-1] <= minorValue) {
+           chooseDir = WEST;
+           minorValue = basin[j][k-1];
+         }
+         if (basin[j-1][k] <= minorValue) {
+           chooseDir = NORTH;
+           minorValue = basin[j-1][k];
+         }
+         if (minorValue < basin[j][k]) {
+           direction[j][k] = chooseDir;
+         } 
+       }
+     }
+     for (j = 1; j <= h; j++) {
+       for (k = 1; k <= w; k++) {
+         if (result[j][k] == ' ') {
+           sinkFinder(j, k);
+         }
+       }
+     }
+ 
+     printf("Case #%d:\n", i);
+     for (j = 1; j <= h; j++) {
+       for (k = 1; k <= w; k++) {
+         printf("%c", result[j][k]);
+         if (k != w) {
+           printf(" ");
+         }
+       }
+       printf("\n");
+     }
+   }
+ 
+   return 1;
+ }
+ 
+ char sinkFinder(int x, int y) {
+   if (direction[x][y] == SINK) {
+     if (result[x][y] == ' ') {
+       result[x][y] = latestBasin++;
+     }
+     return result[x][y];
+   } else {
+     if (result[x][y] == ' ') {
+       switch (direction[x][y]) {
+         case NORTH:
+           result[x][y] = sinkFinder(x-1, y);
+           break;
+         case WEST:
+           result[x][y] = sinkFinder(x, y-1);
+           break;
+         case SOUTH:
+           result[x][y] = sinkFinder(x+1, y);
+           break;
+         case EAST:
+           result[x][y] = sinkFinder(x, y+1);
+           break;
+         default:
+           break;
+       }
+     }
+     return result[x][y];
+   }
  }

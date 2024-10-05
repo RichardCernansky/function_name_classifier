@@ -10,7 +10,7 @@ from AsciiTreeProcessor import AsciiTreeProcessor
 from NodeTree import NodeTree
 
 #consts
-ndjson_path = "ASTs.ndjson"
+ndjson_path = "functionsASTs.json"
 temp_file_path = "tmp/tempSourceCode.c"
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
@@ -18,6 +18,7 @@ csv.field_size_limit(sys.maxsize)
 num_all_rows_c = 0
 num_successful_rows = 0
 
+#function to extract function from string stored in file_path
 def extract_function_names(file_path):
 
     # might be broken by some complicated  function pointer arguments, or macros and so on...
@@ -34,23 +35,25 @@ def extract_function_names(file_path):
 
     return function_names
 
-def save_tree_to_ndjson(node_tree: NodeTree):
+def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree):
     """Save the entire tree as a single JSON object in NDJSON format."""
     with open(ndjson_path, "a") as f:
-        # Convert the root node and its entire tree to a single dictionary
-        tree_dict = node_tree.root_node.to_dict()
-
         #write to dictionary functions.ndjson if is function and is not main
-
-
-        json_line = json.dumps(tree_dict)
-        f.write(json_line + "\n")
+        for child in node_tree.root_node.children:
+            if child.kind == "FunctionDefinition":
+                definition_node = child
+                for definition_child in definition_node.children:
+                    if definition_child.kind == "FunctionDeclarator" and "main" not in definition_child.data:
+                        func_tree_dict = definition_node.to_dict()
+                        json_line = json.dumps(func_tree_dict)
+                        f.write(json_line + "\n")
+                        break
 
 def ascii_to_ndjson(ascii_tree: str):
-    print(ascii_tree)
+    # print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
-    save_tree_to_ndjson(node_tree)
+    save_functions_to_ndjson(node_tree, ascii_tree)
 
 def run_cnip() -> subprocess.CompletedProcess[str]:
     # Construct and execute the command
