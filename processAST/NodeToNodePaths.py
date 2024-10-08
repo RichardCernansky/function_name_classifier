@@ -1,3 +1,4 @@
+#file that is primarily in jupyter notebook here is just developed
 from Node import Node
 import ndjson
 
@@ -25,7 +26,6 @@ def collect_leaves_iterative(root):
 
     return leaves
 
-
 # Function to find the Lowest Common Ancestor (LCA) iteratively
 def find_lca_iterative(n1_path, n2_path):
     length = n1_path.length if n1_path.length < n2_path.length else n2_path.length
@@ -37,7 +37,6 @@ def find_lca_iterative(n1_path, n2_path):
         else:
             break
     return lca
-
 
 def find_leaf_to_leaf_paths_iterative(root):
     leaf_nodes = collect_leaves_iterative(root)
@@ -71,7 +70,6 @@ def find_leaf_to_leaf_paths_iterative(root):
 
     return leaf_to_leaf_paths
 
-
 def json_to_tree(data: dict) -> Node:
     """
     Recursively builds a tree of Node objects from a JSON dictionary.
@@ -91,18 +89,15 @@ def json_to_tree(data: dict) -> Node:
 
     return node
 
-
 def find_tag(root) -> str:
-    for child in root.children:
-        if child.kind == "FunctionDefinition":
-            definition_node = child
-            for definition_child in definition_node.children:
-                if definition_child.kind == "FunctionDeclarator":
-                    declarator_node = definition_child
-                    for declarator_child in declarator_node.children:
-                        if declarator_child.kind == "IdentifierDeclarator":
-                            return str(declarator_child.data)
-
+    # root is FunctionDefinition
+    definition_node = root
+    for definition_child in definition_node.children:
+        if definition_child.kind == "FunctionDeclarator":
+            declarator_node = definition_child
+            for declarator_child in declarator_node.children:
+                if declarator_child.kind == "IdentifierDeclarator":
+                    return str(declarator_child.data)
 
 def generate_vocabs(file_path):
     # Open the .ndjson file
@@ -129,7 +124,6 @@ def generate_vocabs(file_path):
 
         return value_vocab, path_vocab, tags_vocab
 
-
 #NODE TO NODE PATHS
 # Function to collect all leaf nodes iteratively using DFS
 def collect_leaves_iterative(root):
@@ -154,7 +148,6 @@ def collect_leaves_iterative(root):
 
     return leaves
 
-
 # Function to find the Lowest Common Ancestor (LCA) iteratively
 def find_lca_iterative(n1_path, n2_path):
     length = len(n1_path) if len(n1_path) < len(n2_path) else len(n2_path)
@@ -166,7 +159,6 @@ def find_lca_iterative(n1_path, n2_path):
         else:
             break
     return lca
-
 
 def find_leaf_to_leaf_paths_iterative(root):
     leaf_nodes = collect_leaves_iterative(root)
