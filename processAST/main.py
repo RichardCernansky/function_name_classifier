@@ -12,7 +12,7 @@ from NodeTree import NodeTree
 
 # this is a program, that generates .ndjson file from dataset specified as parameter
 # every line in .ndjson file represents tree structure of distinct string function
-# (i.e. no function snippet occurs more than once in the .ndjson file - initial filtering)
+# (i.e. no function snippet occurs more than once in the .ndjson file (initial filtering))
 # the functions' trees are obtained from ascii tree representation of every .c code snippet in the datasets
 
 #consts
@@ -23,6 +23,7 @@ csv.field_size_limit(sys.maxsize)
 
 num_all_rows_c = 0
 num_successful_rows = 0
+
 
 # get hash for seen_func_set
 def get_md5_hash(input_string: str) -> str:
