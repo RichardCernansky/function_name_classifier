@@ -6,3 +6,4 @@ processAST/.idea
 ASTs.json
 ASTs.ndjson
 processAST/jupyter/functionsASTs.ndjson
+*.ndjson
