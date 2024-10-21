@@ -40,8 +40,6 @@ df = df.sort_values(by="Frequency", ascending=False)
 
 df.columns = [f"FunctionName", f"Frequency (Total: {total_functions})", "Percentage"]
 
-df.to_csv("analysis_csv/freq_analysis_gcj_dropped_singles_doubles.csv", index=False)
-
 # WRITE NEW .NDJSON
 with open(output_ndjson_file, "w") as outfile:
     for function_name, original_line in function_lines:

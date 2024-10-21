@@ -293,7 +293,7 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend()
 
-plt.savefig('plot_epochs.png')
+plt.savefig('new_plot_epochs.png')
 
 plt.clf()
 
