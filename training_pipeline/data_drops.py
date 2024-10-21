@@ -8,6 +8,7 @@ output_ndjson_file = "data_ndjson/functionsASTs_dropped_singles_doubles.ndjson"
 
 function_names = []
 function_lines = []  # Store lines for future filtering
+
 with open(input_ndjson_file, "r") as file:
     for line in file:
         try:
