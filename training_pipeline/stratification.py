@@ -2,17 +2,18 @@ import json
 import math
 import pandas as pd
 from collections import Counter
+from sklearn.model_selection import train_test_split
 
 from NodeToNodePaths import find_tag
 
 ndjson_file = "data_ndjson/functionsASTs_dropped_singles_doubles.ndjson"
-train_perc = 0.7
-valid_perc = 0.3
 
-def write_ndjson(file_name, array):
-    with open(file_name, 'w') as f:
-        for item in array:
-            f.write(item)
+# Function to write DataFrame to NDJSON format
+def write_ndjson(file_path, df):
+    with open(file_path, "w") as outfile:
+        for _, row in df.iterrows():
+            json_line = json.dumps({"FunctionName": row["FunctionName"], "AST": row["AST"]})
+            outfile.write(json_line + "\n")
 
 function_names = []
 name_ast = []
@@ -38,41 +39,18 @@ for function_name, freq in function_counter.items():
 df_name_ast = pd.DataFrame(name_ast)
 print(df_name_ast.head())
 
-train = []
-validation = []
-test = []
+# Stratify the data into training, validation, and test sets
+train, temp = train_test_split(df_name_ast, test_size=0.4, stratify=df_name_ast["FunctionName"])
+validation, test = train_test_split(temp, test_size=0.4, stratify=temp["FunctionName"])
 
-for function_name, freq in function_counter.items():
-    train_size = math.floor(freq * train_perc)
-    valid_size = math.floor(freq * valid_perc)
-    # test_size = all - train - valid
-
-    train_seen = 0
-    valid_seen = 0
-    for item in name_ast:
-        item_name = item['FunctionName']
-        if item_name == function_name:
-            if train_seen < train_size:
-                train.append(item['AST'])
-                train_seen += 1
-            elif valid_seen < valid_size:
-                validation.append(item['AST'])
-                valid_seen += 1
-            else:
-                test.append(item['AST'])
-
-# WRITING FILES
+# Write the split data to NDJSON files
 write_ndjson('data_ndjson/strat_train_functionsASTs.ndjson', train)
 write_ndjson('data_ndjson/strat_validate_functionsASTs.ndjson', validation)
 write_ndjson('data_ndjson/strat_test_functionsASTs.ndjson', test)
 
-# verification
+# Verification
 print(f"Training set size: {len(train)}")
 print(f"Validation set size: {len(validation)}")
 print(f"Test set size: {len(test)}")
 
-df = pd.DataFrame(name_freq)
-df = df.sort_values(by="Frequency", ascending=False)
-df.columns = [f"FunctionName", f"Frequency (Total: {total_functions})", "Percentage"]
-df.to_csv("analysis_csv/freq_analysis_gcj_dropped.csv", index=False)
-df.head()
+

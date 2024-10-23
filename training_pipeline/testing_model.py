@@ -98,7 +98,7 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
 
 vocabs_pkl = 'vocabs.pkl'
 test_file = 'data_ndjson/strat_test_functionsASTs.ndjson'
-model_file = 'NEDELA_func_classifier_model.h5'
+model_file = '8_epochs_model.h5'
 
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
 
