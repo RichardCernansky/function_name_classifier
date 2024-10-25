@@ -5,7 +5,7 @@ from NodeToNodePaths import find_tag
 from matplotlib import pyplot as plt
 
 input_ndjson_file = "data_ndjson/functionsASTs.ndjson"
-output_ndjson_file = "data_ndjson/functionsASTs_dropped_singles_doubles.ndjson"
+output_ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
 
 function_names = []
 function_lines = []  # Store lines for future filtering

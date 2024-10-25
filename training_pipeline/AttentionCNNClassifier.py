@@ -5,6 +5,7 @@ import pdb
 import matplotlib.pyplot as plt
 import math
 import pickle
+import sys
 
 import tensorflow as tf
 from tensorflow import keras
@@ -18,6 +19,14 @@ from collections import OrderedDict  # for ordered sets of the data
 from extract_functions.Node import Node
 from NodeToNodePaths import json_to_tree, find_tag_tree, find_leaf_to_leaf_paths_iterative
 
+if len(sys.argv) < 2:
+    print("Usage: python AttentionCNNclassifier.py <fold_idx>")
+    sys.exit(1)
+
+fold_idx = int(sys.argv[1])  # Read and convert the fold index from command line argument
+
+
+
 def count_ndjson_lines(file_name):
     with open(file_name, 'r') as f:
         return sum(1 for line in f if line.strip())  # Count non-empty lines
@@ -25,7 +34,6 @@ def count_ndjson_lines(file_name):
 all_file = "data_ndjson/functionsASTs_dropped_singles_doubles.ndjson"
 train_file = "data_ndjson/strat_train_functionsASTs.ndjson"
 valid_file = "data_ndjson/strat_validate_functionsASTs.ndjson"
-test_file = "data_ndjson/strat_test_functionsASTs.ndjson"
 
 number_lines_train = count_ndjson_lines(train_file)
 number_lines_valid = count_ndjson_lines(valid_file)
@@ -251,10 +259,6 @@ dataset_valid = tf.data.Dataset.from_generator(
     output_signature=output_signature
 ).repeat()
 
-dataset_test = tf.data.Dataset.from_generator(
-    lambda: data_generator(test_file, batch_size),
-    output_signature=output_signature
-).repeat()
 
 train_dataset = dataset_train.take(number_lines_train)
 validation_dataset = dataset_valid.take(number_lines_valid)
@@ -269,7 +273,7 @@ history = model.fit(
     callbacks=[batch_logger]
 )
 
-model.save('NEDELA_func_classifier_model.h5')
+model.save(f'model_fold_{fold_idx}.h5')
 
 print("\nTRAINING DONE!")
 
@@ -293,7 +297,7 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend()
 
-plt.savefig('new_plot_epochs.png')
+plt.savefig(f'plot_model_fold_{fold_idx}.png')
 
 plt.clf()
 

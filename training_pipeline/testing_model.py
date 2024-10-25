@@ -5,6 +5,7 @@ import pdb
 import matplotlib.pyplot as plt
 import math
 import pickle
+import sys
 
 import tensorflow as tf
 from tensorflow import keras
@@ -18,6 +19,12 @@ from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
 
 from NodeToNodePaths import json_to_tree, find_tag_tree,  find_leaf_to_leaf_paths_iterative
+
+if len(sys.argv) < 2:
+    print("Usage: python AttentionCNNclassifier.py <fold_idx>")
+    sys.exit(1)
+
+fold_idx = int(sys.argv[1])  # Read and convert the fold index from command line argument
 
 
 class WeightedContextLayer(Layer):
@@ -97,8 +104,8 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
 
 
 vocabs_pkl = 'vocabs.pkl'
-test_file = 'data_ndjson/strat_test_functionsASTs.ndjson'
-model_file = '8_epochs_model.h5'
+test_file = 'data_ndjson/test_fold.ndjson'
+model_file = f'model_fold_{fold_idx}.h5'
 
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
 
@@ -117,6 +124,7 @@ with custom_object_scope(custom_objects):
 total_processed = 0
 successful_processed = 0
 right_assigned = 0
+top_5_right = 0
 
 with open(test_file, 'r') as f:
     data = ndjson.load(f)
@@ -125,8 +133,8 @@ with open(test_file, 'r') as f:
         total_processed += 1
 
         try:
-            tag_idx, sts_indices, value_indices, ets_indices = preprocess_function(line, value_vocab, path_vocab,
-                                                                                   tags_vocab, max_num_contexts)
+            tag_idx, sts_indices, value_indices, ets_indices = preprocess_function(
+                line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
             print(tag_idx)
 
             inputs = {
@@ -137,21 +145,32 @@ with open(test_file, 'r') as f:
 
             prediction = model.predict(inputs)
 
+            # Get top 5 predictions
+            top_5_indices = np.argsort(prediction[0])[-5:][::-1]  # Get top 5 indices in descending order
+            top_5_probs = prediction[0][top_5_indices]  # Get the probabilities of the top 5 predictions
+
             predicted_function_tag = reverse_tags_vocab[np.argmax(prediction)]  # Using argmax for softmax output
             actual_tag = reverse_tags_vocab[tag_idx]
 
             if predicted_function_tag == actual_tag:
+                print(f"CORRECT: Input function Tag: {actual_tag} | Predicted function Tag: {predicted_function_tag}")
                 right_assigned += 1
             else:
                 print(f"INCORRECT: Input function Tag: {actual_tag} | Predicted function Tag: {predicted_function_tag}")
+                # Print top 5 predictions with their corresponding tag names and probabilities
+                print("Top 5 Predictions:")
+                for i in range(len(top_5_indices)):
+                    predicted_tag_5 = reverse_tags_vocab[top_5_indices[i]]
+                    if predicted_tag_5 == actual_tag:
+                        top_5_right += 1
+                    print(f"  Tag: {predicted_tag_5} | Probability: {top_5_probs[i]:.4f}")
             successful_processed += 1  # Increment the successful count if preprocessing is successful
 
         except Exception as e:
             print(f"Error processing line: {e}")
 
 success_ratio = successful_processed / total_processed if total_processed > 0 else 0
-right_ratio = right_assigned / successful_processed if total_processed > 0 else 0
+right_ratio = right_assigned / total_processed if total_processed > 0 else 0
 print(f"Successfully processed: {successful_processed}/{total_processed} ({success_ratio * 100:.2f}%)")
-print(
-    f"Correctly predicted from successfully processed: {right_assigned}/{successful_processed} ({right_ratio * 100:.2f}%)")
-
+print(f"Correctly predicted from all: {right_assigned}/{total_processed} ({right_ratio * 100:.2f}%)")
+print(f"Correct prediction in top 5 from incorrectly predicted: {top_5_right}/{successful_processed-right_assigned} ({top_5_right / (successful_processed-right_assigned) * 100:.2f}%)")

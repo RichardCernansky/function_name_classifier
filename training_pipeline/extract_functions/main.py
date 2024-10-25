@@ -52,12 +52,12 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree):
     #print(ascii_tree) #ascii tree for debug prints
     """Save the entire tree as a single JSON object in NDJSON format."""
     with open(ndjson_path, "a") as f:
-        #write to dictionary functions.ndjson if is function and is not main
+        #write to dictionary functions.ndjson if is function and is not ['main', 'solve']
         for child in node_tree.root_node.children:
             if child.kind == "FunctionDefinition":
                 definition_node = child
                 for definition_child in definition_node.children:
-                    if definition_child.kind == "FunctionDeclarator" and "main" not in definition_child.data:
+                    if definition_child.kind == "FunctionDeclarator" and "main" not in definition_child.data and "solve" not in definition_child.data:
                         func_tree_dict = definition_node.to_dict()
                         json_line = json.dumps(func_tree_dict)
                         f.write(json_line + "\n")
