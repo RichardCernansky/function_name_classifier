@@ -171,6 +171,20 @@ with open(test_file, 'r') as f:
 
 success_ratio = successful_processed / total_processed if total_processed > 0 else 0
 right_ratio = right_assigned / total_processed if total_processed > 0 else 0
+
+with open("analysis_csv/tests_results.log", "a") as log_file:
+    success_ratio = successful_processed / total_processed if total_processed > 0 else 0
+    right_ratio = right_assigned / total_processed if total_processed > 0 else 0
+    incorrect_predictions = successful_processed - right_assigned
+    top_5_ratio = (top_5_right / incorrect_predictions * 100) if incorrect_predictions > 0 else 0
+
+    log_file.write(f"Fold {fold_idx}\n")
+    log_file.write(f"Successfully processed: {successful_processed}/{total_processed} ({success_ratio * 100:.2f}%)\n")
+    log_file.write(f"Correctly predicted from all: {right_assigned}/{total_processed} ({right_ratio * 100:.2f}%)\n")
+    log_file.write(f"Correct prediction in top 5 from incorrectly predicted: {top_5_right}/{incorrect_predictions} ({top_5_ratio:.2f}%)\n")
+
+# Print the same results to the console (optional)
+print(f"Fold {fold_idx}")
 print(f"Successfully processed: {successful_processed}/{total_processed} ({success_ratio * 100:.2f}%)")
 print(f"Correctly predicted from all: {right_assigned}/{total_processed} ({right_ratio * 100:.2f}%)")
-print(f"Correct prediction in top 5 from incorrectly predicted: {top_5_right}/{successful_processed-right_assigned} ({top_5_right / (successful_processed-right_assigned) * 100:.2f}%)")
+print(f"Correct prediction in top 5 from incorrectly predicted: {top_5_right}/{incorrect_predictions} ({top_5_ratio:.2f}%)")

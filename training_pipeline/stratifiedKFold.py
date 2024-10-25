@@ -7,6 +7,9 @@ import subprocess
 
 # Sample input file (replace with actual file path)
 ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
+#clear the .log file contents before the whole process
+with open("analysis_csv/tests_results.log", "w") as log_file:
+    log_file.write("")
 
 # Load the data from NDJSON
 name_ast = []
@@ -66,10 +69,10 @@ for train_valid_index, test_index in strat_kfold.split(X, y):
         subprocess.run(["python", "generate_vocabs.py"], check=True)
 
         # Train the model on the current fold
-        subprocess.run(["python", "AttentionCNNClassifier.py", str(fold_index)], check=True)
+        subprocess.run(["python", "AttentionCNNClassifier.py", str(fold_index+1)], check=True)
 
         # Test the model on the current fold's test file
-        subprocess.run(["python", "testing_model.py", str(fold_index)], check=True)
+        subprocess.run(["python", "testing_model.py", str(fold_index+1)], check=True)
 
         print(f"Completed processing for Fold {fold_index}")
 
