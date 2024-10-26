@@ -15,6 +15,10 @@ from NodeTree import NodeTree
 # (i.e. no function snippet occurs more than once in the .ndjson file (initial filtering))
 # the functions' trees are obtained from ascii tree representation of every .c code snippet in the datasets
 
+folder = None
+file_name_col = None
+code_snip_col = None
+
 #consts
 ndjson_path = "functionsASTs.ndjson"
 temp_file_path = "tmp/tempSourceCode.c"
@@ -33,7 +37,6 @@ def get_md5_hash(input_string: str) -> str:
 
 #function to extract function from string stored in file_path
 def extract_function_names(file_path):
-
     # might be broken by some complicated  function pointer arguments, or macros and so on...
     function_pattern = re.compile(
         r'^\s*(unsigned|signed)?\s*(void|int|char|short|long|float|double)\s+\**(\w+)\s*\([^)]*\)\s*\{',
@@ -58,6 +61,7 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree):
                 definition_node = child
                 for definition_child in definition_node.children:
                     if definition_child.kind == "FunctionDeclarator" and "main" not in definition_child.data and "solve" not in definition_child.data:
+                        print("saved")
                         func_tree_dict = definition_node.to_dict()
                         json_line = json.dumps(func_tree_dict)
                         f.write(json_line + "\n")
@@ -112,11 +116,13 @@ def process_file_csv(csv_file_path: str, seen_func_hashes: set):
         reader = csv.DictReader((line.replace('\0', '') for line in file))
 
         for line in reader:
-            # Check if the specified filename_column ends with '.c'
-            if line["file"].endswith('.c'):
-                process_c_file(line["flines"], seen_func_hashes)
+            # Check if the specified filename_column ends with '.c', !!!Don't use .lower() for .C because some .C are cpp!!!
+            if line[file_name_col].endswith('.c') or line[file_name_col].lower().endswith("gnu c"):
+                process_c_file(line[code_snip_col], seen_func_hashes)
 
-    print(f"        Finished processing: {csv_file_path}. Success rate: {round(num_successful_rows/num_all_rows_c *100, 2)}%. N.o. rows in csv: {num_all_rows_c}.")
+    success_rate = round(num_successful_rows/num_all_rows_c *100, 2) if num_all_rows_c > 0 else 0
+    print(f"        Finished processing: {csv_file_path}. Success rate: {success_rate}%. N.o. '.c' rows in csv: {num_all_rows_c}.")
+
 
 def process_folder_csv(folder, seen_func_hashes: set):
     print(f"Processing folder: {folder}.")
@@ -129,73 +135,34 @@ def process_folder_csv(folder, seen_func_hashes: set):
 
 #CSV process
 #----------------------------------------------------------------------------------------------------------------------
-#JSONL process
-
-def process_file_jsonl(jsonl_file_path, seen_func_hashes: set):
-    print(f"Processing JSONL file: {jsonl_file_path}")
-
-    # Open the .jsonl file
-    with open(jsonl_file_path, mode='r', encoding='utf-8') as file:
-        for line in file:
-            try:
-                # Parse the JSON line
-                json_data = json.loads(line)
-
-                # Extract the 'text' and 'func_def' fields
-                if 'text' in json_data and 'func_def' in json_data['text']:
-                    func_def_value = json_data['text']['func_def']
-                    process_c_file(func_def_value, seen_func_hashes)
-                else:
-                    print(f"'text' or 'func_def' key not found in the line.")
-
-            except json.JSONDecodeError as e:
-                print(f"Error decoding JSON on line: {line}")
-                print(e)
-
-    print(f"        Finished processing: {jsonl_file_path}. Success rate: {round(num_successful_rows / num_all_rows_c * 100, 2)}%. N.o. rows in csv: {num_all_rows_c}.")
-
-def process_folder_jsonl(folder, seen_func_hashes: set):
-    print(f"Processing folder: {folder}")
-
-    # Loop through each .jsonl file in the folder
-    for root, dirs, files in os.walk(folder):
-        for file in files:
-            if file.endswith(".jsonl"):
-                # Construct the full file path
-                jsonl_file_path = os.path.join(root, file)
-                # Process each jsonl file
-                process_file_jsonl(jsonl_file_path, seen_func_hashes)
-
-#JSONL process
-#--------------------------------------------------------------------------------------------------------------
 
 def get_args():
     parser = argparse.ArgumentParser(description="Process files in a folder")
 
     # Define expected arguments
     parser.add_argument("folder", help="Folder path")
-    parser.add_argument("file_type", help="Type of file: 'csv' or 'json'")
+    parser.add_argument("file_name_col", help="File_name column name in csv")
+    parser.add_argument("code_snip_col", help="Code_snippet column name in csv")
+
 
     return parser.parse_args()
 
 def main():
+    global folder, file_name_col, code_snip_col  # Declare that we are using the global variables
+
     args = get_args()
 
-    # Access arguments directly by their name
     folder = args.folder
-    file_type = args.file_type
+    file_name_col = args.file_name_col
+    code_snip_col = args.code_snip_col
 
     seen_func_hashes = set()
-    # ensure the folder exists
     if os.path.exists(folder):
-        if file_type == 'csv':
-            process_folder_csv(folder, seen_func_hashes)
-        elif file_type == 'json':
-            process_folder_jsonl(folder, seen_func_hashes)
-        else:
-            print(f"Error: Unsupported file type '{file_type}'. Use 'csv' or 'json'.")
+        process_folder_csv(folder, seen_func_hashes)
     else:
         print(f"Error: Folder not found: {folder}")
 
+#usage for gcj - main.py gcj file flines
+#usage for codeforces - main.py codeforces language source_code
 if __name__ == "__main__":
     main()

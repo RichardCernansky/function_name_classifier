@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 from NodeToNodePaths import find_tag
 
-ndjson_file = 'train_valid_fold.ndjson'
+ndjson_file = 'data_ndjson/train_valid_fold.ndjson'
 
 # Function to write only the AST column to NDJSON format
 def write_ndjson(file_path, df):
@@ -15,7 +15,7 @@ def write_ndjson(file_path, df):
             # Write only the AST field
             ast_json = json.loads(row["AST"])  # Convert the string back to JSON if needed
             json_line = json.dumps(ast_json)   # Dump only the AST
-            outfile.write(json_line)    # Write each AST as a separate line
+            outfile.write(json_line + "\n")    # Write each AST as a separate line from the df
 
 name_ast = []
 with open(ndjson_file, "r") as file:

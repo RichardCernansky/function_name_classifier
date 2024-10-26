@@ -51,8 +51,8 @@ def generate_vocabs(file_paths):
 
 
 vocabs_pkl = 'vocabs.pkl'
-train = 'data_ndjson/strat_train_functionsASTs.ndjson'
-valid = 'data_ndjson/strat_validate_functionsASTs.ndjson'
+train = 'data_ndjson/strat_train.ndjson'
+valid = 'data_ndjson/strat_valid.ndjson'
 
 print("Started generating vocabs...")
 vocabs_dict = generate_vocabs([train, valid])

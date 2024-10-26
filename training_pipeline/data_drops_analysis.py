@@ -9,15 +9,14 @@ output_ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
 
 function_names = []
 function_lines = []  # Store lines for future filtering
-
 with open(input_ndjson_file, "r") as file:
     for line in file:
         try:
-            ast_node = json.loads(line.strip())
-            function_name = find_tag(ast_node)
+            root_ast_node = json.loads(line.strip())
+            function_name = find_tag(root_ast_node)
             if function_name:
                 function_names.append(function_name)
-                function_lines.append((function_name, line))  # Keep track of original lines
+                function_lines.append((function_name, line))  # keep track of original lines
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 

@@ -26,14 +26,12 @@ if len(sys.argv) < 2:
 fold_idx = int(sys.argv[1])  # Read and convert the fold index from command line argument
 
 
-
 def count_ndjson_lines(file_name):
     with open(file_name, 'r') as f:
         return sum(1 for line in f if line.strip())  # Count non-empty lines
 
-all_file = "data_ndjson/functionsASTs_dropped_singles_doubles.ndjson"
-train_file = "data_ndjson/strat_train_functionsASTs.ndjson"
-valid_file = "data_ndjson/strat_validate_functionsASTs.ndjson"
+train_file = "data_ndjson/strat_train.ndjson"
+valid_file = "data_ndjson/strat_valid.ndjson"
 
 number_lines_train = count_ndjson_lines(train_file)
 number_lines_valid = count_ndjson_lines(valid_file)
