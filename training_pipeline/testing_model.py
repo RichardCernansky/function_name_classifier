@@ -89,18 +89,34 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
     paths_indices = []  # path indices
     ets_indices = []  # end terminals indices
 
-    tag_idx = tags_vocab[tag]  # get the tag value
+    # Get the tag value, return None if not found (handle accordingly later)
+    tag_idx = tags_vocab.get(tag, None)
+    if tag_idx is None:
+        return None  # handle appropriately
 
     for path in func_paths:  # map to the indices
-        sts_indices.append(value_vocab[path[0]])  # get the terminal node's data
-        paths_indices.append(path_vocab[path[1:-1]])  # get the path nodes' kinds
-        ets_indices.append(value_vocab[path[-1]])  # get the ending terminal node's data
+        # Get the terminal node's data, if not in vocab skip adding to list
+        start_index = value_vocab.get(path[0], None)
+        if start_index is not None:
+            sts_indices.append(start_index)
 
+        # Get the path nodes' kinds, if not in vocab skip adding to list
+        path_index = path_vocab.get(path[1:-1], None)
+        if path_index is not None:
+            paths_indices.append(path_index)
+
+        # Get the ending terminal node's data, if not in vocab skip adding to list
+        end_index = value_vocab.get(path[-1], None)
+        if end_index is not None:
+            ets_indices.append(end_index)
+
+    # Pad sequences
     sts_indices = pad_sequences([sts_indices], maxlen=max_num_contexts, padding='post', value=0)
     paths_indices = pad_sequences([paths_indices], maxlen=max_num_contexts, padding='post', value=0)
     ets_indices = pad_sequences([ets_indices], maxlen=max_num_contexts, padding='post', value=0)
 
     return tag_idx, sts_indices, paths_indices, ets_indices
+
 
 
 vocabs_pkl = 'vocabs.pkl'
@@ -135,7 +151,6 @@ with open(test_file, 'r') as f:
         try:
             tag_idx, sts_indices, value_indices, ets_indices = preprocess_function(
                 line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
-            print(tag_idx)
 
             inputs = {
                 'value1_input': np.array(value_indices),

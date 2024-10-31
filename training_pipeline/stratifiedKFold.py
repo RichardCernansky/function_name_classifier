@@ -32,13 +32,11 @@ print(df_name_ast.head())
 X = df_name_ast['AST'].values  # Features (the actual AST data as strings)
 y = df_name_ast['FunctionName'].values  # Labels (the function names for stratification)
 
-# Create StratifiedKFold object for 5-fold cross-validation
-strat_kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+strat_kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=40)
 
-# Loop through each fold
 fold_index = 0
 for train_valid_index, test_index in strat_kfold.split(X, y):
-    # Split the data into training/validation and test sets
+    # split the data into training/validation and test sets
     X_train_valid, X_test = X[train_valid_index], X[test_index]
 
     # Define file paths for the current fold

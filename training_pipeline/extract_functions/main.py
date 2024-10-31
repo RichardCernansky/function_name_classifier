@@ -7,8 +7,8 @@ import json
 import re
 import hashlib
 
-from AsciiTreeProcessor import AsciiTreeProcessor
-from NodeTree import NodeTree
+from .AsciiTreeProcessor import AsciiTreeProcessor
+from .NodeTree import NodeTree
 
 # this is a program, that generates .ndjson file from dataset specified as parameter
 # every line in .ndjson file represents tree structure of distinct string function
@@ -51,10 +51,10 @@ def extract_function_names(file_path):
 
     return function_names
 
-def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree):
+def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
     #print(ascii_tree) #ascii tree for debug prints
     """Save the entire tree as a single JSON object in NDJSON format."""
-    with open(ndjson_path, "a") as f:
+    with open(ndjson_path_t, "a") as f:
         #write to dictionary functions.ndjson if is function and is not ['main', 'solve']
         for child in node_tree.root_node.children:
             if child.kind == "FunctionDefinition":
@@ -67,15 +67,15 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree):
                         f.write(json_line + "\n")
                         break
 
-def ascii_to_ndjson(ascii_tree: str):
+def ascii_to_ndjson(ascii_tree: str, ndjson_path_t=ndjson_path):
     # print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
-    save_functions_to_ndjson(node_tree, ascii_tree)
+    save_functions_to_ndjson(node_tree, ascii_tree, ndjson_path_t)
 
-def run_cnip() -> subprocess.CompletedProcess[str]:
+def run_cnip(prefix) -> subprocess.CompletedProcess[str]:
     # Construct and execute the command
-    command = f"./psychec/cnip -l C -d {temp_file_path}"
+    command = f"{prefix}psychec/cnip -l C -d {prefix}{temp_file_path}"
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')
 
 def process_c_file(line: str, seen_func_hashes: set):
@@ -91,7 +91,7 @@ def process_c_file(line: str, seen_func_hashes: set):
             # Write the cleaned content to the temp file
             temp_file.write(line)
 
-        result = run_cnip() #------------------------------------------RUN--------------------
+        result = run_cnip("./") #------------------------------------------RUN--------------------
 
         # check exitcode, if error -> thrash the tree (don't save it)
         if result.returncode != 0:
@@ -118,7 +118,7 @@ def process_file_csv(csv_file_path: str, seen_func_hashes: set):
         for line in reader:
             # Check if the specified filename_column ends with '.c', !!!Don't use .lower() for .C because some .C are cpp!!!
             if line[file_name_col].endswith('.c') or line[file_name_col].lower().endswith("gnu c"):
-                process_c_file(line[code_snip_col], seen_func_hashes)
+                process_c_file(line[code_snip_col], seen_func_hashes, ndjson_path)
 
     success_rate = round(num_successful_rows/num_all_rows_c *100, 2) if num_all_rows_c > 0 else 0
     print(f"        Finished processing: {csv_file_path}. Success rate: {success_rate}%. N.o. '.c' rows in csv: {num_all_rows_c}.")
