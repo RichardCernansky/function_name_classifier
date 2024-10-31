@@ -21,27 +21,6 @@ def json_to_tree(data: dict) -> Node:
 
     return node
 
-def find_tag_tree(root) -> str: #custom find tag for generate_vocabs
-    # root is FunctionDefinition
-    definition_node = root
-    for definition_child in definition_node.children:
-        if definition_child.kind == "FunctionDeclarator":
-            declarator_node = definition_child
-            for declarator_child in declarator_node.children:
-                if declarator_child.kind == "IdentifierDeclarator":
-                    return str(declarator_child.data)
-
-def find_tag(root):
-    # root is FunctionDefinition
-    definition_node = root
-    for definition_child in definition_node.get("children", []):
-        if definition_child.get("kind") == "FunctionDeclarator":
-            declarator_node = definition_child
-            for declarator_child in declarator_node.get("children", []):
-                if declarator_child.get("kind") == "IdentifierDeclarator":
-                    return str(declarator_child.get("data"))
-    return None
-
 #NODE TO NODE PATHS
 # Function to collect all leaf nodes iteratively using DFS
 def collect_leaves_iterative(root):

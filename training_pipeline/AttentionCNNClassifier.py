@@ -17,7 +17,7 @@ from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
 
 from extract_functions.Node import Node
-from NodeToNodePaths import json_to_tree, find_tag_tree, find_leaf_to_leaf_paths_iterative
+from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
 
 if len(sys.argv) < 2:
     print("Usage: python AttentionCNNclassifier.py <fold_idx>")
@@ -165,7 +165,6 @@ batch_count = 0
 import tensorflow as tf
 import numpy as np
 
-
 def data_generator(functionsASTs_file, batch_size):
     with open(functionsASTs_file, 'r') as ndjson_file:
         data = ndjson.load(ndjson_file)
@@ -177,8 +176,9 @@ def data_generator(functionsASTs_file, batch_size):
         batch_tag_index = []
 
         for function_json in data:
-            func_root = json_to_tree(function_json)
-            tag = find_tag_tree(func_root)
+            tag = function_json.get('tag')
+            func = function_json.get('ast')
+            func_root = json_to_tree(func)
             _, func_paths = find_leaf_to_leaf_paths_iterative(func_root)  # get all contexts
 
             sts_indices = []  # start terminals indices

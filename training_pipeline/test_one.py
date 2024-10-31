@@ -15,13 +15,15 @@ from keras.utils import pad_sequences, plot_model
 from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
 
-from NodeToNodePaths import json_to_tree, find_tag_tree, find_leaf_to_leaf_paths_iterative
+from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
 from extract_functions.main import *
 
-ndjson_path = "one_func.ndjson"
-func_file = "one_func.ndjson"
+text_path = 'data_ndjson/one_func.txt'
+ndjson_path = "data_ndjson/one_func.ndjson"
 vocabs_pkl = 'vocabs.pkl'
 model_file = 'model_fold_5.h5'
+with open(ndjson_path, "w") as log_file:
+    log_file.write("")
 
 class WeightedContextLayer(Layer):
     def __init__(self, **kwargs):
@@ -63,9 +65,10 @@ def get_vocabs(vocabs_pkl):
         return vocabs['value_vocab'], vocabs['path_vocab'], vocabs['tags_vocab'], vocabs['max_num_contexts']
 
 def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_num_contexts):
-    func_root = json_to_tree(function_json)
+    tag = function_json.get('tag')
+    func = function_json.get('ast')
+    func_root = json_to_tree(func)
     func_values, func_paths = find_leaf_to_leaf_paths_iterative(func_root)
-    tag = find_tag_tree(func_root)
 
     sts_indices = []
     paths_indices = []
@@ -127,7 +130,7 @@ custom_objects = {
 with custom_object_scope(custom_objects):
     model = load_model(model_file)
 
-with open('one_func.txt', 'r') as file:
+with open(text_path, 'r') as file:
     func_str = file.read()
 
 process_c_file(func_str, ndjson_path)
@@ -161,6 +164,10 @@ with open(ndjson_path, 'r') as f:
 
         if predicted_function_tag == actual_tag:
             print(f"CORRECT: Input function Tag: {actual_tag} | Predicted function Tag: {predicted_function_tag}")
+            print("Top 5 Predictions:")
+            for i in range(len(top_5_indices)):
+                predicted_tag_5 = reverse_tags_vocab[top_5_indices[i]]
+                print(f"  Tag: {predicted_tag_5} | Probability: {top_5_probs[i]:.4f}")
         else:
             print(f"INCORRECT: Input function Tag: {actual_tag} | Predicted function Tag: {predicted_function_tag}")
             print("Top 5 Predictions:")

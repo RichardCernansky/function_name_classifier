@@ -4,7 +4,6 @@ import pandas as pd
 from collections import Counter
 from sklearn.model_selection import train_test_split
 
-from NodeToNodePaths import find_tag
 
 ndjson_file = 'data_ndjson/train_valid_fold.ndjson'
 
@@ -21,10 +20,11 @@ name_ast = []
 with open(ndjson_file, "r") as file:
     for line in file:
         try:
-            ast_node = json.loads(line.strip())
-            function_name = find_tag(ast_node)
-            if function_name:
-                name_ast.append({"FunctionName": function_name, "AST": line})
+            function_json = json.loads(line.strip())
+            function_name = function_json.get("tag")
+            ast_node = function_json.get("ast")
+            if function_name and ast_node:
+                name_ast.append({"FunctionName": function_name, "AST": ast_node})
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 

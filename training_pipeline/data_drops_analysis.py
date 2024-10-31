@@ -1,7 +1,6 @@
 import json
 import pandas as pd
 from collections import Counter
-from NodeToNodePaths import find_tag
 from matplotlib import pyplot as plt
 
 input_ndjson_file = "data_ndjson/functionsASTs.ndjson"
@@ -12,11 +11,12 @@ function_lines = []  # Store lines for future filtering
 with open(input_ndjson_file, "r") as file:
     for line in file:
         try:
-            root_ast_node = json.loads(line.strip())
-            function_name = find_tag(root_ast_node)
-            if function_name:
+            function_json = json.loads(line.strip())
+            function_name = function_json.get('tag')
+            root_ast_node = function_json.get('ast')
+            if function_name and root_ast_node:
                 function_names.append(function_name)
-                function_lines.append((function_name, line))  # keep track of original lines
+                function_lines.append((function_name, line))
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 

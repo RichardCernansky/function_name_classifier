@@ -18,7 +18,7 @@ from keras.utils import pad_sequences, plot_model
 from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
 
-from NodeToNodePaths import json_to_tree, find_tag_tree,  find_leaf_to_leaf_paths_iterative
+from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
 
 if len(sys.argv) < 2:
     print("Usage: python AttentionCNNclassifier.py <fold_idx>")
@@ -79,9 +79,9 @@ def get_vocabs(vocabs_pkl):
         return vocabs['value_vocab'], vocabs['path_vocab'], vocabs['tags_vocab'], vocabs['max_num_contexts']
 
 def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_num_contexts):
-    func_root = json_to_tree(function_json)
-    func_values, func_paths = find_leaf_to_leaf_paths_iterative(func_root)
-    tag = find_tag_tree(func_root)
+    tag = function_json.get('tag')
+    func = function_json.get('ast')
+    func_root = json_to_tree(func)
 
     _, func_paths = find_leaf_to_leaf_paths_iterative(func_root)  # get all contexts
 
@@ -116,7 +116,6 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
     ets_indices = pad_sequences([ets_indices], maxlen=max_num_contexts, padding='post', value=0)
 
     return tag_idx, sts_indices, paths_indices, ets_indices
-
 
 
 vocabs_pkl = 'vocabs.pkl'
@@ -170,6 +169,12 @@ with open(test_file, 'r') as f:
             if predicted_function_tag == actual_tag:
                 print(f"CORRECT: Input function Tag: {actual_tag} | Predicted function Tag: {predicted_function_tag}")
                 right_assigned += 1
+                print("Top 5 Predictions:")
+                for i in range(len(top_5_indices)):
+                    predicted_tag_5 = reverse_tags_vocab[top_5_indices[i]]
+                    if predicted_tag_5 == actual_tag:
+                        top_5_right += 1
+                    print(f"  Tag: {predicted_tag_5} | Probability: {top_5_probs[i]:.4f}")
             else:
                 print(f"INCORRECT: Input function Tag: {actual_tag} | Predicted function Tag: {predicted_function_tag}")
                 # Print top 5 predictions with their corresponding tag names and probabilities

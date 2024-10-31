@@ -7,8 +7,8 @@ import json
 import re
 import hashlib
 
-from .AsciiTreeProcessor import AsciiTreeProcessor
-from .NodeTree import NodeTree
+from AsciiTreeProcessor import AsciiTreeProcessor
+from NodeTree import NodeTree
 
 # this is a program, that generates .ndjson file from dataset specified as parameter
 # every line in .ndjson file represents tree structure of distinct string function
@@ -22,6 +22,7 @@ code_snip_col = None
 #consts
 ndjson_path = "functionsASTs.ndjson"
 temp_file_path = "tmp/tempSourceCode.c"
+
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
 
@@ -60,11 +61,20 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
             if child.kind == "FunctionDefinition":
                 definition_node = child
                 for definition_child in definition_node.children:
-                    if definition_child.kind == "FunctionDeclarator" and "main" not in definition_child.data and "solve" not in definition_child.data:
-                        print("saved")
-                        func_tree_dict = definition_node.to_dict()
-                        json_line = json.dumps(func_tree_dict)
-                        f.write(json_line + "\n")
+                    if definition_child.kind == "FunctionDeclarator":
+                        declarator_node = definition_child
+                        for declarator_child in declarator_node.children:
+                            if declarator_child.kind == "IdentifierDeclarator" and "main" not in declarator_child.data and "solve" not in declarator_child.data:
+                                tag = declarator_child.data
+                                declarator_child.data = "?"
+                                func_tree_dict = definition_node.to_dict()
+                                json_data = {
+                                    "tag": tag,
+                                    "ast": func_tree_dict
+                                }
+                                json_line = json.dumps(json_data)
+                                f.write(json_line + "\n")
+                                break
                         break
 
 def ascii_to_ndjson(ascii_tree: str, ndjson_path_t=ndjson_path):
@@ -118,7 +128,7 @@ def process_file_csv(csv_file_path: str, seen_func_hashes: set):
         for line in reader:
             # Check if the specified filename_column ends with '.c', !!!Don't use .lower() for .C because some .C are cpp!!!
             if line[file_name_col].endswith('.c') or line[file_name_col].lower().endswith("gnu c"):
-                process_c_file(line[code_snip_col], seen_func_hashes, ndjson_path)
+                process_c_file(line[code_snip_col], seen_func_hashes)
 
     success_rate = round(num_successful_rows/num_all_rows_c *100, 2) if num_all_rows_c > 0 else 0
     print(f"        Finished processing: {csv_file_path}. Success rate: {success_rate}%. N.o. '.c' rows in csv: {num_all_rows_c}.")

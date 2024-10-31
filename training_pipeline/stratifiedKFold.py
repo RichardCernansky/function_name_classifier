@@ -2,7 +2,6 @@ import pandas as pd
 import json
 import os
 from sklearn.model_selection import StratifiedKFold
-from NodeToNodePaths import find_tag
 import subprocess
 
 # Sample input file (replace with actual file path)
@@ -16,10 +15,11 @@ name_ast = []
 with open(ndjson_file, "r") as file:
     for line in file:
         try:
-            ast_node = json.loads(line.strip())
-            function_name = find_tag(ast_node)
-            if function_name:
-                name_ast.append({"FunctionName": function_name, "AST": line})
+            function_json = json.loads(line.strip())
+            function_name = function_json.get("tag")
+            ast_node = function_json.get("ast")
+            if function_name and ast_node:
+                name_ast.append({"FunctionName": function_name, "AST": ast_node})
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 
