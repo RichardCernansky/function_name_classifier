@@ -172,8 +172,6 @@ with open(test_file, 'r') as f:
                 print("Top 5 Predictions:")
                 for i in range(len(top_5_indices)):
                     predicted_tag_5 = reverse_tags_vocab[top_5_indices[i]]
-                    if predicted_tag_5 == actual_tag:
-                        top_5_right += 1
                     print(f"  Tag: {predicted_tag_5} | Probability: {top_5_probs[i]:.4f}")
             else:
                 print(f"INCORRECT: Input function Tag: {actual_tag} | Predicted function Tag: {predicted_function_tag}")
