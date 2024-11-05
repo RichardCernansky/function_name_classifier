@@ -22,7 +22,7 @@ from extract_functions.main import *
 text_path = 'data_ndjson/one_func.txt'
 ndjson_path = "data_ndjson/one_func.ndjson"
 vocabs_pkl = 'vocabs.pkl'
-model_file = 'model_fold_5.h5'
+model_file = 'model_fold_1.h5'
 with open(ndjson_path, "w") as log_file:
     log_file.write("")
 

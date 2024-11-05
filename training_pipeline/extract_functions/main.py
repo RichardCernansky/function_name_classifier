@@ -7,8 +7,8 @@ import json
 import re
 import hashlib
 
-from AsciiTreeProcessor import AsciiTreeProcessor
-from NodeTree import NodeTree
+from .AsciiTreeProcessor import AsciiTreeProcessor
+from .NodeTree import NodeTree
 
 # this is a program, that generates .ndjson file from dataset specified as parameter
 # every line in .ndjson file represents tree structure of distinct string function
@@ -127,7 +127,7 @@ def process_file_csv(csv_file_path: str, seen_func_hashes: set):
 
         for line in reader:
             # Check if the specified filename_column ends with '.c', !!!Don't use .lower() for .C because some .C are cpp!!!
-            if line[file_name_col].endswith('.c') or line[file_name_col].lower().endswith("gnu c"):
+            if line[file_name_col] is not None and (line[file_name_col].endswith('.c') or line[file_name_col].lower().endswith('gnu c')):
                 process_c_file(line[code_snip_col], seen_func_hashes)
 
     success_rate = round(num_successful_rows/num_all_rows_c *100, 2) if num_all_rows_c > 0 else 0
