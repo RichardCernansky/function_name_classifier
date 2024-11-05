@@ -1,19 +1,23 @@
-int is_palindrome(long long int a)
+//
+//  func.c
+//  
+//
+//  Created by MacBook return 0; on 11.11.14.
+//
+//
+
+#include <stdio.h>
+
+int main(void)
 {
-     char tmp[100];
-     int l,flag = 0,i,j;
-     sprintf(tmp, ""%lld"", a);
-     l = strlen(tmp);
-     //printf(""%d\n"",l);
-     for(i=0,j=l-1;i<j;i++,j--)
-     {
-         if(tmp[i] != tmp[j])
-         {
-             flag = 1;
-             break;
-         }
-     }
-     if(flag == 1)
-     return 0;
-     return 1;
+    unsigned long long n;
+    long long res;
+    scanf("%I64d", &n);
+    if (n%2) {
+        res = -((n + 1)/2);
+    } else {
+        res = n/2;
+    }
+    printf("%I64d", res);
+    return 0;
 }
