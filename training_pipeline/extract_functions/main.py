@@ -7,8 +7,8 @@ import json
 import re
 import hashlib
 
-from .AsciiTreeProcessor import AsciiTreeProcessor
-from .NodeTree import NodeTree
+from AsciiTreeProcessor import AsciiTreeProcessor
+from NodeTree import NodeTree
 
 # this is a program, that generates .ndjson file from dataset specified as parameter
 # every line in .ndjson file represents tree structure of distinct string function
