@@ -18,3 +18,23 @@ Fold 5
 Successfully processed: 4372/4372 (100.00%)
 Correctly predicted from all: 2756/4372 (63.04%)
 Correct prediction in top 5 from incorrectly predicted: 619/1616 (38.30%)
+Fold 1
+Successfully processed: 1938/1938 (100.00%)
+Correctly predicted from all: 1222/1938 (63.05%)
+Correct prediction in top 5 from incorrectly predicted: 431/716 (60.20%)
+Fold 2
+Successfully processed: 1938/1938 (100.00%)
+Correctly predicted from all: 1234/1938 (63.67%)
+Correct prediction in top 5 from incorrectly predicted: 420/704 (59.66%)
+Fold 3
+Successfully processed: 1938/1938 (100.00%)
+Correctly predicted from all: 1109/1938 (57.22%)
+Correct prediction in top 5 from incorrectly predicted: 502/829 (60.55%)
+Fold 4
+Successfully processed: 1938/1938 (100.00%)
+Correctly predicted from all: 1285/1938 (66.31%)
+Correct prediction in top 5 from incorrectly predicted: 338/653 (51.76%)
+Fold 5
+Successfully processed: 1937/1937 (100.00%)
+Correctly predicted from all: 1336/1937 (68.97%)
+Correct prediction in top 5 from incorrectly predicted: 322/601 (53.58%)

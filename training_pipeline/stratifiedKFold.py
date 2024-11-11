@@ -7,7 +7,7 @@ import subprocess
 # Sample input file (replace with actual file path)
 ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
 #clear the .log file contents before the whole process
-with open("analysis_csv/tests_results.log", "w") as log_file:
+with open("analysis_csv/tests_results.log", "a") as log_file:
     log_file.write("")
 
 # Load the data from NDJSON

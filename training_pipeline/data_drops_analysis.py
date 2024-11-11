@@ -4,7 +4,7 @@ import pandas as pd
 from collections import Counter
 from matplotlib import pyplot as plt
 
-input_ndjson_file = "data_ndjson/functionsASTs_merged.ndjson"
+input_ndjson_file = "data_ndjson/functionsASTs_cf.ndjson"
 output_ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
 
 function_names = []
