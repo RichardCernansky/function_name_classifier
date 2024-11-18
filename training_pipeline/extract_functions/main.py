@@ -7,6 +7,8 @@ import json
 import re
 import hashlib
 
+from pyparsing import line_end
+
 from AsciiTreeProcessor import AsciiTreeProcessor
 from NodeTree import NodeTree
 
@@ -20,8 +22,9 @@ file_name_col = None
 code_snip_col = None
 
 #consts
-ndjson_path = "functionsASTs.ndjson"
+ndjson_path = "../data_ndjson/functionsASTs_"
 temp_file_path = "tmp/tempSourceCode.c"
+ndjson_suffix = ".ndjson"
 
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
@@ -29,6 +32,9 @@ csv.field_size_limit(sys.maxsize)
 num_all_rows_c = 0
 num_successful_rows = 0
 
+def count_tokens(code_string):
+    tokens = code_string.split()
+    return len(tokens)
 
 # get hash for seen_func_set
 def get_md5_hash(input_string: str) -> str:
@@ -52,7 +58,7 @@ def extract_function_names(file_path):
 
     return function_names
 
-def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
+def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t, num_tokens):
     #print(ascii_tree) #ascii tree for debug prints
     """Save the entire tree as a single JSON object in NDJSON format."""
     with open(ndjson_path_t, "a") as f:
@@ -64,12 +70,13 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
                     if definition_child.kind == "FunctionDeclarator":
                         declarator_node = definition_child
                         for declarator_child in declarator_node.children:
-                            if declarator_child.kind == "IdentifierDeclarator" and "main" not in declarator_child.data and "solve" not in declarator_child.data:
+                            if declarator_child.kind == "IdentifierDeclarator":
                                 tag = declarator_child.data
                                 declarator_child.data = "?"
                                 func_tree_dict = definition_node.to_dict()
                                 json_data = {
                                     "tag": tag,
+                                    "num_tokens": num_tokens,
                                     "ast": func_tree_dict
                                 }
                                 json_line = json.dumps(json_data)
@@ -77,11 +84,12 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
                                 break
                         break
 
-def ascii_to_ndjson(ascii_tree: str, ndjson_path_t=ndjson_path):
+def ascii_to_ndjson(ascii_tree: str, num_tokens: int):
     # print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
-    save_functions_to_ndjson(node_tree, ascii_tree, ndjson_path_t)
+    global ndjson_path
+    save_functions_to_ndjson(node_tree, ascii_tree, ndjson_path, num_tokens)
 
 def run_cnip(prefix) -> subprocess.CompletedProcess[str]:
     # Construct and execute the command
@@ -109,7 +117,7 @@ def process_c_file(line: str, seen_func_hashes: set):
         # if successful, process the ascii-tree
         else:
             num_successful_rows += 1
-            ascii_to_ndjson(result.stdout)
+            ascii_to_ndjson(result.stdout, count_tokens(line))
         return
     else:
         print("Repeated function found.")
@@ -158,13 +166,15 @@ def get_args():
     return parser.parse_args()
 
 def main():
-    global folder, file_name_col, code_snip_col  # Declare that we are using the global variables
+    global folder, file_name_col, code_snip_col, ndjson_path  # Declare that we are using the global variables
 
     args = get_args()
 
     folder = args.folder
     file_name_col = args.file_name_col
     code_snip_col = args.code_snip_col
+    ndjson_path = ndjson_path + os.path.basename(folder) + ndjson_suffix
+    print(ndjson_path)
 
     seen_func_hashes = set()
     if os.path.exists(folder):

@@ -190,7 +190,7 @@ with open(test_file, 'r') as f:
 success_ratio = successful_processed / total_processed if total_processed > 0 else 0
 right_ratio = right_assigned / total_processed if total_processed > 0 else 0
 
-with open("analysis_csv/tests_results.log", "a") as log_file:
+with open("analysis/tests_results.log", "a") as log_file:
     success_ratio = successful_processed / total_processed if total_processed > 0 else 0
     right_ratio = right_assigned / total_processed if total_processed > 0 else 0
     incorrect_predictions = successful_processed - right_assigned
