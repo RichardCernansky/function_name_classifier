@@ -295,7 +295,7 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend()
 
-plt.savefig(f'plot_model_fold_{fold_idx}.png')
+plt.savefig(f'analysis/plot_model_fold_{fold_idx}.png')
 
 plt.clf()
 

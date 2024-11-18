@@ -5,17 +5,18 @@ from sklearn.model_selection import train_test_split
 # Define the path to the NDJSON file
 ndjson_file = 'data_ndjson/train_valid_fold.ndjson'
 
-# Function to write both FunctionName and AST columns to NDJSON format
+# function to write both FunctionName, AST, and num_tokens columns to NDJSON format
 def write_ndjson(file_path, df):
     with open(file_path, "w") as outfile:
         for _, row in df.iterrows():
             # Ensure the AST is properly formatted as JSON
             ast_json = row["AST"] if isinstance(row["AST"], dict) else json.loads(row["AST"])
-            # Dump both FunctionName and AST fields to each line
-            json_line = json.dumps({"tag": row["FunctionName"], "ast": ast_json})
+            # Dump the fields to each line
+            json_line = json.dumps({"tag": row["FunctionName"], "ast": ast_json, "num_tokens": row["NumTokens"]})
             outfile.write(json_line + "\n")
 
-# Load NDJSON data into `name_ast` list with error handling
+
+# load NDJSON data into `name_ast` list with error handling
 name_ast = []
 with open(ndjson_file, "r") as file:
     for line in file:
@@ -23,25 +24,37 @@ with open(ndjson_file, "r") as file:
             function_json = json.loads(line.strip())
             function_name = function_json.get("tag")
             ast_node = function_json.get("ast")
-            if function_name and ast_node:
-                # Convert AST to a JSON string for consistent handling
-                name_ast.append({"FunctionName": function_name, "AST": json.dumps(ast_node)})
+            num_tokens = function_json.get("num_tokens")
+
+            # Ensure function_name, ast, and num_tokens are valid before adding
+            if function_name and ast_node and num_tokens is not None:
+                name_ast.append({
+                    "FunctionName": function_name,
+                    "AST": json.dumps(ast_node),
+                    "NumTokens": num_tokens
+                })
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 
-# Create a DataFrame with the loaded data
+# create a DataFrame with the loaded data
 df_name_ast = pd.DataFrame(name_ast)
 print("Data loaded:")
 print(df_name_ast.head())
 
-# Stratify the data into training and validation sets (75/25 split)
-train, valid = train_test_split(df_name_ast, test_size=0.25, stratify=df_name_ast["FunctionName"])
+# stratify the data into training and validation sets (75/25 split) based on the FunctionName
+X = df_name_ast[['AST', 'NumTokens']]  # Features include AST and num_tokens
+y = df_name_ast['FunctionName']  # Labels for stratification
 
-# Write the split data to NDJSON files with both FunctionName and AST fields
+train, valid = train_test_split(
+    df_name_ast,
+    test_size=0.25,
+    stratify=y
+)
+
+# write the split data to NDJSON files with FunctionName, AST, and num_tokens fields
 write_ndjson('data_ndjson/strat_train.ndjson', train)
 write_ndjson('data_ndjson/strat_valid.ndjson', valid)
 
-# Verification
+# verification
 print(f"Training set size: {len(train)}")
 print(f"Validation set size: {len(valid)}")
-

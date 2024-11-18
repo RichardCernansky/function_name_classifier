@@ -6,8 +6,9 @@ import subprocess
 
 # Sample input file (replace with actual file path)
 ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
-#clear the .log file contents before the whole process
-with open("analysis/tests_results.log", "a") as log_file:
+
+# Clear the .log file contents before the whole process
+with open("analysis/tests_results.log", "w") as log_file:  # Use 'w' to overwrite the file
     log_file.write("")
 
 # Load the data from NDJSON
@@ -18,12 +19,17 @@ with open(ndjson_file, "r") as file:
             function_json = json.loads(line.strip())
             function_name = function_json.get("tag")
             ast = function_json.get("ast")
+            num_tokens = function_json.get("num_tokens")
 
-            # Ensure both function_name and ast are valid before adding
-            if function_name and ast:
-                name_ast.append({"FunctionName": function_name, "AST": json.dumps(ast)})
+            # Ensure function_name, ast, and num_tokens are valid before adding
+            if function_name and ast and num_tokens is not None:
+                name_ast.append({
+                    "FunctionName": function_name,
+                    "AST": json.dumps(ast),
+                    "NumTokens": num_tokens
+                })
             else:
-                print(f"Missing 'tag' or 'ast' in line (skipped): {line}")
+                print(f"Missing 'tag', 'ast', or 'num_tokens' in line (skipped): {line}")
 
         except json.JSONDecodeError:
             print(f"Error parsing line (skipped): {line}")
@@ -37,7 +43,7 @@ else:
     print(df_name_ast.head())
 
     # Proceed with Stratified K-Fold if DataFrame is correctly populated
-    X = df_name_ast['AST'].values  # Features (AST as strings)
+    X = df_name_ast[['AST', 'NumTokens']].values  # Features (AST as strings and num_tokens)
     y = df_name_ast['FunctionName'].values  # Labels for stratification
 
     strat_kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=40)
@@ -51,14 +57,14 @@ else:
 
         # Save train/validation set
         with open(train_valid_ndjson_file, 'w') as outfile:
-            for ast_str, func_name in zip(X_train_valid, y_train_valid):
-                json.dump({"tag": func_name, "ast": json.loads(ast_str)}, outfile)
+            for (ast_str, num_tokens), func_name in zip(X_train_valid, y_train_valid):
+                json.dump({"tag": func_name, "ast": json.loads(ast_str), "num_tokens": num_tokens}, outfile)
                 outfile.write('\n')
 
         # Save test set
         with open(test_ndjson_file, 'w') as outfile:
-            for ast_str, func_name in zip(X_test, y_test):
-                json.dump({"tag": func_name, "ast": json.loads(ast_str)}, outfile)
+            for (ast_str, num_tokens), func_name in zip(X_test, y_test):
+                json.dump({"tag": func_name, "ast": json.loads(ast_str), "num_tokens": num_tokens}, outfile)
                 outfile.write('\n')
 
         print(f"Fold {fold_index} saved as NDJSON files.")
@@ -77,7 +83,4 @@ else:
         except subprocess.CalledProcessError as e:
             print(f"Error occurred during processing of Fold {fold_index}: {e}")
 
-        fold_index += 1
-
 print("All folds processed successfully!")
-
