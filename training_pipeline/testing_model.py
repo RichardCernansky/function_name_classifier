@@ -164,7 +164,7 @@ accuracy = accuracy_score(true_labels, predicted_labels)
 report = classification_report(true_labels, predicted_labels, target_names=[reverse_tags_vocab[idx] for idx in set(true_labels)])
 
 # Write the results to the log file
-with open("analysis/tests_results.log", "w") as log_file:  # Use 'w' to overwrite with new data
+with open("analysis/tests_results.log", "a") as log_file:  # Use 'w' to overwrite with new data
     log_file.write(f"Fold {fold_idx}\n")
     log_file.write(f"Overall Accuracy: {accuracy:.4f}\n")
     log_file.write("Classification Report:\n")

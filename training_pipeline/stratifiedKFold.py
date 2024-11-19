@@ -8,8 +8,8 @@ import subprocess
 ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
 
 # Clear the .log file contents before the whole process
-with open("analysis/tests_results.log", "w") as log_file:  # Use 'w' to overwrite the file
-    log_file.write("")
+#with open("analysis/tests_results.log", "w") as log_file:  # Use 'w' to overwrite the file
+#    log_file.write("")
 
 # Load the data from NDJSON
 name_ast = []
