@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import math
 import pickle
 import sys
+import pandas as pd
 
 import tensorflow as tf
 from tensorflow import keras
@@ -135,13 +136,31 @@ with custom_object_scope(custom_objects):
 true_labels = []
 predicted_labels = []
 
+# Define token bins for length analysis
+bins = list(range(0, 2100, 100))  # Bins from 0 to 2000 with a step of 100
+bin_labels = [f"{bins[i]}-{bins[i + 1] - 1}" for i in range(len(bins) - 1)]
+
+# Dictionaries to keep track of correct predictions and total samples per bin
+correct_predictions_per_bin = {label: 0 for label in bin_labels}
+total_samples_per_bin = {label: 0 for label in bin_labels}
+
+# Process the test data and gather predictions and bin information
 with open(test_file, 'r') as f:
     data = ndjson.load(f)
 
     for line in data:
         try:
-            tag_idx, sts_indices, value_indices, ets_indices = preprocess_function(
-                line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
+            num_tokens = line.get("num_tokens")
+            if num_tokens is None:
+                continue  # Skip if num_tokens is missing
+
+            true_bin = pd.cut([num_tokens], bins=bins, labels=bin_labels)[0]
+
+            result = preprocess_function(line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
+            if result is None:
+                continue
+
+            tag_idx, sts_indices, value_indices, ets_indices = result
 
             inputs = {
                 'value1_input': np.array(value_indices),
@@ -150,27 +169,51 @@ with open(test_file, 'r') as f:
             }
 
             prediction = model.predict(inputs)
-            predicted_tag_idx = np.argmax(prediction)  # Get the index of the highest probability
+            predicted_tag_idx = np.argmax(prediction)
 
-            # Store the true and predicted labels
+            # Store true and predicted labels for the overall report
             true_labels.append(tag_idx)
             predicted_labels.append(predicted_tag_idx)
+
+            # Update bin-based accuracy counters
+            if predicted_tag_idx == tag_idx:
+                correct_predictions_per_bin[true_bin] += 1
+            total_samples_per_bin[true_bin] += 1
 
         except Exception as e:
             print(f"Error processing line: {e}")
 
-# Calculate accuracy and the classification report
+# Calculate overall accuracy and classification report
 accuracy = accuracy_score(true_labels, predicted_labels)
-report = classification_report(true_labels, predicted_labels, target_names=[reverse_tags_vocab[idx] for idx in set(true_labels)])
+report = classification_report(true_labels, predicted_labels,
+                               target_names=[reverse_tags_vocab[idx] for idx in set(true_labels)])
 
-# Write the results to the log file
-with open("analysis/tests_results.log", "a") as log_file:  # Use 'w' to overwrite with new data
+# Write overall metrics and bin-based analysis to the log file
+with open("analysis/tests_results.log", "a") as log_file:
     log_file.write(f"Fold {fold_idx}\n")
     log_file.write(f"Overall Accuracy: {accuracy:.4f}\n")
     log_file.write("Classification Report:\n")
     log_file.write(report + "\n")
 
-# Print the new metrics to the console (optional)
+    # Add bin-based accuracy to the log file
+    log_file.write("Accuracy per length bin:\n")
+    for bin_label in bin_labels:
+        if total_samples_per_bin[bin_label] > 0:
+            accuracy_per_bin = correct_predictions_per_bin[bin_label] / total_samples_per_bin[bin_label]
+            log_file.write(f"Bin {bin_label}: Accuracy = {accuracy_per_bin:.2f} "
+                           f"({correct_predictions_per_bin[bin_label]}/{total_samples_per_bin[bin_label]})\n")
+        else:
+            log_file.write(f"Bin {bin_label}: No samples\n")
+
+# Print metrics to the console
 print(f"Overall Accuracy: {accuracy:.4f}")
 print("Classification Report:")
 print(report)
+print("\nAccuracy per length bin:")
+for bin_label in bin_labels:
+    if total_samples_per_bin[bin_label] > 0:
+        accuracy_per_bin = correct_predictions_per_bin[bin_label] / total_samples_per_bin[bin_label]
+        print(f"Bin {bin_label}: Accuracy = {accuracy_per_bin:.2f} "
+              f"({correct_predictions_per_bin[bin_label]}/{total_samples_per_bin[bin_label]})")
+    else:
+        print(f"Bin {bin_label}: No samples")
