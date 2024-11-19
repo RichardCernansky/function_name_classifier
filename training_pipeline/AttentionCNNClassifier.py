@@ -244,8 +244,8 @@ output_signature = (
     tf.TensorSpec(shape=(None,), dtype=tf.int64)  # for tag_index
 )
 
-steps_per_epoch = math.floor(number_lines_train / batch_size)  # 80% for training
-validation_steps = math.floor(number_lines_valid / batch_size)  # 20% for validation
+steps_per_epoch = math.floor(number_lines_train / batch_size) -100 # 80% for training
+validation_steps = math.floor(number_lines_valid / batch_size) -100  # 20% for validation
 
 dataset_train = tf.data.Dataset.from_generator(
     lambda: data_generator(train_file, batch_size),
