@@ -90,6 +90,7 @@ plt.show()
 
 #PLOT NUM_TOKENS
 # Create a histogram
+plt.figure(figsize=(12, 6), dpi=100)
 plt.hist(function_lengths_tokens, bins=10, edgecolor='black')
 # Add titles and labels
 plt.title('Histogram of Function Lengths in Tokens (whitespace separated)')
