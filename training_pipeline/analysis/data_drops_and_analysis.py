@@ -8,8 +8,8 @@ def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
 
 #input_ndjson_file = "../data_ndjson/functionsASTs_gcj-dataset.ndjson"
-# input_ndjson_file = "../data_ndjson/functionsASTs_contests.ndjson"
-input_ndjson_file = "../data_ndjson/functionsASTs_merged.ndjson"
+input_ndjson_file = "../data_ndjson/functionsASTs_contests.ndjson"
+#input_ndjson_file = "../data_ndjson/functionsASTs_merged.ndjson"
 output_ndjson_file = "../data_ndjson/functionsASTs_dropped_lower_5.ndjson"
 # output_csv_file = get_basename_without_extension(input_ndjson_file) + "_freq_table.csv"
 output_freq_histogram_pdf_file = get_basename_without_extension(input_ndjson_file) + "_freq_histogram.pdf"
