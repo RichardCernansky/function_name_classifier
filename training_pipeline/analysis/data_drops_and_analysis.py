@@ -100,6 +100,7 @@ plt.show()
 
 # PLOT NUM_TOKENS
 # create a histogram with more bins for better granularity
+plt.figure(figsize=(12, 6), dpi=100)
 plt.hist(function_lengths_tokens, bins=500, edgecolor='black')
 # set the x-axis limit to exclude extreme outliers and focus on the main distribution
 plt.xlim(0, 3000)  # Adjust the range as needed based on the data
