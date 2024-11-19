@@ -106,7 +106,7 @@ path_vocab_size = len(path_vocab)
 tags_vocab_size = len(tags_vocab)
 embedding_dim = 128
 y = embedding_dim  # must be >= emb_dim
-batch_size = 8  # number of functions trained at a time
+batch_size = 4  # number of functions trained at a time
 
 print("--------------------DONE--------------------")
 print(f"value_vocab_size: {value_vocab_size}")
