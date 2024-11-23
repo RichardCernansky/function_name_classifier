@@ -115,7 +115,7 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
 
     return tag_idx, sts_indices, paths_indices, ets_indices
 
-vocabs_pkl = 'vocabs.pkl'
+vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
 test_file = 'data_ndjson/test_fold.ndjson'
 model_file = f'model_fold_{fold_idx}.h5'
 
