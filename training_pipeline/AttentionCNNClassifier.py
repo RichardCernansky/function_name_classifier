@@ -234,7 +234,8 @@ batch_accuracies = []
 def on_batch_end(batch, logs):
     batch_losses.append(logs.get('loss'))
     batch_accuracies.append(logs.get('accuracy'))
-    print(f"\tBatch {batch} | Loss: {logs['loss']} | Accuracy: {logs['accuracy']}")
+    if batch % 200 == 0:
+        print(f"Batch {batch}: Loss = {logs.get('loss'):.4f}, Accuracy = {logs.get('accuracy'):.4f}")
 
 
 output_signature = (
@@ -264,7 +265,7 @@ validation_dataset = dataset_valid.take(number_lines_valid)
 batch_logger = LambdaCallback(on_batch_end=on_batch_end)
 history = model.fit(
     train_dataset,
-    epochs=6,
+    epochs=1,
     steps_per_epoch=steps_per_epoch,
     validation_data=validation_dataset,
     validation_steps=validation_steps,

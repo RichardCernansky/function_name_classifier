@@ -62,15 +62,15 @@ for label, metrics in combined_report.items():
     }
 
 # print the final metrics
-print(f"{NUM_FOLDS}-Fold Cross Validation Average Model Accuracy: {average_accuracy:.4f}")
-print("Average Bin Accuracies:")
-for bin_label, accuracy in average_bin_accuracies.items():
-    print(f"  {bin_label}: {accuracy:.4f}")
-print("Combined Average Classification Report:")
-for label, metrics in average_report.items():
-    print(f"Class {label}:")
-    for metric, value in metrics.items():
-        print(f"  {metric}: {value:.4f}")
+# print(f"{NUM_FOLDS}-Fold Cross Validation Average Model Accuracy: {average_accuracy:.4f}")
+# print("Average Bin Accuracies:")
+# for bin_label, accuracy in average_bin_accuracies.items():
+#     print(f"  {bin_label}: {accuracy:.4f}")
+# print("Combined Average Classification Report:")
+# for label, metrics in average_report.items():
+#     print(f"Class {label}:")
+#     for metric, value in metrics.items():
+#         print(f"  {metric}: {value:.4f}")
 
 #---------------------------PLOTTING-------------------------
 # --- Plot 1: Average Accuracy and Bin Accuracies ---

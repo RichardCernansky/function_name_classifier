@@ -209,11 +209,11 @@ fold_metrics = {
 with open(f"analysis/fold_{fold_idx}_metrics.json", "w") as f:
     json.dump(fold_metrics, f, indent=4)
 
-for bin_label in bin_labels:
-    correct = correct_predictions_per_bin[bin_label]
-    total = total_samples_per_bin[bin_label]
-    accuracy_bin = correct / total if total > 0 else 0
-    print(f"Bin {bin_label}: Accuracy = {accuracy_bin:.2f}")
+# for bin_label in bin_labels:
+#     correct = correct_predictions_per_bin[bin_label]
+#     total = total_samples_per_bin[bin_label]
+#     accuracy_bin = correct / total if total > 0 else 0
+#     print(f"Bin {bin_label}: Accuracy = {accuracy_bin:.2f}")
 print(f"Fold {fold_idx} Results:")
 print(f"Accuracy: {accuracy:.4f}")
 print(f"Classification Report:\n{report}")
