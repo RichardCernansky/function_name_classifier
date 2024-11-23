@@ -64,24 +64,26 @@ for label, metrics in combined_report.items():
 
 #---------------------------PLOTTING-------------------------
 # --- Plot 1: Average Accuracy and Bin Accuracies ---
-plt.figure(figsize=(10, 6))
+# --- Plot 1: Average Accuracy and Bin Accuracies ---
+plt.figure(figsize=(12, 8))  # Increase figure size for better clarity
 
-# add average accuracy text
-plt.text(0.5, 0.9, f"Average Model Accuracy: {average_accuracy:.4f}",
-         fontsize=14, ha="center", transform=plt.gca().transAxes)
+plt.text(0.5, 1.05, f"Average Model Accuracy: {average_accuracy:.4f}",
+         fontsize=16, ha="center", transform=plt.gca().transAxes, fontweight="bold")
 
-# bar plot for bin accuracies
 bin_labels = list(average_bin_accuracies.keys())
 bin_values = list(average_bin_accuracies.values())
 plt.bar(bin_labels, bin_values, color="skyblue")
-
-plt.title("Bin Average Accuracies", fontsize=14)
-plt.xlabel("Bins", fontsize=12)
-plt.ylabel("Accuracy", fontsize=12)
-plt.ylim(0, 1)
+plt.xticks(rotation=45, ha="right", fontsize=10)  # Rotate by 45 degrees, align right, adjust font size
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+plt.title("Bin Average Accuracies", fontsize=18, fontweight="bold")
+plt.xlabel("Bins", fontsize=14, labelpad=10)  # Label padding for spacing
+plt.ylabel("Accuracy", fontsize=14, labelpad=10)
+plt.ylim(0, 1)  # Set the y-axis range to [0, 1]
 plt.tight_layout()
-
 plt.savefig("analysis/average_accuracy_and_bins.pdf")
+plt.show()
+
+
 
 #---------------------------------------------------------------------
 # --- Plot 2: Confusion Matrix-Like Visualization ---
