@@ -117,7 +117,7 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
 
 vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
 test_file = 'data_ndjson/test_fold.ndjson'
-model_file = f'model_fold_{fold_idx}.h5'
+model_file = f'trained_models/model_fold_{fold_idx}.h5'
 
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
 
