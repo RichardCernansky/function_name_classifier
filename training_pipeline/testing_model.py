@@ -216,5 +216,5 @@ with open(f"analysis/fold_{fold_idx}_metrics.json", "w") as f:
 #     print(f"Bin {bin_label}: Accuracy = {accuracy_bin:.2f}")
 print(f"Fold {fold_idx} Results:")
 print(f"Accuracy: {accuracy:.4f}")
-print(f"Classification Report:\n{report}")
+# print(f"Classification Report:\n{report}")
 

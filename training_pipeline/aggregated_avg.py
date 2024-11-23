@@ -43,7 +43,7 @@ for bin_label, bin_data in bin_accuracies.items():
 combined_report = {}
 for report in classification_reports:
     for label, metrics in report.items():
-        # Ensure metrics is a dictionary before processing
+        # ensure metrics is a dictionary before processing
         if isinstance(metrics, dict):
             if label not in combined_report:
                 combined_report[label] = {metric: [] for metric in metrics}
@@ -61,16 +61,6 @@ for label, metrics in combined_report.items():
         metric: np.mean(values) for metric, values in metrics.items()
     }
 
-# print the final metrics
-# print(f"{NUM_FOLDS}-Fold Cross Validation Average Model Accuracy: {average_accuracy:.4f}")
-# print("Average Bin Accuracies:")
-# for bin_label, accuracy in average_bin_accuracies.items():
-#     print(f"  {bin_label}: {accuracy:.4f}")
-# print("Combined Average Classification Report:")
-# for label, metrics in average_report.items():
-#     print(f"Class {label}:")
-#     for metric, value in metrics.items():
-#         print(f"  {metric}: {value:.4f}")
 
 #---------------------------PLOTTING-------------------------
 # --- Plot 1: Average Accuracy and Bin Accuracies ---
@@ -99,21 +89,11 @@ classes = list(average_report.keys())
 metrics = ["precision", "recall", "f1-score"]
 confusion_matrix_like = np.array([[average_report[cls][metric] for metric in metrics] for cls in classes])
 
-plt.figure(figsize=(12, 8))
+# Adjust figure height dynamically based on the number of classes
+figure_height = len(classes) * 0.2  # Scale the height dynamically (adjust multiplier as needed)
 
-# create heatmap for class metrics
-sns.heatmap(confusion_matrix_like, annot=True, fmt=".2f", xticklabels=metrics, yticklabels=classes, cmap="coolwarm")
-
-plt.title("Average Metrics Per Class", fontsize=14)
-plt.xlabel("Metrics", fontsize=12)
-plt.ylabel("Classes", fontsize=12)
-plt.tight_layout()
-
-plt.savefig("analysis/average_class_metrics_heatmap.pdf")
-
-
-# Plot heatmap for 800 classes
-plt.figure(figsize=(20, 40))  # Adjust the size for better readability
+# Plot heatmap
+plt.figure(figsize=(20, figure_height))  # Set width and dynamic height
 
 sns.heatmap(
     confusion_matrix_like,
@@ -125,7 +105,7 @@ sns.heatmap(
     cbar_kws={'label': 'Metric Value'}  # Add a color bar label for context
 )
 
-plt.title("Average Metrics Per Class (800 Classes)", fontsize=16)
+plt.title(f"Average Metrics Per Class ({len(classes)} Classes)", fontsize=16)
 plt.xlabel("Metrics", fontsize=14)
 plt.ylabel("Classes", fontsize=14)
 plt.tight_layout()
