@@ -1,5 +1,5 @@
 {
-    "accuracy": 0.12511013215859032,
+    "accuracy": 0.1458149779735683,
     "classification_report": {
         "<PAD>": {
             "precision": 0.0,
@@ -74,21 +74,21 @@
             "support": 2.0
         },
         "DFS": {
-            "precision": 0.5,
-            "recall": 0.2,
-            "f1-score": 0.2857142857142857,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 5.0
         },
         "DoIt": {
-            "precision": 0.047619047619047616,
-            "recall": 0.5,
-            "f1-score": 0.08695652173913043,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 2.0
         },
         "ElaboraCaso": {
-            "precision": 1.0,
+            "precision": 0.5,
             "recall": 0.5,
-            "f1-score": 0.6666666666666666,
+            "f1-score": 0.5,
             "support": 2.0
         },
         "ExecuteTestCase": {
@@ -134,9 +134,9 @@
             "support": 2.0
         },
         "GenerateFilename": {
-            "precision": 0.6,
-            "recall": 1.0,
-            "f1-score": 0.75,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 3.0
         },
         "GetData": {
@@ -164,9 +164,9 @@
             "support": 1.0
         },
         "Get_Mark": {
-            "precision": 0.3333333333333333,
-            "recall": 1.0,
-            "f1-score": 0.5,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 1.0
         },
         "Get_Matches": {
@@ -224,9 +224,9 @@
             "support": 1.0
         },
         "ParseInput": {
-            "precision": 1.0,
-            "recall": 0.3333333333333333,
-            "f1-score": 0.5,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 3.0
         },
         "Print": {
@@ -422,9 +422,9 @@
             "support": 4.0
         },
         "app": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.125,
+            "recall": 1.0,
+            "f1-score": 0.2222222222222222,
             "support": 1.0
         },
         "areSorted": {
@@ -578,9 +578,9 @@
             "support": 1.0
         },
         "ccw": {
-            "precision": 0.16279069767441862,
+            "precision": 0.2,
             "recall": 1.0,
-            "f1-score": 0.28,
+            "f1-score": 0.3333333333333333,
             "support": 7.0
         },
         "change": {
@@ -596,9 +596,9 @@
             "support": 1.0
         },
         "check": {
-            "precision": 0.10896130346232179,
-            "recall": 0.8916666666666667,
-            "f1-score": 0.19419237749546278,
+            "precision": 0.12061068702290076,
+            "recall": 0.6583333333333333,
+            "f1-score": 0.20387096774193547,
             "support": 120.0
         },
         "check1": {
@@ -884,9 +884,9 @@
             "support": 1.0
         },
         "checkstring": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
             "support": 1.0
         },
         "checktidy": {
@@ -956,9 +956,9 @@
             "support": 1.0
         },
         "cmp": {
-            "precision": 0.10514018691588785,
-            "recall": 0.9183673469387755,
-            "f1-score": 0.18867924528301888,
+            "precision": 0.14334470989761092,
+            "recall": 0.8571428571428571,
+            "f1-score": 0.24561403508771928,
             "support": 49.0
         },
         "cmp1": {
@@ -1004,9 +1004,9 @@
             "support": 1.0
         },
         "column": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1-score": 0.5,
             "support": 2.0
         },
         "com": {
@@ -1232,9 +1232,9 @@
             "support": 1.0
         },
         "dfs": {
-            "precision": 0.6111111111111112,
-            "recall": 0.9166666666666666,
-            "f1-score": 0.7333333333333333,
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1-score": 0.8,
             "support": 12.0
         },
         "diagonal": {
@@ -1328,9 +1328,9 @@
             "support": 2.0
         },
         "do_one_case": {
-            "precision": 0.875,
+            "precision": 1.0,
             "recall": 1.0,
-            "f1-score": 0.9333333333333333,
+            "f1-score": 1.0,
             "support": 7.0
         },
         "do_test": {
@@ -1376,9 +1376,9 @@
             "support": 1.0
         },
         "eatNl": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.07142857142857142,
+            "recall": 1.0,
+            "f1-score": 0.13333333333333333,
             "support": 1.0
         },
         "ecrireResultat": {
@@ -1502,9 +1502,9 @@
             "support": 15.0
         },
         "f1": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.8333333333333334,
+            "recall": 0.8333333333333334,
+            "f1-score": 0.8333333333333334,
             "support": 6.0
         },
         "factorial": {
@@ -1538,21 +1538,21 @@
             "support": 1.0
         },
         "fget_line": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1-score": 1.0,
-            "support": 1.0
-        },
-        "fgetline": {
-            "precision": 0.5,
-            "recall": 1.0,
-            "f1-score": 0.6666666666666666,
-            "support": 1.0
-        },
-        "fileinput": {
             "precision": 0.0,
             "recall": 0.0,
             "f1-score": 0.0,
+            "support": 1.0
+        },
+        "fgetline": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1.0
+        },
+        "fileinput": {
+            "precision": 0.03125,
+            "recall": 1.0,
+            "f1-score": 0.06060606060606061,
             "support": 1.0
         },
         "fill": {
@@ -1568,9 +1568,9 @@
             "support": 1.0
         },
         "find": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.14285714285714285,
+            "recall": 0.15,
+            "f1-score": 0.14634146341463414,
             "support": 20.0
         },
         "findMax": {
@@ -1610,9 +1610,9 @@
             "support": 1.0
         },
         "findarr": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
             "support": 2.0
         },
         "findmax": {
@@ -1640,9 +1640,9 @@
             "support": 1.0
         },
         "flip": {
-            "precision": 0.7777777777777778,
-            "recall": 0.2692307692307692,
-            "f1-score": 0.4,
+            "precision": 0.41304347826086957,
+            "recall": 0.7307692307692307,
+            "f1-score": 0.5277777777777778,
             "support": 26.0
         },
         "flips": {
@@ -1928,9 +1928,9 @@
             "support": 1.0
         },
         "get_result": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.3333333333333333,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.3333333333333333,
             "support": 3.0
         },
         "get_time": {
@@ -2024,15 +2024,15 @@
             "support": 1.0
         },
         "halt": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.2,
+            "recall": 1.0,
+            "f1-score": 0.3333333333333333,
             "support": 2.0
         },
         "handleCase": {
-            "precision": 0.15789473684210525,
-            "recall": 0.5,
-            "f1-score": 0.24,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 12.0
         },
         "happy": {
@@ -2042,9 +2042,9 @@
             "support": 2.0
         },
         "has": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1-score": 0.6666666666666666,
             "support": 2.0
         },
         "has_won": {
@@ -2132,9 +2132,9 @@
             "support": 1.0
         },
         "init": {
-            "precision": 0.25,
+            "precision": 1.0,
             "recall": 0.034482758620689655,
-            "f1-score": 0.06060606060606061,
+            "f1-score": 0.06666666666666667,
             "support": 29.0
         },
         "init_c": {
@@ -2192,9 +2192,9 @@
             "support": 1.0
         },
         "input": {
-            "precision": 0.05,
-            "recall": 0.1111111111111111,
-            "f1-score": 0.06896551724137931,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 9.0
         },
         "input_board": {
@@ -2300,9 +2300,9 @@
             "support": 2.0
         },
         "isPalindrome": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.09411764705882353,
+            "recall": 0.4,
+            "f1-score": 0.1523809523809524,
             "support": 20.0
         },
         "isPossible": {
@@ -2324,9 +2324,9 @@
             "support": 4.0
         },
         "isTidy": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.05555555555555555,
+            "recall": 0.14285714285714285,
+            "f1-score": 0.08,
             "support": 7.0
         },
         "isTidyNumber": {
@@ -2336,9 +2336,9 @@
             "support": 2.0
         },
         "isVowel": {
-            "precision": 1.0,
-            "recall": 0.5,
-            "f1-score": 0.6666666666666666,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 2.0
         },
         "is_connect": {
@@ -2492,9 +2492,9 @@
             "support": 2.0
         },
         "large_input": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.16666666666666666,
+            "recall": 1.0,
+            "f1-score": 0.2857142857142857,
             "support": 1.0
         },
         "larger": {
@@ -2582,9 +2582,9 @@
             "support": 1.0
         },
         "loop": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.06666666666666667,
+            "recall": 0.5,
+            "f1-score": 0.11764705882352941,
             "support": 2.0
         },
         "lp": {
@@ -2666,9 +2666,9 @@
             "support": 2.0
         },
         "maximumColumn": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
             "support": 1.0
         },
         "maximumLine": {
@@ -2708,9 +2708,9 @@
             "support": 1.0
         },
         "min": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.20574162679425836,
+            "recall": 0.8958333333333334,
+            "f1-score": 0.3346303501945525,
             "support": 48.0
         },
         "minn": {
@@ -2744,15 +2744,15 @@
             "support": 2.0
         },
         "mrand_01": {
-            "precision": 1.0,
+            "precision": 0.3333333333333333,
             "recall": 1.0,
-            "f1-score": 1.0,
+            "f1-score": 0.5,
             "support": 2.0
         },
         "mrand_init": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1-score": 1.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 2.0
         },
         "mrand_int": {
@@ -2768,9 +2768,9 @@
             "support": 3.0
         },
         "mrand_snapshot": {
-            "precision": 0.2,
+            "precision": 0.4,
             "recall": 1.0,
-            "f1-score": 0.3333333333333333,
+            "f1-score": 0.5714285714285714,
             "support": 2.0
         },
         "my_cmp": {
@@ -2780,9 +2780,9 @@
             "support": 1.0
         },
         "my_free": {
-            "precision": 0.17647058823529413,
-            "recall": 1.0,
-            "f1-score": 0.3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 3.0
         },
         "my_read": {
@@ -2798,9 +2798,9 @@
             "support": 1.0
         },
         "my_write": {
-            "precision": 0.041666666666666664,
+            "precision": 0.1,
             "recall": 1.0,
-            "f1-score": 0.08,
+            "f1-score": 0.18181818181818182,
             "support": 2.0
         },
         "myabs": {
@@ -2858,15 +2858,15 @@
             "support": 3.0
         },
         "notover": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
             "support": 1.0
         },
         "nt": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.21212121212121213,
+            "recall": 0.7777777777777778,
+            "f1-score": 0.3333333333333333,
             "support": 9.0
         },
         "ntests": {
@@ -3134,9 +3134,9 @@
             "support": 1.0
         },
         "print": {
-            "precision": 0.11320754716981132,
-            "recall": 0.75,
-            "f1-score": 0.19672131147540983,
+            "precision": 0.05405405405405406,
+            "recall": 0.125,
+            "f1-score": 0.07547169811320754,
             "support": 16.0
         },
         "printArr": {
@@ -3152,9 +3152,9 @@
             "support": 3.0
         },
         "printBoard": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.034482758620689655,
+            "recall": 0.2,
+            "f1-score": 0.058823529411764705,
             "support": 5.0
         },
         "printCase": {
@@ -3218,9 +3218,9 @@
             "support": 4.0
         },
         "print_error": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.10526315789473684,
+            "recall": 1.0,
+            "f1-score": 0.19047619047619047,
             "support": 2.0
         },
         "print_input": {
@@ -3302,9 +3302,9 @@
             "support": 2.0
         },
         "process": {
-            "precision": 0.08333333333333333,
-            "recall": 0.44,
-            "f1-score": 0.14012738853503184,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 25.0
         },
         "processATestCase": {
@@ -3392,9 +3392,9 @@
             "support": 3.0
         },
         "quicksort": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.625,
+            "recall": 1.0,
+            "f1-score": 0.7692307692307693,
             "support": 5.0
         },
         "ratkaise": {
@@ -3410,9 +3410,9 @@
             "support": 1.0
         },
         "read": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.16363636363636364,
+            "recall": 0.6,
+            "f1-score": 0.2571428571428571,
             "support": 15.0
         },
         "readBoard": {
@@ -3524,9 +3524,9 @@
             "support": 1.0
         },
         "read_file": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.13636363636363635,
+            "recall": 0.75,
+            "f1-score": 0.23076923076923078,
             "support": 4.0
         },
         "read_input": {
@@ -3542,9 +3542,9 @@
             "support": 1.0
         },
         "read_int": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.1111111111111111,
+            "recall": 1.0,
+            "f1-score": 0.2,
             "support": 3.0
         },
         "read_int2": {
@@ -3650,9 +3650,9 @@
             "support": 2.0
         },
         "rec": {
-            "precision": 0.1320754716981132,
+            "precision": 0.875,
             "recall": 1.0,
-            "f1-score": 0.23333333333333334,
+            "f1-score": 0.9333333333333333,
             "support": 7.0
         },
         "recur": {
@@ -3668,9 +3668,9 @@
             "support": 3.0
         },
         "redirect": {
-            "precision": 0.05714285714285714,
-            "recall": 1.0,
-            "f1-score": 0.10810810810810811,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 2.0
         },
         "reduce": {
@@ -3680,9 +3680,9 @@
             "support": 1.0
         },
         "removeNL": {
-            "precision": 0.25,
-            "recall": 1.0,
-            "f1-score": 0.4,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 1.0
         },
         "replace": {
@@ -3752,9 +3752,9 @@
             "support": 2.0
         },
         "route": {
-            "precision": 0.10526315789473684,
-            "recall": 0.6666666666666666,
-            "f1-score": 0.18181818181818182,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 3.0
         },
         "row": {
@@ -3788,9 +3788,9 @@
             "support": 1.0
         },
         "run": {
-            "precision": 0.21428571428571427,
-            "recall": 0.3,
-            "f1-score": 0.25,
+            "precision": 0.03773584905660377,
+            "recall": 0.2,
+            "f1-score": 0.06349206349206349,
             "support": 10.0
         },
         "runCase": {
@@ -3818,9 +3818,9 @@
             "support": 1.0
         },
         "saveFile": {
-            "precision": 0.17391304347826086,
+            "precision": 0.0547945205479452,
             "recall": 1.0,
-            "f1-score": 0.2962962962962963,
+            "f1-score": 0.1038961038961039,
             "support": 4.0
         },
         "scan": {
@@ -3836,9 +3836,9 @@
             "support": 1.0
         },
         "search": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.5,
+            "recall": 0.16666666666666666,
+            "f1-score": 0.25,
             "support": 12.0
         },
         "select": {
@@ -3872,9 +3872,9 @@
             "support": 2.0
         },
         "shellsort": {
-            "precision": 0.028985507246376812,
-            "recall": 1.0,
-            "f1-score": 0.056338028169014086,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 2.0
         },
         "shift": {
@@ -3938,9 +3938,9 @@
             "support": 4.0
         },
         "solution": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.01834862385321101,
+            "recall": 0.5,
+            "f1-score": 0.035398230088495575,
             "support": 4.0
         },
         "solv": {
@@ -4004,9 +4004,9 @@
             "support": 2.0
         },
         "sort": {
-            "precision": 0.3,
-            "recall": 0.1,
-            "f1-score": 0.15,
+            "precision": 0.10526315789473684,
+            "recall": 0.13333333333333333,
+            "f1-score": 0.11764705882352941,
             "support": 30.0
         },
         "sort1": {
@@ -4022,15 +4022,15 @@
             "support": 1.0
         },
         "split": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.45454545454545453,
+            "recall": 0.7142857142857143,
+            "f1-score": 0.5555555555555556,
             "support": 7.0
         },
         "splitn": {
-            "precision": 0.1388888888888889,
-            "recall": 1.0,
-            "f1-score": 0.24390243902439024,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 5.0
         },
         "sq": {
@@ -4052,9 +4052,9 @@
             "support": 6.0
         },
         "sscanf_ilist": {
-            "precision": 0.24,
+            "precision": 1.0,
             "recall": 1.0,
-            "f1-score": 0.3870967741935484,
+            "f1-score": 1.0,
             "support": 6.0
         },
         "stNEW": {
@@ -4118,9 +4118,9 @@
             "support": 17.0
         },
         "swapdig": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
             "support": 1.0
         },
         "t": {
@@ -4184,9 +4184,9 @@
             "support": 2.0
         },
         "time_lap": {
-            "precision": 0.10526315789473684,
-            "recall": 1.0,
-            "f1-score": 0.19047619047619047,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
             "support": 2.0
         },
         "time_ref": {
@@ -4196,9 +4196,9 @@
             "support": 2.0
         },
         "time_resume": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.42857142857142855,
+            "recall": 1.0,
+            "f1-score": 0.6,
             "support": 3.0
         },
         "time_snapshot": {
@@ -4268,9 +4268,9 @@
             "support": 5.0
         },
         "usage": {
-            "precision": 0.5,
-            "recall": 0.2,
-            "f1-score": 0.2857142857142857,
+            "precision": 0.42857142857142855,
+            "recall": 0.6,
+            "f1-score": 0.5,
             "support": 5.0
         },
         "val": {
@@ -4346,9 +4346,9 @@
             "support": 3.0
         },
         "work": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1-score": 0.0,
+            "precision": 0.11764705882352941,
+            "recall": 0.13333333333333333,
+            "f1-score": 0.125,
             "support": 15.0
         },
         "write": {
@@ -4441,51 +4441,51 @@
             "f1-score": 0.0,
             "support": 5.0
         },
-        "accuracy": 0.12511013215859032,
+        "accuracy": 0.1458149779735683,
         "macro avg": {
-            "precision": 0.022699009440288714,
-            "recall": 0.03953584502599281,
-            "f1-score": 0.02189235877097604,
+            "precision": 0.029760273096871258,
+            "recall": 0.05008308398394605,
+            "f1-score": 0.03064178517050811,
             "support": 2270.0
         },
         "weighted avg": {
-            "precision": 0.05209997145137028,
-            "recall": 0.12511013215859032,
-            "f1-score": 0.05014268657974039,
+            "precision": 0.07326900411045638,
+            "recall": 0.1458149779735683,
+            "f1-score": 0.07351225704260295,
             "support": 2270.0
         }
     },
     "bin_accuracies": {
         "0-99": {
-            "correct": 56,
+            "correct": 57,
             "total": 285
         },
         "100-199": {
-            "correct": 81,
+            "correct": 103,
             "total": 719
         },
         "200-299": {
-            "correct": 48,
+            "correct": 66,
             "total": 507
         },
         "300-399": {
-            "correct": 33,
+            "correct": 32,
             "total": 255
         },
         "400-499": {
-            "correct": 15,
+            "correct": 19,
             "total": 175
         },
         "500-599": {
-            "correct": 15,
+            "correct": 16,
             "total": 134
         },
         "600-699": {
-            "correct": 13,
+            "correct": 11,
             "total": 72
         },
         "700-799": {
-            "correct": 21,
+            "correct": 24,
             "total": 86
         },
         "800-899": {
@@ -4493,7 +4493,7 @@
             "total": 10
         },
         "900-999": {
-            "correct": 1,
+            "correct": 0,
             "total": 9
         },
         "1000-1099": {
@@ -4505,11 +4505,11 @@
             "total": 2
         },
         "1200-1299": {
-            "correct": 0,
+            "correct": 1,
             "total": 1
         },
         "1300-1399": {
-            "correct": 0,
+            "correct": 1,
             "total": 5
         },
         "1400-1499": {
