@@ -264,7 +264,7 @@ validation_dataset = dataset_valid.take(number_lines_valid)
 batch_logger = LambdaCallback(on_batch_end=on_batch_end)
 history = model.fit(
     train_dataset,
-    epochs=1,
+    epochs=6,
     steps_per_epoch=steps_per_epoch,
     validation_data=validation_dataset,
     validation_steps=validation_steps,
