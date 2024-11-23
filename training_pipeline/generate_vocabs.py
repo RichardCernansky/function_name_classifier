@@ -1,6 +1,13 @@
+import sys
 import ndjson
 import pickle
 from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
+
+if len(sys.argv) < 2:
+    print("Usage: python generate_vocabs.py <fold_idx>")
+    sys.exit(1)
+
+fold_idx = int(sys.argv[1])  # Read and convert the fold index from command line argument
 
 def generate_vocabs(file_paths):
     # Open the .ndjson file
@@ -46,7 +53,7 @@ def generate_vocabs(file_paths):
     return vocabs_dict
 
 
-vocabs_pkl = 'vocabs.pkl'
+vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
 train = 'data_ndjson/strat_train.ndjson'
 valid = 'data_ndjson/strat_valid.ndjson'
 

@@ -4,14 +4,10 @@ import os
 from sklearn.model_selection import StratifiedKFold
 import subprocess
 
-# Sample input file (replace with actual file path)
+NUM_FOLDS = 5
 ndjson_file = "data_ndjson/functionsASTs_dropped_lower_5.ndjson"
 
-# Clear the .log file contents before the whole process
-#with open("analysis/tests_results.log", "w") as log_file:  # Use 'w' to overwrite the file
-#    log_file.write("")
-
-# Load the data from NDJSON
+# load the data from NDJSON
 name_ast = []
 with open(ndjson_file, "r") as file:
     for line in file:
@@ -46,7 +42,7 @@ else:
     X = df_name_ast[['AST', 'NumTokens']].values  # Features (AST as strings and num_tokens)
     y = df_name_ast['FunctionName'].values  # Labels for stratification
 
-    strat_kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=40)
+    strat_kfold = StratifiedKFold(n_splits=NUM_FOLDS, shuffle=True, random_state=40)
 
     for fold_index, (train_valid_index, test_index) in enumerate(strat_kfold.split(X, y)):
         X_train_valid, X_test = X[train_valid_index], X[test_index]
@@ -68,7 +64,6 @@ else:
                 outfile.write('\n')
 
         print(f"Fold {fold_index} saved as NDJSON files.")
-        # Run external scripts using the generated files
         try:
             subprocess.run(["python", "train_valid_strat.py"], check=True)
             # Generate vocabs for the current fold
@@ -82,5 +77,10 @@ else:
 
         except subprocess.CalledProcessError as e:
             print(f"Error occurred during processing of Fold {fold_index}: {e}")
+
+    #aggregation script - compute average across reports and create the plots
+    subprocess.run(["python", "aggregated_avg.py"], check=True)
+
+
 
 print("All folds processed successfully!")

@@ -7,6 +7,7 @@ import math
 import pickle
 import sys
 import pandas as pd
+import json
 
 import tensorflow as tf
 from tensorflow import keras
@@ -26,7 +27,7 @@ if len(sys.argv) < 2:
     print("Usage: python AttentionCNNclassifier.py <fold_idx>")
     sys.exit(1)
 
-fold_idx = int(sys.argv[1])  # Read and convert the fold index from command line argument
+fold_idx = int(sys.argv[1])
 
 class WeightedContextLayer(Layer):
     def __init__(self, **kwargs):
@@ -87,28 +88,27 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
     paths_indices = []  # path indices
     ets_indices = []  # end terminals indices
 
-    # Get the tag value, return None if not found (handle accordingly later)
     tag_idx = tags_vocab.get(tag, None)
     if tag_idx is None:
         return None  # handle appropriately
 
     for path in func_paths:  # map to the indices
-        # Get the terminal node's data, if not in vocab skip adding to list
+        # get the terminal node's data, if not in vocab skip adding to list
         start_index = value_vocab.get(path[0], None)
         if start_index is not None:
             sts_indices.append(start_index)
 
-        # Get the path nodes' kinds, if not in vocab skip adding to list
+        # get the path nodes' kinds, if not in vocab skip adding to list
         path_index = path_vocab.get(path[1:-1], None)
         if path_index is not None:
             paths_indices.append(path_index)
 
-        # Get the ending terminal node's data, if not in vocab skip adding to list
+        # get the ending terminal node's data, if not in vocab skip adding to list
         end_index = value_vocab.get(path[-1], None)
         if end_index is not None:
             ets_indices.append(end_index)
 
-    # Pad sequences
+    # pad sequences
     sts_indices = pad_sequences([sts_indices], maxlen=max_num_contexts, padding='post', value=0)
     paths_indices = pad_sequences([paths_indices], maxlen=max_num_contexts, padding='post', value=0)
     ets_indices = pad_sequences([ets_indices], maxlen=max_num_contexts, padding='post', value=0)
@@ -136,15 +136,14 @@ with custom_object_scope(custom_objects):
 true_labels = []
 predicted_labels = []
 
-# Define token bins for length analysis
-bins = list(range(0, 2100, 100))  # Bins from 0 to 2000 with a step of 100
+bins = list(range(0, 2100, 100))  # bins from 0 to 2000 with a step of 100
 bin_labels = [f"{bins[i]}-{bins[i + 1] - 1}" for i in range(len(bins) - 1)]
 
-# Dictionaries to keep track of correct predictions and total samples per bin
+# dictionaries to keep track of correct predictions and total samples per bin
 correct_predictions_per_bin = {label: 0 for label in bin_labels}
 total_samples_per_bin = {label: 0 for label in bin_labels}
 
-# Process the test data and gather predictions and bin information
+# process the test data and gather predictions and bin information
 with open(test_file, 'r') as f:
     data = ndjson.load(f)
 
@@ -152,7 +151,7 @@ with open(test_file, 'r') as f:
         try:
             num_tokens = line.get("num_tokens")
             if num_tokens is None:
-                continue  # Skip if num_tokens is missing
+                continue  # skip if num_tokens is missing
 
             true_bin = pd.cut([num_tokens], bins=bins, labels=bin_labels)[0]
 
@@ -171,11 +170,11 @@ with open(test_file, 'r') as f:
             prediction = model.predict(inputs)
             predicted_tag_idx = np.argmax(prediction)
 
-            # Store true and predicted labels for the overall report
+            # store true and predicted labels for the overall report
             true_labels.append(tag_idx)
             predicted_labels.append(predicted_tag_idx)
 
-            # Update bin-based accuracy counters
+            # update bin-based accuracy counters
             if predicted_tag_idx == tag_idx:
                 correct_predictions_per_bin[true_bin] += 1
             total_samples_per_bin[true_bin] += 1
@@ -183,37 +182,33 @@ with open(test_file, 'r') as f:
         except Exception as e:
             print(f"Error processing line: {e}")
 
-# Calculate overall accuracy and classification report
+# calculate overall accuracy and classification report
 accuracy = accuracy_score(true_labels, predicted_labels)
-report = classification_report(true_labels, predicted_labels,
-                               target_names=[reverse_tags_vocab[idx] for idx in set(true_labels)])
+report = classification_report(true_labels,
+                               predicted_labels,
+                               target_names=[reverse_tags_vocab[idx] for idx in set(true_labels)],
+                               output_dict=True)
 
-# Write overall metrics and bin-based analysis to the log file
-with open("analysis/tests_results.log", "a") as log_file:
-    log_file.write(f"Fold {fold_idx}\n")
-    log_file.write(f"Overall Accuracy: {accuracy:.4f}\n")
-    log_file.write("Classification Report:\n")
-    log_file.write(report + "\n")
+fold_metrics = {
+    "accuracy": accuracy,
+    "classification_report": report,
+    "bin_accuracies": {
+        bin_label: {
+            "correct": correct_predictions_per_bin[bin_label],
+            "total": total_samples_per_bin[bin_label]
+        } for bin_label in bin_labels
+    }
+}
 
-    # Add bin-based accuracy to the log file
-    log_file.write("Accuracy per length bin:\n")
-    for bin_label in bin_labels:
-        if total_samples_per_bin[bin_label] > 0:
-            accuracy_per_bin = correct_predictions_per_bin[bin_label] / total_samples_per_bin[bin_label]
-            log_file.write(f"Bin {bin_label}: Accuracy = {accuracy_per_bin:.2f} "
-                           f"({correct_predictions_per_bin[bin_label]}/{total_samples_per_bin[bin_label]})\n")
-        else:
-            log_file.write(f"Bin {bin_label}: No samples\n")
+with open(f"analysis/fold_{fold_idx}_metrics.json", "w") as f:
+    json.dump(fold_metrics, f, indent=4)
 
-# Print metrics to the console
-print(f"Overall Accuracy: {accuracy:.4f}")
-print("Classification Report:")
-print(report)
-print("\nAccuracy per length bin:")
 for bin_label in bin_labels:
-    if total_samples_per_bin[bin_label] > 0:
-        accuracy_per_bin = correct_predictions_per_bin[bin_label] / total_samples_per_bin[bin_label]
-        print(f"Bin {bin_label}: Accuracy = {accuracy_per_bin:.2f} "
-              f"({correct_predictions_per_bin[bin_label]}/{total_samples_per_bin[bin_label]})")
-    else:
-        print(f"Bin {bin_label}: No samples")
+    correct = correct_predictions_per_bin[bin_label]
+    total = total_samples_per_bin[bin_label]
+    accuracy_bin = correct / total if total > 0 else 0
+    print(f"Bin {bin_label}: Accuracy = {accuracy_bin:.2f}")
+print(f"Fold {fold_idx} Results:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"Classification Report:\n{report}")
+

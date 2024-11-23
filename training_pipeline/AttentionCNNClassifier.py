@@ -97,7 +97,7 @@ def get_vocabs(vocabs_pkl):
         return vocabs['value_vocab'], vocabs['path_vocab'], vocabs['tags_vocab'], vocabs['max_num_contexts']
 
 
-vocabs_pkl = 'vocabs.pkl'
+vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
 
 # vocab sizes and embedding dimensions
@@ -264,14 +264,14 @@ validation_dataset = dataset_valid.take(number_lines_valid)
 batch_logger = LambdaCallback(on_batch_end=on_batch_end)
 history = model.fit(
     train_dataset,
-    epochs=8,
+    epochs=10,
     steps_per_epoch=steps_per_epoch,
     validation_data=validation_dataset,
     validation_steps=validation_steps,
     callbacks=[batch_logger]
 )
 
-model.save(f'model_fold_{fold_idx}.h5')
+model.save(f'trained_models/model_fold_{fold_idx}.h5')
 
 print("\nTRAINING DONE!")
 
