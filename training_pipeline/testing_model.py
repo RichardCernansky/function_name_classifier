@@ -182,12 +182,18 @@ with open(test_file, 'r') as f:
         except Exception as e:
             print(f"Error processing line: {e}")
 
-# calculate overall accuracy and classification report
+
+#calculate overall accuracy and classification report
 accuracy = accuracy_score(true_labels, predicted_labels)
-report = classification_report(true_labels,
-                               predicted_labels,
-                               target_names=[reverse_tags_vocab[idx] for idx in set(true_labels)],
-                               output_dict=True)
+all_labels = sorted(reverse_tags_vocab.keys())
+target_names = [reverse_tags_vocab[idx] for idx in all_labels]
+report = classification_report(
+    true_labels,
+    predicted_labels,
+    labels=all_labels,  # Explicitly specify all classes
+    target_names=target_names,
+    output_dict=True
+)
 
 fold_metrics = {
     "accuracy": accuracy,

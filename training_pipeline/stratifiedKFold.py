@@ -67,7 +67,7 @@ else:
         try:
             subprocess.run(["python", "train_valid_strat.py"], check=True)
             # Generate vocabs for the current fold
-            subprocess.run(["python", "generate_vocabs.py"], check=True)
+            subprocess.run(["python", "generate_vocabs.py", str(fold_index+1)], check=True)
             # Train the model on the current fold
             subprocess.run(["python", "AttentionCNNClassifier.py", str(fold_index+1)], check=True)
             # Test the model on the current fold's test file

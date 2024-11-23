@@ -2,8 +2,8 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from stratifiedKFold import NUM_FOLDS
 
+NUM_FOLDS = 5
 
 # initialize accumulators for metrics
 total_accuracy = 0
@@ -12,7 +12,7 @@ classification_reports = []
 
 # load all fold metrics
 for fold_idx in range(NUM_FOLDS):
-    with open(f"analysis/fold_{fold_idx}_metrics.json", "r") as f:
+    with open(f"analysis/fold_{fold_idx+1}_metrics.json", "r") as f:
         fold_metrics = json.load(f)
         # aggregate accuracy
         total_accuracy += fold_metrics["accuracy"]
@@ -43,11 +43,16 @@ for bin_label, bin_data in bin_accuracies.items():
 combined_report = {}
 for report in classification_reports:
     for label, metrics in report.items():
-        if label not in combined_report:
-            combined_report[label] = {metric: [] for metric in metrics}
+        # Ensure metrics is a dictionary before processing
+        if isinstance(metrics, dict):
+            if label not in combined_report:
+                combined_report[label] = {metric: [] for metric in metrics}
 
-        for metric, value in metrics.items():
-            combined_report[label][metric].append(value)
+            for metric, value in metrics.items():
+                combined_report[label][metric].append(value)
+        else:
+            print(f"Warning: Metrics for label '{label}' is not a dictionary: {metrics}")
+
 
 # calculate the average of the measurements
 average_report = {}
@@ -105,3 +110,28 @@ plt.ylabel("Classes", fontsize=12)
 plt.tight_layout()
 
 plt.savefig("analysis/average_class_metrics_heatmap.pdf")
+
+
+# Plot heatmap for 800 classes
+plt.figure(figsize=(20, 40))  # Adjust the size for better readability
+
+sns.heatmap(
+    confusion_matrix_like,
+    annot=False,  # Remove annotations to improve clarity for a large number of classes
+    fmt=".2f",
+    xticklabels=metrics,
+    yticklabels=classes,
+    cmap="coolwarm",
+    cbar_kws={'label': 'Metric Value'}  # Add a color bar label for context
+)
+
+plt.title("Average Metrics Per Class (800 Classes)", fontsize=16)
+plt.xlabel("Metrics", fontsize=14)
+plt.ylabel("Classes", fontsize=14)
+plt.tight_layout()
+
+# Save the heatmap as a PDF
+plt.savefig("analysis/average_class_metrics_heatmap_full.pdf")
+
+# Show the heatmap
+plt.show()
