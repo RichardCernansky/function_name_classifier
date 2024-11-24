@@ -136,7 +136,8 @@ with custom_object_scope(custom_objects):
 true_labels = []
 predicted_labels = []
 
-bins = list(range(0, 2100, 100))  # bins from 0 to 2000 with a step of 100
+bin_size = 100
+bins = list(range(0, 2100, bin_size))  # bins from 0 to 2000 with a step of 100
 bin_labels = [f"{bins[i]}-{bins[i + 1] - 1}" for i in range(len(bins) - 1)]
 
 # dictionaries to keep track of correct predictions and total samples per bin
