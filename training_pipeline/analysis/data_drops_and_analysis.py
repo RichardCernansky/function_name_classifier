@@ -3,6 +3,7 @@ import pandas as pd
 from collections import Counter
 from matplotlib import pyplot as plt
 import os
+from scipy.stats import shapiro
 
 def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
@@ -65,9 +66,19 @@ df = pd.DataFrame(data)
 print(df.head())
 # sort the dataframe by frequency in descending order
 df = df.sort_values(by="Frequency", ascending=False)
+
+#Shapiro-Wilk test on frequencies
+shapiro_stat, shapiro_p = shapiro(df["Frequency"])
+print(f"Shapiro-Wilk Test Results:")
+print(f"  W Statistic: {shapiro_stat:.4f}")
+print(f"  P-value: {shapiro_p:.4e}")
+if shapiro_p < 0.05:
+    print("The data is not normally distributed (p < 0.05).")
+else:
+    print("The data follows a normal distribution (p >= 0.05).")
+
 column_name = f"Frequency (Total: {total_functions})"
 df.columns = ["FunctionName", column_name, "Percentage"]
-# df.to_csv(, index=False)
 
 #PLOT NAMES
 # Plotting the bar graph
@@ -88,24 +99,6 @@ plt.tight_layout()  # Adjust layout to fit labels nicely
 plt.show()
 
 
-# # PLOT NUM_TOKENS
-# # Create a histogram with bins of size 100 and add custom x-axis ticks
-# plt.figure(figsize=(12, 6), dpi=100)
-# plt.hist(function_lengths_tokens, bins=500, edgecolor='black')
-#
-# # Add titles and labels
-# plt.title('Histogram of Function Lengths in Tokens (whitespace separated)')
-# plt.xlabel('Function Length (number of tokens)')
-# plt.ylabel('Number of Functions')
-#
-# # Set x-ticks at intervals of 100 with smaller font size and rotation
-# plt.xticks(range(0, 3000 + 100, 100), fontsize=8, rotation=45)
-#
-# plt.savefig(output_length_histogram_pdf_file, format='pdf')
-# plt.show()
-
-# PLOT NUM_TOKENS (zoomed)
-# Create a histogram with bins of size 100 and zoom in to focus on the main distribution
 plt.figure(figsize=(12, 6), dpi=100)
 plt.hist(function_lengths_tokens, bins=500, edgecolor='black')
 # Set the x-axis limit to exclude extreme outliers and focus on the main distribution
