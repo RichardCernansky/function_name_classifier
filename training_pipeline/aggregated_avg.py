@@ -82,30 +82,44 @@ plt.savefig("analysis/average_accuracy_and_bins.pdf")
 
 #---------------------------------------------------------------------
 # --- Plot 2: Confusion Matrix-Like Visualization ---
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+# Assuming you have `average_report` and `confusion_matrix_like` already computed
 classes = list(average_report.keys())
 metrics = ["precision", "recall", "f1-score"]
 confusion_matrix_like = np.array([[average_report[cls][metric] for metric in metrics] for cls in classes])
 
-reversed_classes = classes[::-1]
-confusion_matrix_like = confusion_matrix_like[::-1]
-
+# Adjust figure height dynamically based on the number of classes
 figure_height = len(classes) * 0.2
 plt.figure(figsize=(20, figure_height))
 
+# Create the heatmap
 sns.heatmap(
     confusion_matrix_like,
     annot=False,
     fmt=".2f",
     xticklabels=metrics,
-    yticklabels=reversed_classes,
+    yticklabels=classes,
     cmap="coolwarm",
     cbar_kws={'label': 'Metric Value'}
 )
 
-plt.title(f"Average Metrics Per Class ({len(classes)} Classes)", fontsize=16)
-plt.xlabel("Metrics", fontsize=14)
+# Move the x-axis labels (metrics) to the top
+plt.gca().xaxis.tick_top()  # Move the ticks to the top
+plt.gca().xaxis.set_label_position('top')  # Move the axis label position to the top
+
+# Add title and axis labels
+plt.title(f"Average Metrics Per Class ({len(classes)} Classes)", fontsize=16, pad=30)
+plt.xlabel("")  # Remove default x-axis label text (since metrics are already at the top)
 plt.ylabel("Classes", fontsize=14)
+
+# Adjust layout to fit everything nicely
 plt.tight_layout()
 
+# Save and show the plot
 plt.savefig("analysis/average_class_metrics_heatmap_full.pdf")
+plt.show()
+
 
