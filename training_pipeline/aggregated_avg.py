@@ -79,14 +79,15 @@ plt.ylabel("Accuracy", fontsize=14, labelpad=10)
 plt.ylim(0, 1)
 plt.tight_layout()
 plt.savefig("analysis/average_accuracy_and_bins.pdf")
-plt.show()
-
 
 #---------------------------------------------------------------------
 # --- Plot 2: Confusion Matrix-Like Visualization ---
 classes = list(average_report.keys())
 metrics = ["precision", "recall", "f1-score"]
 confusion_matrix_like = np.array([[average_report[cls][metric] for metric in metrics] for cls in classes])
+
+reversed_classes = classes[::-1]
+confusion_matrix_like = confusion_matrix_like[::-1]
 
 figure_height = len(classes) * 0.2
 plt.figure(figsize=(20, figure_height))
@@ -96,7 +97,7 @@ sns.heatmap(
     annot=False,
     fmt=".2f",
     xticklabels=metrics,
-    yticklabels=classes,
+    yticklabels=reversed_classes,
     cmap="coolwarm",
     cbar_kws={'label': 'Metric Value'}
 )
@@ -107,4 +108,4 @@ plt.ylabel("Classes", fontsize=14)
 plt.tight_layout()
 
 plt.savefig("analysis/average_class_metrics_heatmap_full.pdf")
-plt.show()
+
