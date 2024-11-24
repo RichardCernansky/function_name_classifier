@@ -28,7 +28,7 @@ for fold_idx in range(NUM_FOLDS):
             bin_accuracies[bin_label]["total"] += bin_data["total"]
 
 # compute average accuracy
-average_accuracy = total_accuracy / NUM_FOLDS
+average_accuracy_model = total_accuracy / NUM_FOLDS
 
 #average bin accuracies
 average_bin_accuracies = {}
@@ -61,13 +61,11 @@ for label, metrics in combined_report.items():
         metric: np.mean(values) for metric, values in metrics.items()
     }
 
-
 #---------------------------PLOTTING-------------------------
-# --- Plot 1: Average Accuracy and Bin Accuracies ---
 # --- Plot 1: Average Accuracy and Bin Accuracies ---
 plt.figure(figsize=(12, 8))  # Increase figure size for better clarity
 
-plt.text(0.5, 1.05, f"Average Model Accuracy: {average_accuracy:.4f}",
+plt.text(0.5, 1.05, f"Average Model Accuracy: {average_accuracy_model:.4f}",
          fontsize=16, ha="center", transform=plt.gca().transAxes, fontweight="bold")
 
 bin_labels = list(average_bin_accuracies.keys())
