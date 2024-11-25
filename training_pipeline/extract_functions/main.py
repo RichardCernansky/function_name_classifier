@@ -32,9 +32,6 @@ csv.field_size_limit(sys.maxsize)
 num_all_rows_c = 0
 num_successful_rows = 0
 
-def count_tokens(code_string):
-    tokens = code_string.split()
-    return len(tokens)
 
 # get hash for seen_func_set
 def get_md5_hash(input_string: str) -> str:
@@ -58,7 +55,7 @@ def extract_function_names(file_path):
 
     return function_names
 
-def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t, num_tokens):
+def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
     #print(ascii_tree) #ascii tree for debug prints
     """Save the entire tree as a single JSON object in NDJSON format."""
     with open(ndjson_path_t, "a") as f:
@@ -76,7 +73,7 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t, num
                                 func_tree_dict = definition_node.to_dict()
                                 json_data = {
                                     "tag": tag,
-                                    "num_tokens": num_tokens,
+                                    "num_tokens": AsciiTreeProcessor.get_num_tokens(definition_node),
                                     "ast": func_tree_dict
                                 }
                                 json_line = json.dumps(json_data)
@@ -84,12 +81,12 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t, num
                                 break
                         break
 
-def ascii_to_ndjson(ascii_tree: str, num_tokens: int):
+def ascii_to_ndjson(ascii_tree: str):
     # print(ascii_tree)
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
     global ndjson_path
-    save_functions_to_ndjson(node_tree, ascii_tree, ndjson_path, num_tokens)
+    save_functions_to_ndjson(node_tree, ascii_tree, ndjson_path)
 
 def run_cnip(prefix) -> subprocess.CompletedProcess[str]:
     # Construct and execute the command
@@ -117,7 +114,7 @@ def process_c_file(line: str, seen_func_hashes: set):
         # if successful, process the ascii-tree
         else:
             num_successful_rows += 1
-            ascii_to_ndjson(result.stdout, count_tokens(line))
+            ascii_to_ndjson(result.stdout)
         return
     else:
         print("Repeated function found.")

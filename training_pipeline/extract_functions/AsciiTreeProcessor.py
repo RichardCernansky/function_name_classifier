@@ -71,3 +71,18 @@ class AsciiTreeProcessor:
                 cur_node = cur_node.parent
 
         return root_node
+
+    @staticmethod
+    def get_num_tokens(func_root):
+        if len(func_root.children) == 0:
+            # if leaf node -> count tokens in the value
+            return len(func_root.value.split()) \
+                    if hasattr(func_root, "data") and isinstance(func_root.data,str) else 0
+
+        #recursion
+        total_tokens = 0
+        for child in func_root.children:
+            total_tokens += AsciiTreeProcessor.get_num_tokens(child)
+
+        return total_tokens
+
