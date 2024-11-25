@@ -76,7 +76,7 @@ class AsciiTreeProcessor:
     def get_num_tokens(func_root):
         if len(func_root.children) == 0:
             # if leaf node -> count tokens in the value
-            return len(func_root.value.split()) \
+            return len(func_root.data.split()) \
                     if hasattr(func_root, "data") and isinstance(func_root.data,str) else 0
 
         #recursion
