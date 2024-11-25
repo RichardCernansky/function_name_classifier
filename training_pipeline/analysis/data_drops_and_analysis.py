@@ -1,9 +1,10 @@
 import json
+import numpy as np
 import pandas as pd
 from collections import Counter
 from matplotlib import pyplot as plt
 import os
-from scipy.stats import shapiro, kstest
+from scipy.stats import shapiro,kstest, norm 
 
 def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
@@ -98,9 +99,11 @@ plt.savefig(output_freq_histogram_pdf_file, format='pdf')
 plt.tight_layout()  # Adjust layout to fit labels nicely
 plt.show()
 
-print(len(filtered_function_lengths_tokens))
-ks_statistic, ks_p_value = kstest(filtered_function_lengths_tokens, 'norm')
-# Print the results
+#functions lenghts in tokens
+mean = np.mean(filtered_function_lengths_tokens)
+std = np.std(filtered_function_lengths_tokens)
+ks_statistic, ks_p_value = kstest(filtered_function_lengths_tokens, 'norm', args=(mean, std))
+
 print(f"Kolmogorov-Smirnov Test Results:")
 print(f"  KS Statistic: {ks_statistic:.4f}")
 print(f"  P-value: {ks_p_value:.4e}")
