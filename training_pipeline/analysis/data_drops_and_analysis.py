@@ -3,7 +3,7 @@ import pandas as pd
 from collections import Counter
 from matplotlib import pyplot as plt
 import os
-from scipy.stats import shapiro
+from scipy.stats import shapiro, kstest
 
 def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
@@ -98,18 +98,26 @@ plt.savefig(output_freq_histogram_pdf_file, format='pdf')
 plt.tight_layout()  # Adjust layout to fit labels nicely
 plt.show()
 
+print(len(function_lengths_tokens))
+ks_statistic, ks_p_value = kstest(function_lengths_tokens, 'norm')
+# Print the results
+print(f"Kolmogorov-Smirnov Test Results:")
+print(f"  KS Statistic: {ks_statistic:.4f}")
+print(f"  P-value: {ks_p_value:.4e}")
+
+if ks_p_value < 0.05:
+    print("The data is not normally distributed (p < 0.05).")
+else:
+    print("The data follows a normal distribution (p >= 0.05).")
 
 plt.figure(figsize=(12, 6), dpi=100)
-plt.hist(function_lengths_tokens, bins=500, edgecolor='black')
-# Set the x-axis limit to exclude extreme outliers and focus on the main distribution
-plt.xlim(0, 3000)  # Adjust the range as needed based on the data
-# Add grid lines for better visualization
+plt.hist(function_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')  # Reduce bin count for better clarity
+plt.xlim(0, 500)  # Focus on functions with lengths up to 500 tokens
 plt.grid(axis='y', alpha=0.75)
-# Add titles and labels
-plt.title('Histogram of Function Lengths in Tokens (whitespace separated)')
+plt.title('Focused Histogram of Function Lengths in Tokens (0-500)')
 plt.xlabel('Function Length (number of tokens)')
 plt.ylabel('Number of Functions')
-# Set x-ticks at intervals of 100 with smaller font size and rotation
-plt.xticks(range(0, 3000 + 100, 100), fontsize=8, rotation=45)
-plt.savefig("ZOOMED_" + output_length_histogram_pdf_file, format='pdf')
+plt.xticks(range(0, 500 + 50, 50), fontsize=10, rotation=45)
+plt.tight_layout()  # Ensure labels are not cut off
+plt.savefig("FOCUSED_" + output_length_histogram_pdf_file, format='pdf')
 plt.show()
