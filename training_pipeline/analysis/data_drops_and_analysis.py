@@ -30,8 +30,7 @@ with open(input_ndjson_file, "r") as file:
             num_tokens = function_json.get('num_tokens')
             if function_name and root_ast_node and num_tokens:
                 function_names.append(function_name)
-                function_lines.append((function_name, line))
-                function_lengths_tokens.append(num_tokens)
+                function_lines.append((function_name, line, num_tokens))
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 
@@ -56,10 +55,12 @@ df = df.sort_values(by="Frequency", ascending=False)
 df.columns = [f"FunctionName", f"Frequency (Total: {total_functions})", "Percentage"]
 
 # WRITE NEW .NDJSON
+filtered_function_lengths_tokens = []
 with open(output_ndjson_file, "w") as outfile:
-    for function_name, original_line in function_lines:
+    for function_name, original_line,num_tokens in function_lines:
         if function_name in filtered_function_names:
             outfile.write(original_line)
+            filtered_function_lengths_tokens.append(num_tokens)
 
 #prepare df
 df = pd.DataFrame(data)
