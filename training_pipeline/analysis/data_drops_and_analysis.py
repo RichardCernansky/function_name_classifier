@@ -20,7 +20,6 @@ poor_names = ['main', 'solve']
 
 function_names = []
 function_lines = []  # Store lines for future filtering
-function_lengths_tokens = []
 with open(input_ndjson_file, "r") as file:
     for line in file:
         try:
@@ -99,8 +98,8 @@ plt.savefig(output_freq_histogram_pdf_file, format='pdf')
 plt.tight_layout()  # Adjust layout to fit labels nicely
 plt.show()
 
-print(len(function_lengths_tokens))
-ks_statistic, ks_p_value = kstest(function_lengths_tokens, 'norm')
+print(len(filtered_function_lengths_tokens))
+ks_statistic, ks_p_value = kstest(filtered_function_lengths_tokens, 'norm')
 # Print the results
 print(f"Kolmogorov-Smirnov Test Results:")
 print(f"  KS Statistic: {ks_statistic:.4f}")
@@ -112,7 +111,7 @@ else:
     print("The data follows a normal distribution (p >= 0.05).")
 
 plt.figure(figsize=(12, 6), dpi=100)
-plt.hist(function_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')  # Reduce bin count for better clarity
+plt.hist(filtered_function_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')  # Reduce bin count for better clarity
 plt.xlim(0, 500)  # Focus on functions with lengths up to 500 tokens
 plt.grid(axis='y', alpha=0.75)
 plt.title('Focused Histogram of Function Lengths in Tokens (0-500)')
