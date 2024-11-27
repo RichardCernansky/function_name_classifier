@@ -86,3 +86,31 @@ class AsciiTreeProcessor:
 
         return total_tokens
 
+    @staticmethod
+    def get_ast_depth(func_root):
+        if len(func_root.children) == 0:
+            return 1
+
+        max_depth = 0
+        for child in func_root.children:
+            max_depth = max(max_depth, AsciiTreeProcessor.get_ast_depth(child))
+
+        return max_depth + 1
+
+
+    @staticmethod
+    def get_num_leaves(func_root):
+        if len(func_root.children) == 0:
+            # if leaf node -> count tokens in the value
+            return 1 \
+                    if hasattr(func_root, "data") and isinstance(func_root.data,str) else 0
+
+        #recursion
+        total_tokens = 0
+        for child in func_root.children:
+            total_tokens += AsciiTreeProcessor.get_num_tokens(child)
+
+        return total_tokens
+
+
+

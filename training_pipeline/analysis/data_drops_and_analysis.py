@@ -9,14 +9,22 @@ from scipy.stats import shapiro,kstest, norm
 def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
 
-prefix = ""
+names_prefix = "exploratory_analysis/names"
+token_lengths_prefix = "exploratory_analysis/token_lengths"
+ast_depths = "exploratory_analysis/ast_depths"
+num_leaves = "exploratory_analysis/num_leaves"
+
+pdf_postfix = ".pdf"
 #input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
 #input_ndjson_file = "../data_ndjson/contests.ndjson"
 input_ndjson_file = "../data_ndjson/merged.ndjson"
 output_ndjson_file = "../data_ndjson/dropped_lower_5.ndjson"
-# output_csv_file = get_basename_without_extension(input_ndjson_file) + "_freq_table.csv"
-output_freq_histogram_pdf_file = get_basename_without_extension(input_ndjson_file) + "_freq_histogram.pdf"
-output_length_histogram_pdf_file = "FOCUSED_" + get_basename_without_extension(input_ndjson_file) + "_length_histogram.pdf"
+basename_without_extension = get_basename_without_extension(input_ndjson_file)
+
+output_names_histogram_pdf_file = names_prefix + basename_without_extension + pdf_postfix
+output_lengths_histogram_pdf_file = token_lengths_prefix + basename_without_extension + pdf_postfix
+output_depths_pdf_file = ast_depths + basename_without_extension + pdf_postfix
+output_num_leaves_pdf_file = num_leaves + basename_without_extension + pdf_postfix
 
 poor_names = ['main', 'solve']
 
@@ -29,17 +37,17 @@ with open(input_ndjson_file, "r") as file:
             function_name = function_json.get('tag')
             root_ast_node = function_json.get('ast')
             num_tokens = function_json.get('num_tokens')
+
             if function_name and root_ast_node and num_tokens:
                 function_names.append(function_name)
                 function_lines.append((function_name, line, num_tokens))
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 
-function_counter = Counter(function_names)
 
+function_counter = Counter(function_names)
 filtered_function_names = set()
 data = []
-
 for function, freq in function_counter.items():
     if freq >= 5 and function not in poor_names: #filter
         filtered_function_names.add(function)
@@ -69,7 +77,8 @@ print(df.head())
 # sort the dataframe by frequency in descending order
 df = df.sort_values(by="Frequency", ascending=False)
 
-#Shapiro-Wilk test on frequencies
+#NAMES
+#Shapiro-Wilk test on name frequencies
 shapiro_stat, shapiro_p = shapiro(df["Frequency"])
 print(f"Shapiro-Wilk Test Results:")
 print(f"  W Statistic: {shapiro_stat:.4f}")
@@ -81,7 +90,6 @@ else:
 
 column_name = f"Frequency (Total: {total_functions})"
 df.columns = ["FunctionName", column_name, "Percentage"]
-
 #PLOT NAMES
 # Plotting the bar graph
 plt.figure(figsize=(20, 8))  # Adjust figure size as needed
@@ -96,19 +104,19 @@ plt.xticks(rotation=45, ha='right', fontsize=1)
 # Add grid lines to improve readability
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 # Save the plot
-plt.savefig(output_freq_histogram_pdf_file, format='pdf')
+plt.savefig(output_names_histogram_pdf_file, format='pdf')
 plt.tight_layout()  # Adjust layout to fit labels nicely
 plt.show()
 
-#functions lenghts in tokens
+
+#NUM_TOKENS
+#Kolmogorov-Smirnov test for num_tokens
 mean = np.mean(filtered_function_lengths_tokens)
 std = np.std(filtered_function_lengths_tokens)
 ks_statistic, ks_p_value = kstest(filtered_function_lengths_tokens, 'norm', args=(mean, std))
-
 print(f"Kolmogorov-Smirnov Test Results:")
 print(f"  KS Statistic: {ks_statistic:.4f}")
 print(f"  P-value: {ks_p_value:.4e}")
-
 if ks_p_value < 0.05:
     print("The data is not normally distributed (p < 0.05).")
 else:
@@ -123,5 +131,12 @@ plt.xlabel('Function Length (number of tokens)')
 plt.ylabel('Number of Functions')
 plt.xticks(range(0, 500 + 50, 50), fontsize=10, rotation=45)
 plt.tight_layout()  # Ensure labels are not cut off
-plt.savefig( output_length_histogram_pdf_file, format='pdf')
+plt.savefig( output_lengths_histogram_pdf_file, format='pdf')
 plt.show()
+
+
+#AST_DEPTH
+
+
+
+#NUM_LEAVES
