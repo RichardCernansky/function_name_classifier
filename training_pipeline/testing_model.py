@@ -133,6 +133,7 @@ custom_objects = {
 with custom_object_scope(custom_objects):
     model = load_model(model_file)
 
+#------------------------------ACTUAL--TESTING--------------------------
 true_labels = []
 predicted_labels = []
 
@@ -207,7 +208,7 @@ fold_metrics = {
     }
 }
 
-with open(f"analysis/fold_{fold_idx}_metrics.json", "w") as f:
+with open(f"analysis/metrics_json/fold_{fold_idx}_metrics.json", "w") as f:
     json.dump(fold_metrics, f, indent=4)
 
 # for bin_label in bin_labels:

@@ -9,13 +9,14 @@ from scipy.stats import shapiro,kstest, norm
 def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
 
-#input_ndjson_file = "../data_ndjson/functionsASTs_gcj-dataset.ndjson"
-#input_ndjson_file = "../data_ndjson/functionsASTs_contests.ndjson"
-input_ndjson_file = "../data_ndjson/functionsASTs_merged.ndjson"
-output_ndjson_file = "../data_ndjson/functionsASTs_dropped_lower_5.ndjson"
+prefix = ""
+#input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
+#input_ndjson_file = "../data_ndjson/contests.ndjson"
+input_ndjson_file = "../data_ndjson/merged.ndjson"
+output_ndjson_file = "../data_ndjson/dropped_lower_5.ndjson"
 # output_csv_file = get_basename_without_extension(input_ndjson_file) + "_freq_table.csv"
 output_freq_histogram_pdf_file = get_basename_without_extension(input_ndjson_file) + "_freq_histogram.pdf"
-output_length_histogram_pdf_file = get_basename_without_extension(input_ndjson_file) + "_length_histogram.pdf"
+output_length_histogram_pdf_file = "FOCUSED_" + get_basename_without_extension(input_ndjson_file) + "_length_histogram.pdf"
 
 poor_names = ['main', 'solve']
 
@@ -122,5 +123,5 @@ plt.xlabel('Function Length (number of tokens)')
 plt.ylabel('Number of Functions')
 plt.xticks(range(0, 500 + 50, 50), fontsize=10, rotation=45)
 plt.tight_layout()  # Ensure labels are not cut off
-plt.savefig("FOCUSED_" + output_length_histogram_pdf_file, format='pdf')
+plt.savefig( output_length_histogram_pdf_file, format='pdf')
 plt.show()

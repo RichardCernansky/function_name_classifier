@@ -22,7 +22,7 @@ file_name_col = None
 code_snip_col = None
 
 #consts
-ndjson_path = "../data_ndjson/functionsASTs_"
+ndjson_path = "../data_ndjson/"
 temp_file_path = "tmp/tempSourceCode.c"
 ndjson_suffix = ".ndjson"
 
