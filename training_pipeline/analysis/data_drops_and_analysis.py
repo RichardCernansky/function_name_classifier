@@ -9,10 +9,10 @@ from scipy.stats import shapiro,kstest, norm
 def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
 
-names_prefix = "exploratory_analysis/names"
-token_lengths_prefix = "exploratory_analysis/token_lengths"
-ast_depths = "exploratory_analysis/ast_depths"
-num_leaves = "exploratory_analysis/num_leaves"
+names_prefix = "exploratory_analysis/names/"
+token_lengths_prefix = "exploratory_analysis/token_lengths/"
+ast_depths_prefix = "exploratory_analysis/ast_depths/"
+num_leaves_prefix = "exploratory_analysis/num_leaves/"
 
 pdf_postfix = ".pdf"
 input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
@@ -23,8 +23,8 @@ basename_without_extension = get_basename_without_extension(input_ndjson_file)
 
 output_names_histogram_pdf_file = names_prefix + basename_without_extension + pdf_postfix
 output_lengths_histogram_pdf_file = token_lengths_prefix + basename_without_extension + pdf_postfix
-output_depths_pdf_file = ast_depths + basename_without_extension + pdf_postfix
-output_num_leaves_pdf_file = num_leaves + basename_without_extension + pdf_postfix
+output_depths_pdf_file = ast_depths_prefix + basename_without_extension + pdf_postfix
+output_num_leaves_pdf_file = num_leaves_prefix + basename_without_extension + pdf_postfix
 
 poor_names = ['main', 'solve']
 
