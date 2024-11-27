@@ -91,7 +91,7 @@ for key, bins in average_bin_accuracies_per_key.items():
 
     plt.legend(loc="upper right", fontsize=12)
 
-    plt.text(0.5, 1.05, f"Average Model Accuracy for {key.replace('_', ' ').title()}: {average_accuracy_model:.4f}",
+    plt.text(0.5, 1.05, f"Average Model Accuracy for {key.replace('_', ' ').title()}=step_size : {average_accuracy_model:.4f}",
              fontsize=14, ha="center", transform=plt.gca().transAxes, fontweight="bold")
     plt.title(f"Bin Average Accuracies for {key.replace('_', ' ').title()}", fontsize=18, fontweight="bold")
     plt.xlabel("Bins", fontsize=14, labelpad=10)
