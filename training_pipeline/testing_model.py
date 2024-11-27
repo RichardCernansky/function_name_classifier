@@ -22,7 +22,6 @@ from collections import OrderedDict  # for ordered sets of the data
 from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score
 
 from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
-from analysis.data_drops_and_analysis import num_leaves
 
 if len(sys.argv) < 2:
     print("Usage: python AttentionCNNclassifier.py <fold_idx>")
@@ -254,7 +253,7 @@ fold_metrics = {
     "ast_depth_5_bin_accuracies": {
         bin_label: {
             "correct": ast_depth_correct_5[bin_label],
-            "total": ast_depth_total_2[bin_label]
+            "total": ast_depth_total_5[bin_label]
         } for bin_label in ast_depth_bin_labels_5
     },
     "ast_depth_2_bin_accuracies": {
