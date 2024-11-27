@@ -15,9 +15,9 @@ ast_depths = "exploratory_analysis/ast_depths"
 num_leaves = "exploratory_analysis/num_leaves"
 
 pdf_postfix = ".pdf"
-#input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
+input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
 #input_ndjson_file = "../data_ndjson/contests.ndjson"
-input_ndjson_file = "../data_ndjson/merged.ndjson"
+# input_ndjson_file = "../data_ndjson/merged.ndjson"
 output_ndjson_file = "../data_ndjson/dropped_lower_5.ndjson"
 basename_without_extension = get_basename_without_extension(input_ndjson_file)
 
@@ -28,6 +28,7 @@ output_num_leaves_pdf_file = num_leaves + basename_without_extension + pdf_postf
 
 poor_names = ['main', 'solve']
 
+#FETCH DATA
 function_names = []
 function_lines = []  # Store lines for future filtering
 with open(input_ndjson_file, "r") as file:
@@ -37,14 +38,15 @@ with open(input_ndjson_file, "r") as file:
             function_name = function_json.get('tag')
             root_ast_node = function_json.get('ast')
             num_tokens = function_json.get('num_tokens')
-
-            if function_name and root_ast_node and num_tokens:
+            ast_depth = function_json.get('ast_depth')
+            num_leaves = function_json.get('num_leaves')
+            if function_name and root_ast_node and num_tokens and ast_depth and num_leaves:
                 function_names.append(function_name)
-                function_lines.append((function_name, line, num_tokens))
+                function_lines.append((function_name, line, num_tokens, ast_depth, num_leaves))
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 
-
+#FILTER BASED ON THE COUNTER
 function_counter = Counter(function_names)
 filtered_function_names = set()
 data = []
@@ -60,16 +62,19 @@ for item in data:
 
 df = pd.DataFrame(data)
 df = df.sort_values(by="Frequency", ascending=False)
-
 df.columns = [f"FunctionName", f"Frequency (Total: {total_functions})", "Percentage"]
 
-# WRITE NEW .NDJSON
-filtered_function_lengths_tokens = []
+# WRITE NEW IN FILTERED .NDJSON
+filtered_lengths_tokens = []
+filtered_ast_depths = []
+filtered_num_leaves = []
 with open(output_ndjson_file, "w") as outfile:
-    for function_name, original_line,num_tokens in function_lines:
+    for function_name, original_line,num_tokens, ast_depth,num_leaves in function_lines:
         if function_name in filtered_function_names:
             outfile.write(original_line)
-            filtered_function_lengths_tokens.append(num_tokens)
+            filtered_lengths_tokens.append(num_tokens)
+            filtered_ast_depths.append(ast_depth)
+            filtered_num_leaves.append(num_leaves)
 
 #prepare df
 df = pd.DataFrame(data)
@@ -111,9 +116,9 @@ plt.show()
 
 #NUM_TOKENS
 #Kolmogorov-Smirnov test for num_tokens
-mean = np.mean(filtered_function_lengths_tokens)
-std = np.std(filtered_function_lengths_tokens)
-ks_statistic, ks_p_value = kstest(filtered_function_lengths_tokens, 'norm', args=(mean, std))
+mean = np.mean(filtered_lengths_tokens)
+std = np.std(filtered_lengths_tokens)
+ks_statistic, ks_p_value = kstest(filtered_lengths_tokens, 'norm', args=(mean, std))
 print(f"Kolmogorov-Smirnov Test Results:")
 print(f"  KS Statistic: {ks_statistic:.4f}")
 print(f"  P-value: {ks_p_value:.4e}")
@@ -123,8 +128,8 @@ else:
     print("The data follows a normal distribution (p >= 0.05).")
 
 plt.figure(figsize=(12, 6), dpi=100)
-plt.hist(filtered_function_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')  # Reduce bin count for better clarity
-plt.xlim(0, 500)  # Focus on functions with lengths up to 500 tokens
+plt.hist(filtered_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')  # Reduce bin count for better clarity
+plt.xlim(0, 500)  # Focus on functions with token_lengths up to 500 tokens
 plt.grid(axis='y', alpha=0.75)
 plt.title('Focused Histogram of Function Lengths in Tokens (0-500)')
 plt.xlabel('Function Length (number of tokens)')
@@ -136,7 +141,20 @@ plt.show()
 
 
 #AST_DEPTH
-
-
+# plot the distribution of AST depths
+plt.figure(figsize=(10, 6))
+plt.hist(filtered_ast_depths, bins=20, edgecolor="black", alpha=0.7)
+plt.title("Distribution of Filtered AST Depths")
+plt.xlabel("AST Depth")
+plt.ylabel("Frequency")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.savefig( output_depths_pdf_file, format='pdf')
 
 #NUM_LEAVES
+plt.figure(figsize=(10, 6))
+plt.hist(filtered_num_leaves, bins=20, edgecolor="black", alpha=0.7)
+plt.title("Distribution of Filtered Number of Leaves")
+plt.xlabel("Number of Leaves")
+plt.ylabel("Frequency")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.savefig( output_num_leaves_pdf_file, format='pdf')
