@@ -5,14 +5,26 @@ import numpy as np
 
 NUM_FOLDS = 5
 
+heatmap_pdf_file = "analysis/average_class_metrics_heatmap_full.pdf"
+prefix_bin_pdf_file = "analysis/metrics/metrics_bins/"
+
 # initialize accumulators for metrics
 total_accuracy = 0
 bin_accuracies = {}
 classification_reports = []
 
+bin_accuracies_keys = [
+    "num_tokens_50_bin_accuracies",
+    "num_tokens_20_bin_accuracies",
+    "ast_depth_5_bin_accuracies",
+    "ast_depth_2_bin_accuracies",
+    "num_leaves_50_bin_accuracies",
+    "num_leaves_20_bin_accuracies"
+]
+
 # load all fold metrics
 for fold_idx in range(NUM_FOLDS):
-    with open(f"analysis/fold_{fold_idx+1}_metrics.json", "r") as f:
+    with open(f"analysis/metrics_json/fold_{fold_idx+1}_metrics.json", "r") as f:
         fold_metrics = json.load(f)
         # aggregate accuracy
         total_accuracy += fold_metrics["accuracy"]
@@ -20,24 +32,28 @@ for fold_idx in range(NUM_FOLDS):
         #aggregate classification_reports
         classification_reports.append(fold_metrics["classification_report"])
 
+        key_bin_accuracies = {key: {} for key in bin_accuracies_keys}
         # aggregate bin accuracies
-        for bin_label, bin_data in fold_metrics["bin_accuracies"].items():
-            if bin_label not in bin_accuracies:
-                bin_accuracies[bin_label] = {"correct": 0, "total": 0}
-            bin_accuracies[bin_label]["correct"] += bin_data["correct"]
-            bin_accuracies[bin_label]["total"] += bin_data["total"]
+        for key in bin_accuracies_keys:
+            if key not in fold_metrics:
+                continue
+            for bin_label, bin_data in fold_metrics[key].items():
+                if bin_label not in key_bin_accuracies[key]:
+                    key_bin_accuracies[key][bin_label] = {"correct": 0, "total": 0}
+                key_bin_accuracies[key][bin_label]["correct"] += bin_data["correct"]
+                key_bin_accuracies[key][bin_label]["total"] += bin_data["total"]
 
 # compute average accuracy
 average_accuracy_model = total_accuracy / NUM_FOLDS
 
 #average bin accuracies
-average_bin_accuracies = {}
-for bin_label, bin_data in bin_accuracies.items():
-    if bin_data["total"] > 0:
-        average_accuracy = bin_data["correct"] / bin_data["total"]
-    else:
-        average_accuracy = 0
-    average_bin_accuracies[bin_label] = average_accuracy
+average_bin_accuracies_per_key = {}
+for key, bins in key_bin_accuracies.items():
+    average_bin_accuracies_per_key[key] = {}
+    for bin_label, values in bins.items():
+        avg_accuracy = values["correct"] / values["total"] if values["total"] > 0 else 0
+        average_bin_accuracies_per_key[key][bin_label] = avg_accuracy
+
 
 # put the measurements together
 combined_report = {}
@@ -63,29 +79,31 @@ for label, metrics in combined_report.items():
 
 #---------------------------PLOTTING-------------------------
 # --- Plot 1: Average Accuracy and Bin Accuracies ---
-plt.figure(figsize=(12, 8))
+for key, bins in average_bin_accuracies_per_key.items():
+    plt.figure(figsize=(12, 8))
 
-plt.text(0.5, 1.05, f"Average Model Accuracy: {average_accuracy_model:.4f}",
-         fontsize=16, ha="center", transform=plt.gca().transAxes, fontweight="bold")
+    bin_labels = list(bins.keys())
+    bin_values = list(bins.values())
 
-bin_labels = list(average_bin_accuracies.keys())
-bin_values = list(average_bin_accuracies.values())
-plt.bar(bin_labels, bin_values, color="skyblue")
-plt.xticks(rotation=45, ha="right", fontsize=10)
-plt.grid(axis="y", linestyle="--", alpha=0.7)
-plt.title("Bin Average Accuracies", fontsize=18, fontweight="bold")
-plt.xlabel("Bins", fontsize=14, labelpad=10)
-plt.ylabel("Accuracy", fontsize=14, labelpad=10)
-plt.ylim(0, 1)
-plt.tight_layout()
-plt.savefig("analysis/average_accuracy_and_bins.pdf")
+    plt.bar(bin_labels, bin_values, color="skyblue", edgecolor="black")
 
+    plt.axhline(y=average_accuracy_model, color='red', linestyle='--', label=f"Model Avg. Accuracy: {average_accuracy_model:.4f}")
+
+    plt.legend(loc="upper right", fontsize=12)
+
+    plt.text(0.5, 1.05, f"Average Model Accuracy for {key.replace('_', ' ').title()}: {average_accuracy_model:.4f}",
+             fontsize=14, ha="center", transform=plt.gca().transAxes, fontweight="bold")
+    plt.title(f"Bin Average Accuracies for {key.replace('_', ' ').title()}", fontsize=18, fontweight="bold")
+    plt.xlabel("Bins", fontsize=14, labelpad=10)
+    plt.ylabel("Accuracy", fontsize=14, labelpad=10)
+    plt.xticks(rotation=45, ha="right", fontsize=10)
+    plt.ylim(0, 1)
+    plt.grid(axis="y", linestyle="--", alpha=0.7)
+
+    plt.tight_layout()
+    plt.savefig(f"{prefix_bin_pdf_file}{key}.pdf")
 #---------------------------------------------------------------------
 # --- Plot 2: Confusion Matrix-Like Visualization ---
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-
 # Assuming you have `average_report` and `confusion_matrix_like` already computed
 classes = list(average_report.keys())
 metrics = ["precision", "recall", "f1-score"]
@@ -119,7 +137,7 @@ plt.ylabel("Classes", fontsize=14)
 plt.tight_layout()
 
 # Save and show the plot
-plt.savefig("analysis/average_class_metrics_heatmap_full.pdf")
+plt.savefig(heatmap_pdf_file)
 plt.show()
 
 

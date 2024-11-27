@@ -8,7 +8,7 @@ from scipy.stats import shapiro,kstest, norm
 
 def get_basename_without_extension(path_string):
     return os.path.splitext(os.path.basename(path_string))[0]
-ahoj = "ahoj"
+
 names_prefix = "exploratory_analysis/names/"
 token_lengths_prefix = "exploratory_analysis/token_lengths/"
 ast_depths_prefix = "exploratory_analysis/ast_depths/"

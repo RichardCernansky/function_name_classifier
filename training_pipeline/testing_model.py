@@ -19,9 +19,10 @@ from keras.callbacks import LambdaCallback
 from keras.utils import pad_sequences, plot_model
 from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score
 
 from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
+from analysis.data_drops_and_analysis import num_leaves
 
 if len(sys.argv) < 2:
     print("Usage: python AttentionCNNclassifier.py <fold_idx>")
@@ -133,17 +134,28 @@ custom_objects = {
 with custom_object_scope(custom_objects):
     model = load_model(model_file)
 
-#------------------------------ACTUAL--TESTING--------------------------
+#------------------------------ACTUAL-TESTING--------------------------
 true_labels = []
 predicted_labels = []
 
-bin_size = 100
-bins = list(range(0, 2100, bin_size))  # bins from 0 to 2000 with a step of 100
-bin_labels = [f"{bins[i]}-{bins[i + 1] - 1}" for i in range(len(bins) - 1)]
+def generate_bins_and_labels(start, end, step):
+    bins = list(range(start, end + step, step))  # Add step to include the last bin edge
+    bin_labels = [f"{bins[i]}-{bins[i + 1] - 1}" for i in range(len(bins) - 1)]
 
-# dictionaries to keep track of correct predictions and total samples per bin
-correct_predictions_per_bin = {label: 0 for label in bin_labels}
-total_samples_per_bin = {label: 0 for label in bin_labels}
+    correct_predictions_per_bin = {label: 0 for label in bin_labels}
+    total_samples_per_bin = {label: 0 for label in bin_labels}
+    return bins, bin_labels, correct_predictions_per_bin, total_samples_per_bin
+
+
+num_tokens_bins_50, num_tokens_bin_labels_50, num_tokens_correct_50, num_tokens_total_50 = generate_bins_and_labels(0, 500, 50)
+num_tokens_bins_20, num_tokens_bin_labels_20, num_tokens_correct_20, num_tokens_total_20 = generate_bins_and_labels(0, 500, 20)
+
+ast_depth_bins_5, ast_depth_bin_labels_5, ast_depth_correct_5, ast_depth_total_5 = generate_bins_and_labels(0, 50, 5)
+ast_depth_bins_2, ast_depth_bin_labels_2, ast_depth_correct_2, ast_depth_total_2 = generate_bins_and_labels(0, 50, 2)
+
+num_leaves_bins_50, num_leaves_bin_labels_50, num_leaves_correct_50, num_leaves_total_50 = generate_bins_and_labels(0, 600, 50)
+num_leaves_bins_20, num_leaves_bin_labels_20, num_leaves_correct_20, num_leaves_total_20 = generate_bins_and_labels(0, 600, 20)
+
 
 # process the test data and gather predictions and bin information
 with open(test_file, 'r') as f:
@@ -152,10 +164,19 @@ with open(test_file, 'r') as f:
     for line in data:
         try:
             num_tokens = line.get("num_tokens")
-            if num_tokens is None:
-                continue  # skip if num_tokens is missing
+            ast_depth = line.get("ast_depth")
+            num_leaves = line.get("num_leaves")
+            if any(value is None for value in [num_tokens, ast_depth, num_leaves]):
+                continue  # skip if any of them is missing
 
-            true_bin = pd.cut([num_tokens], bins=bins, labels=bin_labels)[0]
+            num_tokens_true_bin_50 = pd.cut([num_tokens], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
+            num_tokens_true_bin_20 = pd.cut([num_tokens], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
+
+            ast_depth_true_bin_5 = pd.cut([ast_depth], bins=ast_depth_bins_5, labels=ast_depth_bin_labels_5)[0]
+            ast_depth_true_bin_2 = pd.cut([ast_depth], bins=ast_depth_bins_2, labels=ast_depth_bin_labels_2)[0]
+
+            num_leaves_true_bin_50 = pd.cut([num_leaves], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
+            num_leaves_true_bin_20 = pd.cut([num_leaves], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
 
             result = preprocess_function(line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
             if result is None:
@@ -178,8 +199,19 @@ with open(test_file, 'r') as f:
 
             # update bin-based accuracy counters
             if predicted_tag_idx == tag_idx:
-                correct_predictions_per_bin[true_bin] += 1
-            total_samples_per_bin[true_bin] += 1
+                num_tokens_correct_50[num_tokens_true_bin_50] += 1
+                num_tokens_correct_20[num_tokens_true_bin_20] += 1
+                ast_depth_correct_5[ast_depth_true_bin_5] += 1
+                ast_depth_correct_2[ast_depth_true_bin_2] += 1
+                num_leaves_correct_50[num_leaves_true_bin_50] += 1
+                num_leaves_correct_20[num_leaves_true_bin_20] += 1
+
+            num_tokens_total_50[num_tokens_true_bin_50] += 1
+            num_tokens_total_20[num_tokens_true_bin_20] += 1
+            ast_depth_total_5[ast_depth_true_bin_5] += 1
+            ast_depth_total_2[ast_depth_true_bin_2] += 1
+            num_leaves_total_50[num_leaves_true_bin_50] += 1
+            num_leaves_total_20[num_leaves_true_bin_20] += 1
 
         except Exception as e:
             print(f"Error processing line: {e}")
@@ -187,6 +219,10 @@ with open(test_file, 'r') as f:
 
 #calculate overall accuracy and classification report
 accuracy = accuracy_score(true_labels, predicted_labels)
+precision = precision_score(true_labels, predicted_labels)
+recall = recall_score(true_labels, predicted_labels)
+f1 = f1_score(true_labels, predicted_labels)
+
 all_labels = sorted(reverse_tags_vocab.keys())
 target_names = [reverse_tags_vocab[idx] for idx in all_labels]
 report = classification_report(
@@ -199,14 +235,48 @@ report = classification_report(
 
 fold_metrics = {
     "accuracy": accuracy,
+    "precision": precision,
+    "recall": recall,
+    "f1": f1,
     "classification_report": report,
-    "bin_accuracies": {
+    "num_tokens_50_bin_accuracies": {
         bin_label: {
-            "correct": correct_predictions_per_bin[bin_label],
-            "total": total_samples_per_bin[bin_label]
-        } for bin_label in bin_labels
+            "correct": num_tokens_correct_50[bin_label],
+            "total": num_tokens_total_50[bin_label]
+        } for bin_label in num_tokens_bin_labels_50
+    },
+    "num_tokens_20_bin_accuracies": {
+        bin_label: {
+            "correct": num_tokens_correct_20[bin_label],
+            "total": num_tokens_total_20[bin_label]
+        } for bin_label in num_tokens_bin_labels_20
+    },
+    "ast_depth_5_bin_accuracies": {
+        bin_label: {
+            "correct": ast_depth_correct_5[bin_label],
+            "total": ast_depth_total_2[bin_label]
+        } for bin_label in ast_depth_bin_labels_5
+    },
+    "ast_depth_2_bin_accuracies": {
+        bin_label: {
+            "correct": ast_depth_correct_2[bin_label],
+            "total": ast_depth_total_2[bin_label]
+        } for bin_label in ast_depth_bin_labels_2
+    },
+    "num_leaves_50_bin_accuracies": {
+        bin_label: {
+            "correct": num_leaves_correct_50[bin_label],
+            "total": num_leaves_total_50[bin_label]
+        } for bin_label in num_leaves_bin_labels_50
+    },
+    "num_leaves_20_bin_accuracies": {
+        bin_label: {
+            "correct": num_leaves_correct_20[bin_label],
+            "total": num_leaves_total_20[bin_label]
+        } for bin_label in num_leaves_bin_labels_20
     }
 }
+
 
 with open(f"analysis/metrics_json/fold_{fold_idx}_metrics.json", "w") as f:
     json.dump(fold_metrics, f, indent=4)
