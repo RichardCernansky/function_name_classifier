@@ -164,8 +164,8 @@ with open(test_file, 'r') as f:
             num_tokens = line.get("num_tokens")
             ast_depth = line.get("ast_depth")
             num_leaves = line.get("num_leaves")
-            if any(value is None for value in [num_tokens, ast_depth, num_leaves]):
-                continue  # skip if any of them is missing
+            # if any(value is None for value in [num_tokens, ast_depth, num_leaves]):
+            #     continue  # skip if any of them is missing
 
             num_tokens_true_bin_50 = pd.cut([num_tokens], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
             num_tokens_true_bin_20 = pd.cut([num_tokens], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
@@ -178,8 +178,8 @@ with open(test_file, 'r') as f:
 
             result = preprocess_function(line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
             
-            if result is None:
-                continue
+            # if result is None:
+            #     continue
 
             tag_idx, sts_indices, value_indices, ets_indices = result
 
