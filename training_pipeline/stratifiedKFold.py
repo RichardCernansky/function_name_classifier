@@ -68,8 +68,13 @@ else:
 
         # Save test set
         with open(test_ndjson_file, 'w') as outfile:
-            for (ast_str, num_tokens), func_name in zip(X_test, y_test):
-                json.dump({"tag": func_name, "ast": json.loads(ast_str), "num_tokens": num_tokens}, outfile)
+            for (ast_str, num_tokens, ast_depth, num_leaves), func_name in zip(X_test, y_test):
+                json.dump({"tag": func_name,
+                           "ast": json.loads(ast_str),
+                           "num_tokens": num_tokens,
+                           "ast_depth": ast_depth,
+                           "ast_leaves": num_leaves},
+                          outfile)
                 outfile.write('\n')
 
         print(f"Fold {fold_index} saved as NDJSON files.")
