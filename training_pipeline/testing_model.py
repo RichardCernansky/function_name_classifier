@@ -159,7 +159,6 @@ num_leaves_bins_20, num_leaves_bin_labels_20, num_leaves_correct_20, num_leaves_
 # process the test data and gather predictions and bin information
 with open(test_file, 'r') as f:
     data = ndjson.load(f)
-
     for line in data:
         try:
             num_tokens = line.get("num_tokens")
@@ -178,6 +177,7 @@ with open(test_file, 'r') as f:
             num_leaves_true_bin_20 = pd.cut([num_leaves], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
 
             result = preprocess_function(line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
+            
             if result is None:
                 continue
 
@@ -217,7 +217,7 @@ with open(test_file, 'r') as f:
 
 
 #calculate overall accuracy and classification report
-accuracy = accuracy_score(true_labels, predicted_labels, zero_division=0)
+accuracy = accuracy_score(true_labels, predicted_labels)
 precision = precision_score(true_labels, predicted_labels, zero_division=0)
 recall = recall_score(true_labels, predicted_labels, zero_division=0)
 f1 = f1_score(true_labels, predicted_labels, zero_division=0)
