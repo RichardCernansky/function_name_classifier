@@ -62,7 +62,7 @@ else:
                            "ast": json.loads(ast_str),
                            "num_tokens": num_tokens,
                            "ast_depth": ast_depth,
-                           "ast_leaves": num_leaves},
+                           "num_leaves": num_leaves},
                           outfile)
                 outfile.write('\n')
 
@@ -73,7 +73,7 @@ else:
                            "ast": json.loads(ast_str),
                            "num_tokens": num_tokens,
                            "ast_depth": ast_depth,
-                           "ast_leaves": num_leaves},
+                           "num_leaves": num_leaves},
                           outfile)
                 outfile.write('\n')
 
