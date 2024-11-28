@@ -182,6 +182,7 @@ with open(test_file, 'r') as f:
             #     continue
 
             tag_idx, sts_indices, value_indices, ets_indices = result
+            print(tag_idx)
 
             inputs = {
                 'value1_input': np.array(value_indices),
