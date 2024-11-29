@@ -5,7 +5,7 @@ import numpy as np
 
 NUM_FOLDS = 5
 
-heatmap_pdf_file = "analysis/average_class_metrics_heatmap_full.pdf"
+heatmap_pdf_file = "analysis/metrics_plots/average_class_metrics_heatmap_full.pdf"
 prefix_bin_pdf_file = "analysis/metrics_plots/metrics_bins/"
 
 # initialize accumulators for metrics
