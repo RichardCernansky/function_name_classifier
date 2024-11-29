@@ -218,9 +218,12 @@ with open(test_file, 'r') as f:
 
 #calculate overall accuracy and classification report
 accuracy = accuracy_score(true_labels, predicted_labels)
-precision = precision_score(true_labels, predicted_labels, zero_division=0)
-recall = recall_score(true_labels, predicted_labels, zero_division=0)
-f1 = f1_score(true_labels, predicted_labels, zero_division=0)
+precision = precision_score(true_labels, predicted_labels, average='macro', zero_division=0)
+recall = recall_score(true_labels, predicted_labels, average='macro', zero_division=0)
+f1 = f1_score(true_labels, predicted_labels, average='macro', zero_division=0)
+
+
+
 
 all_labels = sorted(reverse_tags_vocab.keys())
 target_names = [reverse_tags_vocab[idx] for idx in all_labels]
