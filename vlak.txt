@@ -28,6 +28,13 @@ Path is a sequence of connected nodes, specifically, what interests us is the se
 \end{definition}
 
 \textbf{Example of path context}
-Below is an example of path context between node with data `a` and BasicTypeSpecifier node `int` derived from the AST that we constructed earlier in the example.
+Below is an example of path context between node with data `a` and BasicTypeSpecifier node `int` (of the branch with `int b`) derived from the AST that we constructed earlier in the example.
 
-<a, (AddExpresssion, ReturnStatement, CompoundStatement, FunctionDefinition, FunctionDeclarator, ParameterSuffix, Parameter)
+<'a', (IdentifierName, AddExpresssion, ReturnStatement, CompoundStatement, FunctionDefinition, FunctionDeclarator, ParameterSuffix, ParameterDeclaration, BasicTypeSpecifier, 'int'>
+
+Pokec o tom ako zachytava aj vsetky typy AST features z pdf 2001
+
+\subsubsection{Source code represented as a bag of path contexts}
+Finally, after extracting the path contexts between all the distinct nodes, we have a representation almost suitable as input for the neural network classifier. The only step that is left is to encode (convert) the context into numerical vectors. For this, we will use mapping function i.e. vocabularies for each of leaf_node.data, tuple([path_from_node_to_node]) and also for the output - all the names of our training dataset functions to their unique indices (if the name of function in test data was not seen we ignore such prediction of classifier).    
+This encoding allows us to map the indices to the embedding space. The embeddings of the components of the path context are then concatenated and used as raw numerical value input for the neural network. 
+

@@ -17,16 +17,16 @@ with open(ndjson_file, "r") as file:
             ast = function_json.get("ast")
             num_tokens = function_json.get("num_tokens")
             ast_depth = function_json.get("ast_depth")
-            num_leaves = function_json.get("num_leaves")
+            num_nodes = function_json.get("num_nodes")
 
-            # Ensure function_name, ast, and num_tokens are valid before adding
+            # ensure function_name, ast, and num_tokens are valid before adding
             if function_name and ast and num_tokens is not None:
                 name_ast.append({
                     "FunctionName": function_name,
                     "AST": json.dumps(ast),
-                    "NumTokens": num_tokens,
+                    "numTokens": num_tokens,
                     "ASTDepth": ast_depth,
-                    "NumLeaves": num_leaves
+                    "NumNodes": num_nodes
                 })
             else:
                 print(f"Missing 'tag', 'ast', or 'num_tokens' in line (skipped): {line}")
@@ -43,7 +43,7 @@ else:
     print(df_name_ast.head())
 
     # Proceed with Stratified K-Fold if DataFrame is correctly populated
-    X = df_name_ast[['AST', 'NumTokens', 'ASTDepth', 'NumLeaves']].values  # Features (AST as strings and num_tokens)
+    X = df_name_ast[['AST', 'NumTokens', 'ASTDepth', 'NumNodes']].values  # Features (AST as strings and num_tokens)
     y = df_name_ast['FunctionName'].values  # Labels for stratification
 
     strat_kfold = StratifiedKFold(n_splits=NUM_FOLDS, shuffle=True, random_state=40)
@@ -57,23 +57,23 @@ else:
 
         # Save train/validation set
         with open(train_valid_ndjson_file, 'w') as outfile:
-            for (ast_str, num_tokens, ast_depth, num_leaves), func_name in zip(X_train_valid, y_train_valid):
+            for (ast_str, num_tokens, ast_depth, num_nodes), func_name in zip(X_train_valid, y_train_valid):
                 json.dump({"tag": func_name,
                            "ast": json.loads(ast_str),
                            "num_tokens": num_tokens,
                            "ast_depth": ast_depth,
-                           "num_leaves": num_leaves},
+                           "num_nodes": num_nodes},
                           outfile)
                 outfile.write('\n')
 
         # Save test set
         with open(test_ndjson_file, 'w') as outfile:
-            for (ast_str, num_tokens, ast_depth, num_leaves), func_name in zip(X_test, y_test):
+            for (ast_str, num_tokens, ast_depth, num_nodes), func_name in zip(X_test, y_test):
                 json.dump({"tag": func_name,
                            "ast": json.loads(ast_str),
                            "num_tokens": num_tokens,
                            "ast_depth": ast_depth,
-                           "num_leaves": num_leaves},
+                           "num_nodes": num_nodes},
                           outfile)
                 outfile.write('\n')
 

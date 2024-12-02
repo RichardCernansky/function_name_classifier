@@ -152,8 +152,8 @@ num_tokens_bins_20, num_tokens_bin_labels_20, num_tokens_correct_20, num_tokens_
 ast_depth_bins_5, ast_depth_bin_labels_5, ast_depth_correct_5, ast_depth_total_5 = generate_bins_and_labels(0, 50, 5)
 ast_depth_bins_2, ast_depth_bin_labels_2, ast_depth_correct_2, ast_depth_total_2 = generate_bins_and_labels(0, 50, 2)
 
-num_leaves_bins_50, num_leaves_bin_labels_50, num_leaves_correct_50, num_leaves_total_50 = generate_bins_and_labels(0, 600, 50)
-num_leaves_bins_20, num_leaves_bin_labels_20, num_leaves_correct_20, num_leaves_total_20 = generate_bins_and_labels(0, 600, 20)
+num_nodes_bins_50, num_nodes_bin_labels_50, num_nodes_correct_50, num_nodes_total_50 = generate_bins_and_labels(0, 600, 50)
+num_nodes_bins_20, num_nodes_bin_labels_20, num_nodes_correct_20, num_nodes_total_20 = generate_bins_and_labels(0, 600, 20)
 
 
 # process the test data and gather predictions and bin information
@@ -163,8 +163,8 @@ with open(test_file, 'r') as f:
         try:
             num_tokens = line.get("num_tokens")
             ast_depth = line.get("ast_depth")
-            num_leaves = line.get("num_leaves")
-            if any(value is None for value in [num_tokens, ast_depth, num_leaves]):
+            num_nodes = line.get("num_nodes")
+            if any(value is None for value in [num_tokens, ast_depth, num_nodes]):
                 continue  # skip if any of them is missing
 
             num_tokens_true_bin_50 = pd.cut([num_tokens], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
@@ -173,8 +173,8 @@ with open(test_file, 'r') as f:
             ast_depth_true_bin_5 = pd.cut([ast_depth], bins=ast_depth_bins_5, labels=ast_depth_bin_labels_5)[0]
             ast_depth_true_bin_2 = pd.cut([ast_depth], bins=ast_depth_bins_2, labels=ast_depth_bin_labels_2)[0]
 
-            num_leaves_true_bin_50 = pd.cut([num_leaves], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
-            num_leaves_true_bin_20 = pd.cut([num_leaves], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
+            num_leaves_true_bin_50 = pd.cut([num_nodes], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
+            num_leaves_true_bin_20 = pd.cut([num_nodes], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
 
             result = preprocess_function(line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
             
@@ -202,15 +202,15 @@ with open(test_file, 'r') as f:
                 num_tokens_correct_20[num_tokens_true_bin_20] += 1
                 ast_depth_correct_5[ast_depth_true_bin_5] += 1
                 ast_depth_correct_2[ast_depth_true_bin_2] += 1
-                num_leaves_correct_50[num_leaves_true_bin_50] += 1
-                num_leaves_correct_20[num_leaves_true_bin_20] += 1
+                num_nodes_correct_50[num_leaves_true_bin_50] += 1
+                num_nodes_correct_20[num_leaves_true_bin_20] += 1
 
             num_tokens_total_50[num_tokens_true_bin_50] += 1
             num_tokens_total_20[num_tokens_true_bin_20] += 1
             ast_depth_total_5[ast_depth_true_bin_5] += 1
             ast_depth_total_2[ast_depth_true_bin_2] += 1
-            num_leaves_total_50[num_leaves_true_bin_50] += 1
-            num_leaves_total_20[num_leaves_true_bin_20] += 1
+            num_nodes_total_50[num_leaves_true_bin_50] += 1
+            num_nodes_total_20[num_leaves_true_bin_20] += 1
 
         except Exception as e:
             print(f"Error processing line: {e}")
@@ -267,15 +267,15 @@ fold_metrics = {
     },
     "num_leaves_50_bin_accuracies": {
         bin_label: {
-            "correct": num_leaves_correct_50[bin_label],
-            "total": num_leaves_total_50[bin_label]
-        } for bin_label in num_leaves_bin_labels_50
+            "correct": num_nodes_correct_50[bin_label],
+            "total": num_nodes_total_50[bin_label]
+        } for bin_label in num_nodes_bin_labels_50
     },
     "num_leaves_20_bin_accuracies": {
         bin_label: {
-            "correct": num_leaves_correct_20[bin_label],
-            "total": num_leaves_total_20[bin_label]
-        } for bin_label in num_leaves_bin_labels_20
+            "correct": num_nodes_correct_20[bin_label],
+            "total": num_nodes_total_20[bin_label]
+        } for bin_label in num_nodes_bin_labels_20
     }
 }
 

@@ -75,7 +75,7 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
                                     "tag": tag,
                                     "num_tokens": AsciiTreeProcessor.get_num_tokens(definition_node),
                                     "ast_depth": AsciiTreeProcessor.get_ast_depth(definition_node),
-                                    "num_leaves": AsciiTreeProcessor.get_num_leaves(definition_node),
+                                    "num_nodes": AsciiTreeProcessor.get_num_nodes(definition_node),
                                     "ast": func_tree_dict
                                 }
                                 json_line = json.dumps(json_data)

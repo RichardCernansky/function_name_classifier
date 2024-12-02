@@ -73,18 +73,17 @@ class AsciiTreeProcessor:
         return root_node
 
     @staticmethod
-    def get_num_tokens(func_root):
+    def get_num_nodes(func_root):
+        # base case
         if len(func_root.children) == 0:
-            # if leaf node -> count tokens in the value
-            return len(func_root.data.split()) \
-                    if hasattr(func_root, "data") and isinstance(func_root.data,str) else 0
+            return 1  # count leaf node as one
 
-        #recursion
-        total_tokens = 0
+        # recursive case
+        total_nodes = 1
         for child in func_root.children:
-            total_tokens += AsciiTreeProcessor.get_num_tokens(child)
+            total_nodes += AsciiTreeProcessor.get_num_nodes(child)
 
-        return total_tokens
+        return total_nodes
 
     @staticmethod
     def get_ast_depth(func_root):
@@ -99,7 +98,7 @@ class AsciiTreeProcessor:
 
 
     @staticmethod
-    def get_num_leaves(func_root):
+    def get_num_tokens(func_root):
         if len(func_root.children) == 0:
             # if leaf node -> count tokens in the value
             return 1 \

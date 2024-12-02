@@ -18,8 +18,8 @@ bin_accuracies_keys = [
     "num_tokens_20_bin_accuracies",
     "ast_depth_5_bin_accuracies",
     "ast_depth_2_bin_accuracies",
-    "num_leaves_50_bin_accuracies",
-    "num_leaves_20_bin_accuracies"
+    "num_nodes_50_bin_accuracies",
+    "num_nodes_20_bin_accuracies"
 ]
 
 # load all fold metrics
