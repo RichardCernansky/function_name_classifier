@@ -24,7 +24,7 @@ with open(ndjson_file, "r") as file:
                 name_ast.append({
                     "FunctionName": function_name,
                     "AST": json.dumps(ast),
-                    "numTokens": num_tokens,
+                    "NumTokens": num_tokens,
                     "ASTDepth": ast_depth,
                     "NumNodes": num_nodes
                 })
