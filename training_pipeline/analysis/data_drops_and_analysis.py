@@ -12,7 +12,7 @@ def get_basename_without_extension(path_string):
 names_prefix = "exploratory_analysis/names/"
 token_lengths_prefix = "exploratory_analysis/token_lengths/"
 ast_depths_prefix = "exploratory_analysis/ast_depths/"
-num_leaves_prefix = "exploratory_analysis/num_leaves/"
+num_nodes_prefix = "exploratory_analysis/num_nodes/"
 
 pdf_postfix = ".pdf"
 input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
@@ -24,7 +24,7 @@ basename_without_extension = get_basename_without_extension(input_ndjson_file)
 output_names_histogram_pdf_file = names_prefix + basename_without_extension + pdf_postfix
 output_lengths_histogram_pdf_file = token_lengths_prefix + basename_without_extension + pdf_postfix
 output_depths_pdf_file = ast_depths_prefix + basename_without_extension + pdf_postfix
-output_num_leaves_pdf_file = num_leaves_prefix + basename_without_extension + pdf_postfix
+output_num_nodes_pdf_file = num_nodes_prefix + basename_without_extension + pdf_postfix
 
 poor_names = ['main', 'solve']
 
@@ -39,10 +39,10 @@ with open(input_ndjson_file, "r") as file:
             root_ast_node = function_json.get('ast')
             num_tokens = function_json.get('num_tokens')
             ast_depth = function_json.get('ast_depth')
-            num_leaves = function_json.get('num_leaves')
-            if function_name and root_ast_node and num_tokens and ast_depth and num_leaves:
+            num_nodes = function_json.get('num_nodes')
+            if function_name and root_ast_node and num_tokens and ast_depth and num_nodes:
                 function_names.append(function_name)
-                function_lines.append((function_name, line, num_tokens, ast_depth, num_leaves))
+                function_lines.append((function_name, line, num_tokens, ast_depth, num_nodes))
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 
@@ -67,14 +67,14 @@ df.columns = [f"FunctionName", f"Frequency (Total: {total_functions})", "Percent
 # WRITE NEW IN FILTERED .NDJSON
 filtered_lengths_tokens = []
 filtered_ast_depths = []
-filtered_num_leaves = []
+filtered_num_nodes = []
 with open(output_ndjson_file, "w") as outfile:
-    for function_name, original_line,num_tokens, ast_depth,num_leaves in function_lines:
+    for function_name, original_line,num_tokens, ast_depth,num_nodes in function_lines:
         if function_name in filtered_function_names:
             outfile.write(original_line)
             filtered_lengths_tokens.append(num_tokens)
             filtered_ast_depths.append(ast_depth)
-            filtered_num_leaves.append(num_leaves)
+            filtered_num_nodes.append(num_nodes)
 
 #prepare df
 df = pd.DataFrame(data)
@@ -150,11 +150,11 @@ plt.ylabel("Frequency")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.savefig( output_depths_pdf_file, format='pdf')
 
-#NUM_LEAVES
+#NUM_NODES
 plt.figure(figsize=(10, 6))
-plt.hist(filtered_num_leaves, bins=20, edgecolor="black", alpha=0.7)
-plt.title("Distribution of Filtered Number of Leaves")
-plt.xlabel("Number of Leaves")
+plt.hist(filtered_num_nodes, bins=20, edgecolor="black", alpha=0.7)
+plt.title("Distribution of Filtered Number of Nodes")
+plt.xlabel("Number of Nodes")
 plt.ylabel("Frequency")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.savefig( output_num_leaves_pdf_file, format='pdf')
+plt.savefig(output_num_nodes_pdf_file, format='pdf')
