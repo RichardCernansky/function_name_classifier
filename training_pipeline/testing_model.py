@@ -265,13 +265,13 @@ fold_metrics = {
             "total": ast_depth_total_2[bin_label]
         } for bin_label in ast_depth_bin_labels_2
     },
-    "num_leaves_50_bin_accuracies": {
+    "num_nodes_50_bin_accuracies": {
         bin_label: {
             "correct": num_nodes_correct_50[bin_label],
             "total": num_nodes_total_50[bin_label]
         } for bin_label in num_nodes_bin_labels_50
     },
-    "num_leaves_20_bin_accuracies": {
+    "num_nodes_20_bin_accuracies": {
         bin_label: {
             "correct": num_nodes_correct_20[bin_label],
             "total": num_nodes_total_20[bin_label]
