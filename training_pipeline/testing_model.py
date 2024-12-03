@@ -173,8 +173,8 @@ with open(test_file, 'r') as f:
             ast_depth_true_bin_5 = pd.cut([ast_depth], bins=ast_depth_bins_5, labels=ast_depth_bin_labels_5)[0]
             ast_depth_true_bin_2 = pd.cut([ast_depth], bins=ast_depth_bins_2, labels=ast_depth_bin_labels_2)[0]
 
-            num_leaves_true_bin_50 = pd.cut([num_nodes], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
-            num_leaves_true_bin_20 = pd.cut([num_nodes], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
+            num_nodes_true_bin_50 = pd.cut([num_nodes], bins=num_tokens_bins_50, labels=num_tokens_bin_labels_50)[0]
+            num_nodes_true_bin_20 = pd.cut([num_nodes], bins=num_tokens_bins_20, labels=num_tokens_bin_labels_20)[0]
 
             result = preprocess_function(line, value_vocab, path_vocab, tags_vocab, max_num_contexts)
             
@@ -202,15 +202,15 @@ with open(test_file, 'r') as f:
                 num_tokens_correct_20[num_tokens_true_bin_20] += 1
                 ast_depth_correct_5[ast_depth_true_bin_5] += 1
                 ast_depth_correct_2[ast_depth_true_bin_2] += 1
-                num_nodes_correct_50[num_leaves_true_bin_50] += 1
-                num_nodes_correct_20[num_leaves_true_bin_20] += 1
+                num_nodes_correct_50[num_nodes_true_bin_50] += 1
+                num_nodes_correct_20[num_nodes_true_bin_20] += 1
 
             num_tokens_total_50[num_tokens_true_bin_50] += 1
             num_tokens_total_20[num_tokens_true_bin_20] += 1
             ast_depth_total_5[ast_depth_true_bin_5] += 1
             ast_depth_total_2[ast_depth_true_bin_2] += 1
-            num_nodes_total_50[num_leaves_true_bin_50] += 1
-            num_nodes_total_20[num_leaves_true_bin_20] += 1
+            num_nodes_total_50[num_nodes_true_bin_50] += 1
+            num_nodes_total_20[num_nodes_true_bin_20] += 1
 
         except Exception as e:
             print(f"Error processing line: {e}")
@@ -221,8 +221,6 @@ accuracy = accuracy_score(true_labels, predicted_labels)
 precision = precision_score(true_labels, predicted_labels, average='macro', zero_division=0)
 recall = recall_score(true_labels, predicted_labels, average='macro', zero_division=0)
 f1 = f1_score(true_labels, predicted_labels, average='macro', zero_division=0)
-
-
 
 
 all_labels = sorted(reverse_tags_vocab.keys())
