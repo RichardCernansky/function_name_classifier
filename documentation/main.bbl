@@ -1,0 +1,36 @@
+\begin{thebibliography}{1}
+
+\bibitem{alon}
+Uri Alon, Meital Zilberstein, Omer Levy, and Eran Yahav.
+\newblock A general path-based representation for predicting program properties.
+\newblock In {\em Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation}, PLDI 2018, page 404–419, New York, NY, USA, 2018. Association for Computing Machinery.
+
+\bibitem{code2vec}
+Uri Alon, Meital Zilberstein, Omer Levy, and Eran Yahav.
+\newblock code2vec: learning distributed representations of code.
+\newblock {\em Proc. ACM Program. Lang.}, 3(POPL), January 2019.
+
+\bibitem{bogomolov}
+Egor Bogomolov, Vladimir Kovalenko, Yurii Rebryk, Alberto Bacchelli, and Timofey Bryksin.
+\newblock Authorship attribution of source code: A language-agnostic approach and applicability in software engineering, 2021.
+
+\bibitem{attention}
+Andrea Galassi, Marco Lippi, and Paolo Torroni.
+\newblock Attention in natural language processing.
+\newblock {\em IEEE Transactions on Neural Networks and Learning Systems}, 32(10):4291--4308, 2021.
+
+\bibitem{samoaa}
+H.~P. Samoaa, F.~Bayram, P.~Salza, and P.~Leitner.
+\newblock A systematic mapping study of source code representation for deep learning in software engineering.
+\newblock {\em Software: Practice and Experience}, June 2022.
+
+\bibitem{sun2023AST}
+Weisong Sun, Chunrong Fang, Yun Miao, Yudu You, Mengzhe Yuan, Yuchen Chen, Quanjun Zhang, An~Guo, Xiang Chen, Yang Liu, and Zhenyu Chen.
+\newblock Abstract syntax tree for programming language understanding and representation: How far are we?, 2023.
+
+\bibitem{DanielWatson}
+Daniel Watson.
+\newblock Source code stylometry and authorship attribution for open source.
+\newblock 2019.
+
+\end{thebibliography}

@@ -1,0 +1,324 @@
+%bakalarka wireframe dokumentacia
+
+\documentclass[10pt,english,a4paper]{report}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[IL2]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref} 
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage[a4paper,margin=1in]{geometry}
+
+\newtheorem{definition}{Definition}
+
+
+\usepackage{cite}
+\usepackage{times}
+\usepackage{ragged2e}
+\usepackage{amsmath}
+\usepackage{amssymb} % For extra symbols, if needed
+\usepackage{textcomp} % For using the backtick character
+
+\pagestyle{headings}
+
+\title{Who wrote that?} 
+
+\author{Richard Čerňanský\\ Ing. Juraj Perík\\
+	{\small Slovenská technická univerzita v Bratislave}\\
+	{\small Fakulta informatiky a informačných technológií}\\
+	{\small \texttt{xcernansky@stuba.sk}}\\
+	}
+
+\date{\small November 23, 2024} 
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+abstract abstract abstract abstract
+
+\end{abstract}
+
+\chapter{Introduction}
+
+\section{Motivation}
+
+In this thesis, we aim to analyze the performance of our re-implemented code2vec CNN model, which utilizes an attention mechanism to process concatenated inputs to classify function under a certain name. The input to this model is derived from node-to-node features of functions' Abstract Syntax Trees (ASTs). The evaluation focuses on source code snippets written in the C programming language, sourced from datasets of competitive programming events.
+
+\section{Domain Analysis}
+
+\section{Source code feature extraction}
+Source code is essentially just a text representation of the algorithm it 
+represents for the machine. In source code analysis, what we need is 
+concise method on how to extract syntactic, semantic and contextual information that defines such code snippet. There are many types of representation methods like token-based, tree-based and graph based.
+\cite{samoaa}. Watson in his book \cite{DanielWatson} proposes similar division, he adds character level features and provides us with exact feature definitions for each category.  What we are interested in is the tree-based representation.
+
+This section answers the following questions:
+
+\begin{enumerate}
+    \item What techniques are utilized to process source code for extracting its unique information?
+    \item What is an Abstract syntax tree?
+    \item What are the possibilities for extracting features from an AST?
+    \item How do we utilize the information stored in a function's AST?
+    \item Why is this approach used?
+\end{enumerate}
+
+\subsection{What techniques are utilized to process source code for extracting its unique information?}
+
+
+\subsection{What is an Abstract syntax tree?}
+\quad Abstract syntax tree (AST) is a tree-based representation of source code, where nodes represent various elements of the source code and paths represent relationships of the structure. AST is an inseparable part of compilation process for many reasons. It is used as an intermediate representation of program utilized for optimization and generation of machine code. Nodes of the tree can be either internal (non-leaf) or leafs. Internal nodes define the program's constructs or operations for their children. Leaf nodes store the actual textual value. Let's see the following definition.
+\begin{definition}
+\cite{sun2023AST}
+\textbf{Abstract Syntax Tree (AST).} An Abstract Syntax Tree (AST) for a method is a tuple
+$\langle N, T, X, s, \delta, \phi \rangle$ where $N$ is a set of non-terminal nodes, $T$ is a set of terminal nodes, $X$ is a set of values, $s \in N$ is the root node, $\delta : N \to (N \cup T)^*$ is a function that maps a non-terminal node to a list of its children, $^*$ represents closure operation, and $\phi : T \to X$ is a function that maps a terminal node to an associated value. Every node except the root appears exactly once in all the lists of children. 
+\end{definition} 
+
+\textbf{Example of AST}
+
+Below is an example of a simple C function and its corresponding Abstract Syntax Tree (AST):
+\begin{verbatim}
+int add(int a, int b) {
+    return a + b;
+}
+\end{verbatim}
+
+The corresponding AST is structured as follows:
+\begin{verbatim}
+TranslationUnit 
+|--FunctionDefinition `int add(int a, int b) {`
+   |--BasicTypeSpecifier `int`
+   |--FunctionDeclarator `add(`
+   |  |--IdentifierDeclarator `add`
+   |  |--ParameterSuffix `(int a, int b)`
+   |     |--ParameterDeclaration `int a`
+   |     |  |--BasicTypeSpecifier `int`
+   |     |  |--IdentifierDeclarator `a`
+   |     |--ParameterDeclaration `int b`
+   |        |--BasicTypeSpecifier `int`
+   |        |--IdentifierDeclarator `b`
+   |--CompoundStatement `{ return a + b; }`
+      |--ReturnStatement `return a + b;`
+         |--AddExpression `a + b`
+            |--IdentifierName `a`
+            |--IdentifierName `b`
+\end{verbatim}
+
+\subsection{What are the possibilities for extracting information from an AST?}
+Features divide into 4 main kinds according to the nature of the information extracted from the Abstract Syntax Tree (AST):
+\begin{itemize}
+    \item \textbf{Structural} \\
+    Structural features capture the structural complexity of AST. These are often some numerical quantitative values like depth of the graph, number of nodes, or average branching factor of internal nodes. 
+    \item \textbf{Semantic} \\
+    Semantic features reflect the semantic information encoded in AST. It could be as simple as the distribution of node kinds (that are defined by the compiler that creates the AST) or the distribution of distinct root-to-leaf paths. 
+    \item \textbf{Syntactic} \\
+    Syntactic features describe the paradigm in which the source code is written and the logical complexity of the program. These might include the number of functions or functor structures, or the number of control flow units.
+    \item \textbf{Combined} \\
+    Combined features are use-case specific, and it is up to the data analyst to design the best fit solution for information extraction using the combinations and alternations of the aforementioned strategies. Combined features are also the ones that are usually used when tackling real-world problems like source code authorship attribution or function name classification.   
+\end{itemize}
+
+\subsection{How do We utilize the information stored in a function's AST?}
+The problem of function name classification requires such information extraction design to capture all three of the structural, semantic and syntactic features in a number vector that could be somehow fed into a neural network classifier. Code2vec \cite{code2vec} proposes solution design that extracts so called 'path-contexts' which are encoded into vector space using the embedding values of its components. Let's see the following definitions. 
+
+\begin{definition}
+\textbf{Path context in AST}
+\cite{bogomolov}
+Path context is a triplet consisting of path between two leaves in a tree and the starting node's data (token value) and the ending node's data structured like this: $\langle \text{start\_node.data}, \text{path\_arr}, \text{end\_node.data} \rangle$. So essentially what path context represents is the connected leaf nodes and the path that connects them.
+\end{definition}
+
+\begin{definition}
+\textbf{Path in AST}
+Path is a sequence of connected nodes, specifically, what interests us is the sequence of types (kinds) of the AST internal nodes between two distinct (for our purposes leaf but can be any two nodes) nodes. 
+\end{definition}
+
+\textbf{Example of path context} \\
+Below is an example of a path context between a node with data `a` and `BasicTypeSpecifier` node `int` 
+(of the branch with data `int b`) derived from the Abstract Syntax Tree (AST) that we constructed earlier in the example:
+
+\begin{verbatim}
+⟨ 'a', (IdentifierName (up), AddExpression (up), ReturnStatement (up), 
+       CompoundStatement (up),
+       FunctionDefinition (down), FunctionDeclarator (down), 
+       ParameterSuffix (down), ParameterDeclaration (down), 
+       BasicTypeSpecifier (down), 'int' ⟩
+\end{verbatim}
+
+\subsubsection{Source code represented as a bag of path contexts}
+\quad Finally, after extracting the path contexts between all the distinct nodes, we have a representation almost suitable as input for the neural network classifier. The only step that is left is to encode (convert) the context into numerical vectors. For this, we will use mapping function i.e. vocabularies for each of unique leaf\_node.data,
+tuple(path\_from\_node\_to\_node),
+and also for the output - all the names of our training dataset functions to their unique indices (if the name of function in test dataset was not seen in training dataset we ignore such prediction of classifier).    
+This encoding allows us to map the indices to the embedding space. The embeddings of the components of the path context are then concatenated and used as raw numerical value input for the neural network. 
+
+\subsection{Why is this approach used?}
+It has shown that the tree traversal that is incorporated in the path-context successfully captures the structural, syntactic and semantic value of the source code\cite{alon}. The problem of assigning function names using code2vec model
+can be stated as learning the information connection between the path contexts and the function names. It is important to note that \textbf{not all path context contribute with the same informative value} to the resulting prediction of the classifier. That is why \textbf{Attention mechanism} \cite{attention} is added to the network to give the path contexts in the function's bag their corresponding weight when predicting the name. This way we can focus on the important path contexts that differentiate syntactically closely related functions from one another.
+
+
+\chapter{Re-implementation of code2vec CNN classifier}
+
+\section{Data Exploratory analysis}
+The dataset of functions used to train the model consists of extracted C language solutions of the Google Code Jam and Codeforces programming contests. The datasets of Google Code Jam is available on this link and Codeforces on this link.
+
+\subsection{The Nature of the Data}
+As the dataset originates from competitive programming contests, its characteristics align with the expected patterns of this domain. However, there are certain limitations and challenges that must be considered when working with such data. Based on our observations, the following points should be carefully evaluated:
+
+\begin{enumerate}
+    \item \textbf{Duplicate Entries:} Checking code snippet strings for duplicates to ensure a single submission is not included in the dataset multiple times.
+    \item \textbf{Outliers:} The presence of abnormal functions from source code submissions may impact the analysis and model performance. These include:
+    \begin{enumerate}
+        \item \textbf{Extremely Short or Long Functions:} Functions that are either unusually short or excessively long may introduce noise into the dataset and require special handling. For model predicting function names, it would be the best if function follows single-responsibility principle. (some ref would be appropriate i guess)
+        \item \textbf{Poorly Named Functions:} Inconsistent or non-descriptive function names can reduce the information gain for the model and negatively affect results. This task is, however, very difficult to address, as it is challenging for a machine to evaluate the descriptive meaning of a function name.
+        \item \textbf{Highly Complex Functions:} Functions with excessive complexity can be challenging to analyze and may contain logical circles or recursive patterns in extended representations like call graphs or control flow graphs. While an AST is acyclic by definition, complex functions with recursion, indirect function calls, or unconventional control flows may create logical loops that complicate the analysis and interpretation.
+        \item \textbf{Functions Violating the Single Responsibility Principle:} Functions that perform multiple unrelated tasks with name that
+        does not capture all of them can be problematic for the model to evaluate 
+        the function correctly which may lead to decreased accuracy.
+        \item \textbf{Functions with Rarely Occurring Names:} Rare function names present a challenge for the model, as the limited number of occurrences provides insufficient examples for the model to effectively distinguish them from similar functions with different names.
+    \end{enumerate}
+\end{enumerate}
+
+An initial analysis of the function data can involve visualizing quantitative features, such as the distribution of function names.
+
+\subsubsection{Function name frequency}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=16cm, height=9cm]{figures/functionsASTs_merged_freq_histogram.pdf} 
+    \caption{Distribution of function name frequencies.}
+    \label{fig:func_freq_merged}
+\end{figure}
+
+The plot reveals a long-tailed distribution of function name frequencies, with a few names occurring very frequently and many appearing rarely, but this view is inherently influenced by sorting the data by frequency. This skewed distribution highlights the dominance of common names and the sparsity of unique ones, which could introduce bias and pose challenges for machine learning models. Consequently, it is not possible to see the true underlying distribution of the data. To evaluate whether the distribution is normal (or follows another pattern), we would need to analyze the raw, unsorted frequency data through statistical normality tests.
+
+\paragraph{Shapiro-Wilk Normality Test Results}
+The Shapiro-Wilk test was applied to detect whether the data follows a normal distribution. The results are summarized below:
+
+\begin{table}[h!]
+    \centering
+    \caption{Shapiro-Wilk Test Results for Function Name Frequencies}
+    \label{tab:shapiro_wilk}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Statistic} & \textbf{P-value} & \textbf{Conclusion} \\
+        \hline
+        W = 0.2354 & $1.5252 \times 10^{-52}$ & Data is not normally distributed ($p < 0.05$) \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Function name length measured in tokens}
+Another basic feature that describes characteristic of data is the length of a function. There are multiple ways to represent such length when observing source code features, for now, we chose 
+to just split by the whitespace characters and count the number of words.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=16cm, height=9cm]{figures/FOCUSED_functionsASTs_merged_length_histogram.pdf} 
+    \caption{Distribution of function lengths measured in tokens.}
+    \label{fig:func_lengths_distr_merged}
+\end{figure}
+
+
+\begin{table}[h!]
+    \centering
+    \caption{Kolmogorov-Smirnov Test (for normality) Results for Function Name Frequencies}
+    \label{tab:kolmogorov_smirnov}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Statistic} & \textbf{P-value} & \textbf{Conclusion} \\
+        \hline
+        KS = 0.2492 & $0.0000 \times 10^{0}$ & Data is not normally distributed ($p < 0.05$) \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Data preprocessing}
+Having the data available in .csv tables format, we must have first deal with the filtering the necessary rows (solutions written in C language), transforming this code to ASCII AST using psycheC compiler. From the ASCII output of the command \textit{cnip -l -C -d file\_path} is actual
+AST constructed and each function retrieved one at a time and saved (with corresponding metadata) in .ndjson as a single json line.
+
+In the entire training pipeline, there are multiple stages where some of the above-mentioned challenges are resolved.
+
+\begin{enumerate}
+    \item \textbf{Duplicate Entries:} These are checked in the initial  stage of loading the data from task submissions in .csv into .ndjson files of function ASTs (one per line)
+    \item \textbf{Poorly Named Functions:} In the script \textit{home/training\_pipeline/analysis/data\_drops\_and\_analysis.py} we perform dropping of functions that we considered poorly named after seeing the frequency distribution of the names.
+    \item \textbf{Functions with Rarely Occurring Names:}  In the script \textit{home/training pipeline/analysis/data drops and analysis.py} we also perform dropping of functions whose names have lower frequency than 5 for stratification purposes (and also model performance).
+    \item \textbf{Extremely long or short functions:} We are interested on how the model will
+    perform when the data is cleaned from outliers in the context of function length in tokens.
+\end{enumerate}
+
+
+\section{Model Architecture}
+In this section, we would like to provide a clear explanation of the model that was used to process the data and perform the predictions that are observed. This includes a detailed description of the architecture, the reasoning behind the choice of components, and the methodology employed for training and evaluation.
+
+\section*{Model: "functional"}
+
+\begin{longtable}{|p{4cm}|p{5cm}|r|p{4cm}|}
+\hline
+\textbf{Layer (type)} & \textbf{Output Shape} & \textbf{Param \#} & \textbf{Connected to} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Layer (type)} & \textbf{Output Shape} & \textbf{Param \#} & \textbf{Connected to} \\
+\hline
+\endhead
+value1\_input (InputLayer) & (None, 723003) & 0 & - \\
+\hline
+path\_input (InputLayer) & (None, 723003) & 0 & - \\
+\hline
+value2\_input (InputLayer) & (None, 723003) & 0 & - \\
+\hline
+value\_embedding (Embedding) & (None, 723003, 128) & 1,081,216 & value1\_input[0][0], value2\_input[0][0] \\
+\hline
+path\_embedding (Embedding) & (None, 723003, 128) & 3,828,992 & path\_input[0][0] \\
+\hline
+concatenate (Concatenate) & (None, 723003, 384) & 0 & value\_embedding[0][0], path\_embedding[0][0], value\_embedding[1][0] \\
+\hline
+dense (Dense) & (None, 723003, 128) & 49,280 & concatenate[0][0] \\
+\hline
+dense\_1 (Dense) & (None, 723003, 1) & 129 & dense[0][0] \\
+\hline
+weighted\_context\_layer (WeightedContextLayer) & (None, 128) & 0 & dense\_1[0][0], dense[0][0] \\
+\hline
+tag\_embedding\_matrix\_layer (TagEmbeddingMatrixLayer) & (None, 740) & 94,720 & weighted\_context\_layer[0] \\
+\hline
+softmax (Softmax) & (None, 740) & 0 & tag\_embedding\_matrix\_layer \\
+\hline
+\end{longtable}
+
+\noindent \textbf{Total params:} 5,054,337 (19.28 MB) \\
+\textbf{Trainable params:} 5,054,337 (19.28 MB) \\
+\textbf{Non-trainable params:} 0 (0.00 B)
+
+\subsection{Input layer}
+
+\section{Training pipeline}
+
+
+\chapter{Testing}
+
+Heatmap Analysis:
+
+The heatmap visually represents the average performance metrics (precision, recall, F1-score).
+Look for patterns such as classes with consistently low or high scores to identify well-performing or problematic categories.
+Key Metrics:
+
+Precision: High values indicate fewer false positives. Classes with low precision might be confused with other classes.
+Recall: High values mean fewer false negatives. Low recall indicates the model struggles to detect certain classes.
+F1-Score: Balances precision and recall. Low scores suggest overall poor performance for those classes.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=16cm, height=6cm]{figures/heatmap_snippet.png} 
+    \caption{Snippet from heatmap of classes of names.}
+    \label{fig:func_lengths_distr_merged}
+\end{figure}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document} 
+
