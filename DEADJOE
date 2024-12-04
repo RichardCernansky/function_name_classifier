@@ -1,0 +1,34 @@
+
+*** These modified files were found in JOE when it aborted on Wed Nov 27 17:24:46 2024
+*** JOE was aborted because the terminal closed
+
+*** File '* Build Log *'
+/bin/sh: 3: Syntax error: ")" unexpected
+
+
+*** File '(Unnamed)'
+SPLTMP=ispell.tmp;cat >$SPLTMP;aspell --lang=en_US.utf-8 -x -c $SPLTMP </dev/tty >/dev/tty;cat $SPLTMP;/bin/rm $SPLTMP
+
+*** File '/home/richardce/function_name_classifier/.git/MERGE_MSG'
+/bin/sh: 1: aspell: not found
+Merge branch 'main' of https://github.com/RichardCernansky/function_name_classifier into main
+
+# Please enter a commit message to explain why this merge is necessary,
+# especially if it merges an updated upstream into a topic branch.
+#
+# Lines starting with '#' will be ignored, and an empty message aborts
+# the commit.
+
+*** File '(Unnamed)'
+test.py
+/home/richardce/function_name_classifier/.git/MERGE_MSG
+/home/richardce/function_name_classifier/.git/MERGE_MSG
+/home/richardce/function_name_classifier/.git/MERGE_MSG
+/home/richardce/function_name_classifier/.git/MERGE_MSG
+* Build Log *
+
+*** File '* Startup Log *'
+Processing '/etc/joe/editorrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc
