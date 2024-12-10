@@ -160,6 +160,7 @@ plt.xlabel("Number of Nodes")
 plt.ylabel("Frequency")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 
+plt.xticks(np.arange(0, upper_limit + 50, 50))  # Tick marks from 0 to the upper limit in steps of 50
 plt.xlim(0, upper_limit)
 
 plt.savefig(output_num_nodes_pdf_file, format='pdf')
