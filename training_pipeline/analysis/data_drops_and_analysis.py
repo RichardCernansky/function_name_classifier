@@ -141,13 +141,13 @@ plt.show()
 
 
 #AST_DEPTH
+max_depth = int(max(filtered_ast_depths))
 plt.figure(figsize=(10, 6))
-plt.hist(filtered_ast_depths, bins=30, edgecolor="black", alpha=0.7)
+plt.hist(filtered_ast_depths, bins=max_depth, edgecolor="black", alpha=0.7)
 plt.title("Distribution of Filtered AST Depths")
 plt.xlabel("AST Depth")
 plt.ylabel("Frequency")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
-max_depth = int(max(filtered_ast_depths))
 plt.xticks(range(0, max_depth + 2, 2))
 plt.savefig(output_depths_pdf_file, format='pdf')
 
