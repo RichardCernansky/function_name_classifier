@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  4 DEC 2024 22:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  10 DEC 2024 21:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -477,15 +477,15 @@ Package hyperref Info: Link coloring OFF on input line 40.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 43.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 43.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for IL2+pcr on input line 43.
+LaTeX Font Info:    Trying to load font information for IL2+pcr on input line 44.
  (/usr/local/texlive/2024/texmf-dist/tex/cslatex/cspsfonts/il2pcr.fd
 File: il2pcr.fd 1998/01/31 CS Courier
 LaTeX Font Info:     CS Courier on input line 2.
@@ -497,11 +497,11 @@ LaTeX Font Info:    Created by CsPsFont utility v.1.0e (C) Z. Wagner, 1998/01/31
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.47 \end{abstract}
+l.48 \end{abstract}
                     [1]
 Chapter 1.
 
-Overfull \hbox (5.46445pt too wide) in paragraph at lines 79--82
+Overfull \hbox (5.46445pt too wide) in paragraph at lines 80--83
 [][] \IL2/ptm/m/it/10 [[]6[]] \IL2/ptm/b/it/10 Ab-stract Syn-tax Tree (AST). \IL2/ptm/m/it/10 An Ab-stract Syn-tax Tree (AST) for a method is a tu-ple $\OMS/cmsy/m/n/10 h\OML/cmm/m/it/10 N; T; X; s; ^^N; ^^^\OMS/cmsy/m/n/10 i$
  []
 
@@ -509,46 +509,46 @@ Overfull \hbox (5.46445pt too wide) in paragraph at lines 79--82
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.82 \end{definition}
+l.83 \end{definition}
                       [1
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 117.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 118.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Overfull \hbox (35.91867pt too wide) in paragraph at lines 131--134
+Overfull \hbox (35.91867pt too wide) in paragraph at lines 132--135
 \IL2/ptm/m/it/10 start-ing node's data (to-ken value) and the end-ing node's data struc-tured like this: $\OMS/cmsy/m/n/10 h[]\OML/cmm/m/it/10 ; []; []\OMS/cmsy/m/n/10 i$\IL2/ptm/m/it/10 .
  []
 
 
 LaTeX Font Warning: Font shape `IL2/ptm/m/sl' in size <10> not available
-(Font)              Font shape `IL2/ptm/m/it' tried instead on input line 134.
+(Font)              Font shape `IL2/ptm/m/it' tried instead on input line 135.
 
 [2{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
 Package textcomp Info: Symbol \textlangle not provided by
 (textcomp)             font family pcr in TS1 encoding.
-(textcomp)             Default family used instead on input line 151.
-LaTeX Font Info:    Trying to load font information for IL2+cmtt on input line 151.
+(textcomp)             Default family used instead on input line 152.
+LaTeX Font Info:    Trying to load font information for IL2+cmtt on input line 152.
  (/usr/local/texlive/2024/texmf-dist/tex/cslatex/base/il2cmtt.fd
 File: il2cmtt.fd 1997/08/20 CSLaTeX font definitions
 )
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 151.
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 152.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 Package textcomp Info: Symbol \textrangle not provided by
 (textcomp)             font family pcr in TS1 encoding.
-(textcomp)             Default family used instead on input line 151.
+(textcomp)             Default family used instead on input line 152.
  [3{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Chapter 2.
 <figures/functionsASTs_merged_freq_histogram.pdf, id=125, 1445.4pt x 578.16pt>
 File: figures/functionsASTs_merged_freq_histogram.pdf Graphic file (type pdf)
 <use figures/functionsASTs_merged_freq_histogram.pdf>
-Package pdftex.def Info: figures/functionsASTs_merged_freq_histogram.pdf  used on input line 191.
+Package pdftex.def Info: figures/functionsASTs_merged_freq_histogram.pdf  used on input line 192.
 (pdftex.def)             Requested size: 455.23724pt x 256.06737pt.
 
-Overfull \hbox (2.26935pt too wide) in paragraph at lines 191--192
+Overfull \hbox (2.26935pt too wide) in paragraph at lines 192--193
  [][] 
  []
 
@@ -561,10 +561,10 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <figures/FOCUSED_functionsASTs_merged_length_histogram.pdf, id=137, 867.24pt x 433.62pt>
 File: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf Graphic file (type pdf)
 <use figures/FOCUSED_functionsASTs_merged_length_histogram.pdf>
-Package pdftex.def Info: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf  used on input line 220.
+Package pdftex.def Info: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf  used on input line 222.
 (pdftex.def)             Requested size: 455.24167pt x 256.085pt.
 
-Overfull \hbox (2.27377pt too wide) in paragraph at lines 220--221
+Overfull \hbox (2.27377pt too wide) in paragraph at lines 222--223
  [][] 
  []
 
@@ -572,57 +572,57 @@ Overfull \hbox (2.27377pt too wide) in paragraph at lines 220--221
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [5 <./figures/functionsASTs_merged_freq_histogram.pdf>]
-Overfull \hbox (4.91794pt too wide) in alignment at lines 259--263
+Overfull \hbox (4.91794pt too wide) in alignment at lines 261--265
  [] [] [] [] 
  []
 
 
-Overfull \hbox (4.91794pt too wide) in alignment at lines 263--267
+Overfull \hbox (4.91794pt too wide) in alignment at lines 265--269
  [] [] [] [] 
  []
 
 
-Underfull \hbox (badness 4024) in paragraph at lines 274--274
+Underfull \hbox (badness 4024) in paragraph at lines 276--276
 []|\IL2/ptm/m/n/10 value[]embedding (Em-bed-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
 []|\IL2/ptm/m/n/10 value1[]input[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--276
+Underfull \hbox (badness 10000) in paragraph at lines 278--278
 []|\IL2/ptm/m/n/10 path[]embedding (Em-bed-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 278--279
+Underfull \hbox (badness 10000) in paragraph at lines 280--281
 []|\IL2/ptm/m/n/10 value[]embedding[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 278--279
+Underfull \hbox (badness 10000) in paragraph at lines 280--281
 \IL2/ptm/m/n/10 path[]embedding[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 284--284
+Underfull \hbox (badness 10000) in paragraph at lines 286--286
 []|\IL2/ptm/m/n/10 weighted[]context[]layer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--286
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
 []|\IL2/ptm/m/n/10 tag[]embedding[]matrix[]layer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--286
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
 \IL2/ptm/m/n/10 (TagEm-bed-ding-Ma-
  []
 
 
-Overfull \hbox (4.91794pt too wide) in alignment at lines 267--290
+Overfull \hbox (4.91794pt too wide) in alignment at lines 269--292
  [] [] [] [] 
  []
 
@@ -631,10 +631,10 @@ Chapter 3.
 <figures/heatmap_snippet.png, id=276, 1120.185pt x 332.24126pt>
 File: figures/heatmap_snippet.png Graphic file (type png)
 <use figures/heatmap_snippet.png>
-Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 316.
+Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 318.
 (pdftex.def)             Requested size: 455.24496pt x 170.71832pt.
 
-Overfull \hbox (2.27707pt too wide) in paragraph at lines 316--317
+Overfull \hbox (2.27707pt too wide) in paragraph at lines 318--319
  [][] 
  []
 
