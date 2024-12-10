@@ -151,13 +151,16 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.savefig( output_depths_pdf_file, format='pdf')
 
 #NUM_NODES
-lower_limit = np.percentile(filtered_num_nodes, 0)
-upper_limit = np.percentile(filtered_num_nodes, 95)  # Focus on 95th percentile of data
+upper_limit = max(filtered_num_nodes)
+
 plt.figure(figsize=(10, 6))
 plt.hist(filtered_num_nodes, bins=20, edgecolor="black", alpha=0.7)
 plt.title("Distribution of Filtered Number of Nodes")
 plt.xlabel("Number of Nodes")
 plt.ylabel("Frequency")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.xlim(lower_limit, upper_limit)
+
+plt.xlim(0, upper_limit)
+
 plt.savefig(output_num_nodes_pdf_file, format='pdf')
+plt.show()
