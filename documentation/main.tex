@@ -13,6 +13,7 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{adjustbox}
+\usepackage{float}
 \usepackage[a4paper,margin=1in]{geometry}
 
 \newtheorem{definition}{Definition}
@@ -175,7 +176,8 @@ As the dataset originates from competitive programming contests, its characteris
     \item \textbf{Outliers:} The presence of abnormal functions from source code submissions may impact the analysis and model performance. These include:
     \begin{enumerate}
         \item \textbf{Extremely Short or Long Functions:} Functions that are either unusually short or excessively long may introduce noise into the dataset and require special handling. For model predicting function names, it would be the best if function follows single-responsibility principle. (some ref would be appropriate i guess)
-        \item \textbf{Poorly Named Functions:} Inconsistent or non-descriptive function names can reduce the information gain for the model and negatively affect results. This task is, however, very difficult to address, as it is challenging for a machine to evaluate the descriptive meaning of a function name.
+        \item \textbf{Poorly Named Functions:} Inconsistent or non-descriptive function names can reduce the information gain for the model and negatively affect results. This task is, however, very difficult to address, as it is challenging for a machine to evaluate the descriptive meaning of a function name. When fetching the code snippets from the datasets, we
+        applied a filter to filter out functions with names like 'main' and 'solve', because these names unquestionably do not provide any insight into the functionality. 
         \item \textbf{Highly Complex Functions:} Functions with excessive complexity can be challenging to analyze and may contain logical circles or recursive patterns in extended representations like call graphs or control flow graphs. While an AST is acyclic by definition, complex functions with recursion, indirect function calls, or unconventional control flows may create logical loops that complicate the analysis and interpretation.
         \item \textbf{Functions Violating the Single Responsibility Principle:} Functions that perform multiple unrelated tasks with name that
         does not capture all of them can be problematic for the model to evaluate 
@@ -184,10 +186,10 @@ As the dataset originates from competitive programming contests, its characteris
     \end{enumerate}
 \end{enumerate}
 
-An initial analysis of the function data can involve visualizing quantitative features, such as the distribution of function names.
+An initial analysis of the function data can involve visualizing distributions of quantitative features (f.e. function names).
 
 \subsubsection{Function name frequency}
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=16cm, height=9cm]{figures/functionsASTs_merged_freq_histogram.pdf} 
     \caption{Distribution of function name frequencies.}
@@ -217,7 +219,7 @@ The Shapiro-Wilk test was applied to detect whether the data follows a normal di
 Another basic feature that describes characteristic of data is the length of a function. There are multiple ways to represent such length when observing source code features, for now, we chose 
 to just split by the whitespace characters and count the number of words.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=16cm, height=9cm]{figures/FOCUSED_functionsASTs_merged_length_histogram.pdf} 
     \caption{Distribution of function lengths measured in tokens.}
@@ -237,6 +239,24 @@ to just split by the whitespace characters and count the number of words.
         \hline
     \end{tabular}
 \end{table}
+
+\subsubsection{Function's AST Depth}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm, height=9cm]{figures/ast_depths_merged.pdf} 
+    \caption{Distribution of function lengths measured in tokens.}
+    \label{fig:func_lengths_distr_merged}
+\end{figure}
+
+\subsubsection{Function's AST Number of nodes}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm, height=9cm]{figures/num_nodes_merged.pdf} 
+    \caption{Distribution of function lengths measured in tokens.}
+    \label{fig:func_lengths_distr_merged}
+\end{figure}
 
 \subsection{Data preprocessing}
 Having the data available in .csv tables format, we must have first deal with the filtering the necessary rows (solutions written in C language), transforming this code to ASCII AST using psycheC compiler. From the ASCII output of the command \textit{cnip -l -C -d file\_path} is actual

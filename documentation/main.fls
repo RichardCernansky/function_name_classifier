@@ -129,6 +129,8 @@ INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/varwidth/varwidth.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/varwidth/varwidth.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/varwidth/varwidth.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifvtex.sty
@@ -261,6 +263,16 @@ INPUT ./figures/FOCUSED_functionsASTs_merged_length_histogram.pdf
 INPUT ./figures/FOCUSED_functionsASTs_merged_length_histogram.pdf
 INPUT ./figures/FOCUSED_functionsASTs_merged_length_histogram.pdf
 INPUT ./figures/FOCUSED_functionsASTs_merged_length_histogram.pdf
+INPUT ./figures/ast_depths_merged.pdf
+INPUT ./figures/ast_depths_merged.pdf
+INPUT ./figures/ast_depths_merged.pdf
+INPUT ./figures/ast_depths_merged.pdf
+INPUT ./figures/ast_depths_merged.pdf
+INPUT ./figures/num_nodes_merged.pdf
+INPUT ./figures/num_nodes_merged.pdf
+INPUT ./figures/num_nodes_merged.pdf
+INPUT ./figures/num_nodes_merged.pdf
+INPUT ./figures/num_nodes_merged.pdf
 INPUT ./figures/heatmap_snippet.png
 INPUT ./figures/heatmap_snippet.png
 INPUT ./figures/heatmap_snippet.png
