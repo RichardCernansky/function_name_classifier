@@ -142,7 +142,7 @@ plt.show()
 
 #AST_DEPTH
 plt.figure(figsize=(10, 6))
-plt.hist(filtered_ast_depths, bins=50, edgecolor="black", alpha=0.7)
+plt.hist(filtered_ast_depths, bins=30, edgecolor="black", alpha=0.7)
 plt.title("Distribution of Filtered AST Depths")
 plt.xlabel("AST Depth")
 plt.ylabel("Frequency")
