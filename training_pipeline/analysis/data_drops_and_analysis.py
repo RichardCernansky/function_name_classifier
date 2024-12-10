@@ -154,7 +154,7 @@ plt.savefig( output_depths_pdf_file, format='pdf')
 upper_limit = max(filtered_num_nodes)
 
 plt.figure(figsize=(10, 6))
-plt.hist(filtered_num_nodes, bins=20, edgecolor="black", alpha=0.7)
+plt.hist(filtered_num_nodes, bins=50, edgecolor="black", alpha=0.7)
 plt.title("Distribution of Filtered Number of Nodes")
 plt.xlabel("Number of Nodes")
 plt.ylabel("Frequency")
