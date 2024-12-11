@@ -85,7 +85,7 @@ df = df.sort_values(by="Frequency", ascending=False)
 #NAMES
 #Shapiro-Wilk test on name frequencies
 shapiro_stat, shapiro_p = shapiro(df["Frequency"])
-print(f"Shapiro-Wilk Test Results:")
+print(f"NAMES: Shapiro-Wilk Test Results:")
 print(f"  W Statistic: {shapiro_stat:.4f}")
 print(f"  P-value: {shapiro_p:.4e}")
 if shapiro_p < 0.05:
@@ -119,13 +119,14 @@ plt.show()
 mean = np.mean(filtered_lengths_tokens)
 std = np.std(filtered_lengths_tokens)
 ks_statistic, ks_p_value = kstest(filtered_lengths_tokens, 'norm', args=(mean, std))
-print(f"Kolmogorov-Smirnov Test Results:")
+print(f"NUM_TOKENS: Kolmogorov-Smirnov Test Results:")
 print(f"  KS Statistic: {ks_statistic:.4f}")
 print(f"  P-value: {ks_p_value:.4e}")
 if ks_p_value < 0.05:
     print("The data is not normally distributed (p < 0.05).")
 else:
     print("The data follows a normal distribution (p >= 0.05).")
+print(f"mean: {mean:.4f}, std: {std:.4f}")
 
 plt.figure(figsize=(12, 6), dpi=100)
 plt.hist(filtered_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')  # Reduce bin count for better clarity
@@ -151,12 +152,25 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.xticks(range(0, max_depth + 2, 2))
 plt.savefig(output_depths_pdf_file, format='pdf')
 
+mean = np.mean(filtered_ast_depths)
+std = np.std(filtered_ast_depths)
+ks_statistic, ks_p_value = kstest(filtered_ast_depths, 'norm', args=(mean, std))
+print(f"AST_DEPTHS: Kolmogorov-Smirnov Test Results:")
+print(f"  KS Statistic: {ks_statistic:.4f}")
+print(f"  P-value: {ks_p_value:.4e}")
+if ks_p_value < 0.05:
+    print("The data is not normally distributed (p < 0.05).")
+else:
+    print("The data follows a normal distribution (p >= 0.05).")
+print(f"mean: {mean:.4f}, std: {std:.4f}")
+
+
 
 #NUM_NODES
 upper_limit = max(filtered_num_nodes)
 
 plt.figure(figsize=(10, 6))
-plt.hist(filtered_num_nodes, bins=50, edgecolor="black", alpha=0.7)
+plt.hist(filtered_num_nodes, bins=70, edgecolor="black", alpha=0.7)
 plt.title("Distribution of Filtered Number of Nodes")
 plt.xlabel("Number of Nodes")
 plt.ylabel("Frequency")
@@ -167,3 +181,17 @@ plt.xlim(0, upper_limit)
 
 plt.savefig(output_num_nodes_pdf_file, format='pdf')
 plt.show()
+
+mean = np.mean(filtered_num_nodes)
+std = np.std(filtered_num_nodes)
+ks_statistic, ks_p_value = kstest(filtered_num_nodes, 'norm', args=(mean, std))
+print(f"NUM_NODES: Kolmogorov-Smirnov Test Results:")
+print(f"  KS Statistic: {ks_statistic:.4f}")
+print(f"  P-value: {ks_p_value:.4e}")
+if ks_p_value < 0.05:
+    print("The data is not normally distributed (p < 0.05).")
+else:
+    print("The data follows a normal distribution (p >= 0.05).")
+print(f"mean: {mean:.4f}, std: {std:.4f}")
+
+
