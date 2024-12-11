@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  11 DEC 2024 11:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  11 DEC 2024 22:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/richardcernansky/Desktop/bakalarka/documentation/main.tex
-(/Users/richardcernansky/Desktop/bakalarka/documentation/main.tex
+**/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex
+(/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/report.cls
@@ -414,7 +414,10 @@ LaTeX Font Info:    Created by CsPsFont utility v.1.0e (C) Z. Wagner, 1998/01/31
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count306
 \l__pdf_internal_box=\box62
-) (./main.aux
+) (./documentation.aux
+
+LaTeX Warning: Label `fig:func_lengths_distr_merged' multiply defined.
+
 
 LaTeX Warning: Label `fig:func_lengths_distr_merged' multiply defined.
 
@@ -425,7 +428,7 @@ LaTeX Warning: Label `fig:func_lengths_distr_merged' multiply defined.
 LaTeX Warning: Label `fig:func_lengths_distr_merged' multiply defined.
 
 )
-\openout1 = `main.aux'.
+\openout1 = `documentation.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
 LaTeX Font Info:    ... okay on input line 42.
@@ -467,9 +470,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 42.
- (./main.out) (./main.out)
+ (./documentation.out) (./documentation.out)
 \@outlinefile=\write3
-\openout3 = `main.out'.
+\openout3 = `documentation.out'.
 
 
 *geometry* driver: auto-detecting
@@ -574,10 +577,10 @@ Chapter 2.
 <figures/functionsASTs_merged_freq_histogram.pdf, id=129, 1445.4pt x 578.16pt>
 File: figures/functionsASTs_merged_freq_histogram.pdf Graphic file (type pdf)
 <use figures/functionsASTs_merged_freq_histogram.pdf>
-Package pdftex.def Info: figures/functionsASTs_merged_freq_histogram.pdf  used on input line 195.
+Package pdftex.def Info: figures/functionsASTs_merged_freq_histogram.pdf  used on input line 212.
 (pdftex.def)             Requested size: 455.23724pt x 256.06737pt.
 
-Overfull \hbox (2.26935pt too wide) in paragraph at lines 195--196
+Overfull \hbox (2.26935pt too wide) in paragraph at lines 212--213
  [][] 
  []
 
@@ -587,10 +590,10 @@ Overfull \hbox (2.26935pt too wide) in paragraph at lines 195--196
 <figures/FOCUSED_functionsASTs_merged_length_histogram.pdf, id=141, 867.24pt x 433.62pt>
 File: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf Graphic file (type pdf)
 <use figures/FOCUSED_functionsASTs_merged_length_histogram.pdf>
-Package pdftex.def Info: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf  used on input line 230.
+Package pdftex.def Info: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf  used on input line 247.
 (pdftex.def)             Requested size: 455.24167pt x 256.085pt.
 
-Overfull \hbox (2.27377pt too wide) in paragraph at lines 230--231
+Overfull \hbox (2.27377pt too wide) in paragraph at lines 247--248
  [][] 
  []
 
@@ -598,20 +601,20 @@ Overfull \hbox (2.27377pt too wide) in paragraph at lines 230--231
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.234 
+l.251 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.234 
+l.251 
        <./figures/functionsASTs_merged_freq_histogram.pdf>]
 <figures/ast_depths_merged.pdf, id=228, 722.7pt x 433.62pt>
 File: figures/ast_depths_merged.pdf Graphic file (type pdf)
 <use figures/ast_depths_merged.pdf>
-Package pdftex.def Info: figures/ast_depths_merged.pdf  used on input line 260.
+Package pdftex.def Info: figures/ast_depths_merged.pdf  used on input line 277.
 (pdftex.def)             Requested size: 455.24826pt x 256.085pt.
 
-Overfull \hbox (2.28036pt too wide) in paragraph at lines 260--261
+Overfull \hbox (2.28036pt too wide) in paragraph at lines 277--278
  [][] 
  []
 
@@ -619,20 +622,20 @@ Overfull \hbox (2.28036pt too wide) in paragraph at lines 260--261
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.264 
+l.281 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.264 
+l.281 
        <./figures/FOCUSED_functionsASTs_merged_length_histogram.pdf>]
 <figures/num_nodes_merged.pdf, id=273, 722.7pt x 433.62pt>
 File: figures/num_nodes_merged.pdf Graphic file (type pdf)
 <use figures/num_nodes_merged.pdf>
-Package pdftex.def Info: figures/num_nodes_merged.pdf  used on input line 289.
+Package pdftex.def Info: figures/num_nodes_merged.pdf  used on input line 306.
 (pdftex.def)             Requested size: 455.24826pt x 256.085pt.
 
-Overfull \hbox (2.28036pt too wide) in paragraph at lines 289--290
+Overfull \hbox (2.28036pt too wide) in paragraph at lines 306--307
  [][] 
  []
 
@@ -640,114 +643,125 @@ Overfull \hbox (2.28036pt too wide) in paragraph at lines 289--290
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.293 
+l.310 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.293 
+l.310 
        <./figures/ast_depths_merged.pdf>] [8
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.346     \item \textbf
+l.363     \item \textbf
                        {Poorly Named Functions:} In the script \textit{home/...
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.346     \item \textbf
+l.363     \item \textbf
                        {Poorly Named Functions:} In the script \textit{home/...
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.346     \item \textbf
+l.363     \item \textbf
                        {Poorly Named Functions:} In the script \textit{home/... <./figures/num_nodes_merged.pdf>]
-Overfull \hbox (4.91794pt too wide) in alignment at lines 359--363
+<figures/code2vec_model_visual.png, id=361, 529.98pt x 301.125pt>
+File: figures/code2vec_model_visual.png Graphic file (type png)
+<use figures/code2vec_model_visual.png>
+Package pdftex.def Info: figures/code2vec_model_visual.png  used on input line 377.
+(pdftex.def)             Requested size: 341.43416pt x 199.17502pt.
+
+Overfull \hbox (4.91794pt too wide) in alignment at lines 382--386
  [] [] [] [] 
  []
 
 
-Overfull \hbox (4.91794pt too wide) in alignment at lines 363--367
+Overfull \hbox (4.91794pt too wide) in alignment at lines 386--390
  [] [] [] [] 
  []
 
 
-Underfull \hbox (badness 4024) in paragraph at lines 374--374
+Underfull \hbox (badness 4024) in paragraph at lines 397--397
 []|\IL2/ptm/m/n/10 value[]embedding (Em-bed-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 374--375
+Underfull \hbox (badness 10000) in paragraph at lines 397--398
 []|\IL2/ptm/m/n/10 value1[]input[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 376--376
+Underfull \hbox (badness 10000) in paragraph at lines 399--399
 []|\IL2/ptm/m/n/10 path[]embedding (Em-bed-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
+Underfull \hbox (badness 10000) in paragraph at lines 401--402
 []|\IL2/ptm/m/n/10 value[]embedding[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
+Underfull \hbox (badness 10000) in paragraph at lines 401--402
 \IL2/ptm/m/n/10 path[]embedding[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 384--384
+Underfull \hbox (badness 10000) in paragraph at lines 407--407
 []|\IL2/ptm/m/n/10 weighted[]context[]layer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 386--386
+Underfull \hbox (badness 10000) in paragraph at lines 409--409
 []|\IL2/ptm/m/n/10 tag[]embedding[]matrix[]layer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 386--386
+Underfull \hbox (badness 10000) in paragraph at lines 409--409
 \IL2/ptm/m/n/10 (TagEm-bed-ding-Ma-
  []
 
 
-Overfull \hbox (4.91794pt too wide) in alignment at lines 367--390
+Overfull \hbox (4.91794pt too wide) in alignment at lines 390--413
  [] [] [] [] 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 406--428
-
- []
-
-[9] [10
+[9
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.455 \chapter
-              {Testing}]
+l.413 \end{longtable}
+                      <./figures/code2vec_model_visual.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 429--451
+
+ []
+
+[10
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.482     \item B
+                 uild and compile \texttt{psychec} for C code snippet AST ge...] [11]
 Chapter 3.
-<figures/heatmap_snippet.png, id=380, 1120.185pt x 332.24126pt>
+<figures/heatmap_snippet.png, id=402, 1120.185pt x 332.24126pt>
 File: figures/heatmap_snippet.png Graphic file (type png)
 <use figures/heatmap_snippet.png>
-Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 471.
+Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 537.
 (pdftex.def)             Requested size: 455.24496pt x 170.71832pt.
 
-Overfull \hbox (2.27707pt too wide) in paragraph at lines 471--472
+Overfull \hbox (2.27707pt too wide) in paragraph at lines 537--538
  [][] 
  []
 
-(./main.bbl [11
+(./documentation.bbl [12
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.1 \begin{thebibliography}{1}
-                               <./figures/heatmap_snippet.png>]) [12
+                               <./figures/heatmap_snippet.png>]) [13
 
-] (./main.aux)
+] (./documentation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -756,22 +770,22 @@ L3 programming layer <2024-02-20>
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 45B36D0F655E6B2C2E82C36F2ECC511A;4028.
+Package rerunfilecheck Info: File `documentation.out' has not changed.
+(rerunfilecheck)             Checksum: A770595F94187EE24140CCC9CBE28936;4000.
  ) 
 Here is how much of TeX's memory you used:
- 13836 strings out of 474116
- 217615 string characters out of 5743682
- 1951187 words of memory out of 5000000
- 35875 multiletter control sequences out of 15000+600000
+ 13863 strings out of 474116
+ 218386 string characters out of 5743682
+ 1948187 words of memory out of 5000000
+ 35891 multiletter control sequences out of 15000+600000
  591271 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,80p,735b,598s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,80p,744b,598s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (14 pages, 333889 bytes).
+Output written on documentation.pdf (15 pages, 427123 bytes).
 PDF statistics:
- 472 PDF objects out of 1000 (max. 8388607)
- 261 compressed objects within 3 object streams
- 80 named destinations out of 1000 (max. 500000)
- 170 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 494 PDF objects out of 1000 (max. 8388607)
+ 280 compressed objects within 3 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

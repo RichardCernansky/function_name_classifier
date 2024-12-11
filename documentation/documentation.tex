@@ -53,7 +53,7 @@ abstract abstract abstract
 
 \section{Motivation}
 
-In this thesis, we aim to analyze the performance of our re-implemented code2vec CNN model, which utilizes an attention mechanism to process concatenated inputs to classify function under a certain name. The input to this model is derived from node-to-node features of functions' Abstract Syntax Trees (ASTs). The evaluation focuses on source code snippets written in the C programming language, sourced from datasets of competitive programming events.
+In this thesis, we aim to analyze the performance of our re-implemented code2vec NN model, which utilizes an attention mechanism to process concatenated inputs to classify function under a certain name. The input to this model is derived from node-to-node features of functions' Abstract Syntax Trees (ASTs). The evaluation focuses on source code snippets written in the C programming language, sourced from datasets of competitive programming events.
 
 \section{Domain Analysis}
 
@@ -164,26 +164,43 @@ It has shown that the tree traversal that is incorporated in the path-context su
 can be stated as learning the information connection between the path contexts and the function names. It is important to note that \textbf{not all path context contribute with the same informative value} to the resulting prediction of the classifier. That is why \textbf{Attention mechanism} \cite{attention} is added to the network to give the path contexts in the function's bag their corresponding weight when predicting the name. This way we can focus on the important path contexts that differentiate syntactically closely related functions from one another.
 
 
-\chapter{Re-implementation of code2vec CNN classifier}
+\chapter{Re-implementation of code2vec NN classifier}
 
 \section{Exploratory data analysis}
+\label{item:EDA}
 The dataset of functions used to train the model consists of extracted C language solutions of the Google Code Jam and Codeforces programming contests. The datasets of Google Code Jam is available on this link and Codeforces on this link.
 
 \subsection{The Nature of the Data}
 As the dataset originates from competitive programming contests, its characteristics align with the expected patterns of this domain. However, there are certain limitations and challenges that must be considered when working with such data. Based on our observations, the following points should be carefully evaluated:
 
 \begin{enumerate}
-    \item \textbf{Duplicate Entries:} Checking code snippet strings for duplicates to ensure a single submission is not included in the dataset multiple times.
-    \item \textbf{Outliers:} The presence of abnormal functions from source code submissions may impact the analysis and model performance. These include:
+    \item \textbf{Duplicate Entries:} 
+    \label{item:duplicate_entries}
+    Checking code snippet strings for duplicates to ensure a single submission is not included in the dataset multiple times.
+
+    \item \textbf{Outliers:} 
+    \label{item:outliers}
+    The presence of abnormal functions from source code submissions may impact the analysis and model performance. These include:
     \begin{enumerate}
-        \item \textbf{Extremely Short or Long Functions:} Functions that are either unusually short or excessively long may introduce noise into the dataset and require special handling. For model predicting function names, it would be the best if function follows single-responsibility principle. (some ref would be appropriate i guess)
-        \item \textbf{Poorly Named Functions:} Inconsistent or non-descriptive function names can reduce the information gain for the model and negatively affect results. This task is, however, very difficult to address, as it is challenging for a machine to evaluate the descriptive meaning of a function name. When fetching the code snippets from the datasets, we
-        applied a filter to filter out functions with names like 'main' and 'solve', because these names unquestionably do not provide any insight into the functionality. 
-        \item \textbf{Highly Complex Functions:} Functions with excessive complexity can be challenging to analyze and may contain logical circles or recursive patterns in extended representations like call graphs or control flow graphs. While an AST is acyclic by definition, complex functions with recursion, indirect function calls, or unconventional control flows may create logical loops that complicate the analysis and interpretation.
-        \item \textbf{Functions Violating the Single Responsibility Principle:} Functions that perform multiple unrelated tasks with name that
-        does not capture all of them can be problematic for the model to evaluate 
-        the function correctly which may lead to decreased accuracy.
-        \item \textbf{Functions with Rarely Occurring Names:} Rare function names present a challenge for the model, as the limited number of occurrences provides insufficient examples for the model to effectively distinguish them from similar functions with different names.
+        \item \textbf{Extremely Short or Long Functions:} 
+        \label{item:short_long_functions}
+        Functions that are either unusually short or excessively long may introduce noise into the dataset and require special handling. For model predicting function names, it would be the best if function follows single-responsibility principle. (some ref would be appropriate i guess)
+        
+        \item \textbf{Poorly Named Functions:} 
+        \label{item:poorly_named_functions}
+        Inconsistent or non-descriptive function names can reduce the information gain for the model and negatively affect results. This task is, however, very difficult to address, as it is challenging for a machine to evaluate the descriptive meaning of a function name. When fetching the code snippets from the datasets, we applied a filter to filter out functions with names like 'main' and 'solve', because these names unquestionably do not provide any insight into the functionality.
+
+        \item \textbf{Highly Complex Functions:} 
+        \label{item:complex_functions}
+        Functions with excessive complexity can be challenging to analyze and may contain logical circles or recursive patterns in extended representations like call graphs or control flow graphs. While an AST is acyclic by definition, complex functions with recursion, indirect function calls, or unconventional control flows may create logical loops that complicate the analysis and interpretation.
+
+        \item \textbf{Functions Violating the Single Responsibility Principle:} 
+        \label{item:single_responsibility}
+        Functions that perform multiple unrelated tasks with names that do not capture all of them can be problematic for the model to evaluate the function correctly, which may lead to decreased accuracy.
+
+        \item \textbf{Functions with Rarely Occurring Names:} 
+        \label{item:rare_names}
+        Rare function names present a challenge for the model, as the limited number of occurrences provides insufficient examples for the model to effectively distinguish them from similar functions with different names.
     \end{enumerate}
 \end{enumerate}
 
@@ -309,7 +326,7 @@ about structural complexity.
 \end{table}
 
 \subsubsection{Key statistics for path-context based approach}
-When working with CNN classifier, we need to know the exact dimensions for our 
+When working with NN classifier, we need to know the exact dimensions for our 
 inputs' embedding matrices. Following metrics describe the sizes of vocabularies
 that encode the natural-language based features to the numerical ones.
 
@@ -351,10 +368,16 @@ In the entire training pipeline, there are multiple stages where some of the abo
 
 
 \section{Model Architecture}
-In this section, we would like to provide a clear explanation of the model that was used to process the data and perform the predictions that are observed. This includes a detailed description of the architecture, the reasoning behind the choice of components, and the methodology employed for training and evaluation.
+In this section, we would like to provide an explanation of the model that was used to process the data and perform the predictions that are observed. This includes a detailed description of the architecture, the reasoning behind the choice of components, and the methodology employed for training and evaluation.
 
 \section*{Model: "functional"}
-TODO o tom jak v skratke funguje a odkaz na code2vec.
+The model 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm, height=7cm]{figures/code2vec_model_visual.png} 
+    \caption{Code2vec \cite{code2vec} neural network model flowchart.}
+    \label{fig:func_lengths_distr_merged}
+\end{figure}
 
 \begin{longtable}{|p{4cm}|p{5cm}|r|p{4cm}|}
 \hline
@@ -417,7 +440,7 @@ The training pipeline of this project is defined in the directory \texttt{./trai
     |   |-- vocabs\_*.pkl \\
     |   |-- trained\_model\_*.h5 \\
     |-- aggregated\_avg.py \\
-    |-- AttentionCNNClassifier.py \\
+    |-- AttentionNNClassifier.py \\
     |-- consts.py \\
     |-- generate\_vocabs.py \\
     |-- NodeToNodePaths.py \\
@@ -449,10 +472,53 @@ The training pipeline of this project is defined in the directory \texttt{./trai
 
 \end{itemize}
 
-\subsection{Pipeline execution: Workflow and the training process}
+\subsection{Pipeline Execution: Workflow and Training Process}
+
+This subsection explains the data pipeline through numbered steps to 
+illustrate the complete function name classification process, from data
+ extraction to model evaluation. These are the steps in the workflow:
+
+ \begin{enumerate}
+    \item Build and compile \texttt{psychec} for C code snippet AST generation. It is able to provide structural inference for incomplete code.
+
+    \item Run \texttt{extract\_functions/main.py} to generate \texttt{.c} functions ASTs in \texttt{.ndjson} format (AST features as metadata included).
+
+    \item Execute \texttt{data\_drops\_analysis.py} to drop functions with names occurring $\leq 5$ times and filter out poorly named functions (ref. \ref{item:poorly_named_functions}). 
+    This script also generates the EDA for the selected features \ref{item:EDA}.
+
+    \item Execute \texttt{stratifiedKfold.py} to perform stratified splitting of the dataset into training and validation sets for NUM\_FOLDS=5. This is the main execution
+    script as it calls the following scripts for each fold to train and test the model.
+    
+    \item Use \texttt{generate\_vocabs.py} to generate vocabularies from the stratified train and validation sets and set them up for the current fold model.
+
+    \item Execute \texttt{test\_valid\_strat.py} for another stratification for test and validation sets.
+
+    \item Train the fold model using \texttt{AttentionNNClassifier.py}.
+
+    \item Run \texttt{testing\_model.py} to evaluate the trained model. The evaluation consists of 
+    classical metrics such as accuracy, precision, and recall. Additionally, we computed accuracy across 
+    different bins based on the following keys:
+    
+    \begin{itemize}
+        \item \texttt{num\_tokens\_50\_bin\_accuracies}
+        \item \texttt{num\_tokens\_20\_bin\_accuracies}
+        \item \texttt{ast\_depth\_5\_bin\_accuracies}
+        \item \texttt{ast\_depth\_2\_bin\_accuracies}
+        \item \texttt{num\_nodes\_50\_bin\_accuracies}
+        \item \texttt{num\_nodes\_20\_bin\_accuracies}
+    \end{itemize}
+
+    We also generate a heatmap for examining average metrics per class (precision, recall, F1 score). The snippet from the heatmap will be displayed later in the chapter Testing \ref{item:chapter_testing}.
+
+
+    \item After all fold processed, run \texttt{aggregated\_avg.py} to aggregate the results from all folds. 
+\end{enumerate}
+
+
 
 
 \chapter{Testing}
+\label{item:chapter_testing}
 TODO: test on raw and processed data
 
 Heatmap Analysis:

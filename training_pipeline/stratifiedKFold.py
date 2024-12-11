@@ -27,7 +27,7 @@ with open(ndjson_file, "r") as file:
                     "NumTokens": num_tokens,
                     "ASTDepth": ast_depth,
                     "NumNodes": num_nodes
-                })
+                })0
             else:
                 print(f"Missing 'tag', 'ast', or 'num_tokens' in line (skipped): {line}")
 
@@ -83,7 +83,7 @@ else:
             # Generate vocabs for the current fold
             subprocess.run(["python", "generate_vocabs.py", str(fold_index+1)], check=True)
             # Train the model on the current fold
-            subprocess.run(["python", "AttentionCNNClassifier.py", str(fold_index+1)], check=True)
+            subprocess.run(["python", "AttentionNNClassifier.py", str(fold_index+1)], check=True)
             # Test the model on the current fold's test file
             subprocess.run(["python", "testing_model.py", str(fold_index+1)], check=True)
 
