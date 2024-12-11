@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1733870717.74224 "main.aux" "main.bbl" "main" 1733870862.13402 0
+["bibtex main"] 1733902244.69855 "main.aux" "main.bbl" "main" 1733902248.10503 0
   "./references.bib" 1733309425.49565 7789 c752298ef0a2726a73e56c1c01f669c0 ""
   "/usr/local/texlive/2024/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1733870861.76136 5933 2b8b00f3b5b31ad9a70287d0e89de8f9 "pdflatex"
+  "main.aux" 1733902247.75931 6690 d4cf0fb3d2b04dbb2b915bb5d233d79b "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1733870860.88387 "/Users/richardcernansky/Desktop/bakalarka/documentation/main.tex" "main.pdf" "main" 1733870862.13418 0
-  "/Users/richardcernansky/Desktop/bakalarka/documentation/main.tex" 1733870860.58886 20178 b18e8ed592c74efec642aa0b76676425 ""
+["pdflatex"] 1733902246.90451 "/Users/richardcernansky/Desktop/bakalarka/documentation/main.tex" "main.pdf" "main" 1733902248.10523 0
+  "/Users/richardcernansky/Desktop/bakalarka/documentation/main.tex" 1733902246.50294 21931 343569cad6c96d98def7d355e7118dfe ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cs/xl2.enc" 1356110403 5089 baf7b5391825d2b4c597cc1d451dbb7a ""
@@ -145,11 +145,11 @@
   "figures/ast_depths_merged.pdf" 1733870577.4523 14466 1b0e74a2b23548988399cb19a1f7556c ""
   "figures/functionsASTs_merged_freq_histogram.pdf" 1732479106.61957 73416 4de6180e3ef145246af73a3ba37011d9 ""
   "figures/heatmap_snippet.png" 1733301647.3692 92328 42e5c8a6bd64d6c3eead28a8cd56f9a3 ""
-  "figures/num_nodes_merged.pdf" 1733870577.45241 14926 e00720c21fed306b0167279ad3c533fd ""
-  "main.aux" 1733870861.76136 5933 2b8b00f3b5b31ad9a70287d0e89de8f9 "pdflatex"
-  "main.bbl" 1733870717.88417 1722 428f96646f1c920a58bd7badcfa85c34 "bibtex main"
-  "main.out" 1733870861.76242 3643 402f0214449238984fe149a1339bc91a "pdflatex"
-  "main.tex" 1733870860.58886 20178 b18e8ed592c74efec642aa0b76676425 ""
+  "figures/num_nodes_merged.pdf" 1733901231.53386 15182 cbfd9fd83dae0f610998d6a39a34ba13 ""
+  "main.aux" 1733902247.75931 6690 d4cf0fb3d2b04dbb2b915bb5d233d79b "pdflatex"
+  "main.bbl" 1733902244.82995 1722 428f96646f1c920a58bd7badcfa85c34 "bibtex main"
+  "main.out" 1733902247.76042 3523 33673128c6e1c2ad9024bc11681eb020 "pdflatex"
+  "main.tex" 1733902246.50294 21931 343569cad6c96d98def7d355e7118dfe ""
   (generated)
   "main.aux"
   "main.log"

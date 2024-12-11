@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  10 DEC 2024 23:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  11 DEC 2024 08:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -536,7 +536,7 @@ Overfull \hbox (35.91867pt too wide) in paragraph at lines 133--136
 
 
 LaTeX Font Warning: Font shape `IL2/ptm/m/sl' in size <10> not available
-(Font)              Font shape `IL2/ptm/m/it' tried instead on input line 136.
+(Font)              Font shape `IL2/ptm/m/it' tried instead on input line 141.
 
 [2{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
 Package textcomp Info: Symbol \textlangle not provided by
@@ -555,7 +555,7 @@ Package textcomp Info: Symbol \textrangle not provided by
 (textcomp)             Default family used instead on input line 153.
  [3{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Chapter 2.
-<figures/functionsASTs_merged_freq_histogram.pdf, id=125, 1445.4pt x 578.16pt>
+<figures/functionsASTs_merged_freq_histogram.pdf, id=121, 1445.4pt x 578.16pt>
 File: figures/functionsASTs_merged_freq_histogram.pdf Graphic file (type pdf)
 <use figures/functionsASTs_merged_freq_histogram.pdf>
 Package pdftex.def Info: figures/functionsASTs_merged_freq_histogram.pdf  used on input line 194.
@@ -568,13 +568,13 @@ Overfull \hbox (2.26935pt too wide) in paragraph at lines 194--195
 [4
 
 ]
-<figures/FOCUSED_functionsASTs_merged_length_histogram.pdf, id=137, 867.24pt x 433.62pt>
+<figures/FOCUSED_functionsASTs_merged_length_histogram.pdf, id=133, 867.24pt x 433.62pt>
 File: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf Graphic file (type pdf)
 <use figures/FOCUSED_functionsASTs_merged_length_histogram.pdf>
-Package pdftex.def Info: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf  used on input line 224.
+Package pdftex.def Info: figures/FOCUSED_functionsASTs_merged_length_histogram.pdf  used on input line 229.
 (pdftex.def)             Requested size: 455.24167pt x 256.085pt.
 
-Overfull \hbox (2.27377pt too wide) in paragraph at lines 224--225
+Overfull \hbox (2.27377pt too wide) in paragraph at lines 229--230
  [][] 
  []
 
@@ -582,20 +582,20 @@ Overfull \hbox (2.27377pt too wide) in paragraph at lines 224--225
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.228 
+l.233 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.228 
+l.233 
        <./figures/functionsASTs_merged_freq_histogram.pdf>]
-<figures/ast_depths_merged.pdf, id=222, 722.7pt x 433.62pt>
+<figures/ast_depths_merged.pdf, id=219, 722.7pt x 433.62pt>
 File: figures/ast_depths_merged.pdf Graphic file (type pdf)
 <use figures/ast_depths_merged.pdf>
-Package pdftex.def Info: figures/ast_depths_merged.pdf  used on input line 247.
+Package pdftex.def Info: figures/ast_depths_merged.pdf  used on input line 259.
 (pdftex.def)             Requested size: 455.24826pt x 256.085pt.
 
-Overfull \hbox (2.28036pt too wide) in paragraph at lines 247--248
+Overfull \hbox (2.28036pt too wide) in paragraph at lines 259--260
  [][] 
  []
 
@@ -603,20 +603,20 @@ Overfull \hbox (2.28036pt too wide) in paragraph at lines 247--248
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.251 
+l.263 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.251 
+l.263 
        <./figures/FOCUSED_functionsASTs_merged_length_histogram.pdf>]
-<figures/num_nodes_merged.pdf, id=267, 722.7pt x 433.62pt>
+<figures/num_nodes_merged.pdf, id=265, 722.7pt x 433.62pt>
 File: figures/num_nodes_merged.pdf Graphic file (type pdf)
 <use figures/num_nodes_merged.pdf>
-Package pdftex.def Info: figures/num_nodes_merged.pdf  used on input line 256.
+Package pdftex.def Info: figures/num_nodes_merged.pdf  used on input line 288.
 (pdftex.def)             Requested size: 455.24826pt x 256.085pt.
 
-Overfull \hbox (2.28036pt too wide) in paragraph at lines 256--257
+Overfull \hbox (2.28036pt too wide) in paragraph at lines 288--289
  [][] 
  []
 
@@ -624,76 +624,86 @@ Overfull \hbox (2.28036pt too wide) in paragraph at lines 256--257
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.264 
+l.292 
       
+pdfTeX warning (ext4): destination with the same identifier (name{table.2.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.292 
+       <./figures/ast_depths_merged.pdf>] [8
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.264 
-       <./figures/ast_depths_merged.pdf> <./figures/num_nodes_merged.pdf>]
-Overfull \hbox (4.91794pt too wide) in alignment at lines 281--285
+l.332 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{table.2.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.332 
+       <./figures/num_nodes_merged.pdf>]
+Overfull \hbox (4.91794pt too wide) in alignment at lines 336--340
  [] [] [] [] 
  []
 
 
-Overfull \hbox (4.91794pt too wide) in alignment at lines 285--289
+Overfull \hbox (4.91794pt too wide) in alignment at lines 340--344
  [] [] [] [] 
  []
 
 
-Underfull \hbox (badness 4024) in paragraph at lines 296--296
+Underfull \hbox (badness 4024) in paragraph at lines 351--351
 []|\IL2/ptm/m/n/10 value[]embedding (Em-bed-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
+Underfull \hbox (badness 10000) in paragraph at lines 351--352
 []|\IL2/ptm/m/n/10 value1[]input[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 298--298
+Underfull \hbox (badness 10000) in paragraph at lines 353--353
 []|\IL2/ptm/m/n/10 path[]embedding (Em-bed-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--301
+Underfull \hbox (badness 10000) in paragraph at lines 355--356
 []|\IL2/ptm/m/n/10 value[]embedding[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--301
+Underfull \hbox (badness 10000) in paragraph at lines 355--356
 \IL2/ptm/m/n/10 path[]embedding[0][0],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--306
+Underfull \hbox (badness 10000) in paragraph at lines 361--361
 []|\IL2/ptm/m/n/10 weighted[]context[]layer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 308--308
+Underfull \hbox (badness 10000) in paragraph at lines 363--363
 []|\IL2/ptm/m/n/10 tag[]embedding[]matrix[]layer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 308--308
+Underfull \hbox (badness 10000) in paragraph at lines 363--363
 \IL2/ptm/m/n/10 (TagEm-bed-ding-Ma-
  []
 
 
-Overfull \hbox (4.91794pt too wide) in alignment at lines 289--312
+Overfull \hbox (4.91794pt too wide) in alignment at lines 344--367
  [] [] [] [] 
  []
 
-[8] [9]
+[9]
 Chapter 3.
-<figures/heatmap_snippet.png, id=361, 1120.185pt x 332.24126pt>
+<figures/heatmap_snippet.png, id=362, 1120.185pt x 332.24126pt>
 File: figures/heatmap_snippet.png Graphic file (type png)
 <use figures/heatmap_snippet.png>
-Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 338.
+Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 392.
 (pdftex.def)             Requested size: 455.24496pt x 170.71832pt.
 
-Overfull \hbox (2.27707pt too wide) in paragraph at lines 338--339
+Overfull \hbox (2.27707pt too wide) in paragraph at lines 392--393
  [][] 
  []
 
@@ -716,21 +726,21 @@ L3 programming layer <2024-02-20>
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 402F0214449238984FE149A1339BC91A;3643.
+(rerunfilecheck)             Checksum: 33673128C6E1C2AD9024BC11681EB020;3523.
  ) 
 Here is how much of TeX's memory you used:
- 13352 strings out of 474116
- 210628 string characters out of 5743682
- 1951187 words of memory out of 5000000
- 35410 multiletter control sequences out of 15000+600000
+ 13357 strings out of 474116
+ 210724 string characters out of 5743682
+ 1946187 words of memory out of 5000000
+ 35412 multiletter control sequences out of 15000+600000
  590137 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,80p,735b,597s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (13 pages, 315272 bytes).
+Output written on main.pdf (13 pages, 317914 bytes).
 PDF statistics:
- 446 PDF objects out of 1000 (max. 8388607)
- 238 compressed objects within 3 object streams
- 71 named destinations out of 1000 (max. 500000)
- 162 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 449 PDF objects out of 1000 (max. 8388607)
+ 241 compressed objects within 3 object streams
+ 74 named destinations out of 1000 (max. 500000)
+ 154 words of extra memory for PDF output out of 10000 (max. 10000000)
 

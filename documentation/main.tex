@@ -116,7 +116,7 @@ TranslationUnit
 \subsection{What are the possibilities for extracting information from an AST?}
 Features divide into 4 main kinds according to the nature of the information extracted from the Abstract Syntax Tree (AST):
 \begin{itemize}
-    \item \textbf{Structural} \\
+    \item \textbf{Structural} \label{item:structural} 
     Structural features capture the structural complexity of AST. These are often some numerical quantitative values like depth of the graph, number of nodes, or average branching factor of internal nodes. 
     \item \textbf{Semantic} \\
     Semantic features reflect the semantic information encoded in AST. It could be as simple as the distribution of node kinds (that are defined by the compiler that creates the AST) or the distribution of distinct root-to-leaf paths. 
@@ -204,15 +204,20 @@ The Shapiro-Wilk test was applied to detect whether the data follows a normal di
 \begin{table}[h!]
     \centering
     \caption{Shapiro-Wilk Test Results for Function Name Frequencies}
-    \label{tab:shapiro_wilk}
+    \label{tab:shapiro_wilk_names}
     \begin{tabular}{|c|c|c|}
         \hline
         \textbf{Statistic} & \textbf{P-value} & \textbf{Conclusion} \\
         \hline
         W = 0.2354 & $1.5252 \times 10^{-52}$ & Data is not normally distributed ($p < 0.05$) \\
         \hline
+        \textbf{Mean} & \textbf{Standard Deviation} & \textbf{---} \\
+        \hline
+        22.7430 & 65.4305 & --- \\
+        \hline
     \end{tabular}
 \end{table}
+
 
 \subsubsection{Function length measured in tokens}
 
@@ -229,18 +234,25 @@ to just split by the whitespace characters and count the number of words.
 
 \begin{table}[h!]
     \centering
-    \caption{Kolmogorov-Smirnov Test (for normality) Results for Function Name Frequencies}
-    \label{tab:kolmogorov_smirnov}
+    \caption{Kolmogorov-Smirnov Test Results for Number of Tokens}
+    \label{tab:kolmogorov_smirnov_tokens}
     \begin{tabular}{|c|c|c|}
         \hline
         \textbf{Statistic} & \textbf{P-value} & \textbf{Conclusion} \\
         \hline
-        KS = 0.2492 & $0.0000 \times 10^{0}$ & Data is not normally distributed ($p < 0.05$) \\
+        KS = 0.2482 & $0.0000 \times 10^{0}$ & Data is not normally distributed ($p < 0.05$) \\
+        \hline
+        \textbf{Mean} & \textbf{Standard Deviation} & \textbf{---} \\
+        \hline
+        36.6910 & 45.8380 & --- \\
         \hline
     \end{tabular}
 \end{table}
 
 \subsubsection{Function's AST Depth}
+
+The distribution of AST depth is a useful metric for describing the data
+to understand the structural complexity of the dataset \ref{item:structural}.
 
 \begin{figure}[H]
     \centering
@@ -249,7 +261,27 @@ to just split by the whitespace characters and count the number of words.
     \label{fig:func_lengths_distr_merged}
 \end{figure}
 
+\begin{table}[h!]
+    \centering
+    \caption{Kolmogorov-Smirnov Test Results for AST Depths}
+    \label{tab:kolmogorov_smirnov_depths}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Statistic} & \textbf{P-value} & \textbf{Conclusion} \\
+        \hline
+        KS = 0.1371 & $0.0000 \times 10^{0}$ & Data is not normally distributed ($p < 0.05$) \\
+        \hline
+        \textbf{Mean} & \textbf{Standard Deviation} & \textbf{---} \\
+        \hline
+        9.3679 & 2.8933 & --- \\
+        \hline
+    \end{tabular}
+\end{table}
+
 \subsubsection{Function's AST Number of nodes}
+
+Similar to the AST Depth, AST's Number of nodes also retains information
+about structural complexity.
 
 \begin{figure}[H]
     \centering
@@ -257,6 +289,28 @@ to just split by the whitespace characters and count the number of words.
     \caption{Distribution of function's AST Number of nodes.}
     \label{fig:func_lengths_distr_merged}
 \end{figure}
+
+\begin{table}[h!]
+    \centering
+    \caption{Kolmogorov-Smirnov Test Results for Number of Nodes}
+    \label{tab:kolmogorov_smirnov_nodes}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Statistic} & \textbf{P-value} & \textbf{Conclusion} \\
+        \hline
+        KS = 0.2484 & $0.0000 \times 10^{0}$ & Data is not normally distributed ($p < 0.05$) \\
+        \hline
+        \textbf{Mean} & \textbf{Standard Deviation} & \textbf{---} \\
+        \hline
+        76.7331 & 96.9949 & --- \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Key statistics for path-context based approach}
+
+
+\subsubsection{EDA conclusion}
 
 \subsection{Data preprocessing}
 Having the data available in .csv tables format, we must have first deal with the filtering the necessary rows (solutions written in C language), transforming this code to ASCII AST using psycheC compiler. From the ASCII output of the command \textit{cnip -l -C -d file\_path} is actual
@@ -277,6 +331,7 @@ In the entire training pipeline, there are multiple stages where some of the abo
 In this section, we would like to provide a clear explanation of the model that was used to process the data and perform the predictions that are observed. This includes a detailed description of the architecture, the reasoning behind the choice of components, and the methodology employed for training and evaluation.
 
 \section*{Model: "functional"}
+Pokec s o tom jak v skratke funguje a odkaz na code2vec.
 
 \begin{longtable}{|p{4cm}|p{5cm}|r|p{4cm}|}
 \hline
@@ -315,7 +370,6 @@ softmax (Softmax) & (None, 740) & 0 & tag\_embedding\_matrix\_layer \\
 \textbf{Trainable params:} 5,054,337 (19.28 MB) \\
 \textbf{Non-trainable params:} 0 (0.00 B)
 
-\subsection{Input layer}
 
 \section{Training pipeline}
 
