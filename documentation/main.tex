@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{hyperref} 
+\usepackage{xcolor}
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -165,7 +166,7 @@ can be stated as learning the information connection between the path contexts a
 
 \chapter{Re-implementation of code2vec CNN classifier}
 
-\section{Data Exploratory analysis}
+\section{Exploratory data analysis}
 The dataset of functions used to train the model consists of extracted C language solutions of the Google Code Jam and Codeforces programming contests. The datasets of Google Code Jam is available on this link and Codeforces on this link.
 
 \subsection{The Nature of the Data}
@@ -308,7 +309,29 @@ about structural complexity.
 \end{table}
 
 \subsubsection{Key statistics for path-context based approach}
+When working with CNN classifier, we need to know the exact dimensions for our 
+inputs' embedding matrices. Following metrics describe the sizes of vocabularies
+that encode the natural-language based features to the numerical ones.
 
+
+\begin{table}[h!]
+    \centering
+    \caption{Key statistics for path-context based approach}
+    \label{tab:function_ast_summary}
+    \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Metric} & \textbf{Count} \\
+        \hline
+        Number of tags (function names) in total & 970 \\
+        \hline
+        Number of unique terminal node Data & 10055 \\
+        \hline
+        Number of unique node-to-node paths & 40520 \\
+        \hline
+        Number of unique path-contexts & 723003 \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \subsubsection{EDA conclusion}
 
@@ -331,7 +354,7 @@ In the entire training pipeline, there are multiple stages where some of the abo
 In this section, we would like to provide a clear explanation of the model that was used to process the data and perform the predictions that are observed. This includes a detailed description of the architecture, the reasoning behind the choice of components, and the methodology employed for training and evaluation.
 
 \section*{Model: "functional"}
-Pokec s o tom jak v skratke funguje a odkaz na code2vec.
+TODO o tom jak v skratke funguje a odkaz na code2vec.
 
 \begin{longtable}{|p{4cm}|p{5cm}|r|p{4cm}|}
 \hline
@@ -373,8 +396,64 @@ softmax (Softmax) & (None, 740) & 0 & tag\_embedding\_matrix\_layer \\
 
 \section{Training pipeline}
 
+\subsection{Directory structure}
+The training pipeline of this project is defined in the directory \texttt{./training\_pipeline:}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{\textwidth}
+    \ttfamily % Use monospaced font
+    \textbf{training\_pipeline} \\
+    |-- \textbf{analysis} \\
+    |-- \textbf{data\_ndjson} \\
+    |-- \textbf{extract\_functions} \\
+    |   |-- \textbf{psychec} \\
+    |   |-- \textbf{tmp} \\
+    |   |-- AsciiTreeProcessor.py \\
+    |   |-- main.py \\
+    |   |-- Node.py \\
+    |   |-- NodeTree.py \\
+    |-- \textbf{trained\_models} \\
+    |   |-- vocabs\_*.pkl \\
+    |   |-- trained\_model\_*.h5 \\
+    |-- aggregated\_avg.py \\
+    |-- AttentionCNNClassifier.py \\
+    |-- consts.py \\
+    |-- generate\_vocabs.py \\
+    |-- NodeToNodePaths.py \\
+    |-- stratifiedKFold.py \\
+    |-- test\_one.py \\
+    |-- testing\_model.py \\
+    |-- train\_valid\_strat.py \\
+    \end{minipage}
+    \caption{Directory structure of the training pipeline (folders in bold).}
+    \label{fig:training_pipeline_structure}
+\end{figure}
+
+
+\begin{itemize}
+    \item \textbf{analysis :} This folder contains folders for EDA, training, validation
+    and testing metrics plots. There is also a script for data preprocessing.
+
+    \item \textbf{data\_ndjson :} This folder serves as the storage for all the .ndjson files
+    containing AST data, whether it is the initial datase, preprocessed dataset or temporary stratificated datasets
+    that are created during the pipeline.
+
+    \item \textbf{extract\_functions :} Here the initial datasets of ASTs (and their metadata) constructed from C source code snippets from GCJ and Codeforces
+    are extracted using the script \textit{main.py}. The other files are definitions of classes and helper functions 
+    for this extraction 
+    \item \textbf{extract\_functions/psychec :} This folder is cloned Psyche-C project \cite{psychec}. Psyche-C is a compiler frontend for the C language that provided us with AST construction.
+
+    \item \textbf{trained\_models :} As you can see in the figure \ref{fig:training_pipeline_structure} the files in this folder with asterisk in their name a represent all the vocabs and trained models.
+
+
+\end{itemize}
+
+\subsection{Pipeline execution: Workflow and the training process}
+
 
 \chapter{Testing}
+TODO: test on raw and processed data
 
 Heatmap Analysis:
 

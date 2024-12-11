@@ -19,6 +19,11 @@ Andrea Galassi, Marco Lippi, and Paolo Torroni.
 \newblock Attention in natural language processing.
 \newblock {\em IEEE Transactions on Neural Networks and Learning Systems}, 32(10):4291--4308, 2021.
 
+\bibitem{psychec}
+Leandro T.~C. Melo, Rodrigo~G. Ribeiro, Breno C.~F. Guimar\~{a}es, and Fernando Magno Quint\~{a}o Pereira.
+\newblock Type inference for c: Applications to the static analysis of incomplete programs.
+\newblock {\em ACM Trans. Program. Lang. Syst.}, 42(3), November 2020.
+
 \bibitem{samoaa}
 H.~P. Samoaa, F.~Bayram, P.~Salza, and P.~Leitner.
 \newblock A systematic mapping study of source code representation for deep learning in software engineering.

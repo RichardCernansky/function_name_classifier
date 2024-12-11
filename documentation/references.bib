@@ -102,3 +102,23 @@ series = {PLDI 2018}
   year={2019},
   url={https://api.semanticscholar.org/CorpusID:208070402}
 }
+
+@article{psychec,
+author = {Melo, Leandro T. C. and Ribeiro, Rodrigo G. and Guimar\~{a}es, Breno C. F. and Pereira, Fernando Magno Quint\~{a}o},
+title = {Type Inference for C: Applications to the Static Analysis of Incomplete Programs},
+year = {2020},
+issue_date = {September 2020},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {42},
+number = {3},
+issn = {0164-0925},
+url = {https://doi.org/10.1145/3421472},
+doi = {10.1145/3421472},
+abstract = {Type inference is a feature that is common to a variety of programming languages. While, in the past, it has been prominently present in functional ones (e.g., ML and Haskell), today, many object-oriented/multi-paradigm languages such as C# and C++ offer, to a certain extent, such a feature. Nevertheless, type inference still is an unexplored subject in the realm of C. In particular, it remains open whether it is possible to devise a technique that encompasses the idiosyncrasies of this language. The first difficulty encountered when tackling this problem is that parsing C requires, not only syntactic, but also semantic information. Yet, greater challenges emerge due to C’s intricate type system. In this work, we present a unification-based framework that lets us infer the missing struct, union, enum, and typedef declarations in a program.As an application of our technique, we investigate the reconstruction of partial programs. Incomplete source code naturally appears in software development: during design and while evolving, testing, and analyzing programs; therefore, understanding it is a valuable asset. With a reconstructed well-typed program, one can: (i) enable static analysis tools in scenarios where components are absent; (ii) improve precision of “zero setup” static analysis tools; (iii) apply stub generators, symbolic executors, and testing tools on code snippets; and (iv) provide engineers with an assortment of compilable benchmarks for performance and correctness validation. We evaluate our technique on code from a variety of C libraries, including GNU’s Coreutils and on snippets from popular projects such as CPython, FreeBSD, and Git.},
+journal = {ACM Trans. Program. Lang. Syst.},
+month = nov,
+articleno = {15},
+numpages = {71},
+keywords = {C language, Partial programs, parsing, type inference}
+}
