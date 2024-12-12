@@ -73,7 +73,8 @@ for key, bins in key_bin_accuracies.items():
     average_bin_accuracies_per_key[key] = {}
     for bin_label, values in bins.items():
         avg_accuracy = values["correct"] / values["total"] if values["total"] > 0 else 0
-        average_bin_accuracies_per_key[key][bin_label] = (avg_accuracy, values["total"])
+        # average_bin_accuracies_per_key[key][bin_label] = (avg_accuracy, values["total"])
+        average_bin_accuracies_per_key[key][bin_label] = avg_accuracy
 
 
 
