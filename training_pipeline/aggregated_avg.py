@@ -7,7 +7,7 @@ NUM_FOLDS = 5
 
 heatmap_pdf_file = "analysis/metrics_plots/average_class_metrics_heatmap_full.pdf"
 prefix_bin_pdf_file = "analysis/metrics_plots/metrics_bins/"
-agg_avg_metrics_file = "agg_average_metrics_plot.png"
+agg_avg_metrics_file = "analysis/agg_average_metrics_plot.png"
 
 # initialize accumulators for metrics
 total_metrics = {"accuracy": 0, "precision": 0, "recall": 0, "f1": 0}

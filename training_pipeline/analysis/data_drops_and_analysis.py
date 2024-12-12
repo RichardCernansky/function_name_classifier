@@ -84,6 +84,8 @@ df = df.sort_values(by="Frequency", ascending=False)
 
 #NAMES
 #Shapiro-Wilk test on name frequencies
+mean = np.mean(df["Frequency"])
+std = np.std(df["Frequency"])
 shapiro_stat, shapiro_p = shapiro(df["Frequency"])
 print(f"NAMES: Shapiro-Wilk Test Results:")
 print(f"  W Statistic: {shapiro_stat:.4f}")
@@ -92,6 +94,7 @@ if shapiro_p < 0.05:
     print("The data is not normally distributed (p < 0.05).")
 else:
     print("The data follows a normal distribution (p >= 0.05).")
+print(f"mean: {mean:.4f}, std: {std:.4f}")
 
 column_name = f"Frequency (Total: {total_functions})"
 df.columns = ["FunctionName", column_name, "Percentage"]
