@@ -159,4 +159,4 @@ plt.xlabel("")
 plt.ylabel("Classes", fontsize=14)
 plt.tight_layout()
 
-plt.savefig(heatmap_pdf_file, dpi=300)
+plt.savefig(heatmap_pdf_file)
