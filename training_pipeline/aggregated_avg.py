@@ -125,17 +125,20 @@ for key, bins in average_bin_accuracies_per_key.items():
     plt.savefig(f"{prefix_bin_pdf_file}{key}.pdf")
 #---------------------------------------------------------------------
 # --- Plot 2: Confusion Matrix-Like Visualization ---
-classes = list(average_report.keys())
+sorted_classes = sorted(average_report.keys(), key=lambda cls: average_report[cls]["support"], reverse=True)
+
+#metrics
 metrics = ["precision", "recall", "f1-score"]
+
 confusion_matrix_like = np.array([
     [average_report[cls][metric] for metric in metrics]
-    for cls in classes
+    for cls in sorted_classes
 ])
 
-supports = [average_report[cls]["support"] for cls in classes]
-yticklabels = [f"{cls} (Support: {support})" for cls, support in zip(classes, supports)]
+sorted_supports = [average_report[cls]["support"] for cls in sorted_classes]
+yticklabels = [f"{cls} (Support: {support})" for cls, support in zip(sorted_classes, sorted_supports)]
 
-figure_height = len(classes) * 0.6
+figure_height = len(sorted_classes) * 0.6
 plt.figure(figsize=(12, figure_height))
 
 sns.heatmap(
@@ -151,8 +154,9 @@ sns.heatmap(
 plt.gca().xaxis.tick_top()
 plt.gca().xaxis.set_label_position('top')
 
-plt.title(f"Average Metrics Per Class ({len(classes)} Classes)", fontsize=16, pad=30)
+plt.title(f"Average Metrics Per Class Sorted by Support ({len(sorted_classes)} Classes)", fontsize=16, pad=30)
 plt.xlabel("")
 plt.ylabel("Classes", fontsize=14)
 plt.tight_layout()
-plt.savefig("heatmap_with_support_in_labels.pdf")
+
+plt.savefig(heatmap_pdf_file, dpi=300)
