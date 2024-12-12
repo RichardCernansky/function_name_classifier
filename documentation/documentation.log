@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  12 DEC 2024 16:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.4)  12 DEC 2024 19:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -747,19 +747,27 @@ File: figures/training/learning_curve_fold_5.png Graphic file (type png)
 <use figures/training/learning_curve_fold_5.png>
 Package pdftex.def Info: figures/training/learning_curve_fold_5.png  used on input line 591.
 (pdftex.def)             Requested size: 181.18439pt x 90.58649pt.
-<figures/heatmap_snippet.png, id=447, 1120.185pt x 332.24126pt>
+<figures/testing/agg_average_metrics_plot.png, id=447, 578.16pt x 361.35pt>
+File: figures/testing/agg_average_metrics_plot.png Graphic file (type png)
+<use figures/testing/agg_average_metrics_plot.png>
+Package pdftex.def Info: figures/testing/agg_average_metrics_plot.png  used on input line 611.
+(pdftex.def)             Requested size: 227.61641pt x 113.80931pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/heatmap_snippet.png, id=448, 1120.185pt x 332.24126pt>
 File: figures/heatmap_snippet.png Graphic file (type png)
 <use figures/heatmap_snippet.png>
-Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 617.
+Package pdftex.def Info: figures/heatmap_snippet.png  used on input line 621.
 (pdftex.def)             Requested size: 455.24496pt x 170.71832pt.
 
-Overfull \hbox (2.27707pt too wide) in paragraph at lines 617--618
+Overfull \hbox (2.27707pt too wide) in paragraph at lines 621--622
  [][] 
  []
 
 [13
 
- <./figures/training/learning_curve_fold_1.png> <./figures/training/learning_curve_fold_2.png> <./figures/training/learning_curve_fold_3.png> <./figures/training/learning_curve_fold_4.png> <./figures/training/learning_curve_fold_5.png>] (./documentation.bbl [14 <./figures/heatmap_snippet.png>]) [15
+ <./figures/training/learning_curve_fold_1.png> <./figures/training/learning_curve_fold_2.png> <./figures/training/learning_curve_fold_3.png> <./figures/training/learning_curve_fold_4.png> <./figures/training/learning_curve_fold_5.png>] (./documentation.bbl [14 <./figures/testing/agg_average_metrics_plot.png> <./figures/heatmap_snippet.png>]) [15
 
 ] (./documentation.aux)
  ***********
@@ -774,18 +782,18 @@ Package rerunfilecheck Info: File `documentation.out' has not changed.
 (rerunfilecheck)             Checksum: 546B8520E9B7D48A84305F93707E1FF7;5292.
  ) 
 Here is how much of TeX's memory you used:
- 15386 strings out of 474116
- 249118 string characters out of 5743682
+ 15395 strings out of 474116
+ 249520 string characters out of 5743682
  1948187 words of memory out of 5000000
- 37390 multiletter control sequences out of 15000+600000
+ 37398 multiletter control sequences out of 15000+600000
  591271 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,80p,744b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on documentation.pdf (17 pages, 644487 bytes).
+Output written on documentation.pdf (17 pages, 724124 bytes).
 PDF statistics:
- 556 PDF objects out of 1000 (max. 8388607)
- 326 compressed objects within 4 object streams
- 103 named destinations out of 1000 (max. 500000)
- 264 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 559 PDF objects out of 1000 (max. 8388607)
+ 327 compressed objects within 4 object streams
+ 104 named destinations out of 1000 (max. 500000)
+ 269 words of extra memory for PDF output out of 10000 (max. 10000000)
 

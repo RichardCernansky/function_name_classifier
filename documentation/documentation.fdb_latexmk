@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex documentation"] 1734015827.22428 "documentation.aux" "documentation.bbl" "documentation" 1734016059.43275 0
+["bibtex documentation"] 1734029852.30327 "documentation.aux" "documentation.bbl" "documentation" 1734029854.73128 0
   "./references.bib" 1733913237.38121 10129 2bb4202425e64e0c29ba11d61bb12ce7 ""
   "/usr/local/texlive/2024/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "documentation.aux" 1734016058.47526 10977 7deb7ba6a503fe385bf88c4b4761b320 "pdflatex"
+  "documentation.aux" 1734029854.1369 11246 cdb8f84d0802daff0aa9d8301d745251 "pdflatex"
   (generated)
   "documentation.bbl"
   "documentation.blg"
   (rewritten before read)
-["pdflatex"] 1734016056.72578 "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" "documentation.pdf" "documentation" 1734016059.43302 0
-  "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" 1734016056.37044 31313 1c01e07e63cad683c89c588fc3d2c90d ""
+["pdflatex"] 1734029852.45602 "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" "documentation.pdf" "documentation" 1734029854.73156 0
+  "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" 1734029849.30062 31541 814b0dadb07c7ca60c66b4975d95b22e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cs/xl2.enc" 1356110403 5089 baf7b5391825d2b4c597cc1d451dbb7a ""
@@ -151,16 +151,17 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1733312353.91201 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1733312303 8221429 ac6dbdced22ee8dfacda136694b71f0f ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "documentation.aux" 1734016058.47526 10977 7deb7ba6a503fe385bf88c4b4761b320 "pdflatex"
-  "documentation.bbl" 1734015827.38974 2011 aa752e7938109d092f79d786fe09f215 "bibtex documentation"
-  "documentation.out" 1734016058.48046 5292 546b8520e9b7d48a84305f93707e1ff7 "pdflatex"
-  "documentation.tex" 1734016056.37044 31313 1c01e07e63cad683c89c588fc3d2c90d ""
+  "documentation.aux" 1734029854.1369 11246 cdb8f84d0802daff0aa9d8301d745251 "pdflatex"
+  "documentation.bbl" 1734029852.4525 2011 aa752e7938109d092f79d786fe09f215 "bibtex documentation"
+  "documentation.out" 1734029854.13891 5292 546b8520e9b7d48a84305f93707e1ff7 "pdflatex"
+  "documentation.tex" 1734029849.30062 31541 814b0dadb07c7ca60c66b4975d95b22e ""
   "figures/FOCUSED_functionsASTs_merged_length_histogram.pdf" 1732528483.29441 15007 69d7ad2efdd743b9b7f45b0555ea836f ""
   "figures/ast_depths_merged.pdf" 1733870577.4523 14466 1b0e74a2b23548988399cb19a1f7556c ""
   "figures/code2vec_model_visual.png" 1733951629.66242 120837 d347f1f0149a048a917d90d44b3de30b ""
   "figures/functionsASTs_merged_freq_histogram.pdf" 1732479106.61957 73416 4de6180e3ef145246af73a3ba37011d9 ""
   "figures/heatmap_snippet.png" 1733301647.3692 92328 42e5c8a6bd64d6c3eead28a8cd56f9a3 ""
   "figures/num_nodes_merged.pdf" 1733902511.98151 15182 cbfd9fd83dae0f610998d6a39a34ba13 ""
+  "figures/testing/agg_average_metrics_plot.png" 1734017869.33255 88009 b4d179b9eff5e88204b89eab12112ced ""
   "figures/training/learning_curve_fold_1.png" 1733998472.16526 53060 1c97bcaec5f5270c7b95da1b605dc563 ""
   "figures/training/learning_curve_fold_2.png" 1733998486.02007 52824 4add1ad8b91d3c00888c50932a69ce8c ""
   "figures/training/learning_curve_fold_3.png" 1733998495.46187 51986 38078b433c14045afad6bb313bfd6074 ""

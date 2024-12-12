@@ -320,6 +320,11 @@ INPUT ./figures/training/learning_curve_fold_5.png
 INPUT ./figures/training/learning_curve_fold_5.png
 INPUT ./figures/training/learning_curve_fold_5.png
 INPUT ./figures/training/learning_curve_fold_5.png
+INPUT ./figures/testing/agg_average_metrics_plot.png
+INPUT ./figures/testing/agg_average_metrics_plot.png
+INPUT ./figures/testing/agg_average_metrics_plot.png
+INPUT ./figures/testing/agg_average_metrics_plot.png
+INPUT ./figures/testing/agg_average_metrics_plot.png
 INPUT ./figures/heatmap_snippet.png
 INPUT ./figures/heatmap_snippet.png
 INPUT ./figures/heatmap_snippet.png

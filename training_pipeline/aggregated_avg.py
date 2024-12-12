@@ -125,39 +125,34 @@ for key, bins in average_bin_accuracies_per_key.items():
     plt.savefig(f"{prefix_bin_pdf_file}{key}.pdf")
 #---------------------------------------------------------------------
 # --- Plot 2: Confusion Matrix-Like Visualization ---
-# Assuming you have `average_report` and `confusion_matrix_like` already computed
 classes = list(average_report.keys())
 metrics = ["precision", "recall", "f1-score"]
-confusion_matrix_like = np.array([[average_report[cls][metric] for metric in metrics] for cls in classes])
+confusion_matrix_like = np.array([
+    [average_report[cls][metric] for metric in metrics]
+    for cls in classes
+])
 
-# Adjust figure height dynamically based on the number of classes
-figure_height = len(classes) * 0.2
-plt.figure(figsize=(20, figure_height))
+supports = [average_report[cls]["support"] for cls in classes]
+yticklabels = [f"{cls} (Support: {support})" for cls, support in zip(classes, supports)]
 
-# Create the heatmap
+figure_height = len(classes) * 0.6
+plt.figure(figsize=(12, figure_height))
+
 sns.heatmap(
     confusion_matrix_like,
-    annot=False,
+    annot=True,
     fmt=".2f",
     xticklabels=metrics,
-    yticklabels=classes,
+    yticklabels=yticklabels,
     cmap="coolwarm",
     cbar_kws={'label': 'Metric Value'}
 )
 
-# Move the x-axis labels (metrics) to the top
-plt.gca().xaxis.tick_top()  # Move the ticks to the top
-plt.gca().xaxis.set_label_position('top')  # Move the axis label position to the top
+plt.gca().xaxis.tick_top()
+plt.gca().xaxis.set_label_position('top')
 
-# Add title and axis labels
 plt.title(f"Average Metrics Per Class ({len(classes)} Classes)", fontsize=16, pad=30)
-plt.xlabel("")  # Remove default x-axis label text (since metrics are already at the top)
+plt.xlabel("")
 plt.ylabel("Classes", fontsize=14)
-
-# Adjust layout to fit everything nicely
 plt.tight_layout()
-
-# Save and show the plot
-plt.savefig(heatmap_pdf_file)
-
-
+plt.savefig("heatmap_with_support_in_labels.pdf")
