@@ -24,6 +24,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3.4}How do We utilize the information stored in a function's AST?}{2}{subsection.1.3.4}\protected@file@percent }
 \citation{alon}
 \citation{attention}
+\newlabel{path_context_example}{{1.3.4}{3}{How do We utilize the information stored in a function's AST?}{definition.3}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Source code represented as a bag of path contexts}{3}{section*.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3.5}Why is this approach used?}{3}{subsection.1.3.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Re-implementation of code2vec NN classifier}{4}{chapter.2}\protected@file@percent }
@@ -40,54 +41,77 @@
 \newlabel{item:single_responsibility}{{2d}{4}{The Nature of the Data}{Item.11}{}}
 \newlabel{item:rare_names}{{2e}{4}{The Nature of the Data}{Item.12}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Function name frequency}{5}{section*.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Distribution of function name frequencies.}}{5}{figure.2.1}\protected@file@percent }
-\newlabel{fig:func_freq_merged}{{2.1}{5}{Distribution of function name frequencies}{figure.2.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Shapiro-Wilk Normality Test Results}{5}{section*.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Shapiro-Wilk Test Results for Function Name Frequencies}}{5}{table.2.1}\protected@file@percent }
-\newlabel{tab:shapiro_wilk_names}{{2.1}{5}{Shapiro-Wilk Test Results for Function Name Frequencies}{table.2.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Function length measured in tokens}{5}{section*.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Distribution of function lengths measured in tokens.}}{6}{figure.2.2}\protected@file@percent }
-\newlabel{fig:func_lengths_distr_merged}{{2.2}{6}{Distribution of function lengths measured in tokens}{figure.2.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Kolmogorov-Smirnov Test Results for Number of Tokens}}{6}{table.2.2}\protected@file@percent }
-\newlabel{tab:kolmogorov_smirnov_tokens}{{2.2}{6}{Kolmogorov-Smirnov Test Results for Number of Tokens}{table.2.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Function's AST Depth}{6}{section*.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Distribution of function's AST depths.}}{7}{figure.2.3}\protected@file@percent }
-\newlabel{fig:func_lengths_distr_merged}{{2.3}{7}{Distribution of function's AST depths}{figure.2.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces Kolmogorov-Smirnov Test Results for AST Depths}}{7}{table.2.3}\protected@file@percent }
-\newlabel{tab:kolmogorov_smirnov_depths}{{2.3}{7}{Kolmogorov-Smirnov Test Results for AST Depths}{table.2.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Function's AST Number of nodes}{7}{section*.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Distribution of function's AST Number of nodes.}}{8}{figure.2.4}\protected@file@percent }
-\newlabel{fig:func_lengths_distr_merged}{{2.4}{8}{Distribution of function's AST Number of nodes}{figure.2.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.4}{\ignorespaces Kolmogorov-Smirnov Test Results for Number of Nodes}}{8}{table.2.4}\protected@file@percent }
-\newlabel{tab:kolmogorov_smirnov_nodes}{{2.4}{8}{Kolmogorov-Smirnov Test Results for Number of Nodes}{table.2.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Key statistics for path-context based approach}{8}{section*.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2.5}{\ignorespaces Key statistics for path-context based approach}}{8}{table.2.5}\protected@file@percent }
-\newlabel{tab:function_ast_summary}{{2.5}{8}{Key statistics for path-context based approach}{table.2.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{EDA conclusion}{8}{section*.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Distribution of function name frequencies.}}{5}{figure.caption.3}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:func_freq_merged}{{2.1}{5}{Distribution of function name frequencies}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Shapiro-Wilk Normality Test Results}{5}{section*.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Shapiro-Wilk Test Results for Function Name Frequencies}}{5}{table.caption.5}\protected@file@percent }
+\newlabel{tab:shapiro_wilk_names}{{2.1}{5}{Shapiro-Wilk Test Results for Function Name Frequencies}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Function length measured in tokens}{5}{section*.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Distribution of function lengths measured in tokens.}}{6}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:func_lengths_distr_merged}{{2.2}{6}{Distribution of function lengths measured in tokens}{figure.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Kolmogorov-Smirnov Test Results for Number of Tokens}}{6}{table.caption.8}\protected@file@percent }
+\newlabel{tab:kolmogorov_smirnov_tokens}{{2.2}{6}{Kolmogorov-Smirnov Test Results for Number of Tokens}{table.caption.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Function's AST Depth}{6}{section*.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Distribution of function's AST depths.}}{7}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:func_lengths_distr_merged}{{2.3}{7}{Distribution of function's AST depths}{figure.caption.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces Kolmogorov-Smirnov Test Results for AST Depths}}{7}{table.caption.11}\protected@file@percent }
+\newlabel{tab:kolmogorov_smirnov_depths}{{2.3}{7}{Kolmogorov-Smirnov Test Results for AST Depths}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Function's AST Number of nodes}{7}{section*.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Distribution of function's AST Number of nodes.}}{8}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:func_lengths_distr_merged}{{2.4}{8}{Distribution of function's AST Number of nodes}{figure.caption.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.4}{\ignorespaces Kolmogorov-Smirnov Test Results for Number of Nodes}}{8}{table.caption.14}\protected@file@percent }
+\newlabel{tab:kolmogorov_smirnov_nodes}{{2.4}{8}{Kolmogorov-Smirnov Test Results for Number of Nodes}{table.caption.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Key statistics for path-context based approach}{8}{section*.15}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.5}{\ignorespaces Key statistics for path-context based approach}}{8}{table.caption.16}\protected@file@percent }
+\newlabel{tab:function_ast_summary}{{2.5}{8}{Key statistics for path-context based approach}{table.caption.16}{}}
+\@writefile{toc}{\contentsline {subsubsection}{EDA conclusion}{8}{section*.17}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Data preprocessing}{8}{subsection.2.1.2}\protected@file@percent }
 \citation{code2vec}
+\citation{code2vec}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Model Architecture}{9}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Inputs}{9}{subsection.2.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Input embeddings}{9}{subsection.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Dense layer}{9}{subsection.2.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Attention-weight mechanism}{9}{subsection.2.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.5}Softmax}{9}{subsection.2.2.5}\protected@file@percent }
 \gdef \LT@i {\LT@entry 
     {1}{125.81102pt}\LT@entry 
     {1}{154.26378pt}\LT@entry 
     {3}{52.00002pt}\LT@entry 
     {1}{125.81102pt}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Model Architecture}{9}{section.2.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Code2vec \cite  {code2vec} neural network model flowchart.}}{9}{figure.2.5}\protected@file@percent }
-\newlabel{fig:func_lengths_distr_merged}{{2.5}{9}{Code2vec \cite {code2vec} neural network model flowchart}{figure.2.5}{}}
-\citation{psychec}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Code2vec \cite  {code2vec} neural network model flowchart.}}{10}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:func_lengths_distr_merged}{{2.5}{10}{Code2vec \cite {code2vec} neural network model flowchart}{figure.caption.19}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}Training pipeline}{10}{section.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Directory structure}{10}{subsection.2.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Directory structure of the training pipeline (folders in bold).}}{10}{figure.2.6}\protected@file@percent }
-\newlabel{fig:training_pipeline_structure}{{2.6}{10}{Directory structure of the training pipeline (folders in bold)}{figure.2.6}{}}
+\citation{psychec}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Directory structure of the training pipeline (folders in bold).}}{11}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:training_pipeline_structure}{{2.6}{11}{Directory structure of the training pipeline (folders in bold)}{figure.caption.20}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Pipeline Execution: Workflow and Training Process}{11}{subsection.2.3.2}\protected@file@percent }
-\bibstyle{plain}
-\bibdata{references}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Testing}{12}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Training and testing evaluation}{13}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{item:chapter_testing}{{3}{12}{Testing}{chapter.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Snippet from heatmap of classes of names.}}{12}{figure.3.1}\protected@file@percent }
-\newlabel{fig:func_lengths_distr_merged}{{3.1}{12}{Snippet from heatmap of classes of names}{figure.3.1}{}}
+\newlabel{item:chapter_testing}{{3}{13}{Training and testing evaluation}{chapter.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Fundamental Data Preprocessing}{13}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Training}{13}{subsection.3.1.1}\protected@file@percent }
+\newlabel{fig:plot1}{{3.1a}{13}{Fold 1}{figure.caption.21}{}}
+\newlabel{sub@fig:plot1}{{a}{13}{Fold 1}{figure.caption.21}{}}
+\newlabel{fig:plot2}{{3.1b}{13}{Fold 2}{figure.caption.21}{}}
+\newlabel{sub@fig:plot2}{{b}{13}{Fold 2}{figure.caption.21}{}}
+\newlabel{fig:plot3}{{3.1c}{13}{Fold 3}{figure.caption.21}{}}
+\newlabel{sub@fig:plot3}{{c}{13}{Fold 3}{figure.caption.21}{}}
+\newlabel{fig:plot4}{{3.1d}{13}{Fold 4}{figure.caption.21}{}}
+\newlabel{sub@fig:plot4}{{d}{13}{Fold 4}{figure.caption.21}{}}
+\newlabel{fig:plot5}{{3.1e}{13}{Fold 5}{figure.caption.21}{}}
+\newlabel{sub@fig:plot5}{{e}{13}{Fold 5}{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Learning curves for all 5 folds.}}{13}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:all_folds}{{3.1}{13}{Learning curves for all 5 folds}{figure.caption.21}{}}
+\bibstyle{plain}
+\bibdata{references}
+\@writefile{toc}{\contentsline {subsubsection}{Testing}{14}{section*.22}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Snippet from heatmap of classes of names.}}{14}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:func_lengths_distr_merged}{{3.2}{14}{Snippet from heatmap of classes of names}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Extensive Data Preprocessing}{14}{section.3.2}\protected@file@percent }
 \bibcite{alon}{1}
 \bibcite{code2vec}{2}
 \bibcite{bogomolov}{3}
@@ -96,4 +120,4 @@
 \bibcite{samoaa}{6}
 \bibcite{sun2023AST}{7}
 \bibcite{DanielWatson}{8}
-\gdef \@abspage@last{15}
+\gdef \@abspage@last{17}

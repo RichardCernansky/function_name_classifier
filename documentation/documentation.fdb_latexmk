@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex documentation"] 1733952157.84445 "documentation.aux" "documentation.bbl" "documentation" 1733952170.23309 0
+["bibtex documentation"] 1734015827.22428 "documentation.aux" "documentation.bbl" "documentation" 1734016059.43275 0
   "./references.bib" 1733913237.38121 10129 2bb4202425e64e0c29ba11d61bb12ce7 ""
   "/usr/local/texlive/2024/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "documentation.aux" 1733952169.75115 8586 6aa5c71f10edebdd342cfaa99904d913 "pdflatex"
+  "documentation.aux" 1734016058.47526 10977 7deb7ba6a503fe385bf88c4b4761b320 "pdflatex"
   (generated)
   "documentation.bbl"
   "documentation.blg"
   (rewritten before read)
-["pdflatex"] 1733952168.28331 "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" "documentation.pdf" "documentation" 1733952170.23333 0
-  "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" 1733952168.05473 27946 62a950fcef7d90e92e0668c8411466b5 ""
+["pdflatex"] 1734016056.72578 "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" "documentation.pdf" "documentation" 1734016059.43302 0
+  "/Users/richardcernansky/Desktop/bakalarka/documentation/documentation.tex" 1734016056.37044 31313 1c01e07e63cad683c89c588fc3d2c90d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cs/xl2.enc" 1356110403 5089 baf7b5391825d2b4c597cc1d451dbb7a ""
@@ -45,6 +45,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cs/csr10.tfm" 1136768653 2376 bd510ae68174fd90e2d8cf97109f05fe ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cs/cstt10.tfm" 1136768653 1280 7d36f30f3ae8103ea4cbddb23dd71aea ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1248133631 36281 c355509802a035cadc5f15869451dcee ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
@@ -107,6 +108,10 @@
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/textcomp.sty" 1705352648 2894 fc64867f9d198785eabe71a88276a9cb ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmtt.fd" 1705352648 2287 003e26f17fb2011982a0904ffee9cab0 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/booktabs/booktabs.sty" 1579038678 6078 f1cb470c9199e7110a27851508ed7a5c ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption.sty" 1696191071 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty" 1696191071 72619 ee90b6612147680fd73c3b1406a74245 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/caption/ltcaption.sty" 1645391520 7418 021d7c4eb11bde94592761855a3d046e ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/caption/subcaption.sty" 1690576852 12494 0c0cdb824278a4d51cefeb2e79901315 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/cite/cite.sty" 1425427964 26218 19edeff8cdc2bcb704e8051dc55eb5a7 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/collectbox/collectbox.sty" 1666037909 9124 59c3b56f1a073de66e3eea35f9c173c8 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
@@ -146,16 +151,21 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1733312353.91201 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1733312303 8221429 ac6dbdced22ee8dfacda136694b71f0f ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "documentation.aux" 1733952169.75115 8586 6aa5c71f10edebdd342cfaa99904d913 "pdflatex"
-  "documentation.bbl" 1733952157.99119 2011 aa752e7938109d092f79d786fe09f215 "bibtex documentation"
-  "documentation.out" 1733952169.75413 4000 a770595f94187ee24140ccc9cbe28936 "pdflatex"
-  "documentation.tex" 1733952168.05473 27946 62a950fcef7d90e92e0668c8411466b5 ""
+  "documentation.aux" 1734016058.47526 10977 7deb7ba6a503fe385bf88c4b4761b320 "pdflatex"
+  "documentation.bbl" 1734015827.38974 2011 aa752e7938109d092f79d786fe09f215 "bibtex documentation"
+  "documentation.out" 1734016058.48046 5292 546b8520e9b7d48a84305f93707e1ff7 "pdflatex"
+  "documentation.tex" 1734016056.37044 31313 1c01e07e63cad683c89c588fc3d2c90d ""
   "figures/FOCUSED_functionsASTs_merged_length_histogram.pdf" 1732528483.29441 15007 69d7ad2efdd743b9b7f45b0555ea836f ""
   "figures/ast_depths_merged.pdf" 1733870577.4523 14466 1b0e74a2b23548988399cb19a1f7556c ""
   "figures/code2vec_model_visual.png" 1733951629.66242 120837 d347f1f0149a048a917d90d44b3de30b ""
   "figures/functionsASTs_merged_freq_histogram.pdf" 1732479106.61957 73416 4de6180e3ef145246af73a3ba37011d9 ""
   "figures/heatmap_snippet.png" 1733301647.3692 92328 42e5c8a6bd64d6c3eead28a8cd56f9a3 ""
   "figures/num_nodes_merged.pdf" 1733902511.98151 15182 cbfd9fd83dae0f610998d6a39a34ba13 ""
+  "figures/training/learning_curve_fold_1.png" 1733998472.16526 53060 1c97bcaec5f5270c7b95da1b605dc563 ""
+  "figures/training/learning_curve_fold_2.png" 1733998486.02007 52824 4add1ad8b91d3c00888c50932a69ce8c ""
+  "figures/training/learning_curve_fold_3.png" 1733998495.46187 51986 38078b433c14045afad6bb313bfd6074 ""
+  "figures/training/learning_curve_fold_4.png" 1733998500.25843 53254 966e54c5f5af7725880e7820030557e0 ""
+  "figures/training/learning_curve_fold_5.png" 1733998505.23736 52915 8d3a55be89f3d739efb12a06190acf8e ""
   (generated)
   "documentation.aux"
   "documentation.log"

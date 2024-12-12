@@ -10,6 +10,7 @@
 \usepackage{url}
 \usepackage{hyperref} 
 \usepackage{xcolor}
+\usepackage{subcaption} % For subfigures
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -142,6 +143,7 @@ Path is a sequence of connected nodes, specifically, what interests us is the se
 \end{definition}
 
 \textbf{Example of path context} \\
+\label{path_context_example}
 Below is an example of a path context between a node with data `a` and `BasicTypeSpecifier` node `int` 
 (of the branch with data `int b`) derived from the Abstract Syntax Tree (AST) that we constructed earlier in the example:
 
@@ -371,7 +373,35 @@ In the entire training pipeline, there are multiple stages where some of the abo
 In this section, we would like to provide an explanation of the model that was used to process the data and perform the predictions that are observed. This includes a detailed description of the architecture, the reasoning behind the choice of components, and the methodology employed for training and evaluation.
 
 \section*{Model: "functional"}
-The model 
+As stated before, we decided to use the Attention based neural network classifier to predict C function name from 
+its source code. The model is constructed using tensorflow.keras framework.
+
+\subsection{Inputs}
+The model has 3 input layers. One for each part of the path context \ref{path_context_example} and they are represented as 
+vectors of indices to their respective vocabularies. The shape is decided by the maximum
+number of distinct path contexts from the set of all functions in our dataset (the missing values are 
+padded with zeros).
+
+\subsection{Input embeddings}
+For each input layer there is also corresponding embedding layer and the embeddings are obtained 
+using the numerical index representations. Then they are concatenated into one single vector
+of dimensions (1, 3d) where d is the dimension of single embedding row. 
+
+\subsection{Dense layer}
+The concatenated vector is then multiplied with weight matrix of dimensions $(y, 3d)$ to obtain
+vector of dimension $y$, where $y$ is the size of tags set. Tanh function is applied to this 
+transformed vector to introduce non-linearity.
+
+\subsection{Attention-weight mechanism}
+Attention weight vector is then applied to get the portion (importance) of each path context
+by multiplying the attention weight $a_i$ with path context $c_i$ to get the vector $v_a$.  
+
+\subsection{Softmax}
+The final vector of probabilities is then obtained by multiplying each tag's entry in 
+embedding layer of tags $(y, 1)$ with the vector $v^T$ $(1,y)$ and applying the softmax 
+over all the tags in tag set. \\ \\
+This foward process is depicted in the following flowchart:
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm, height=7cm]{figures/code2vec_model_visual.png} 
@@ -379,6 +409,8 @@ The model
     \label{fig:func_lengths_distr_merged}
 \end{figure}
 
+
+The model architecture is displayed in detail below in the table.
 \begin{longtable}{|p{4cm}|p{5cm}|r|p{4cm}|}
 \hline
 \textbf{Layer (type)} & \textbf{Output Shape} & \textbf{Param \#} & \textbf{Connected to} \\
@@ -515,22 +547,70 @@ illustrate the complete function name classification process, from data
 \end{enumerate}
 
 
-
-
-\chapter{Testing}
+\chapter{Training and testing evaluation}
 \label{item:chapter_testing}
-TODO: test on raw and processed data
 
-Heatmap Analysis:
+\section{Fundamental Data Preprocessing}
 
-The heatmap visually represents the average performance metrics (precision, recall, F1-score).
-Look for patterns such as classes with consistently low or high scores to identify well-performing or problematic categories.
-Key Metrics:
+\subsection{Training}
 
-Precision: High values indicate fewer false positives. Classes with low precision might be confused with other classes.
-Recall: High values mean fewer false negatives. Low recall indicates the model struggles to detect certain classes.
-F1-Score: Balances precision and recall. Low scores suggest overall poor performance for those classes.
+To evaluate the model, we used 5-fold cross-validation on our dataset of 
+C functions from the GCJ and Codeforces competitions. The dataset is not yet
+preprocessed in terms of outliers (length, or tag semantic value) Batch size was set to 4. 
+The following charts depict learning curves for train and validation accuracy for each fold:
 
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/training/learning_curve_fold_1.png}
+        \caption{Fold 1}
+        \label{fig:plot1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/training/learning_curve_fold_2.png}
+        \caption{Fold 2}
+        \label{fig:plot2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/training/learning_curve_fold_3.png}
+        \caption{Fold 3}
+        \label{fig:plot3}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/training/learning_curve_fold_4.png}
+        \caption{Fold 4}
+        \label{fig:plot4}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/training/learning_curve_fold_5.png}
+        \caption{Fold 5}
+        \label{fig:plot5}
+    \end{subfigure}
+    
+    \caption{Learning curves for all 5 folds.}
+    \label{fig:all_folds}
+\end{figure}
+
+From the plots, we can say that the model achieved overfit after 8 epochs
+(the model is memorizing the training data rather than generalizing). 
+Learning patterns in all 5 folds are similar, this indicates consistent 
+performance across different data splits, suggesting the model is robust.
+However, validation loss and validation accuracy curves significantly diverge from 
+training curves. We suppose, this is due to our insufficient training data which is limited 
+as we are limited by our datasets and only C programming language functions.
+
+% average metrics table
+
+
+
+
+\subsubsection{Testing}
 
 \begin{figure}[h!]
     \centering
@@ -538,6 +618,13 @@ F1-Score: Balances precision and recall. Low scores suggest overall poor perform
     \caption{Snippet from heatmap of classes of names.}
     \label{fig:func_lengths_distr_merged}
 \end{figure}
+
+
+
+\section{Extensive Data Preprocessing}
+
+
+
 
 \bibliographystyle{plain}
 \bibliography{references}

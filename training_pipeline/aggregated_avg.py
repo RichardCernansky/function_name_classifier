@@ -7,9 +7,10 @@ NUM_FOLDS = 5
 
 heatmap_pdf_file = "analysis/metrics_plots/average_class_metrics_heatmap_full.pdf"
 prefix_bin_pdf_file = "analysis/metrics_plots/metrics_bins/"
+agg_avg_metrics_file = "agg_average_metrics_plot.png"
 
 # initialize accumulators for metrics
-total_accuracy = 0
+total_metrics = {"accuracy": 0, "precision": 0, "recall": 0, "f1": 0}
 bin_accuracies = {}
 classification_reports = []
 
@@ -27,7 +28,10 @@ for fold_idx in range(NUM_FOLDS):
     with open(f"analysis/metrics_json/fold_{fold_idx+1}_metrics.json", "r") as f:
         fold_metrics = json.load(f)
         # aggregate accuracy
-        total_accuracy += fold_metrics["accuracy"]
+        total_metrics["accuracy"] += fold_metrics["accuracy"]
+        total_metrics["precision"] += fold_metrics["precision"]
+        total_metrics["recall"] += fold_metrics["recall"]
+        total_metrics["f1"] += fold_metrics["f1"]
 
         #aggregate classification_reports
         classification_reports.append(fold_metrics["classification_report"])
@@ -43,8 +47,25 @@ for fold_idx in range(NUM_FOLDS):
                 key_bin_accuracies[key][bin_label]["correct"] += bin_data["correct"]
                 key_bin_accuracies[key][bin_label]["total"] += bin_data["total"]
 
-# compute average accuracy
-average_accuracy_model = total_accuracy / NUM_FOLDS
+# compute average metrics
+average_metrics_model = {metric: total_metrics[metric] / NUM_FOLDS for metric in total_metrics}
+
+# PLOT AVERAGE METRICS
+metrics = list(average_metrics_model.keys())
+values = list(average_metrics_model.values())
+plt.figure(figsize=(8, 5))
+bars = plt.bar(metrics, values, color=['blue', 'orange', 'green', 'red'], alpha=0.7)
+# add exact values on the bars
+for bar, value in zip(bars, values):
+    plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.02, f"{value:.4f}",
+             ha='center', va='bottom', fontsize=10, color='black')
+plt.title("Average Metrics Across Folds", fontsize=14)
+plt.ylabel("Score", fontsize=12)
+plt.ylim(0, 1)
+plt.xticks(fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.6)
+plt.tight_layout()
+plt.savefig(agg_avg_metrics_file, dpi=300)
 
 #average bin accuracies
 average_bin_accuracies_per_key = {}
