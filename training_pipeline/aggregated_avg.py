@@ -108,7 +108,7 @@ for key, bins in average_bin_accuracies_per_key.items():
 
     plt.bar(bin_labels, bin_values, color="skyblue", edgecolor="black")
 
-    plt.axhline(y=average_accuracy_model, color='red', linestyle='--', label=f"Model Avg. Accuracy: {average_accuracy_model:.4f}")
+    plt.axhline(y=average_metrics_model["accuracy"], color='red', linestyle='--', label=f"Model Avg. Accuracy: {average_accuracy_model:.4f}")
 
     plt.legend(loc="upper right", fontsize=12)
 
