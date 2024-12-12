@@ -73,9 +73,7 @@ for key, bins in key_bin_accuracies.items():
     average_bin_accuracies_per_key[key] = {}
     for bin_label, values in bins.items():
         avg_accuracy = values["correct"] / values["total"] if values["total"] > 0 else 0
-        # average_bin_accuracies_per_key[key][bin_label] = (avg_accuracy, values["total"])
         average_bin_accuracies_per_key[key][bin_label] = avg_accuracy
-
 
 
 # put the measurements together
@@ -130,14 +128,12 @@ for key, bins in average_bin_accuracies_per_key.items():
 sorted_classes = sorted(
     average_report.keys(),
     key=lambda cls: (
-        average_report[cls]["support"],
-        average_report[cls]["accuracy"],
-        average_report[cls]["precision"],
-        average_report[cls]["recall"]
+        average_report[cls]["support"],      # Primary: Support
+        average_report[cls]["precision"],   # Tertiary: Precision
+        average_report[cls]["recall"]       # Quaternary: Recall
     ),
     reverse=True  # Sort in descending order for all metrics
 )
-
 #metrics
 metrics = ["precision", "recall", "f1-score"]
 
