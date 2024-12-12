@@ -108,11 +108,11 @@ for key, bins in average_bin_accuracies_per_key.items():
 
     plt.bar(bin_labels, bin_values, color="skyblue", edgecolor="black")
 
-    plt.axhline(y=average_metrics_model["accuracy"], color='red', linestyle='--', label=f"Model Avg. Accuracy: {average_accuracy_model:.4f}")
+    plt.axhline(y=average_metrics_model["accuracy"], color='red', linestyle='--', label=f"Model Avg. Accuracy: {average_metrics_model['accuracy']:.4f}")
 
     plt.legend(loc="upper right", fontsize=12)
 
-    plt.text(0.5, 1.05, f"Average Model Accuracy for {key.replace('_', ' ').title()}=step_size : {average_accuracy_model:.4f}",
+    plt.text(0.5, 1.05, f"Average Model Accuracy for {key.replace('_', ' ').title()}=step_size : {average_metrics_model['accuracy']:.4f}",
              fontsize=14, ha="center", transform=plt.gca().transAxes, fontweight="bold")
     plt.title(f"Bin Average Accuracies for {key.replace('_', ' ').title()}", fontsize=18, fontweight="bold")
     plt.xlabel("Bins", fontsize=14, labelpad=10)
