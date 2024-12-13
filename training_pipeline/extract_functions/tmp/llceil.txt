@@ -1,0 +1,196 @@
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+
+ long llceil(long long a,long long b){if(a%b==0){return a/b;}return (a/b)+1;}
+

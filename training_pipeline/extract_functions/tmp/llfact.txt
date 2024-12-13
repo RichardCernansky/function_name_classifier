@@ -1,0 +1,196 @@
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
+ long llfact(long long a){long long i,r=1;for(i=1;i<=a;i++){r*=i;}return r;}
+
