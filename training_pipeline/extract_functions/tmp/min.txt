@@ -1,0 +1,331 @@
+
+ int min(int a, int b){
+ 	if (a<b){
+ 		return a;
+ 	}
+ 	return b;
+ }
+
+
+ int min(int a, int b){
+ 	if (a<b){
+ 		return a;
+ 	}
+ 	return b;
+ }
+
+
+ 	
+ double min(double a, double b) {
+ 	return a > b ? b : a;
+ }
+
+
+ double min(double p, double q){
+ 	if (p < q) return p;
+ 	return q;
+ }
+
+
+ 
+ int min(int a, int b) { return a<b ? a : b; }
+
+
+ 
+ int min(int a, int b) { return a<b ? a : b; }
+
+
+ 
+ double min(double a, double b) { return a<b ? a : b; }
+
+ double min(double a, double b)
+ {
+     return (a < b ? a : b) ;
+ }
+
+        
+         
+ int min(int a, int b, int c, int d, int cur){
+     int m = 100000;
+     int pos = -1;
+    // printf("a = %d, b = %d, c = %d, d = %d, cur = %d\n", a,b,c,d,cur);
+     if(a < cur && a != -1){
+          m = a; 
+          pos = 0;    
+     }
+          
+     if(b < cur && b < m && b != -1){
+          m = b;
+          pos = 1;
+     }
+     
+     if(c < cur && c < m && c != -1){
+          m = c;
+          pos = 2;
+     }
+     
+     if(d < cur && d < m && d != -1){
+          m = d;
+          pos = 3;
+     }
+     
+     return pos;   
+ }
+
+        
+         
+ int min(int a, int b, int c, int d, int cur){
+     int m = 100000;
+     int pos = -1;
+    // printf("a = %d, b = %d, c = %d, d = %d, cur = %d\n", a,b,c,d,cur);
+     if(a < cur && a != -1){
+          m = a; 
+          pos = 0;    
+     }
+          
+     if(b < cur && b < m && b != -1){
+          m = b;
+          pos = 1;
+     }
+     
+     if(c < cur && c < m && c != -1){
+          m = c;
+          pos = 2;
+     }
+     
+     if(d < cur && d < m && d != -1){
+          m = d;
+          pos = 3;
+     }
+     
+     return pos;   
+ }
+
+ 	
+ 
+ int min(int a,int b){	//min of a and b
+ 	return (a<b)?a:b;
+ }
+
+ 	
+ 
+ int min(int a,int b){	//min of a and b
+ 	return (a<b)?a:b;
+ }
+
+
+ 
+ int min(int a, int b){
+   if (a<b) return a;
+   return b;
+ }
+
+
+ 
+ int min(int a, int b){
+   if (a<b) return a;
+   return b;
+ }
+
+
+ int min(int x,int y) { return x < y ? x : y; }
+
+
+ int min(int x,int y) { return x < y ? x : y; }
+
+
+ 
+ int min(int a, int b)
+ {
+     return ((a<b)?(a):(b)) ;
+ }
+
+
+ 
+ int min(Vector* v1,int length)
+ {
+ int min,f=0;
+ for(int i=0;i<length;i++)
+   if(v1[i].FLAG==0)
+ 	  {min=i;f=1;}
+ if(f==0)
+ return -1;
+ for(i=0;i<length;i++)
+   if((v1[i].value< v1[min].value)&&(v1[i].FLAG==0))
+ 	 min=i;
+ return min;}
+
+
+ 
+ int min(int *vector, int limit, int pos) {
+   int i, min;
+ 
+   if(pos == 0) min = vector[0];
+   else min = vector[0] + 1;
+ 
+   for(i = 0; i < limit; i++)
+     if((vector[i] + 1) < min && i != pos)  min = vector[i] + 1;
+     else if(vector[i]  < min && i == pos) min = vector[i];
+ 
+   return min;
+ }
+
+
+ 
+ int min(int *vector, int limit, int pos) {
+   int i, min;
+ 
+   if(pos == 0) min = vector[0];
+   else min = vector[0] + 1;
+ 
+   for(i = 0; i < limit; i++)
+     if((vector[i] + 1) < min && i != pos)  min = vector[i] + 1;
+     else if(vector[i]  < min && i == pos) min = vector[i];
+ 
+   return min;
+ }
+
+
+ int min()
+ {
+     init();
+     int i,j,k;
+     for(i = 1; i < query_num; i++)
+     {
+         int min = 9999;
+         int temp = 0;
+         for(j = 0; j < engine_num; j++)
+         {
+             min = 9999;
+             temp = 0;
+             for(k = 0; k < engine_num; k++)
+             {
+                 temp = mm[k][i - 1];
+                 //printf("temp(%d, %d - 1) : %d\n", k, i, temp);
+                 if(k != j)
+                 {
+                     //printf("From others +1\n");
+                     temp++;
+                 }
+                 if(strcmp(query[i], engine[k]) == 0)
+                 {
+                     //printf("Query +1\n");
+                     temp = 9999;
+                 }
+                 //printf("temp < min : %d < %d\n", temp, min);
+                 if(temp < min)
+                 {
+                     min = temp;
+                 }
+             }
+             //printf("m[%d][%d] = %d\n", j, i, min);
+             mm[j][i] = min;
+         }
+     }
+ }
+
+
+ int min()
+ {
+     init();
+     int i,j,k;
+     for(i = 1; i < query_num; i++)
+     {
+         int min = 9999;
+         int temp = 0;
+         for(j = 0; j < engine_num; j++)
+         {
+             min = 9999;
+             temp = 0;
+             for(k = 0; k < engine_num; k++)
+             {
+                 temp = mm[k][i - 1];
+                 //printf("temp(%d, %d - 1) : %d\n", k, i, temp);
+                 if(k != j)
+                 {
+                     //printf("From others +1\n");
+                     temp++;
+                 }
+                 if(strcmp(query[i], engine[k]) == 0)
+                 {
+                     //printf("Query +1\n");
+                     temp = 9999;
+                 }
+                 //printf("temp < min : %d < %d\n", temp, min);
+                 if(temp < min)
+                 {
+                     min = temp;
+                 }
+             }
+             //printf("m[%d][%d] = %d\n", j, i, min);
+             mm[j][i] = min;
+         }
+     }
+ }
+
+
+ 
+ int min(int a, int b){
+ 	return a > b ? b : a;
+ }
+
+
+ 
+ int min(int a, int b){
+ 	return a > b ? b : a;
+ }
+
+int min(int a, int b){
+     if(a<b)return a;
+     else return b;
+ }
+
+int min(int a, int b){
+     if(a<b)return a;
+     else return b;
+ }
+
+ int min(int a, int b) {return a<b ? a : b;}
+
+ int min(int a, int b) {return a<b ? a : b;}
+
+
+ 
+ int min( int a, int b){ return a < b ? a : b; }
+
+
+ 
+ int min( int a, int b){ return a < b ? a : b; }
+
+
+ 
+ int min( int a, int b){
+   return a < b ? a : b;     
+ }
+
+ long min(long long a, long long b) { return ( a < b ? a : b ); }
+
+
+ 
+ 
+ int min(int x, int y) {
+    if (x>y) return y;
+    else return x;
+ }
+
+
+ 
+ 
+ int min(int x, int y) {
+    if (x>y) return y;
+    else return x;
+ }
+
+
+ 
+ 
+ int min(int x, int y) {
+    if (x>y) return y;
+    else return x;
+ }
+
