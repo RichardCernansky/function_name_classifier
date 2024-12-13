@@ -111,5 +111,16 @@ class AsciiTreeProcessor:
 
         return total_tokens
 
+    @staticmethod
+    def concat_leaf_data_dfs(root: Node) -> str:
+        if not root.children:
+            return root.data if isinstance(root.data, str) else ""
+
+        result = ""
+
+        for child in root.children:
+            result += AsciiTreeProcessor.concat_leaf_data_dfs(child)
+
+        return result
 
 
