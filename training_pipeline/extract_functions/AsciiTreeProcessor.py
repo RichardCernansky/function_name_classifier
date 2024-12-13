@@ -1,3 +1,4 @@
+import hashlib
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
@@ -112,15 +113,17 @@ class AsciiTreeProcessor:
         return total_tokens
 
     @staticmethod
-    def concat_leaf_data_dfs(root: Node) -> str:
-        if not root.children:
-            return root.data if isinstance(root.data, str) else ""
+    def serialize_tree(func_root):
+        if not func_root.children:
+            return f"{func_root.kind}:{func_root.data}"
+        children_repr = [AsciiTreeProcessor.serialize_tree(child) for child in func_root.children]
+        return f"{func_root.kind}({','.join(children_repr)})"
 
-        result = ""
 
-        for child in root.children:
-            result += AsciiTreeProcessor.concat_leaf_data_dfs(child)
+    def hash_tree(func_root):
+        serialized = AsciiTreeProcessor.serialize_tree(func_root)
+        return hashlib.md5(serialized.encode('utf-8')).hexdigest()
 
-        return result
+
 
 

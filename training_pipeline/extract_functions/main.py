@@ -32,11 +32,11 @@ csv.field_size_limit(sys.maxsize)
 num_all_rows_c = 0
 num_successful_rows = 0
 
-seen_func_strings = set()
+seen_func_hashes = set()
 
 def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
     """Save the entire tree as a single JSON object in NDJSON format."""
-    global seen_func_strings  # Access the global variable
+    global seen_func_hashes  # Access the global variable
     with open(ndjson_path_t, "a") as f:
         for child in node_tree.root_node.children:
             if child.kind == "FunctionDefinition":
@@ -45,14 +45,14 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
                     if definition_child.kind == "FunctionDeclarator":
                         declarator_node = definition_child
 
-                        # use concat_leaf_data_dfs to get the function string
-                        func_string = AsciiTreeProcessor.concat_leaf_data_dfs(declarator_node)
+                        # Generate a hash for the tree
+                        func_hash = AsciiTreeProcessor.hash_tree(declarator_node)
 
-                        # check if the function string is new
-                        if func_string not in seen_func_strings:
-                            seen_func_strings.add(func_string)
+                        # Check if the function tree is new
+                        if func_hash not in seen_func_hashes:
+                            seen_func_hashes.add(func_hash)
 
-                            # process and save the function details
+                            # Process and save the function details
                             tag = declarator_node.data
                             declarator_node.data = "?"
                             func_tree_dict = definition_node.to_dict()
@@ -69,18 +69,19 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
                 break
 
 def ascii_to_ndjson(ascii_tree: str):
-    # print(ascii_tree)
+    """Convert an ASCII tree into NDJSON format."""
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
     global ndjson_path
     save_functions_to_ndjson(node_tree, ascii_tree, ndjson_path)
 
 def run_cnip(prefix) -> subprocess.CompletedProcess[str]:
-    # Construct and execute the command
+    """Run the CNIP command to generate the ASCII tree."""
     command = f"{prefix}psychec/cnip -l C -d {prefix}{temp_file_path}"
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')
 
 def process_c_file(line: str):
+    """Process a single C file."""
     global num_all_rows_c, num_successful_rows
 
     num_all_rows_c += 1
