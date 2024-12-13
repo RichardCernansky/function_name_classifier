@@ -92,7 +92,7 @@ def process_c_file(line: str):
     result = run_cnip("./")  # Run the external command
 
     # Check exit code and process the ASCII tree if successful
-    if result.returncode == 0:
+    if result.returncode == 0 and result.stdout.strip():
         num_successful_rows += 1
         ascii_to_ndjson(result.stdout)
     else:
