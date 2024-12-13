@@ -115,10 +115,11 @@ class AsciiTreeProcessor:
     @staticmethod
     def serialize_tree(func_root):
         if not func_root.children:
-            return f"{func_root.kind}:{func_root.data}"
+            data = "<VAR>" if func_root.kind == "Identifier" else func_root.data
+            return f"{func_root.kind}:{data}"
+
         children_repr = [AsciiTreeProcessor.serialize_tree(child) for child in func_root.children]
         return f"{func_root.kind}({','.join(children_repr)})"
-
 
     def hash_tree(func_root):
         serialized = AsciiTreeProcessor.serialize_tree(func_root)
