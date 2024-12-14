@@ -1,4 +1,4 @@
 #!/bin/bash
 cd ..
-python ./main.py /home/richardce/gcj-dataset file flines
+python ./main_without_noise.py /home/richardce/gcj-dataset file flines
 
