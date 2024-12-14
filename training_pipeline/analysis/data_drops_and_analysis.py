@@ -51,7 +51,7 @@ function_counter = Counter(function_names)
 filtered_function_names = set()
 data = []
 for function, freq in function_counter.items():
-    if freq >= 5 and function not in poor_names: #filter
+    if freq >= 5 and not any(function.lower() in poor_name.lower() for poor_name in poor_names):  # Filter condition
         filtered_function_names.add(function)
         data.append({"FunctionName": function, "Frequency": freq})
 
