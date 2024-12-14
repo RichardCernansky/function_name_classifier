@@ -21,8 +21,8 @@ from extract_functions.main import *
 
 text_path = 'data_ndjson/one_func.txt'
 ndjson_path = "data_ndjson/one_func.ndjson"
-vocabs_pkl = 'vocabs.pkl'
-model_file = 'model_fold_5.h5'
+vocabs_pkl = 'trained_models/vocabs_fold_1.pkl'
+model_file = 'trained_models/model_fold_5.h5'
 with open(ndjson_path, "w") as log_file:
     log_file.write("")
 

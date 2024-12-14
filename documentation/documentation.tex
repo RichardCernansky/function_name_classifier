@@ -177,8 +177,11 @@ As the dataset originates from competitive programming contests, its characteris
 
 \begin{enumerate}
     \item \textbf{Duplicate Entries:} 
-    \label{item:duplicate_entries}
-    Checking code snippet strings for duplicates to ensure a single submission is not included in the dataset multiple times.
+    \label{item:duplicate_entries} 
+    In programming competitions, where competitors often use template 
+    helper functions, it is important to check function code strings 
+    for duplicates to ensure that identical functions are not included 
+    multiple times in the dataset.
 
     \item \textbf{Outliers:} 
     \label{item:outliers}
@@ -515,7 +518,7 @@ illustrate the complete function name classification process, from data
 
     \item Run \texttt{extract\_functions/main.py} to generate \texttt{.c} functions ASTs in \texttt{.ndjson} format (AST features as metadata included).
 
-    \item Execute \texttt{data\_drops\_analysis.py} to drop functions with names occurring $\leq 5$ times and filter out poorly named functions (ref. \ref{item:poorly_named_functions}). 
+    \item Execute \texttt{data\_drops\_analysis.py} to drop functions with names occurring $\leq 10$ times and filter out poorly named functions (ref. \ref{item:poorly_named_functions}). 
     This script also generates the EDA for the selected features \ref{item:EDA}.
 
     \item Execute \texttt{stratifiedKfold.py} to perform stratified splitting of the dataset into training and validation sets for NUM\_FOLDS=5. This is the main execution
@@ -552,11 +555,12 @@ illustrate the complete function name classification process, from data
 
 \section{Fundamental Data Preprocessing}
 
+
 \subsection{Training}
 
 To evaluate the model, we used 5-fold cross-validation on our dataset of 
 C functions from the GCJ and Codeforces competitions. The dataset is not yet
-preprocessed in terms of outliers (length, or tag semantic value) Batch size was set to 4. 
+preprocessed in terms of outliers (length, or tag semantic value). Batch size was set to 4. 
 The following charts depict learning curves for train and validation accuracy for each fold:
 
 \begin{figure}[!ht]
