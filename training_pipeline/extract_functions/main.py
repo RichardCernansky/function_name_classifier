@@ -85,10 +85,10 @@ def extract_func_body(content, match):
     return content[start:end]
 
 
-def process_c_file(file_path: str):
+def process_c_file(line: str):
     global num_all_rows_c, num_successful_rows, seen_func_strings
 
-    with open(file_path, 'r') as file:
+    with open(line, 'r') as file:
         content = file.read()
 
     function_pattern = re.compile(
@@ -96,7 +96,7 @@ def process_c_file(file_path: str):
         re.MULTILINE
     )
 
-    matches = function_pattern.finditer(content)
+    matches = function_pattern.finditer(line)
     for match in matches:
         num_all_rows_c += 1
 
