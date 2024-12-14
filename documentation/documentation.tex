@@ -554,6 +554,11 @@ illustrate the complete function name classification process, from data
 \label{item:chapter_testing}
 
 \section{Fundamental Data Preprocessing}
+Initally, we droppe functions with names occurring $\leq 10$ times and filter out poorly named functions (ref. \ref{item:poorly_named_functions}).
+Duplicate function strings were also removed to account for redundancies
+commonly occuring in competition-style programming, where template-based
+helper functions are frequently reused.
+The dataset is not yet preprocessed in terms of outliers (length, or tag semantic value).
 
 
 \subsection{Training}
@@ -630,8 +635,6 @@ as we are limited by our datasets and only C programming language functions.
 
 
 \section{Extensive Data Preprocessing}
-
-
 
 
 \bibliographystyle{plain}
