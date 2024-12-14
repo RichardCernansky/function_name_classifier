@@ -32,10 +32,11 @@ csv.field_size_limit(sys.maxsize)
 num_all_rows_c = 0
 num_successful_rows = 0
 
-seen_func_strings= set()
-def save_functions_to_ndjson(node_tree: NodeTree, ndjson_path_t):
+seen_func_hashes = set()
+
+def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
     """Save the entire tree as a single JSON object in NDJSON format."""
-    global seen_func_strings  # Access the global variable
+    global seen_func_hashes  # Access the global variable
     with open(ndjson_path_t, "a") as f:
         for child in node_tree.root_node.children:
             if child.kind == "FunctionDefinition":
@@ -44,19 +45,26 @@ def save_functions_to_ndjson(node_tree: NodeTree, ndjson_path_t):
                     if definition_child.kind == "FunctionDeclarator":
                         declarator_node = definition_child
 
-                        # process and save the function details
-                        tag = declarator_node.data
-                        declarator_node.data = "?"
-                        func_tree_dict = definition_node.to_dict()
-                        json_data = {
-                            "tag": tag,
-                            "num_tokens": AsciiTreeProcessor.get_num_tokens(definition_node),
-                            "ast_depth": AsciiTreeProcessor.get_ast_depth(definition_node),
-                            "num_nodes": AsciiTreeProcessor.get_num_nodes(definition_node),
-                            "ast": func_tree_dict
-                        }
-                        json_line = json.dumps(json_data)
-                        f.write(json_line + "\n")
+                        # Generate a hash for the tree
+                        func_hash = AsciiTreeProcessor.hash_tree(declarator_node)
+
+                        # Check if the function tree is new
+                        if func_hash not in seen_func_hashes:
+                            seen_func_hashes.add(func_hash)
+
+                            # Process and save the function details
+                            tag = declarator_node.data
+                            declarator_node.data = "?"
+                            func_tree_dict = definition_node.to_dict()
+                            json_data = {
+                                "tag": tag,
+                                "num_tokens": AsciiTreeProcessor.get_num_tokens(definition_node),
+                                "ast_depth": AsciiTreeProcessor.get_ast_depth(definition_node),
+                                "num_nodes": AsciiTreeProcessor.get_num_nodes(definition_node),
+                                "ast": func_tree_dict
+                            }
+                            json_line = json.dumps(json_data)
+                            f.write(json_line + "\n")
                         break
                 break
 
@@ -65,55 +73,30 @@ def ascii_to_ndjson(ascii_tree: str):
     atp = AsciiTreeProcessor(ascii_tree)
     node_tree = NodeTree(atp.produce_tree())
     global ndjson_path
-    save_functions_to_ndjson(node_tree, ndjson_path)
+    save_functions_to_ndjson(node_tree, ascii_tree, ndjson_path)
 
 def run_cnip(prefix) -> subprocess.CompletedProcess[str]:
     """Run the CNIP command to generate the ASCII tree."""
     command = f"{prefix}psychec/cnip -l C -d {prefix}{temp_file_path}"
     return subprocess.run(command, shell=True, capture_output=True, text=True, encoding='ISO-8859-1')
 
-def extract_func_body(content, match):
-    start = match.start()
-    bracket_count = 1
-    end = start + len(match.group())
-    while end < len(content) and bracket_count > 0:
-        if content[end] == '{':
-            bracket_count += 1
-        elif content[end] == '}':
-            bracket_count -= 1
-        end += 1
-    return content[start:end]
+def process_c_file(line: str):
+    """Process a single C file."""
+    global num_all_rows_c, num_successful_rows
 
+    num_all_rows_c += 1
 
-def process_c_file(file_path: str):
-    global num_all_rows_c, num_successful_rows, seen_func_strings
+    with open(temp_file_path, 'w') as temp_file:
+        temp_file.write(line)
 
-    with open(file_path, 'r') as file:
-        content = file.read()
+    result = run_cnip("./")  # Run the external command
 
-    function_pattern = re.compile(
-        r'^\s*(unsigned|signed)?\s*(void|int|char|short|long|float|double)\s+\**(\w+)\s*\([^)]*\)\s*\{',
-        re.MULTILINE
-    )
-
-    matches = function_pattern.finditer(content)
-    for match in matches:
-        num_all_rows_c += 1
-
-        func_string = extract_func_body(content, match)
-        if func_string in seen_func_strings:
-            seen_func_strings.add(func_string)
-            with open(temp_file_path, 'w') as temp_file:
-                temp_file.write(func_string)
-
-            result = run_cnip("./")
-
-            if result.returncode == 0 and result.stdout.strip():
-                num_successful_rows += 1
-                ascii_to_ndjson(result.stdout)
-            else:
-                print(f"Error processing function:\n{func_string}")
-
+    # Check exit code and process the ASCII tree if successful
+    if result.returncode == 0 and result.stdout.strip():
+        num_successful_rows += 1
+        ascii_to_ndjson(result.stdout)
+    else:
+        print("Error processing the function.")
 #-------------------------------------------------------------------------------------------------------------------
 #CSV process
 def process_file_csv(csv_file_path: str):
@@ -174,3 +157,4 @@ def main():
 #usage for codeforces - main.py codeforces language source_code
 if __name__ == "__main__":
     main()
+
