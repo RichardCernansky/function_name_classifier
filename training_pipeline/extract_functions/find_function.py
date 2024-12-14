@@ -18,7 +18,6 @@ find_name = None
 # Increase the CSV field size limit
 csv.field_size_limit(sys.maxsize)
 
-
 # Function to extract function code by name from file
 def find_function_by_name(file_path, target_name):
     function_pattern = re.compile(
