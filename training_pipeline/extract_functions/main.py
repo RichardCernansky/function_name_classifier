@@ -84,7 +84,6 @@ def extract_func_body(content, match):
         end += 1
     return content[start:end]
 
-
 def process_c_file(line_func: str):
     global num_all_rows_c, num_successful_rows, seen_func_strings
 
@@ -98,12 +97,13 @@ def process_c_file(line_func: str):
         num_all_rows_c += 1
 
         func_string = extract_func_body(line_func, match)
-        if func_string in seen_func_strings:
+        if func_string not in seen_func_strings:
             seen_func_strings.add(func_string)
             with open(temp_file_path, 'w') as temp_file:
                 temp_file.write(func_string)
 
             result = run_cnip("./")
+
 
             if result.returncode == 0 and result.stdout.strip():
                 num_successful_rows += 1
