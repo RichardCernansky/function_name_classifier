@@ -27,7 +27,7 @@ with open(ndjson_file, "r") as file:
                     "NumTokens": num_tokens,
                     "ASTDepth": ast_depth,
                     "NumNodes": num_nodes
-                })0
+                })
             else:
                 print(f"Missing 'tag', 'ast', or 'num_tokens' in line (skipped): {line}")
 
