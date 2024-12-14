@@ -56,8 +56,8 @@ def save_functions_to_ndjson(node_tree: NodeTree, ascii_tree, ndjson_path_t):
                                     seen_func_hashes.add(func_hash)
 
                                     # Process and save the function details
-                                    tag = declarator_node.data
-                                    declarator_node.data = "?"
+                                    tag = declarator_child.data
+                                    declarator_child.data = "?"
                                     func_tree_dict = definition_node.to_dict()
                                     json_data = {
                                         "tag": tag,
