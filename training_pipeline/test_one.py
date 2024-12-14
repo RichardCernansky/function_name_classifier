@@ -120,7 +120,7 @@ def process_c_file(func_str: str, ndjson_path_t):
         pass
     # if successful, process the ascii-tree
     else:
-        ascii_to_ndjson(result.stdout)
+        ascii_to_ndjson_test_one(result.stdout)
     return
 
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
