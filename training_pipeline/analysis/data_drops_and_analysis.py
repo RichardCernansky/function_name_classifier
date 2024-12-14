@@ -18,7 +18,7 @@ pdf_postfix = ".pdf"
 #input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
 #input_ndjson_file = "../data_ndjson/contests.ndjson"
 input_ndjson_file = "../data_ndjson/merged.ndjson"
-output_ndjson_file = "../data_ndjson/dropped_lower_5.ndjson"
+output_ndjson_file = "../data_ndjson/dropped_lower_10.ndjson"
 basename_without_extension = get_basename_without_extension(input_ndjson_file)
 
 output_names_histogram_pdf_file = names_prefix + basename_without_extension + pdf_postfix
@@ -50,10 +50,15 @@ with open(input_ndjson_file, "r") as file:
 function_counter = Counter(function_names)
 filtered_function_names = set()
 data = []
+
 for function, freq in function_counter.items():
-    if freq >= 5 and not any(function.lower() in poor_name.lower() for poor_name in poor_names):  # Filter condition
+    if (
+        freq >= 10 and
+        not any(poor_name.lower() in function.lower() for poor_name in poor_names)
+    ):
         filtered_function_names.add(function)
         data.append({"FunctionName": function, "Frequency": freq})
+
 
 total_functions = sum(item["Frequency"] for item in data)
 

@@ -1,12 +1,3 @@
-//
-//  func.c
-//  
-//
-//  Created by MacBook return 0; on 11.11.14.
-//
-//
-
-#include <stdio.h>
 
 int main(void)
 {
