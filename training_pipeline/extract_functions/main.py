@@ -85,22 +85,19 @@ def extract_func_body(content, match):
     return content[start:end]
 
 
-def process_c_file(line: str):
+def process_c_file(line_func: str):
     global num_all_rows_c, num_successful_rows, seen_func_strings
-
-    with open(line, 'r') as file:
-        content = file.read()
 
     function_pattern = re.compile(
         r'^\s*(unsigned|signed)?\s*(void|int|char|short|long|float|double)\s+\**(\w+)\s*\([^)]*\)\s*\{',
         re.MULTILINE
     )
 
-    matches = function_pattern.finditer(line)
+    matches = function_pattern.finditer(line_func)
     for match in matches:
         num_all_rows_c += 1
 
-        func_string = extract_func_body(content, match)
+        func_string = extract_func_body(line_func, match)
         if func_string in seen_func_strings:
             seen_func_strings.add(func_string)
             with open(temp_file_path, 'w') as temp_file:
