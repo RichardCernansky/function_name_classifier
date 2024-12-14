@@ -53,7 +53,7 @@ data = []
 
 for function, freq in function_counter.items():
     if (
-        freq >= 10 and
+        freq >= 5 and
         not any(poor_name.lower() in function.lower() for poor_name in poor_names)
     ):
         filtered_function_names.add(function)
