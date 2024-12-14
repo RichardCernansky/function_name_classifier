@@ -22,7 +22,7 @@ from extract_functions.main import *
 text_path = 'data_ndjson/one_func.txt'
 ndjson_path = "data_ndjson/one_func.ndjson"
 vocabs_pkl = 'trained_models/vocabs_fold_1.pkl'
-model_file = 'trained_models/model_fold_5.h5'
+model_file = 'trained_models/model_fold_1.h5'
 with open(ndjson_path, "w") as log_file:
     log_file.write("")
 
@@ -113,7 +113,7 @@ def process_c_file(func_str: str, ndjson_path_t):
         pass
     # if successful, process the ascii-tree
     else:
-        ascii_to_ndjson(result.stdout, ndjson_path_t)
+        ascii_to_ndjson(result.stdout)
     return
 
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
