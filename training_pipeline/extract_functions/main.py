@@ -34,31 +34,32 @@ num_successful_rows = 0
 
 seen_func_strings= set()
 def save_functions_to_ndjson(node_tree: NodeTree, ndjson_path_t):
+    #print(ascii_tree) #ascii tree for debug prints
     """Save the entire tree as a single JSON object in NDJSON format."""
-    global seen_func_strings  # Access the global variable
     with open(ndjson_path_t, "a") as f:
+        #write to dictionary functions.ndjson if is function and is not ['main', 'solve']
         for child in node_tree.root_node.children:
             if child.kind == "FunctionDefinition":
                 definition_node = child
                 for definition_child in definition_node.children:
                     if definition_child.kind == "FunctionDeclarator":
                         declarator_node = definition_child
-
-                        # process and save the function details
-                        tag = declarator_node.data
-                        declarator_node.data = "?"
-                        func_tree_dict = definition_node.to_dict()
-                        json_data = {
-                            "tag": tag,
-                            "num_tokens": AsciiTreeProcessor.get_num_tokens(definition_node),
-                            "ast_depth": AsciiTreeProcessor.get_ast_depth(definition_node),
-                            "num_nodes": AsciiTreeProcessor.get_num_nodes(definition_node),
-                            "ast": func_tree_dict
-                        }
-                        json_line = json.dumps(json_data)
-                        f.write(json_line + "\n")
+                        for declarator_child in declarator_node.children:
+                            if declarator_child.kind == "IdentifierDeclarator":
+                                tag = declarator_child.data
+                                declarator_child.data = "?"
+                                func_tree_dict = definition_node.to_dict()
+                                json_data = {
+                                    "tag": tag,
+                                    "num_tokens": AsciiTreeProcessor.get_num_tokens(definition_node),
+                                    "ast_depth": AsciiTreeProcessor.get_ast_depth(definition_node),
+                                    "num_nodes": AsciiTreeProcessor.get_num_nodes(definition_node),
+                                    "ast": func_tree_dict
+                                }
+                                json_line = json.dumps(json_data)
+                                f.write(json_line + "\n")
+                                break
                         break
-                break
 
 def ascii_to_ndjson(ascii_tree: str):
     """Convert an ASCII tree into NDJSON format."""
