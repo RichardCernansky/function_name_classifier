@@ -98,6 +98,13 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
 
     return tag_idx, sts_indices, paths_indices, ets_indices
 
+def ascii_to_ndjson_test_one(ascii_tree: str):
+    """Convert an ASCII tree into NDJSON format."""
+    atp = AsciiTreeProcessor(ascii_tree)
+    node_tree = NodeTree(atp.produce_tree())
+    ndjson_path_test_one = "../data_ndjson/one_func.ndjson"
+    save_functions_to_ndjson(node_tree, ndjson_path)
+
 def process_c_file(func_str: str, ndjson_path_t):
     print(func_str)
     prefix = "./extract_functions/"
