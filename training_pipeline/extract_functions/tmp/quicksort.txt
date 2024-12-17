@@ -1,0 +1,878 @@
+
+ 
+ 
+ 
+ void quicksort(char arr[], int low, int high) 
+ {
+    long long int i = low;
+    long long int j = high;
+    long long int y = 0;
+ 
+    long long int z = arr[(low + high) / 2];
+ 
+    do {
+       while(arr[i] < z) i++;
+ 
+       while(arr[j] > z) j--;
+ 
+       if(i <= j) {
+          y = arr[i];
+          arr[i] = arr[j]; 
+          arr[j] = y;
+          i++; 
+          j--;
+       }
+    } while(i <= j);
+ 
+    if(low < j) 
+       quicksort(arr, low, j);
+ 
+    if(i < high) 
+       quicksort(arr, i, high); 
+ }
+
+
+ 
+ 
+ 
+ void quicksort(char arr[], int low, int high) 
+ {
+    long long int i = low;
+    long long int j = high;
+    long long int y = 0;
+ 
+    long long int z = arr[(low + high) / 2];
+ 
+    do {
+       while(arr[i] < z) i++;
+ 
+       while(arr[j] > z) j--;
+ 
+       if(i <= j) {
+          y = arr[i];
+          arr[i] = arr[j]; 
+          arr[j] = y;
+          i++; 
+          j--;
+       }
+    } while(i <= j);
+ 
+    if(low < j) 
+       quicksort(arr, low, j);
+ 
+    if(i < high) 
+       quicksort(arr, i, high); 
+ }
+
+
+ 
+ void quicksort(long long *p, int left, int right)
+ {
+     if (left >= right)
+     {
+         return;
+     }
+     swap(p, left, (left + right)/2);
+     int mid = left;
+     int i;
+     for (i = left + 1; i <= right; i++)
+     {
+         if (*(p + i) < *(p + left))
+         {
+             swap(p, i, ++mid);
+         }
+     }
+     swap(p, left, mid);
+     quicksort(p, left, mid - 1);
+     quicksort(p, mid + 1, right);
+ }
+
+
+ 
+ void quicksort(long long *p, int left, int right)
+ {
+     if (left >= right)
+     {
+         return;
+     }
+     swap(p, left, (left + right)/2);
+     int mid = left;
+     int i;
+     for (i = left + 1; i <= right; i++)
+     {
+         if (*(p + i) < *(p + left))
+         {
+             swap(p, i, ++mid);
+         }
+     }
+     swap(p, left, mid);
+     quicksort(p, left, mid - 1);
+     quicksort(p, mid + 1, right);
+ }
+
+
+ void quicksort(int a, int b,int *A)
+ { 
+ 	int rtidx=0,ltidx=0,k=a,l=0,pivot; 
+ 	int leftarr[1000],rtarr[1000];  
+ 	pivot=A[a]; 
+ 
+ 	if(a==b)
+ 		return; 
+ 	
+ 	while(k<b)
+ 	{
+ 		++k;
+ 		if(A[k]<A[a])
+ 		{
+ 			leftarr[ltidx]=A[k];
+ 			ltidx++;
+ 		}
+ 		else
+ 		{
+ 			rtarr[rtidx]=A[k];
+ 			rtidx++;
+ 		}
+ 	}
+ 
+ 	k=a;
+ 	
+ 	for(l=0;l<ltidx;++l)
+ 		A[k++]=leftarr[l];
+ 	A[k++]=pivot;
+ 	
+ 	for(l=0;l<rtidx;++l)
+ 		A[k++]=rtarr[l];
+ 
+ 	if(ltidx>0)
+ 		quicksort(a,a+ltidx-1,A);
+ 	
+ 	if(rtidx>0)
+ 		quicksort(b-rtidx+1,b,A);
+ 
+ }
+
+
+ void quicksort(int a, int b,int *A)
+ { 
+ 	int rtidx=0,ltidx=0,k=a,l=0,pivot; 
+ 	int leftarr[1000],rtarr[1000];  
+ 	pivot=A[a]; 
+ 
+ 	if(a==b)
+ 		return; 
+ 	
+ 	while(k<b)
+ 	{
+ 		++k;
+ 		if(A[k]<A[a])
+ 		{
+ 			leftarr[ltidx]=A[k];
+ 			ltidx++;
+ 		}
+ 		else
+ 		{
+ 			rtarr[rtidx]=A[k];
+ 			rtidx++;
+ 		}
+ 	}
+ 
+ 	k=a;
+ 	
+ 	for(l=0;l<ltidx;++l)
+ 		A[k++]=leftarr[l];
+ 	A[k++]=pivot;
+ 	
+ 	for(l=0;l<rtidx;++l)
+ 		A[k++]=rtarr[l];
+ 
+ 	if(ltidx>0)
+ 		quicksort(a,a+ltidx-1,A);
+ 	
+ 	if(rtidx>0)
+ 		quicksort(b-rtidx+1,b,A);
+ 
+ }
+
+
+ void quicksort(int a, int b,int *A)
+ { 
+ 	int rtidx=0,ltidx=0,k=a,l=0,pivot; 
+ 	int leftarr[1000],rtarr[1000];  
+ 	pivot=A[a]; 
+ 
+ 	if(a==b)
+ 		return; 
+ 	
+ 	while(k<b)
+ 	{
+ 		++k;
+ 		if(A[k]<A[a])
+ 		{
+ 			leftarr[ltidx]=A[k];
+ 			ltidx++;
+ 		}
+ 		else
+ 		{
+ 			rtarr[rtidx]=A[k];
+ 			rtidx++;
+ 		}
+ 	}
+ 
+ 	k=a;
+ 	
+ 	for(l=0;l<ltidx;++l)
+ 		A[k++]=leftarr[l];
+ 	A[k++]=pivot;
+ 	
+ 	for(l=0;l<rtidx;++l)
+ 		A[k++]=rtarr[l];
+ 
+ 	if(ltidx>0)
+ 		quicksort(a,a+ltidx-1,A);
+ 	
+ 	if(rtidx>0)
+ 		quicksort(b-rtidx+1,b,A);
+ 
+ }
+
+
+     
+     
+     void quicksort(int arr[], int low, int high) {
+      int i = low;
+      int j = high;
+      int y = 0;
+      /* compare value */
+      int z = arr[(low + high) / 2];
+     
+      /* partition */
+      do {
+       /* find member above ... */
+       while(arr[i] < z) i++;
+     
+       /* find element below ... */
+       while(arr[j] > z) j--;
+     
+       if(i <= j) {
+        /* swap two elements */
+        y = arr[i];
+        arr[i] = arr[j]; 
+        arr[j] = y;
+        i++; 
+        j--;
+       }
+      } while(i <= j);
+     
+      /* recurse */
+      if(low < j) 
+       quicksort(arr, low, j);
+     
+      if(i < high) 
+       quicksort(arr, i, high); 
+     }
+
+
+     
+     
+     void quicksort(int arr[], int low, int high) {
+      int i = low;
+      int j = high;
+      int y = 0;
+      /* compare value */
+      int z = arr[(low + high) / 2];
+     
+      /* partition */
+      do {
+       /* find member above ... */
+       while(arr[i] < z) i++;
+     
+       /* find element below ... */
+       while(arr[j] > z) j--;
+     
+       if(i <= j) {
+        /* swap two elements */
+        y = arr[i];
+        arr[i] = arr[j]; 
+        arr[j] = y;
+        i++; 
+        j--;
+       }
+      } while(i <= j);
+     
+      /* recurse */
+      if(low < j) 
+       quicksort(arr, low, j);
+     
+      if(i < high) 
+       quicksort(arr, i, high); 
+     }
+
+
+ 
+ void quicksort(int *x, int l, int u) {
+     int i, m;
+     if (l >= u) return;
+     swap(x, l, randint(l, u));
+     m = l;
+     for (i = l+1; i <= u; i++)
+         if (x[i] > x[l])
+             swap(x, ++m, i);
+     swap(x, l, m);
+     quicksort(x, l, m-1);
+     quicksort(x, m+1, u);
+ }
+
+
+ 
+ void quicksort(int *x, int l, int u) {
+     int i, m;
+     if (l >= u) return;
+     swap(x, l, randint(l, u));
+     m = l;
+     for (i = l+1; i <= u; i++)
+         if (x[i] > x[l])
+             swap(x, ++m, i);
+     swap(x, l, m);
+     quicksort(x, l, m-1);
+     quicksort(x, m+1, u);
+ }
+
+
+ 
+ void quicksort(int v[], int left, int right)
+ {
+     int mid, i;
+ 
+     if (left >= right)
+     {
+         return;
+     }
+ 
+     mid = (left+right)/2;
+     swap(v, left, mid);
+     mid = left;
+     for (i = left + 1; i <= right; i++)
+     {
+         if (v[i] > v[left])
+         {
+             swap(v, i, ++mid);
+         }
+     }
+     swap(v, left, mid);
+     quicksort(v, left, mid - 1);
+     quicksort(v, mid + 1, right);
+ }
+
+
+ void quicksort(int i1,int i2) {
+ int i3,i4,pivot;
+ 	i3 = i1;
+ 	i4 = i2;
+ 	if (i2 > i1) {
+ 		pivot = F[i1].F;
+ 		while (i4 > i3) {
+ 			for (; F[i3].F >= pivot && i3 <= i2 && i3 < i4; i3++);
+ 			for (; F[i4].F < pivot && i4 >= i1 && i4 >= i3; i4--);
+ 			if (i4 > i3) {
+ 				swap(i3,i4);
+ 			}
+ 		}
+ 		swap(i1,i4);
+ 		quicksort(i1,i4-1);
+ 		quicksort(i4+1,i2);
+ 	}
+ }
+
+
+ void quicksort(int i1,int i2) {
+ int i3,i4,pivot;
+ 	i3 = i1;
+ 	i4 = i2;
+ 	if (i2 > i1) {
+ 		pivot = F[i1].F;
+ 		while (i4 > i3) {
+ 			for (; F[i3].F >= pivot && i3 <= i2 && i3 < i4; i3++);
+ 			for (; F[i4].F < pivot && i4 >= i1 && i4 >= i3; i4--);
+ 			if (i4 > i3) {
+ 				swap(i3,i4);
+ 			}
+ 		}
+ 		swap(i1,i4);
+ 		quicksort(i1,i4-1);
+ 		quicksort(i4+1,i2);
+ 	}
+ }
+
+
+ 
+ void quicksort(int arr[], int low, int high) {
+  int i = low;
+  int j = high;
+  int y = 0;
+  /* compare value */
+  int z = arr[(low + high) / 2];
+ 
+  /* partition */
+  do {
+   /* find member above ... */
+   while(arr[i] < z) i++;
+ 
+   /* find element below ... */
+   while(arr[j] > z) j--;
+ 
+   if(i <= j) {
+    /* swap two elements */
+    y = arr[i];
+    arr[i] = arr[j]; 
+    arr[j] = y;
+    i++; 
+    j--;
+   }
+  } while(i <= j);
+ 
+  /* recurse */
+  if(low < j) 
+   quicksort(arr, low, j);
+ 
+  if(i < high) 
+   quicksort(arr, i, high); 
+ }
+
+
+ 
+ 
+ void *quicksort(void* va)
+ {
+     targs* args = (targs*)va;
+     int *A=args->A;
+     int l = args->l;
+     int r = args->r;
+     vector<int> &S= args->S;
+ 
+     if(l >= r) return NULL;
+ 
+ 
+     int pidx = partition(*args);
+ //    cout << "quicksort : " << l << " " << r << endl;
+ 
+     targs part1(A, S, l, pidx-1);
+     targs part2(A, S,pidx+1, r);
+ 
+     quicksort(&part1);
+     quicksort(&part2);
+     return NULL;
+ }
+
+
+ 
+ void quicksort(int list[],int m,int n)
+ {
+    int key,i,j,k;
+    if( m < n)
+    {
+       k = choose_pivot(m,n);
+       swap(&list[m],&list[k]);
+       key = list[m];
+       i = m+1;
+       j = n;
+       while(i <= j)
+       {
+          while((i <= n) && (list[i] <= key))
+                 i++;
+          while((j >= m) && (list[j] > key))
+                 j--;
+          if( i < j)
+                 swap(&list[i],&list[j]);
+       }
+ 	  // swap two elements
+       swap(&list[m],&list[j]);
+ 	  // recursively sort the lesser list
+       quicksort(list,m,j-1);
+       quicksort(list,j+1,n);
+    }
+ }
+
+
+ 
+ void quicksort(int list[], int m, int n)
+ {
+ 	int key,i,j,k;
+ 	if( m < n)
+ 
+    	{
+ 
+       		k = choose_pivot(m,n);
+       		swap(&list[m],&list[k]);
+       		key = list[m];
+      		 i = m+1;
+       		j = n;
+       		while(i <= j)
+       		{
+         		 while((i <= n) && (list[i] <= key))
+                 		i++;
+          		while((j >= m) && (list[j] > key))
+                 		j--;
+          		if( i < j)
+                 		swap(&list[i],&list[j]);
+       		}
+       		// swap two elements
+       		swap(&list[m],&list[j]);
+       		// recursively sort the lesser list
+       		quicksort(list,m,j-1);
+       		quicksort(list,j+1,n);
+    	}
+ 
+ }
+
+
+ void quicksort(int x[], int p, int u){
+ 	int izq, der, central, pivote;
+ 	central=(p+u)/2;
+ 	pivote=x[central];
+ 	izq=p;
+ 	der=u;
+ 	do{
+ 		while(x[izq]<pivote) izq++;
+ 		while(x[der]>pivote) der--;
+ 		if(izq<=der){
+ 			intercambio(&x[izq], &x[der]);
+ 			izq++;der--;
+ 		}
+ 	}while(izq<=der);
+ 	if(p<der)quicksort(x,p,der);
+ 	if(izq<u)quicksort(x,izq,u);
+ }
+
+
+ 
+ 
+ 
+ void quicksort (int *v, int A, int B)
+ {
+   int i, j;
+   int x, y;
+ 
+   i=A; j=B;
+   x=v[(A+B)/2];
+ 
+   do {
+     while(v[i]<x && i<B) i++;
+     while(x<v[j] && j>A) j--;
+ 
+     if(i<=j) {
+       y=v[i];
+       v[i]=v[j];
+       v[j]=y;
+       i++; j--;
+      }
+     }while(i<=j);
+ 
+     if(A<j) quicksort(v, A, j);
+     if(i<B) quicksort(v, i, B);
+ }
+
+
+ 
+ void quicksort(char list[1000][51], int left, int right)
+ {
+ 	char pivot[51], tmp[51];
+ 	int i, j;
+ 
+ 	if(left < right)
+ 	{
+ 		i = left;
+ 		j = right + 1;
+ 		strcpy(pivot, list[left]);
+ 
+ 		do
+ 		{
+ 			do i++;
+ 			while(is_bigger(list[i], pivot) < 0);
+ 			do j--;
+ 			while(is_bigger(pivot, list[j]) < 0);
+ 			if(i < j)
+ 			{
+ 				strcpy(tmp, list[i]);
+ 				strcpy(list[i], list[j]);
+ 				strcpy(list[j], tmp);
+ 			}
+ 		} while(i < j);
+ 		strcpy(tmp, list[left]);
+ 		strcpy(list[left], list[j]);
+ 		strcpy(list[j], tmp);
+ 
+ 		quicksort(list, left, j - 1);
+ 		quicksort(list, j + 1, right);
+ 	}
+ }
+
+
+ int quicksort(long int* m , int start , int end)
+ {
+ 	long int x=m[end];
+ 	int j=start;
+ 	int k=end;
+ 	long int temp;
+ 
+ 	while(j<k)
+ 	{
+ 		while(m[j]>=x&&j<k)
+ 			j++;
+ 		if(j<k)
+ 		{
+ 			temp=m[k];m[k]=m[j];m[j]=temp;
+ 		}
+ 		while(m[k]<=x&&k>j)
+ 			k--;
+ 		if(j<k)
+ 		{
+ 			temp=m[j];m[j]=m[k];m[k]=temp;
+ 		}
+ 	}
+ 	j--;
+ 	k++;
+ 
+ 	if(start<j)
+ 		quicksort(m,start,j);
+ 	if(end>k)
+ 		quicksort(m,k,end);
+ 	return 0;
+ }
+
+
+ 
+ void quicksort(long long x[],long long int first,long long int last){
+   long long int pivot,j,i;
+   long long int temp;
+   
+   if(first<last){
+     pivot = first;
+     i = first;
+     j = last;
+     while(i<j){
+       while(x[i] <= x[pivot] && i<last)
+ 	i++;
+       while(x[j] > x[pivot])
+ 	j--;
+       if(i < j){
+ 	temp = x[i];
+ 	x[i] = x[j];
+ 	x[j] = temp;
+       }
+     }
+     temp = x[pivot];
+     x[pivot] = x[j];
+     x[j] = temp;
+     quicksort(x,first,j-1);
+     quicksort(x,j+1,last);
+ 	 
+   }
+ }
+
+
+ 
+ void quicksort(float x[],int first,int last){
+   int pivot,j,i;
+   float temp;
+   
+   if(first<last){
+     pivot = first;
+     i = first;
+     j = last;
+     while(i<j){
+       while(x[i] <= x[pivot] && i<last)
+ 	i++;
+       while(x[j] > x[pivot])
+ 	j--;
+       if(i < j){
+ 	temp = x[i];
+ 	x[i] = x[j];
+ 	x[j] = temp;
+       }
+     }
+     temp = x[pivot];
+     x[pivot] = x[j];
+     x[j] = temp;
+     quicksort(x,first,j-1);
+     quicksort(x,j+1,last);
+ 	 
+   }
+ }
+
+
+ 
+ void quicksort (unsigned long x[100], int first, int last) {
+ 	int pivot, j, i;
+ 	unsigned long temp;
+ 
+ 	if(first<last){
+ 		pivot=first;
+ 		i=first;
+ 		j=last;
+ 
+ 		while(i<j){
+ 			while(x[i]<=x[pivot]&&i<last)
+ 				i++;
+ 			while(x[j]>x[pivot])
+ 				j--;
+ 			if(i<j){
+ 				temp=x[i];
+ 				x[i]=x[j];
+ 				x[j]=temp;
+ 			}
+ 		}
+ 
+ 		temp=x[pivot];
+ 		x[pivot]=x[j];
+ 		x[j]=temp;
+ 		quicksort(x,first,j-1);
+ 		quicksort(x,j+1,last);
+ 
+ 	}
+ }
+
+
+ 
+ void quicksort (int x[100], int first, int last) {
+ 	int pivot, j, temp, i;
+ 
+ 	if(first<last){
+ 		pivot=first;
+ 		i=first;
+ 		j=last;
+ 
+ 		while(i<j){
+ 			while(x[i]<=x[pivot]&&i<last)
+ 				i++;
+ 			while(x[j]>x[pivot])
+ 				j--;
+ 			if(i<j){
+ 				temp=x[i];
+ 				x[i]=x[j];
+ 				x[j]=temp;
+ 			}
+ 		}
+ 
+ 		temp=x[pivot];
+ 		x[pivot]=x[j];
+ 		x[j]=temp;
+ 		quicksort(x,first,j-1);
+ 		quicksort(x,j+1,last);
+ 
+ 	}
+ }
+
+
+ void quicksort(int x[],int first,int last){
+     int pivot,j,temp,i;
+ 
+      if(first<last){
+          pivot=first;
+          i=first;
+          j=last;
+ 
+          while(i<j){
+              while(x[i]<=x[pivot]&&i<last)
+                  i++;
+              while(x[j]>x[pivot])
+                  j--;
+              if(i<j){
+                  temp=x[i];
+                   x[i]=x[j];
+                   x[j]=temp;
+              }
+          }
+ 
+          temp=x[pivot];
+          x[pivot]=x[j];
+          x[j]=temp;
+          quicksort(x,first,j-1);
+          quicksort(x,j+1,last);
+ 
+     }
+ }
+
+
+ void quicksort(int x[],int first,int last){
+     int pivot,j,temp,i;
+ 
+      if(first<last){
+          pivot=first;
+          i=first;
+          j=last;
+ 
+          while(i<j){
+              while(x[i]<=x[pivot]&&i<last)
+                  i++;
+              while(x[j]>x[pivot])
+                  j--;
+              if(i<j){
+                  temp=x[i];
+                   x[i]=x[j];
+                   x[j]=temp;
+              }
+          }
+ 
+          temp=x[pivot];
+          x[pivot]=x[j];
+          x[j]=temp;
+          quicksort(x,first,j-1);
+          quicksort(x,j+1,last);
+ 
+     }
+ }
+
+
+ 
+ void quicksort(long x[],long first,long last)
+ {
+ 	long pivot,j,temp,i;
+ 
+     if(first<last){
+         pivot=first;
+         i=first;
+         j=last;
+ 
+         while(i<j){
+             while(x[i]<=x[pivot]&&i<last)
+                 i++;
+             while(x[j]>x[pivot])
+                 j--;
+             if(i<j){
+                 temp=x[i];
+                 x[i]=x[j];
+                 x[j]=temp;
+             }
+         }
+ 
+         temp=x[pivot];
+         x[pivot]=x[j];
+         x[j]=temp;
+         quicksort(x,first,j-1);
+         quicksort(x,j+1,last);
+     }
+ }
+
+
+ void quicksort(int p,int r)
+ {
+ 	if(p<r)
+ 	{
+ 		q=partition(p,r);
+ 		quicksort(p,q-1);
+ 		quicksort(q+1,r);
+ 	}
+ }
+
+
+ void quicksort(int p,int r)
+ {
+ 	if(p<r)
+ 	{
+ 		q=partition(p,r);
+ 		quicksort(p,q-1);
+ 		quicksort(q+1,r);
+ 	}
+ }
+
