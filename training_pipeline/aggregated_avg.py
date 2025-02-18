@@ -89,7 +89,7 @@ for report in classification_reports:
                 combined_report[label][metric].append(value)
         else:
             print(f"Warning: Metrics for label '{label}' is not a dictionary: {metrics}")
-
+                    
 
 # calculate the average of the measurements
 average_report = {}
