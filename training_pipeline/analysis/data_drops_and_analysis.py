@@ -15,9 +15,9 @@ ast_depths_prefix = "exploratory_analysis/ast_depths/"
 num_nodes_prefix = "exploratory_analysis/num_nodes/"
 
 pdf_postfix = ".pdf"
-#input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
+input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
 #input_ndjson_file = "../data_ndjson/contests.ndjson"
-input_ndjson_file = "../data_ndjson/merged_without_noise.ndjson"
+#input_ndjson_file = "../data_ndjson/merged_without_noise.ndjson"
 output_ndjson_file = "../data_ndjson/dropped_lower_10.ndjson"
 basename_without_extension = get_basename_without_extension(input_ndjson_file)
 

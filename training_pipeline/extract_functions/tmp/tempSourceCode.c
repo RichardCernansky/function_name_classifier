@@ -1,51 +1,25 @@
+ int main(int argc, char** argv) {
+     unsigned tests, total_cores, required_cores;
+     double trainings;
+     double* cores;
  
- int main() {
+     unsigned t;
  
- int no_cases, c;
- int turnover_time;
- int no_Adept, no_Bdept, tA, tB;
+     get_tests(&tests);
  
+     for (t = 0; t < tests; ++t) {
+         get_cores(&total_cores, &required_cores);
+         get_trainings(&trainings);
  
- void read_table(int no, int* dept, int* ariv, int turn) {
- 	int i, hd, ha, md, ma;
+         cores = malloc(sizeof (double) * total_cores);
+         get_probabilities(cores, total_cores);
  
- 	for (i=0; i<no; i++) {
- 		read_line();
- 		sscanf(input, "%2d:%2d %2d:%2d", &hd, &md, &ha, &ma);
- 		dept[hd*60+md]--;
- 		ariv[ha*60+ma+turn]++;
- 	}
- }
+         give_aid_to_cores(cores, total_cores, trainings);
  
- int find_start(int* change) {
- 	int i, t, at;
- 	t=at=0;
- 	for (i=0; i<TIMESLOTS; i++) {
- 		if (change[i]) {
- 			at+=change[i];
- 			if (at<0) {
- 				t=t-at;
- 				at=0;
- 			}
- 		}
- 	}
- 	return t;
- }
+         printf("Case #%d: %f\n", t + 1, give_final_result(cores, total_cores));
  
- no_cases=read_number();
- for (c=0; c<no_cases; c++) {
- 	memset(Achange, 0, sizeof(Achange));
- 	memset(Bchange, 0, sizeof(Bchange));
- 	turnover_time=read_number();
+         free(cores);
+     }
  
- 	read_line();
- 	sscanf(input, "%d %d", &no_Adept, &no_Bdept);
- 	read_table(no_Adept, Achange, Bchange, turnover_time);
- 	read_table(no_Bdept, Bchange, Achange, turnover_time);
- 	tA=find_start(Achange);
- 	tB=find_start(Bchange);
- 
- 	printf("Case #%d: %d %d\n", c+1, tA, tB);
- }
- return 0;
+     return (EXIT_SUCCESS);
  }
