@@ -82,8 +82,11 @@ train_dataset = dataset1.map(tokenize_function, batched=True)
 val_dataset = dataset2.map(tokenize_function, batched=True)
 
 num_authors = len(tags_vocab)
+print("Number of distinct authors: ", num_authors)
 
 model = RobertaForSequenceClassification.from_pretrained("microsoft/graphcodebert-base", num_labels=num_authors)
+
+#freeze parameters
 for param in model.roberta.parameters():
     param.requires_grad = False
 
@@ -98,11 +101,7 @@ training_args = TrainingArguments(
     evaluation_strategy="epoch",
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-<<<<<<< HEAD
     num_train_epochs=30,
-=======
-    num_train_epochs=5,
->>>>>>> 23ac661 (start bert - feed with ast node-to-node paths)
     save_total_limit=2
 )
 
