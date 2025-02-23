@@ -4,6 +4,7 @@ import ndjson
 import numpy as np
 import pickle
 import random
+from collections import Counter
 
 from datasets import Dataset
 import evaluate
@@ -41,39 +42,31 @@ def get_data(tags_vocab: dict, data_file):
         np.random.shuffle(data)
 
         bert_data = []
-        tokens_total = 0
         for func_json in data:
             tag = func_json.get("tag")
             ast_json = func_json.get("ast")
             func_root = json_to_tree(ast_json)
-            _, func_paths = find_leaf_to_leaf_paths_iterative(func_root)  # get all contexts
+            traversal = pre_order_traversal(func_root)  # get all contexts
             
-            num_samples = min(NUM_SAMPLES_PER_FUNCTION, len(func_paths))
-            sampled_func_paths = random.sample(func_paths, num_samples)
-
-            paths_tokens = []
-            for node_node_path in sampled_func_paths:
-                paths_tokens.append(list(node_node_path[1:-1]))
-                
-            flatten_paths_tokens = [item for sublist in paths_tokens for item in sublist]
-            tokens_total += len(flatten_paths_tokens)
-
-            tokens = " ".join(flatten_paths_tokens)
+            tokens = " ".join(traversal)
             author_id = tags_vocab[tag]
 
             data_dict = {"ast_paths": tokens, "author": author_id}
             bert_data.append(data_dict)
             
-        print("average num of tokens per function: ", tokens_total/len(data))
         return bert_data   
         
 _, _, tags_vocab, _ = get_vocabs(vocabs_pkl)      
 train_data = get_data(tags_vocab, train_file)
 valid_data = get_data(tags_vocab, valid_file)
 
+train_labels = [d["author"] for d in train_data]
+train_label_counts = Counter(train_labels)
+sorted_train_labels = sorted(train_label_counts.items(), key=lambda x: x[1], reverse=True)
+
+print("Sorted Train Label Distribution:", sorted_train_labels)
 
 tokenizer = RobertaTokenizer.from_pretrained("microsoft/codebert-base")
-
 
 def tokenize_function(example):
     tokenized_inputs = tokenizer(example["ast_paths"], padding="max_length", truncation=True, max_length=512)

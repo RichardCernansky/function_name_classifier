@@ -26,6 +26,7 @@ output_lengths_histogram_pdf_file = token_lengths_prefix + basename_without_exte
 output_depths_pdf_file = ast_depths_prefix + basename_without_extension + pdf_postfix
 output_num_nodes_pdf_file = num_nodes_prefix + basename_without_extension + pdf_postfix
 
+MINIMAL_FREQUENCY = 20
 poor_names = ['main', 'solve']
 
 #FETCH DATA
@@ -53,7 +54,7 @@ data = []
 
 for function, freq in function_counter.items():
     if (
-        freq >= 10 and
+        freq >= MINIMAL_FREQUENCY and
         not any(poor_name.lower() in function.lower() for poor_name in poor_names)
     ):
         filtered_function_names.add(function)
