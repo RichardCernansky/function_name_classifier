@@ -15,6 +15,7 @@ sys.path.append(os.path.abspath("/home/jovyan/function_name_classifier")) #add t
 from training_pipeline.extract_functions import Node
 from training_pipeline.NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
 
+
 if len(sys.argv) < 2:
     print("Usage: python bert.py <fold_idx>")
     sys.exit(1)
@@ -104,7 +105,11 @@ training_args = TrainingArguments(
     evaluation_strategy="epoch",
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
+<<<<<<< HEAD
     num_train_epochs=30,
+=======
+    num_train_epochs=5,
+>>>>>>> 23ac661 (start bert - feed with ast node-to-node paths)
     save_total_limit=2
 )
 
