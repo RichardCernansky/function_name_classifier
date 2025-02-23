@@ -1,4 +1,8 @@
 #file that is primarily in jupyter notebook here is just developed
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__))) # looks for modules also in the parent dir if called from another directory
+
 from extract_functions.Node import Node
 import ndjson
 
@@ -88,3 +92,13 @@ def find_leaf_to_leaf_paths_iterative(root):
             leaf_to_leaf_paths.append((leaf1.data,) + tuple(complete_path) + (leaf2.data,))
 
     return [node.data for node, path in leaf_nodes], leaf_to_leaf_paths
+
+
+def pre_order_traversal(root):
+    traversal = []
+    def visit(node):
+        traversal.append(node.kind)
+        for node in node.children:
+             visit(node)
+    visit(root)
+    return traversal
