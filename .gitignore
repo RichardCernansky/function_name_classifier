@@ -6,5 +6,8 @@ processAST/.idea
 ASTs.json
 ASTs.ndjson
 processAST/jupyter/functionsASTs.ndjson
+*.json
 *.ndjson
 *.h5
+transformers/results
+transformers/codebert-authorship

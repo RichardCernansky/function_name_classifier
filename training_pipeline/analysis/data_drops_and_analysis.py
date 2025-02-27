@@ -103,25 +103,31 @@ else:
     print("The data follows a normal distribution (p >= 0.05).")
 print(f"mean: {mean:.4f}, std: {std:.4f}")
 
+import matplotlib.pyplot as plt
+
+# Ensure df is defined (replace this with your actual DataFrame)
+# df = pd.DataFrame(...)
+
+# Define column names dynamically
 column_name = f"Frequency (Total: {total_functions})"
 df.columns = ["FunctionName", column_name, "Percentage"]
-#PLOT NAMES
-# Plotting the bar graph
-plt.figure(figsize=(20, 8))  # Adjust figure size as needed
-# Bar plot to display each function name and its frequency
-plt.bar(df["FunctionName"], df[column_name], color='blue', edgecolor='black')
-# Adding titles and labels
-plt.title('Frequencies of function names')
-plt.xlabel('Function Name')
-plt.ylabel('Frequency')
+plt.figure(figsize=(20, 8))  
+bars = plt.bar(df["FunctionName"], df[column_name], color='blue', edgecolor='black')
+for bar, value in zip(bars, df[column_name]):
+    plt.text(bar.get_x() + bar.get_width() / 2,  # Center text
+             value + 2,  # Slightly above bar
+             f"{int(value)}",  # Format as integer
+             ha="center", va="bottom", fontsize=10, fontweight="bold", color="black")
+plt.title(f'Distribution of Number of Functions per Author. Total number of functions = {total_functions}', fontsize=16, fontweight="bold")
+
+plt.xlabel('Function Name', fontsize=14)
+plt.ylabel('Frequency', fontsize=14)
 plt.yticks(range(0, int(df[column_name].max() + 50), 50))
-plt.xticks(rotation=45, ha='right', fontsize=1)
-# Add grid lines to improve readability
+plt.xticks(rotation=45, ha='right', fontsize=10)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
-# Save the plot
+plt.tight_layout()
 plt.savefig(output_names_histogram_pdf_file, format='pdf')
-plt.tight_layout()  # Adjust layout to fit labels nicely
-plt.show()
+
 
 
 #NUM_TOKENS
@@ -139,29 +145,24 @@ else:
 print(f"mean: {mean:.4f}, std: {std:.4f}")
 
 plt.figure(figsize=(12, 6), dpi=100)
-plt.hist(filtered_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')  # Reduce bin count for better clarity
+counts, bins, patches = plt.hist(filtered_lengths_tokens, bins=100, range=(0, 500), edgecolor='black')
+for count, bin_edge in zip(counts, bins[:-1]):  # Exclude the last bin edge
+    if count > 0:  # Avoid labeling empty bins
+        plt.text(bin_edge + (bins[1] - bins[0]) / 2,  # Center text above bar
+                 count + 1,  # Slightly above the bar
+                 f"{int(count)}",  # Format as integer
+                 ha="center", va="bottom", fontsize=9, fontweight="bold", color="black")
 plt.xlim(0, 500)  # Focus on functions with token_lengths up to 500 tokens
 plt.grid(axis='y', alpha=0.75)
-plt.title('Focused Histogram of Function Lengths in Tokens (0-500)')
-plt.xlabel('Function Length (number of tokens)')
-plt.ylabel('Number of Functions')
+plt.title('Focused Histogram of Function Lengths in Tokens (0-500)', fontsize=14, fontweight="bold")
+plt.xlabel('Function Length (number of tokens)', fontsize=12)
+plt.ylabel('Number of Functions', fontsize=12)
 plt.xticks(range(0, 500 + 50, 50), fontsize=10, rotation=45)
-plt.tight_layout()  # Ensure labels are not cut off
-plt.savefig( output_lengths_histogram_pdf_file, format='pdf')
-plt.show()
+plt.tight_layout() 
+plt.savefig(output_lengths_histogram_pdf_file, format='pdf')
 
 
 #AST_DEPTH
-max_depth = int(max(filtered_ast_depths))
-plt.figure(figsize=(10, 6))
-plt.hist(filtered_ast_depths, bins=max_depth, edgecolor="black", alpha=0.7)
-plt.title("Distribution of Filtered AST Depths")
-plt.xlabel("AST Depth")
-plt.ylabel("Frequency")
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.xticks(range(0, max_depth + 2, 2))
-plt.savefig(output_depths_pdf_file, format='pdf')
-
 mean = np.mean(filtered_ast_depths)
 std = np.std(filtered_ast_depths)
 ks_statistic, ks_p_value = kstest(filtered_ast_depths, 'norm', args=(mean, std))
@@ -174,24 +175,27 @@ else:
     print("The data follows a normal distribution (p >= 0.05).")
 print(f"mean: {mean:.4f}, std: {std:.4f}")
 
+max_depth = int(max(filtered_ast_depths))
+plt.figure(figsize=(10, 6))
+counts, bins, patches = plt.hist(filtered_ast_depths, bins=max_depth, edgecolor="black", alpha=0.7)
+
+# Add frequency values above bars
+for count, bin_edge in zip(counts, bins[:-1]):  # Exclude the last bin edge
+    if count > 0:  # Avoid labeling empty bins
+        plt.text(bin_edge + (bins[1] - bins[0]) / 2,  # Center text above bar
+                 count + 1,  # Slightly above the bar
+                 f"{int(count)}",  # Format as integer
+                 ha="center", va="bottom", fontsize=9, fontweight="bold", color="black")
+plt.title("Distribution of Filtered AST Depths", fontsize=14, fontweight="bold")
+plt.xlabel("AST Depth", fontsize=12)
+plt.ylabel("Frequency", fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.xticks(range(0, max_depth + 2, 2))
+plt.tight_layout()
+plt.savefig(output_depths_pdf_file, format='pdf')
 
 
 #NUM_NODES
-upper_limit = max(filtered_num_nodes)
-
-plt.figure(figsize=(10, 6))
-plt.hist(filtered_num_nodes, bins=70, edgecolor="black", alpha=0.7)
-plt.title("Distribution of Filtered Number of Nodes")
-plt.xlabel("Number of Nodes")
-plt.ylabel("Frequency")
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-
-plt.xticks(np.arange(0, upper_limit + 50, 50), fontsize=8, rotation=45)
-plt.xlim(0, upper_limit)
-
-plt.savefig(output_num_nodes_pdf_file, format='pdf')
-plt.show()
-
 mean = np.mean(filtered_num_nodes)
 std = np.std(filtered_num_nodes)
 ks_statistic, ks_p_value = kstest(filtered_num_nodes, 'norm', args=(mean, std))
@@ -203,5 +207,25 @@ if ks_p_value < 0.05:
 else:
     print("The data follows a normal distribution (p >= 0.05).")
 print(f"mean: {mean:.4f}, std: {std:.4f}")
+
+
+upper_limit = max(filtered_num_nodes)
+plt.figure(figsize=(10, 6))
+counts, bins, patches = plt.hist(filtered_num_nodes, bins=70, edgecolor="black", alpha=0.7)
+# add labels above bars
+for count, bin_edge in zip(counts, bins[:-1]):  # Exclude the last bin edge
+    if count > 0:  # Avoid labeling empty bins
+        plt.text(bin_edge + (bins[1] - bins[0]) / 2,  # Center text above bar
+                 count + 1,  # Slightly above the bar
+                 f"{int(count)}",  # Format as integer
+                 ha="center", va="bottom", fontsize=9, fontweight="bold", color="black")
+plt.title("Distribution of Filtered Number of Nodes", fontsize=14, fontweight="bold")
+plt.xlabel("Number of Nodes", fontsize=12)
+plt.ylabel("Frequency", fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.xticks(np.arange(0, upper_limit + 50, 50), fontsize=8, rotation=45)
+plt.xlim(0, upper_limit)
+plt.tight_layout() 
+plt.savefig(output_num_nodes_pdf_file, format='pdf')
 
 

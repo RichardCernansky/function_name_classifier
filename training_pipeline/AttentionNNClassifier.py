@@ -4,14 +4,16 @@ import numpy as np
 import pdb
 import matplotlib.pyplot as plt
 import math
+import time 
 import pickle
 import sys
+import random
 
 import tensorflow as tf
 from tensorflow import keras
 from keras.layers import Input, Embedding, Dense, Activation, Lambda, Concatenate, Softmax, Layer
 from keras.models import Model
-from keras.callbacks import LambdaCallback
+from keras.callbacks import LambdaCallback,EarlyStopping, Callback
 from keras.utils import pad_sequences, plot_model
 from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
@@ -99,6 +101,7 @@ def get_vocabs(vocabs_pkl):
 
 vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
+max_num_contexts = 600
 
 # vocab sizes and embedding dimensions
 value_vocab_size = len(value_vocab)
@@ -157,29 +160,29 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 model.summary()
 
 # train
-print("\n\nStarted training on functions...")
+print("\n\nStarted training on functions... for tag_size: ",tags_vocab_size)
 
 total_loss = 0
 batch_count = 0
 
-import tensorflow as tf
-import numpy as np
-
 def data_generator(functionsASTs_file, batch_size):
-    with open(functionsASTs_file, 'r') as ndjson_file:
-        data = ndjson.load(ndjson_file)
+    while True:
+        # Open the file and load all data for this epoch
+        with open(functionsASTs_file, 'r') as ndjson_file:
+            data = ndjson.load(ndjson_file)
         np.random.shuffle(data)
-
+        
         batch_sts_indices = []
         batch_paths_indices = []
         batch_ets_indices = []
         batch_tag_index = []
-
+        
         for function_json in data:
             tag = function_json.get('tag')
             func = function_json.get('ast')
             func_root = json_to_tree(func)
             _, func_paths = find_leaf_to_leaf_paths_iterative(func_root)  # get all contexts
+            sampled_paths = random.sample(func_paths, min(max_num_contexts, len(func_paths)))
 
             sts_indices = []  # start terminals indices
             paths_indices = []  # path indices
@@ -187,11 +190,12 @@ def data_generator(functionsASTs_file, batch_size):
 
             tag_index = tags_vocab[tag]  # get the tag value
 
-            for path in func_paths:  # map to the indices
-                sts_indices.append(value_vocab[path[0]])  # get the terminal node's data
-                paths_indices.append(path_vocab[path[1:-1]])  # get the path nodes' kinds
-                ets_indices.append(value_vocab[path[-1]])  # get the ending terminal node's data
+            for path in func_paths:  # map each context to indices
+                sts_indices.append(value_vocab[path[0]])
+                paths_indices.append(path_vocab[path[1:-1]])
+                ets_indices.append(value_vocab[path[-1]])
 
+            # Pad sequences for consistency
             sts_indices = pad_sequences([sts_indices], maxlen=max_num_contexts, padding='post', value=0)
             paths_indices = pad_sequences([paths_indices], maxlen=max_num_contexts, padding='post', value=0)
             ets_indices = pad_sequences([ets_indices], maxlen=max_num_contexts, padding='post', value=0)
@@ -201,29 +205,27 @@ def data_generator(functionsASTs_file, batch_size):
             batch_ets_indices.append(ets_indices)
             batch_tag_index.append(tag_index)
 
+            # Yield a batch once enough examples have been accumulated
             if len(batch_sts_indices) == batch_size:
-                # tensorflow tensors
                 sts_tensor = tf.convert_to_tensor(np.vstack(batch_sts_indices), dtype=tf.int32)
                 paths_tensor = tf.convert_to_tensor(np.vstack(batch_paths_indices), dtype=tf.int32)
                 ets_tensor = tf.convert_to_tensor(np.vstack(batch_ets_indices), dtype=tf.int32)
                 tag_tensor = tf.convert_to_tensor(np.array(batch_tag_index, dtype=np.int64), dtype=tf.int64)
 
-                # yield
                 yield (sts_tensor, paths_tensor, ets_tensor), tag_tensor
 
-                # reset lists for the next batch
+                # Reset batch lists for the next batch
                 batch_sts_indices = []
                 batch_paths_indices = []
                 batch_ets_indices = []
                 batch_tag_index = []
 
-        # for remaining data
+        # If there's a partial batch left over at the end, yield it as well
         if batch_sts_indices:
             sts_tensor = tf.convert_to_tensor(np.vstack(batch_sts_indices), dtype=tf.int32)
             paths_tensor = tf.convert_to_tensor(np.vstack(batch_paths_indices), dtype=tf.int32)
             ets_tensor = tf.convert_to_tensor(np.vstack(batch_ets_indices), dtype=tf.int32)
             tag_tensor = tf.convert_to_tensor(np.array(batch_tag_index, dtype=np.int64), dtype=tf.int64)
-
             yield (sts_tensor, paths_tensor, ets_tensor), tag_tensor
 
 
@@ -237,6 +239,13 @@ def on_batch_end(batch, logs):
     if batch % 200 == 0:
         print(f"Batch {batch}: Loss = {logs.get('loss'):.4f}, Accuracy = {logs.get('accuracy'):.4f}")
 
+class TrainingTimeCallback(Callback):
+    def on_train_begin(self, logs=None):
+        self.start_time = time.time()  # Start the timer
+
+    def on_train_end(self, logs=None):
+        total_time = time.time() - self.start_time  # Calculate total time
+        print(f"\n⏱️ Training completed in ({total_time/60:.4f} minutes)\n")
 
 output_signature = (
     (tf.TensorSpec(shape=(None, max_num_contexts), dtype=tf.int32),  # for sts_indices
@@ -245,31 +254,34 @@ output_signature = (
     tf.TensorSpec(shape=(None,), dtype=tf.int64)  # for tag_index
 )
 
-steps_per_epoch = math.floor(number_lines_train / batch_size) -100 # 80% for training
-validation_steps = math.floor(number_lines_valid / batch_size) -100  # 20% for validation
-
 dataset_train = tf.data.Dataset.from_generator(
     lambda: data_generator(train_file, batch_size),
     output_signature=output_signature
-).repeat()
+)
 
 dataset_valid = tf.data.Dataset.from_generator(
     lambda: data_generator(valid_file, batch_size),
     output_signature=output_signature
-).repeat()
+)
 
-
-train_dataset = dataset_train.take(number_lines_train)
-validation_dataset = dataset_valid.take(number_lines_valid)
-
+training_timer = TrainingTimeCallback()
 batch_logger = LambdaCallback(on_batch_end=on_batch_end)
+steps_per_epoch = math.floor(number_lines_train / batch_size)  # Define the number of training batches per epoch
+validation_steps = math.floor(number_lines_valid / batch_size)  
+
+early_stopping = EarlyStopping(
+    monitor='val_loss',  
+    patience=3,  
+    restore_best_weights=True, 
+    verbose=1
+)
 history = model.fit(
-    train_dataset,
-    epochs=10,
+    dataset_train,
+    epochs=20,
     steps_per_epoch=steps_per_epoch,
-    validation_data=validation_dataset,
+    validation_data=dataset_valid,
     validation_steps=validation_steps,
-    callbacks=[batch_logger]
+    callbacks=[batch_logger, early_stopping, training_timer] 
 )
 
 model.save(f'trained_models/model_fold_{fold_idx}.h5')
@@ -280,18 +292,19 @@ print("\nTRAINING DONE!")
 
 plt.figure(figsize=(12, 6))
 
+
 plt.subplot(1, 2, 1)
 plt.plot(history.history['loss'], label='Loss')
-plt.plot(history.history['val_loss'], label='Validation Loss')  # Plot validation loss
-plt.title('Loss per Epoch')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title(f'Loss per Epoch (Training Time: {training_time_minutes:.2f} min)')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.legend()
 
 plt.subplot(1, 2, 2)
 plt.plot(history.history['accuracy'], label='Accuracy')
-plt.plot(history.history['val_accuracy'], label='Validation Accuracy')  # Plot validation accuracy
-plt.title('Accuracy per Epoch')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.title(f'Accuracy per Epoch (Training Time: {training_time_minutes:.2f} min)')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend()

@@ -47,7 +47,7 @@ y = df_name_ast['FunctionName']  # Labels for stratification
 
 train, valid = train_test_split(
     df_name_ast,
-    test_size=0.25,
+    test_size=0.1,
     stratify=y
 )
 

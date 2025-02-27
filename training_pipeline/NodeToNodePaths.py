@@ -102,3 +102,29 @@ def pre_order_traversal(root):
              visit(node)
     visit(root)
     return traversal
+
+def in_order_traversal(root):
+    traversal = []
+
+    def visit(node):
+        mid = len(node.children) // 2  
+        
+        for child in node.children[:mid]:
+            visit(child)
+        
+        traversal.append(node.kind)
+        
+        for child in node.children[mid:]:
+            visit(child)
+
+    visit(root)
+    return traversal
+
+def post_order_traversal(root):
+    traversal = []
+    def visit(node):
+        for node in node.children:
+             visit(node)
+        traversal.append(node.kind)
+    visit(root)
+    return traversal

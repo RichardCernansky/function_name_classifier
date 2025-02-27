@@ -13,6 +13,7 @@ agg_avg_metrics_file = "analysis/agg_average_metrics_plot.png"
 total_metrics = {"accuracy": 0, "precision": 0, "recall": 0, "f1": 0}
 bin_accuracies = {}
 classification_reports = []
+confusion_matrices = []
 
 bin_accuracies_keys = [
     "num_tokens_50_bin_accuracies",
@@ -106,15 +107,21 @@ for key, bins in average_bin_accuracies_per_key.items():
     bin_labels = list(bins.keys())
     bin_values = list(bins.values())
 
-    plt.bar(bin_labels, bin_values, color="skyblue", edgecolor="black")
+    bars = plt.bar(bin_labels, bin_values, color="skyblue", edgecolor="black")
+
+    for bar, value in zip(bars, bin_values):
+        plt.text(bar.get_x() + bar.get_width() / 2,  # X position (center of bar)
+                 value + 0.01,  # Y position (slightly above bar)
+                 f"{value:.4f}",  # Format value with 4 decimal places
+                 ha="center", va="bottom", fontsize=12, fontweight="bold")
 
     plt.axhline(y=average_metrics_model["accuracy"], color='red', linestyle='--', label=f"Model Avg. Accuracy: {average_metrics_model['accuracy']:.4f}")
 
     plt.legend(loc="upper right", fontsize=12)
 
-    plt.text(0.5, 1.05, f"Average Model Accuracy for {key.replace('_', ' ').title()}=step_size : {average_metrics_model['accuracy']:.4f}",
-             fontsize=14, ha="center", transform=plt.gca().transAxes, fontweight="bold")
-    plt.title(f"Bin Average Accuracies for {key.replace('_', ' ').title()}", fontsize=18, fontweight="bold")
+    key_split = key.split("_")
+    
+    plt.title(f"Bin Average Accuracies for {key_split[0]} {key_split[1]}. Bin step = {key_split[2]}", fontsize=18, fontweight="bold")
     plt.xlabel("Bins", fontsize=14, labelpad=10)
     plt.ylabel("Accuracy", fontsize=14, labelpad=10)
     plt.xticks(rotation=45, ha="right", fontsize=10)
@@ -123,6 +130,7 @@ for key, bins in average_bin_accuracies_per_key.items():
 
     plt.tight_layout()
     plt.savefig(f"{prefix_bin_pdf_file}{key}.pdf")
+    
 #---------------------------------------------------------------------
 # --- Plot 2: Confusion Matrix-Like Visualization ---
 sorted_classes = sorted(
