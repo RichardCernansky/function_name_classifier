@@ -5,6 +5,7 @@ import numpy as np
 import pickle
 import random
 import time
+import re
 from collections import Counter
 import matplotlib.pyplot as plt
 
@@ -36,6 +37,11 @@ def get_vocabs(vocabs_pkl):
         vocabs = pickle.load(f)
         return vocabs['value_vocab'], vocabs['path_vocab'], vocabs['tags_vocab'], vocabs['max_num_contexts']
 
+def preprocess_code(source_code):
+    source_code = re.sub(r'//.*?$', '', source_code, flags=re.MULTILINE)  # Remove single-line comments
+    source_code = re.sub(r'/\*.*?\*/', '', source_code, flags=re.DOTALL)  # Remove multi-line comments
+    source_code = re.sub(r'\s+', ' ', source_code).strip()  # Remove extra spaces
+    return source_code
 
 def get_data(tags_vocab: dict, data_file):
     "outputs data in the form of joined function's paths with space and id of author"
@@ -46,16 +52,11 @@ def get_data(tags_vocab: dict, data_file):
         bert_data = []
         for func_json in data:
             tag = func_json.get("tag")
-            ast_json = func_json.get("ast")
-            
-            
-            func_root = json_to_tree(ast_json)
-            traversal = pre_order_traversal(func_root)  # Get all contexts
-
-            tokens_joined = " ".join(traversal)
+        
+            tokens_joined = preprocess_code(func_json.get("source_code"))
             author_id = tags_vocab[tag]
 
-            data_dict = {"ast_paths": tokens_joined, "author": author_id}
+            data_dict = {"source_code": tokens_joined, "author": author_id}
             bert_data.append(data_dict)
 
         return bert_data
@@ -77,7 +78,7 @@ tokenizer = RobertaTokenizer.from_pretrained("microsoft/graphcodebert-base")
 
 
 def tokenize_function(example):
-    tokenized_inputs = tokenizer(example["ast_paths"], padding="max_length", truncation=True, max_length=512)
+    tokenized_inputs = tokenizer(example["source_code"], padding="max_length", truncation=True, max_length=512)
     tokenized_inputs["labels"] = example["author"]  # Ensure labels are included
     return tokenized_inputs
 

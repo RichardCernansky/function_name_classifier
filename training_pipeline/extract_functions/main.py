@@ -32,7 +32,7 @@ class CSVProcessor:
         self.num_successful_rows = 0
         self.seen_func_strings: Set[str] = set()
 
-    def save_functions_to_ndjson(self, node_tree: NodeTree, author_name: str):
+    def save_functions_to_ndjson(self, source_code: str, node_tree: NodeTree, author_name: str):
         """Save the entire tree as a single JSON object in NDJSON format."""
         ndjson_path_t = self.config.ndjson_path
         with open(ndjson_path_t, "a") as f:
@@ -52,17 +52,18 @@ class CSVProcessor:
                                         "num_tokens": AsciiTreeProcessor.get_num_tokens(definition_node),
                                         "ast_depth": AsciiTreeProcessor.get_ast_depth(definition_node),
                                         "num_nodes": AsciiTreeProcessor.get_num_nodes(definition_node),
-                                        "ast": func_tree_dict
+                                        "ast": func_tree_dict,
+                                        "source_code": source_code
                                     }
                                     f.write(json.dumps(json_data) + "\n")
                                     break
                             break
 
-    def ascii_to_ndjson(self, ascii_tree: str, author_name: str):
+    def ascii_to_ndjson(self, source_code:str,  ascii_tree: str, author_name: str):
         """Convert an ASCII tree into NDJSON format."""
         atp = AsciiTreeProcessor(ascii_tree)
         node_tree = NodeTree(atp.produce_tree())
-        self.save_functions_to_ndjson(node_tree, author_name)
+        self.save_functions_to_ndjson(source_code, node_tree, author_name)
 
     def run_cnip(self, prefix) -> subprocess.CompletedProcess:
         """Run the CNIP command to generate the ASCII tree."""
@@ -99,7 +100,8 @@ class CSVProcessor:
                 result = self.run_cnip("./")
                 if result.returncode == 0 and result.stdout.strip():
                     self.num_successful_rows += 1
-                    self.ascii_to_ndjson(result.stdout, author_name)
+                    
+                    self.ascii_to_ndjson(func_string, result.stdout, author_name)
                 else:
                     print(f"Error processing function:\n{func_string}")
 

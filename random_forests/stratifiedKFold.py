@@ -86,9 +86,10 @@ else:
         print(f"Fold {fold_index} saved as NDJSON files.")
         try:
             subprocess.run(["python", "../training_pipeline/train_valid_strat.py"], check=True)
-            subprocess.run(["python", "../training_pipeline/generate_vocabs.py", str(fold_index+1)], check=True)
-            subprocess.run(["python", "source_code_bert.py", str(fold_index+1)], check=True)
-            subprocess.run(["python", "test_source_code_bert.py"])
+            
+            subprocess.run(["python", "random_forest.py", str(fold_index+1)], check=True)
+            # Test the model on the current fold's test file
+            subprocess.run(["python", "test_random_forest.py", str(fold_index+1)], check=True)
 
             print(f"Completed processing for Fold {fold_index}")
 
@@ -101,4 +102,3 @@ else:
 
 
 print("All folds processed successfully!")
-

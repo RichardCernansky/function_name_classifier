@@ -12,7 +12,7 @@ def write_ndjson(file_path, df):
             # Ensure the AST is properly formatted as JSON
             ast_json = row["AST"] if isinstance(row["AST"], dict) else json.loads(row["AST"])
             # Dump the fields to each line
-            json_line = json.dumps({"tag": row["FunctionName"], "ast": ast_json, "num_tokens": row["NumTokens"]})
+            json_line = json.dumps({"tag": row["FunctionName"], "ast": ast_json, "num_tokens": row["NumTokens"], "source_code": row["SourceCode"]})
             outfile.write(json_line + "\n")
 
 
@@ -25,13 +25,15 @@ with open(ndjson_file, "r") as file:
             function_name = function_json.get("tag")
             ast_node = function_json.get("ast")
             num_tokens = function_json.get("num_tokens")
+            source_code = function_json.get("source_code")
 
             # Ensure function_name, ast, and num_tokens are valid before adding
             if function_name and ast_node and num_tokens is not None:
                 name_ast.append({
                     "FunctionName": function_name,
                     "AST": json.dumps(ast_node),
-                    "NumTokens": num_tokens
+                    "NumTokens": num_tokens,
+                    "SourceCode": source_code
                 })
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")

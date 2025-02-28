@@ -18,7 +18,10 @@ pdf_postfix = ".pdf"
 input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
 #input_ndjson_file = "../data_ndjson/contests.ndjson"
 #input_ndjson_file = "../data_ndjson/merged_without_noise.ndjson"
-output_ndjson_file = "../data_ndjson/dropped_lower_10.ndjson"
+output_ndjson_file1 = "../data_ndjson/dropped_lower_10.ndjson"
+output_ndjson_file2 = "../../transformers/data_ndjson/dropped_lower_10.ndjson"
+output_ndjson_file3 = "../../random_forests/data_ndjson/dropped_lower_10.ndjson"
+output_files = [output_ndjson_file1, output_ndjson_file2, output_ndjson_file3]
 basename_without_extension = get_basename_without_extension(input_ndjson_file)
 
 output_names_histogram_pdf_file = names_prefix + basename_without_extension + pdf_postfix
@@ -26,7 +29,7 @@ output_lengths_histogram_pdf_file = token_lengths_prefix + basename_without_exte
 output_depths_pdf_file = ast_depths_prefix + basename_without_extension + pdf_postfix
 output_num_nodes_pdf_file = num_nodes_prefix + basename_without_extension + pdf_postfix
 
-MINIMAL_FREQUENCY = 40
+MINIMAL_FREQUENCY = 50
 # poor_names = ['main', 'solve']
 poor_names = ['Curse','stubbscroll', 'dahlukeh','baihacker','eduardische', 'trainsickYao', 'p5ic05i5','WhiteShadow', 'daybreakcx','dwagndwagn']
 
@@ -42,9 +45,10 @@ with open(input_ndjson_file, "r") as file:
             num_tokens = function_json.get('num_tokens')
             ast_depth = function_json.get('ast_depth')
             num_nodes = function_json.get('num_nodes')
+            source_code = function_json.get('source_code')
             if function_name and root_ast_node and num_tokens and ast_depth and num_nodes:
                 function_names.append(function_name)
-                function_lines.append((function_name, line, num_tokens, ast_depth, num_nodes))
+                function_lines.append((function_name, line, num_tokens, ast_depth, num_nodes, source_code))
         except json.JSONDecodeError:
             print(f"Error parsing line: {line}")
 
@@ -75,13 +79,17 @@ df.columns = [f"FunctionName", f"Frequency (Total: {total_functions})", "Percent
 filtered_lengths_tokens = []
 filtered_ast_depths = []
 filtered_num_nodes = []
-with open(output_ndjson_file, "w") as outfile:
-    for function_name, original_line,num_tokens, ast_depth,num_nodes in function_lines:
-        if function_name in filtered_function_names:
-            outfile.write(original_line)
-            filtered_lengths_tokens.append(num_tokens)
-            filtered_ast_depths.append(ast_depth)
-            filtered_num_nodes.append(num_nodes)
+filtered_source_codes = []
+for output_ndjson_file in output_files:
+    with open(output_ndjson_file, "w") as outfile:
+        for function_name, original_line,num_tokens, ast_depth,num_nodes, source_code in function_lines:
+            if function_name in filtered_function_names:
+                outfile.write(original_line)
+                filtered_lengths_tokens.append(num_tokens)
+                filtered_ast_depths.append(ast_depth)
+                filtered_num_nodes.append(num_nodes)
+                filtered_source_codes.append(source_code)
+        
 
 #prepare df
 df = pd.DataFrame(data)
