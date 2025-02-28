@@ -54,11 +54,12 @@ def generate_vocabs(file_paths):
 
 
 vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
-train = 'data_ndjson/strat_train.ndjson'
-valid = 'data_ndjson/strat_valid.ndjson'
+train = 'data_ndjson/train_valid_fold.ndjson'
+test = 'data_ndjson/test_fold.ndjson'
+
 
 print("Started generating vocabs...")
-vocabs_dict = generate_vocabs([train, valid])
+vocabs_dict = generate_vocabs([train,  test])
 with open(vocabs_pkl, 'wb') as f:
     pickle.dump(vocabs_dict, f)
 

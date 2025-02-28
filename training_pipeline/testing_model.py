@@ -12,14 +12,14 @@ import json
 import tensorflow as tf
 from tensorflow import keras
 from keras.models import load_model
-from keras.saving import custom_object_scope
+from keras.utils import custom_object_scope
 from keras.layers import Input, Embedding, Dense, Activation, Lambda, Concatenate, Softmax, Layer
 from keras.models import Model
 from keras.callbacks import LambdaCallback
 from keras.utils import pad_sequences, plot_model
 from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
-from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score
 
 from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
 
@@ -232,14 +232,12 @@ report = classification_report(
     target_names=target_names,
     output_dict=True
 )
-conf_matrix = confusion_matrix(true_labels, predicted_labels)
 
 fold_metrics = {
     "accuracy": accuracy,
     "precision": precision,
     "recall": recall,
     "f1": f1,
-    "confusion_matrix": conf_matrix,
     "classification_report": report,
     "num_tokens_50_bin_accuracies": {
         bin_label: {
@@ -291,4 +289,3 @@ with open(f"analysis/metrics_json/fold_{fold_idx}_metrics.json", "w") as f:
 print(f"Fold {fold_idx} Results:")
 print(f"Accuracy: {accuracy:.4f}")
 # print(f"Classification Report:\n{report}")
-

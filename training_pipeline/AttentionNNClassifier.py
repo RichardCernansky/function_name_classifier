@@ -101,7 +101,7 @@ def get_vocabs(vocabs_pkl):
 
 vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
-max_num_contexts = 600
+# max_num_contexts = 600
 
 # vocab sizes and embedding dimensions
 value_vocab_size = len(value_vocab)
@@ -182,7 +182,7 @@ def data_generator(functionsASTs_file, batch_size):
             func = function_json.get('ast')
             func_root = json_to_tree(func)
             _, func_paths = find_leaf_to_leaf_paths_iterative(func_root)  # get all contexts
-            sampled_paths = random.sample(func_paths, min(max_num_contexts, len(func_paths)))
+            # sampled_paths = random.sample(func_paths, min(max_num_contexts, len(func_paths)))
 
             sts_indices = []  # start terminals indices
             paths_indices = []  # path indices
@@ -244,8 +244,8 @@ class TrainingTimeCallback(Callback):
         self.start_time = time.time()  # Start the timer
 
     def on_train_end(self, logs=None):
-        total_time = time.time() - self.start_time  # Calculate total time
-        print(f"\n⏱️ Training completed in ({total_time/60:.4f} minutes)\n")
+        self.total_time = time.time() - self.start_time  # Calculate total time
+        print(f"\n⏱️ Training completed in ({self.total_time/60:.4f} minutes)\n")
 
 output_signature = (
     (tf.TensorSpec(shape=(None, max_num_contexts), dtype=tf.int32),  # for sts_indices
@@ -277,7 +277,7 @@ early_stopping = EarlyStopping(
 )
 history = model.fit(
     dataset_train,
-    epochs=20,
+    epochs=1,
     steps_per_epoch=steps_per_epoch,
     validation_data=dataset_valid,
     validation_steps=validation_steps,
@@ -292,7 +292,7 @@ print("\nTRAINING DONE!")
 
 plt.figure(figsize=(12, 6))
 
-
+training_time_minutes = training_timer.total_time/60
 plt.subplot(1, 2, 1)
 plt.plot(history.history['loss'], label='Loss')
 plt.plot(history.history['val_loss'], label='Validation Loss')

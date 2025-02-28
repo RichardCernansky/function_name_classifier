@@ -208,7 +208,6 @@ else:
     print("The data follows a normal distribution (p >= 0.05).")
 print(f"mean: {mean:.4f}, std: {std:.4f}")
 
-
 upper_limit = max(filtered_num_nodes)
 plt.figure(figsize=(10, 6))
 counts, bins, patches = plt.hist(filtered_num_nodes, bins=70, edgecolor="black", alpha=0.7)
