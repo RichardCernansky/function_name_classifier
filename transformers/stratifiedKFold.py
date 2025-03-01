@@ -87,8 +87,8 @@ else:
         try:
             subprocess.run(["python", "../training_pipeline/train_valid_strat.py"], check=True)
             subprocess.run(["python", "../training_pipeline/generate_vocabs.py", str(fold_index+1)], check=True)
-            subprocess.run(["python", "source_code_bert.py", str(fold_index+1)], check=True)
-            subprocess.run(["python", "test_source_code_bert.py"])
+            subprocess.run(["python", "bert.py", str(fold_index+1)], check=True)
+            subprocess.run(["python", "test_bert.py"])
             break
             print(f"Completed processing for Fold {fold_index}")
 
