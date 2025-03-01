@@ -6,6 +6,7 @@ import numpy as np
 import pickle
 import random
 import time
+import seaborn as sns
 from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -88,7 +89,7 @@ param_grid = {
 rf_model = RandomForestClassifier(random_state=42)
 
 random_search = RandomizedSearchCV(
-    rf_model, param_grid, n_iter=20, cv=5, scoring="accuracy", n_jobs=-1, verbose=2
+    rf_model, param_grid, n_iter=20, cv=5, scoring="accuracy", n_jobs=-1, verbose=0
 )
 
 random_search.fit(X_train, y_train)
@@ -96,11 +97,31 @@ random_search.fit(X_train, y_train)
 end_time = time.time()
 
 print("Best Parameters:", random_search.best_params_)
-print("Best Accuracy:", random_search.best_score_)
+# print("Best Accuracy:", random_search.best_score_)
 print("Total training time:", (end_time - start_time)/60, " minutes")
 
 best_model = random_search.best_estimator_
 y_pred = best_model.predict(X_test)
 
 accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average='macro', zero_division=0)
+recall = recall_score(y_test, y_pred, average='macro', zero_division=0)
+f1 = f1_score(y_test, y_pred, average='macro', zero_division=0)
 print(f"Test Accuracy: {accuracy:.4f}")
+print(f"Test Precision: {precision:.4f}")
+print(f"Test Recall: {recall:.4f}")
+print(f"Test F1: {f1:.4f}")
+
+train_accuracy = best_model.score(X_train, y_train) 
+test_accuracy = best_model.score(X_test, y_test) 
+overfit_ratio = train_accuracy / test_accuracy
+print(f"Overfit Ratio: {overfit_ratio:.2f}")
+
+
+conf_matrix = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(10, 8))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5)
+plt.xlabel("Predicted Labels")
+plt.ylabel("True Labels")
+plt.title("Confusion Matrix Heatmap")
+plt.savefig("conf_matrix")

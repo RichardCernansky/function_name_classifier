@@ -105,12 +105,16 @@ metric = evaluate.load("accuracy")
 
 
 def compute_metrics(eval_pred):
-    logits, labels = eval_pred
-    predictions = logits.argmax(axis=-1)  # Get predicted class index
+    # you can just use the first two.
+    if isinstance(eval_pred, (tuple, list)):
+        logits, labels = eval_pred[0], eval_pred[1]
+    else:
+        # Otherwise, assume it's an EvalPrediction-like object
+        logits = eval_pred.predictions
+        labels = eval_pred.label_ids
+    predictions = logits.argmax(axis=-1)
     return metric.compute(predictions=predictions, references=labels)
 
-
-# ✅ Training Timer (Start Time)
 start_time = time.time()
 
 training_args = TrainingArguments(
@@ -124,7 +128,6 @@ training_args = TrainingArguments(
     greater_is_better=True  
 )
 
-# ✅ Early Stopping Callback (Stop if val accuracy doesn't improve for 5 epochs)
 early_stopping = EarlyStoppingCallback(
     early_stopping_patience=50  # Stop training if val accuracy does not improve for 5 epochs
 )
@@ -142,22 +145,26 @@ trainer = Trainer(
 # Start training
 trainer.train()
 
-# ✅ Training Timer (End Time)
 end_time = time.time()
 elapsed_time = end_time - start_time
 
-# ✅ Print Training Time
 print(f"\n⏱️ Training completed in {elapsed_time:.2f} seconds ({elapsed_time / 60:.2f} minutes)\n")
 
-# Extract training & validation losses
-train_loss = trainer.state.log_history
-train_losses = [entry['loss'] for entry in train_loss if 'loss' in entry]
-val_losses = [entry['eval_loss'] for entry in train_loss if 'eval_loss' in entry]
-train_accuracies = [entry['eval_accuracy'] for entry in train_loss if 'eval_accuracy' in entry]
+train_preds = trainer.predict(train_dataset) 
+train_metrics = compute_metrics(train_preds)
+train_acc = train_metrics["accuracy"]
+val_metrics = trainer.evaluate()  
+val_acc = val_metrics["eval_accuracy"]
 
-# Create a figure for the learning curves
+overfit_ratio = train_acc / val_acc
+print("Overfit ratio: ", overfit_ratio)
+
+log_history = trainer.state.log_history
+train_losses = [entry['loss'] for entry in log_history if 'loss' in entry]
+val_losses   = [entry['eval_loss'] for entry in log_history if 'eval_loss' in entry]
+val_acc      = [entry['eval_accuracy'] for entry in log_history if 'eval_accuracy' in entry]
+
 plt.figure(figsize=(12, 5))
-# Plot Training & Validation Loss
 plt.subplot(1, 2, 1)
 plt.plot(train_losses, label='Training Loss')
 plt.plot(val_losses, label='Validation Loss')
@@ -167,17 +174,15 @@ plt.title("Training and Validation Loss")
 plt.legend()
 # Plot Accuracy
 plt.subplot(1, 2, 2)
-plt.plot(train_accuracies, label='Validation Accuracy')
+plt.plot(val_acc, label='Validation Accuracy')
 plt.xlabel("Epoch")
 plt.ylabel("Accuracy")
 plt.title("Validation Accuracy")
 plt.legend()
 plt.savefig("learning_curve.png")
 
-# Save the best model
 model.save_pretrained("./codebert-authorship")
 tokenizer.save_pretrained("./codebert-authorship")
-
 
 
 

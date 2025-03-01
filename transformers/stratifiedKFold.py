@@ -89,16 +89,11 @@ else:
             subprocess.run(["python", "../training_pipeline/generate_vocabs.py", str(fold_index+1)], check=True)
             subprocess.run(["python", "source_code_bert.py", str(fold_index+1)], check=True)
             subprocess.run(["python", "test_source_code_bert.py"])
-
+            break
             print(f"Completed processing for Fold {fold_index}")
 
         except subprocess.CalledProcessError as e:
             print(f"Error occurred during processing of Fold {fold_index}: {e}")
-
-    #aggregation script - compute average across reports and create the plots
-    subprocess.run(["python", "aggregated_avg.py"], check=True)
-
-
 
 print("All folds processed successfully!")
 
