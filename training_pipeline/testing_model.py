@@ -292,7 +292,6 @@ fold_metrics = {
     }
 }
 
-
 with open(f"analysis/metrics_json/fold_{fold_idx}_metrics.json", "w") as f:
     json.dump(fold_metrics, f, indent=4)
 

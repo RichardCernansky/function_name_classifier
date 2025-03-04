@@ -2,7 +2,6 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from sklearn.metrics import confusion_matrix
 
 NUM_FOLDS = 5
 
@@ -13,9 +12,7 @@ agg_avg_metrics_file = "analysis/agg_average_metrics_plot.png"
 # initialize accumulators for metrics
 total_metrics = {"accuracy": 0, "precision": 0, "recall": 0, "f1": 0}
 bin_accuracies = {}
-all_labels = []
-true_labels = []
-predicted_labels = []
+classification_reports = []
 
 bin_accuracies_keys = [
     "num_tokens_50_bin_accuracies",
@@ -36,9 +33,8 @@ for fold_idx in range(NUM_FOLDS):
         total_metrics["recall"] += fold_metrics["recall"]
         total_metrics["f1"] += fold_metrics["f1"]
 
-        all_labels += fold_metrics["all_labels"]
-        true_labels += fold_metrics["true_lables"]
-        predicted_labels += fold_metrics["predicted_labels"]
+        #aggregate classification_reports
+        classification_reports.append(fold_metrics["classification_report"])
 
         key_bin_accuracies = {key: {} for key in bin_accuracies_keys}
         # aggregate bin accuracies
@@ -71,7 +67,6 @@ plt.grid(axis='y', linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.savefig(agg_avg_metrics_file, dpi=300)
 
-#-----BINS-----
 #average bin accuracies
 average_bin_accuracies_per_key = {}
 for key, bins in key_bin_accuracies.items():
@@ -81,7 +76,29 @@ for key, bins in key_bin_accuracies.items():
         average_bin_accuracies_per_key[key][bin_label] = avg_accuracy
 
 
-#----------------------PLOTTING-------------------------
+# put the measurements together
+combined_report = {}
+for report in classification_reports:
+    for label, metrics in report.items():
+        # ensure metrics is a dictionary before processing
+        if isinstance(metrics, dict):
+            if label not in combined_report:
+                combined_report[label] = {metric: [] for metric in metrics}
+
+            for metric, value in metrics.items():
+                combined_report[label][metric].append(value)
+        else:
+            print(f"Warning: Metrics for label '{label}' is not a dictionary: {metrics}")
+
+
+# calculate the average of the measurements
+average_report = {}
+for label, metrics in combined_report.items():
+    average_report[label] = {
+        metric: np.mean(values) for metric, values in metrics.items()
+    }
+
+#---------------------------PLOTTING-------------------------
 # --- Plot 1: Average Accuracy and Bin Accuracies ---
 for key, bins in average_bin_accuracies_per_key.items():
     plt.figure(figsize=(12, 8))
@@ -89,21 +106,15 @@ for key, bins in average_bin_accuracies_per_key.items():
     bin_labels = list(bins.keys())
     bin_values = list(bins.values())
 
-    bars = plt.bar(bin_labels, bin_values, color="skyblue", edgecolor="black")
-
-    for bar, value in zip(bars, bin_values):
-        plt.text(bar.get_x() + bar.get_width() / 2,  # X position (center of bar)
-                 value + 0.01,  # Y position (slightly above bar)
-                 f"{value:.4f}",  # Format value with 4 decimal places
-                 ha="center", va="bottom", fontsize=12, fontweight="bold")
+    plt.bar(bin_labels, bin_values, color="skyblue", edgecolor="black")
 
     plt.axhline(y=average_metrics_model["accuracy"], color='red', linestyle='--', label=f"Model Avg. Accuracy: {average_metrics_model['accuracy']:.4f}")
 
     plt.legend(loc="upper right", fontsize=12)
 
-    key_split = key.split("_")
-    
-    plt.title(f"Bin Average Accuracies for {key_split[0]} {key_split[1]}. Bin step = {key_split[2]}", fontsize=18, fontweight="bold")
+    plt.text(0.5, 1.05, f"Average Model Accuracy for {key.replace('_', ' ').title()}=step_size : {average_metrics_model['accuracy']:.4f}",
+             fontsize=14, ha="center", transform=plt.gca().transAxes, fontweight="bold")
+    plt.title(f"Bin Average Accuracies for {key.replace('_', ' ').title()}", fontsize=18, fontweight="bold")
     plt.xlabel("Bins", fontsize=14, labelpad=10)
     plt.ylabel("Accuracy", fontsize=14, labelpad=10)
     plt.xticks(rotation=45, ha="right", fontsize=10)
@@ -112,41 +123,33 @@ for key, bins in average_bin_accuracies_per_key.items():
 
     plt.tight_layout()
     plt.savefig(f"{prefix_bin_pdf_file}{key}.pdf")
-
-
-#------REPORT AND CONFUSION MATRIX-----
-# put the measurements together
-report = classification_report(
-    true_labels,
-    predicted_labels,
-    labels=all_labels,  # Explicitly specify all classes
-    target_names=target_names,
-    output_dict=True
-)
-
 #---------------------------------------------------------------------
-# --- Plot Confusion Matrix-Like Visualization ---
+# --- Plot 2: Confusion Matrix-Like Visualization ---
 sorted_classes = sorted(
-    report.keys(),
+    average_report.keys(),
     key=lambda cls: (
-        report[cls]["support"],      # Primary: Support
-        report[cls]["precision"],   # Tertiary: Precision
-        report[cls]["recall"]       # Quaternary: Recall
+        average_report[cls]["support"],      # Primary: Support
+        average_report[cls]["precision"],   # Tertiary: Precision
+        average_report[cls]["recall"]       # Quaternary: Recall
     ),
     reverse=True  # Sort in descending order for all metrics
 )
 #metrics
 metrics = ["precision", "recall", "f1-score"]
-heatmap_report = np.array([
-    [report[cls][metric] for metric in metrics]
+
+confusion_matrix_like = np.array([
+    [average_report[cls][metric] for metric in metrics]
     for cls in sorted_classes
 ])
-sorted_supports = [report[cls]["support"] for cls in sorted_classes]
+
+sorted_supports = [average_report[cls]["support"] for cls in sorted_classes]
 yticklabels = [f"{cls} (Support: {support})" for cls, support in zip(sorted_classes, sorted_supports)]
+
 figure_height = len(sorted_classes) * 0.6
 plt.figure(figsize=(12, figure_height))
+
 sns.heatmap(
-    heatmap_report,
+    confusion_matrix_like,
     annot=True,
     fmt=".2f",
     xticklabels=metrics,
@@ -154,14 +157,13 @@ sns.heatmap(
     cmap="coolwarm",
     cbar_kws={'label': 'Metric Value'}
 )
+
 plt.gca().xaxis.tick_top()
 plt.gca().xaxis.set_label_position('top')
+
 plt.title(f"Average Metrics Per Class Sorted by Support ({len(sorted_classes)} Classes)", fontsize=16, pad=30)
 plt.xlabel("")
 plt.ylabel("Classes", fontsize=14)
 plt.tight_layout()
+
 plt.savefig(heatmap_pdf_file)
-
-
-
-

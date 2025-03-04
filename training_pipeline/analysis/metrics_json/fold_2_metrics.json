@@ -1,8 +1,8 @@
 {
     "accuracy": 0.7209302325581395,
-    "precision": 0.7730769230769231,
-    "recall": 0.736111111111111,
-    "f1": 0.7257183908045978,
+    "precision": 0.78998778998779,
+    "recall": 0.7347222222222222,
+    "f1": 0.7250957854406129,
     "classification_report": {
         "<PAD>": {
             "precision": 0.0,
@@ -11,34 +11,34 @@
             "support": 0.0
         },
         "KennyKwok": {
-            "precision": 0.55,
+            "precision": 0.5238095238095238,
             "recall": 0.9166666666666666,
-            "f1-score": 0.6875,
+            "f1-score": 0.6666666666666666,
             "support": 12.0
         },
         "Yao": {
             "precision": 1.0,
-            "recall": 0.6666666666666666,
-            "f1-score": 0.8,
+            "recall": 0.6,
+            "f1-score": 0.75,
             "support": 15.0
         },
         "trainsick": {
-            "precision": 0.7692307692307693,
-            "recall": 0.625,
-            "f1-score": 0.6896551724137931,
+            "precision": 0.8461538461538461,
+            "recall": 0.6875,
+            "f1-score": 0.7586206896551724,
             "support": 16.0
         },
         "accuracy": 0.7209302325581395,
         "macro avg": {
-            "precision": 0.5798076923076924,
-            "recall": 0.5520833333333333,
-            "f1-score": 0.5442887931034484,
+            "precision": 0.5924908424908425,
+            "recall": 0.5510416666666667,
+            "f1-score": 0.5438218390804597,
             "support": 43.0
         },
         "weighted avg": {
-            "precision": 0.7885509838998211,
+            "precision": 0.8098645540506005,
             "recall": 0.7209302325581395,
-            "f1-score": 0.7275461106655975,
+            "f1-score": 0.7299518845228549,
             "support": 43.0
         }
     },
@@ -192,11 +192,11 @@
             "total": 1
         },
         "5-9": {
-            "correct": 15,
+            "correct": 16,
             "total": 23
         },
         "10-14": {
-            "correct": 12,
+            "correct": 11,
             "total": 14
         },
         "15-19": {
@@ -242,7 +242,7 @@
             "total": 3
         },
         "6-7": {
-            "correct": 11,
+            "correct": 12,
             "total": 16
         },
         "8-9": {
@@ -250,7 +250,7 @@
             "total": 5
         },
         "10-11": {
-            "correct": 8,
+            "correct": 7,
             "total": 9
         },
         "12-13": {
@@ -332,11 +332,11 @@
     },
     "num_nodes_50_bin_accuracies": {
         "0-49": {
-            "correct": 13,
+            "correct": 14,
             "total": 19
         },
         "50-99": {
-            "correct": 6,
+            "correct": 5,
             "total": 9
         },
         "100-149": {
@@ -390,11 +390,11 @@
             "total": 8
         },
         "40-59": {
-            "correct": 7,
+            "correct": 8,
             "total": 10
         },
         "60-79": {
-            "correct": 5,
+            "correct": 4,
             "total": 8
         },
         "80-99": {
