@@ -36,69 +36,69 @@
 ---BERT-SOURCE--- not averaged
     TAG_SIZE = 110
         Training completed in 4219.53 seconds (70.33 minutes)
-        Overfit ratio:  1.4144575827428214
         Test Accuracy: 0.7247
         Test Precision: 0.7669
         Test Recall: 0.7176
         Test F1: 0.7188
+        Overfit ratio:  1.4144575827428214
     
     TAG_SIZE = 27
         Training completed in 1949.25 seconds (32.49 minutes)
-        Overfit ratio:  1.2477388355002828
         Test Accuracy: 0.8272
         Test Precision: 0.8466
         Test Recall: 0.8225
         Test F1: 0.8255
+        Overfit ratio:  1.2477388355002828
     
     TAG_SIZE = 11
         Training completed in 560.63 seconds (9.34 minutes)
-        Overfit ratio:  1.0578703703703705
         Test Accuracy: 0.8984
         Test Precision: 0.9033
         Test Recall: 0.8992
         Test F1: 0.8957
+        Overfit ratio:  1.0578703703703705
     
     TAG_SIZE = 3
         Training completed in 109.45 seconds (1.82 minutes)
-        Overfit ratio:  1.1258771929824563
         Test Accuracy: 0.9070
         Test Precision: 0.9333
         Test Recall: 0.9167
         Test F1: 0.9153
+        Overfit ratio:  1.1258771929824563
 
 
 ---BERT-AST--- not averaged
     TAG_SIZE = 110
         Training completed in 4411.83 seconds (73.53 minutes)
-        Overfit ratio:  1.6739014263986516
         Test Accuracy: 0.2407
         Test Precision: 0.2740
         Test Recall: 0.2333
         Test F1: 0.2127
+        Overfit ratio:  1.6739014263986516
     
     TAG_SIZE = 27
         Training completed in 1800.25 seconds (30.00 minutes)
-        Overfit ratio:  1.1954871460506706
         Test Accuracy: 0.3566
         Test Precision: 0.3641
         Test Recall: 0.3393
         Test F1: 0.3227
+        Overfit ratio:  1.6739014263986516
     
     TAG_SIZE = 11
         Training completed in 341.68 seconds (5.69 minutes)
-        Overfit ratio:  1.4388888888888889
         Test Accuracy: 0.4062
         Test Precision: 0.4053
         Test Recall: 0.3830
         Test F1: 0.3773
+        Overfit ratio:  1.6739014263986516
     
     TAG_SIZE = 3
         Training completed in 73.12 seconds (1.22 minutes)
-        Overfit ratio:  1.0668016194331984
         Test Accuracy: 0.8372
         Test Precision: 0.8472
         Test Recall: 0.8258
         Test F1: 0.8328
+        Overfit ratio:  1.6739014263986516
 
 ---ATTENTION-NN--- averaged
     TAG_SIZE = 110

@@ -118,9 +118,10 @@ overfit_ratio = train_accuracy / test_accuracy
 print(f"Overfit Ratio: {overfit_ratio:.2f}")
 
 
+class_labels = label_encoder.inverse_transform(sorted(set(y_test)))
 conf_matrix = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(10, 8))
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5)
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5, xticklabels=class_labels, yticklabels=class_labels)
 plt.xlabel("Predicted Labels")
 plt.ylabel("True Labels")
 plt.title("Confusion Matrix Heatmap")

@@ -59,7 +59,6 @@ def get_data(tags_vocab: dict, data_file):
 #-----TEST------
 vocabs_pkl = f'trained_models/vocabs_fold_1.pkl'
 _, _, tags_vocab, _ = get_vocabs(vocabs_pkl)
-inverted_tags_vocab = {value: key for key,value in tags_vocab.items()}
 model_path = "./codebert-authorship"
 model = RobertaForSequenceClassification.from_pretrained(model_path)
 tokenizer = RobertaTokenizer.from_pretrained(model_path)
@@ -82,7 +81,6 @@ def predict(model, tokenized_data):
     return predictions.cpu().numpy()
 
 predicted_labels = predict(model, test_dataset)
-decoded_predictions = [inverted_tags_vocab[idx] for idx in predicted_labels]
 true_labels = [example["author"] for example in test_data]
 
 accuracy = accuracy_score(true_labels, predicted_labels)
@@ -98,8 +96,10 @@ print(f"Test F1: {f1:.4f}")
 
 
 conf_matrix = confusion_matrix(true_labels, predicted_labels)
+inverted_tags_vocab = {value: key for key,value in tags_vocab.items()}
+decoded_labels_sorted = [inverted_tags_vocab[i] for i in sorted(inverted_tags_vocab.keys()) if i != 0]
 plt.figure(figsize=(10, 8))
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5)
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5, xticklabels=decoded_labels_sorted, yticklabels=decoded_labels_sorted)
 plt.xlabel("Predicted Labels")
 plt.ylabel("True Labels")
 plt.title("Confusion Matrix Heatmap")

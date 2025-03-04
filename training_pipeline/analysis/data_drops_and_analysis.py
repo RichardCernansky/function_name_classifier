@@ -29,7 +29,7 @@ output_lengths_histogram_pdf_file = token_lengths_prefix + basename_without_exte
 output_depths_pdf_file = ast_depths_prefix + basename_without_extension + pdf_postfix
 output_num_nodes_pdf_file = num_nodes_prefix + basename_without_extension + pdf_postfix
 
-MINIMAL_FREQUENCY = 25
+MINIMAL_FREQUENCY = 58
 # poor_names = ['main', 'solve']
 poor_names = ['Curse','stubbscroll', 'dahlukeh','baihacker','eduardische', 'trainsickYao', 'p5ic05i5','WhiteShadow', 'daybreakcx','dwagndwagn']
 
@@ -76,7 +76,7 @@ df = pd.DataFrame(data)
 df = df.sort_values(by="Frequency", ascending=False)
 df.columns = [f"FunctionName", f"Frequency (Total: {total_functions})", "Percentage"]
 
-print(f"Num of authors: {len(filtered_function_names)}")
+print(f"Num of authors: {filtered_function_names}")
 
 # WRITE NEW IN FILTERED .NDJSON
 filtered_lengths_tokens = []

@@ -93,7 +93,7 @@ val_dataset = dataset2.map(tokenize_function, batched=True)
 test_dataset = dataset3.map(tokenize_function, batched=True)
 
 num_authors = len(tags_vocab)
-print("Number of distinct authors: ", num_authors)
+print("Number of distinct authors: ", num_authors-1)
 
 model = RobertaForSequenceClassification.from_pretrained("microsoft/graphcodebert-base", num_labels=num_authors)
 

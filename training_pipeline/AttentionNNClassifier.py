@@ -101,7 +101,7 @@ def get_vocabs(vocabs_pkl):
 
 vocabs_pkl = f'trained_models/vocabs_fold_{fold_idx}.pkl'
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
-# max_num_contexts = 600
+max_num_contexts = 600
 
 # vocab sizes and embedding dimensions
 value_vocab_size = len(value_vocab)
@@ -182,7 +182,7 @@ def data_generator(functionsASTs_file, batch_size):
             func = function_json.get('ast')
             func_root = json_to_tree(func)
             _, func_paths = find_leaf_to_leaf_paths_iterative(func_root)  # get all contexts
-            # sampled_paths = random.sample(func_paths, min(max_num_contexts, len(func_paths)))
+            sampled_paths = random.sample(func_paths, min(max_num_contexts, len(func_paths)))
 
             sts_indices = []  # start terminals indices
             paths_indices = []  # path indices
@@ -277,7 +277,7 @@ early_stopping = EarlyStopping(
 )
 history = model.fit(
     dataset_train,
-    epochs=1,
+    epochs=15,
     steps_per_epoch=steps_per_epoch,
     validation_data=dataset_valid,
     validation_steps=validation_steps,

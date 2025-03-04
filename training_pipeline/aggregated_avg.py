@@ -123,7 +123,7 @@ report = classification_report(
     target_names=target_names,
     output_dict=True
 )
-conf_matrix = confusion_matrix(true_labels, predicted_labels)
+
 #---------------------------------------------------------------------
 # --- Plot Confusion Matrix-Like Visualization ---
 sorted_classes = sorted(
@@ -162,12 +162,6 @@ plt.ylabel("Classes", fontsize=14)
 plt.tight_layout()
 plt.savefig(heatmap_pdf_file)
 
-# plot the confusion matrix as a heatmap
-plt.figure(figsize=(10, 8))
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5)
-plt.xlabel("Predicted Labels")
-plt.ylabel("True Labels")
-plt.title("Confusion Matrix Heatmap")
-plt.show()
+
 
 

@@ -5,6 +5,7 @@ import pdb
 import matplotlib.pyplot as plt
 import math
 import pickle
+import random
 import sys
 import pandas as pd
 import json
@@ -19,7 +20,8 @@ from keras.callbacks import LambdaCallback
 from keras.utils import pad_sequences, plot_model
 from keras.activations import softmax
 from collections import OrderedDict  # for ordered sets of the data
-from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score
+import seaborn as sns
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
 
 from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
 
@@ -83,6 +85,7 @@ def preprocess_function(function_json, value_vocab, path_vocab, tags_vocab, max_
     func_root = json_to_tree(func)
 
     _, func_paths = find_leaf_to_leaf_paths_iterative(func_root)  # get all contexts
+    sampled_paths = random.sample(func_paths, min(max_num_contexts, len(func_paths)))
 
     sts_indices = []  # start terminals indices
     paths_indices = []  # path indices
@@ -120,6 +123,8 @@ test_file = 'data_ndjson/test_fold.ndjson'
 model_file = f'trained_models/model_fold_{fold_idx}.h5'
 
 value_vocab, path_vocab, tags_vocab, max_num_contexts = get_vocabs(vocabs_pkl)
+max_num_contexts = 600
+
 
 reverse_value_vocab = {idx: value for value, idx in value_vocab.items()}
 reverse_path_vocab = {idx: path for path, idx in path_vocab.items()}
@@ -233,6 +238,16 @@ report = classification_report(
     output_dict=True
 )
 
+#Confusion matrix
+conf_matrix = confusion_matrix(true_labels, predicted_labels)
+decoded_labels_sorted = [reverse_tags_vocab[i] for i in sorted(reverse_tags_vocab.keys()) if i != 0]
+plt.figure(figsize=(10, 8))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5, xticklabels=decoded_labels_sorted, yticklabels=decoded_labels_sorted)
+plt.xlabel("Predicted Labels")
+plt.ylabel("True Labels")
+plt.title("Confusion Matrix Heatmap")
+plt.savefig("conf_matrix")
+
 fold_metrics = {
     "accuracy": accuracy,
     "precision": precision,
@@ -287,5 +302,8 @@ with open(f"analysis/metrics_json/fold_{fold_idx}_metrics.json", "w") as f:
 #     accuracy_bin = correct / total if total > 0 else 0
 #     print(f"Bin {bin_label}: Accuracy = {accuracy_bin:.2f}")
 print(f"Fold {fold_idx} Results:")
-print(f"Accuracy: {accuracy:.4f}")
-# print(f"Classification Report:\n{report}")
+
+print(f"Test Accuracy: {accuracy:.4f}")
+print(f"Test Precision: {precision:.4f}")
+print(f"Test Recall: {recall:.4f}")
+print(f"Test F1: {f1:.4f}")
