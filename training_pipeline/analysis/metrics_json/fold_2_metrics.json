@@ -1,8 +1,8 @@
 {
-    "accuracy": 0.7209302325581395,
-    "precision": 0.78998778998779,
-    "recall": 0.7347222222222222,
-    "f1": 0.7250957854406129,
+    "accuracy": 0.6953125,
+    "precision": 0.7368351345624073,
+    "recall": 0.696728650137741,
+    "f1": 0.7047586894064163,
     "classification_report": {
         "<PAD>": {
             "precision": 0.0,
@@ -10,61 +10,109 @@
             "f1-score": 0.0,
             "support": 0.0
         },
-        "KennyKwok": {
-            "precision": 0.5238095238095238,
-            "recall": 0.9166666666666666,
-            "f1-score": 0.6666666666666666,
+        "DQUADROS": {
+            "precision": 0.8181818181818182,
+            "recall": 0.75,
+            "f1-score": 0.782608695652174,
             "support": 12.0
         },
-        "Yao": {
+        "Hearson": {
+            "precision": 0.8888888888888888,
+            "recall": 0.7272727272727273,
+            "f1-score": 0.8,
+            "support": 11.0
+        },
+        "Hiroshi": {
+            "precision": 0.6363636363636364,
+            "recall": 0.6363636363636364,
+            "f1-score": 0.6363636363636364,
+            "support": 11.0
+        },
+        "Ioannis70": {
             "precision": 1.0,
-            "recall": 0.6,
-            "f1-score": 0.75,
+            "recall": 0.9090909090909091,
+            "f1-score": 0.9523809523809523,
+            "support": 11.0
+        },
+        "KennyKwok": {
+            "precision": 0.375,
+            "recall": 0.8181818181818182,
+            "f1-score": 0.5142857142857142,
+            "support": 11.0
+        },
+        "Vitaliy": {
+            "precision": 0.7142857142857143,
+            "recall": 0.5,
+            "f1-score": 0.5882352941176471,
+            "support": 10.0
+        },
+        "Yao": {
+            "precision": 0.7857142857142857,
+            "recall": 0.7333333333333333,
+            "f1-score": 0.7586206896551724,
             "support": 15.0
         },
+        "alan790712": {
+            "precision": 0.6666666666666666,
+            "recall": 0.7272727272727273,
+            "f1-score": 0.6956521739130435,
+            "support": 11.0
+        },
+        "along": {
+            "precision": 0.7777777777777778,
+            "recall": 0.7,
+            "f1-score": 0.7368421052631579,
+            "support": 10.0
+        },
         "trainsick": {
-            "precision": 0.8461538461538461,
-            "recall": 0.6875,
-            "f1-score": 0.7586206896551724,
+            "precision": 0.6923076923076923,
+            "recall": 0.5625,
+            "f1-score": 0.6206896551724138,
             "support": 16.0
         },
-        "accuracy": 0.7209302325581395,
+        "tutty": {
+            "precision": 0.75,
+            "recall": 0.6,
+            "f1-score": 0.6666666666666666,
+            "support": 10.0
+        },
+        "accuracy": 0.6953125,
         "macro avg": {
-            "precision": 0.5924908424908425,
-            "recall": 0.5510416666666667,
-            "f1-score": 0.5438218390804597,
-            "support": 43.0
+            "precision": 0.6754322066822067,
+            "recall": 0.6386679292929293,
+            "f1-score": 0.6460287986225483,
+            "support": 128.0
         },
         "weighted avg": {
-            "precision": 0.8098645540506005,
-            "recall": 0.7209302325581395,
-            "f1-score": 0.7299518845228549,
-            "support": 43.0
+            "precision": 0.7370122282231657,
+            "recall": 0.6953125,
+            "f1-score": 0.7047234147051862,
+            "support": 128.0
         }
     },
     "num_tokens_50_bin_accuracies": {
         "0-49": {
-            "correct": 19,
-            "total": 28
+            "correct": 55,
+            "total": 78
         },
         "50-99": {
+            "correct": 20,
+            "total": 31
+        },
+        "100-149": {
+            "correct": 3,
+            "total": 7
+        },
+        "150-199": {
             "correct": 7,
             "total": 8
         },
-        "100-149": {
+        "200-249": {
             "correct": 2,
             "total": 2
         },
-        "150-199": {
-            "correct": 2,
-            "total": 4
-        },
-        "200-249": {
-            "correct": 1,
-            "total": 1
-        },
         "250-299": {
-            "correct": 0,
+            "correct": 2,
             "total": 0
         },
         "300-349": {
@@ -86,59 +134,59 @@
     },
     "num_tokens_20_bin_accuracies": {
         "0-19": {
-            "correct": 7,
-            "total": 10
+            "correct": 13,
+            "total": 19
         },
         "20-39": {
-            "correct": 11,
-            "total": 17
+            "correct": 35,
+            "total": 46
         },
         "40-59": {
-            "correct": 5,
-            "total": 6
+            "correct": 14,
+            "total": 24
         },
         "60-79": {
-            "correct": 1,
-            "total": 1
+            "correct": 5,
+            "total": 11
         },
         "80-99": {
-            "correct": 2,
-            "total": 2
+            "correct": 8,
+            "total": 9
         },
         "100-119": {
-            "correct": 1,
-            "total": 1
+            "correct": 3,
+            "total": 7
         },
         "120-139": {
-            "correct": 1,
-            "total": 1
-        },
-        "140-159": {
             "correct": 0,
             "total": 0
         },
-        "160-179": {
+        "140-159": {
             "correct": 1,
-            "total": 2
+            "total": 1
+        },
+        "160-179": {
+            "correct": 5,
+            "total": 5
         },
         "180-199": {
             "correct": 1,
             "total": 2
         },
         "200-219": {
-            "correct": 1,
-            "total": 1
+            "correct": 2,
+            "total": 2
         },
         "220-239": {
             "correct": 0,
             "total": 0
         },
         "240-259": {
-            "correct": 0,
+            "correct": 1,
             "total": 0
         },
         "260-279": {
-            "correct": 0,
+            "correct": 1,
             "total": 0
         },
         "280-299": {
@@ -188,23 +236,23 @@
     },
     "ast_depth_5_bin_accuracies": {
         "0-4": {
-            "correct": 1,
-            "total": 1
+            "correct": 0,
+            "total": 0
         },
         "5-9": {
-            "correct": 16,
-            "total": 23
+            "correct": 47,
+            "total": 66
         },
         "10-14": {
-            "correct": 11,
-            "total": 14
+            "correct": 32,
+            "total": 47
         },
         "15-19": {
-            "correct": 2,
-            "total": 4
+            "correct": 8,
+            "total": 12
         },
         "20-24": {
-            "correct": 1,
+            "correct": 2,
             "total": 1
         },
         "25-29": {
@@ -238,39 +286,39 @@
             "total": 0
         },
         "4-5": {
+            "correct": 4,
+            "total": 5
+        },
+        "6-7": {
+            "correct": 27,
+            "total": 34
+        },
+        "8-9": {
+            "correct": 16,
+            "total": 27
+        },
+        "10-11": {
+            "correct": 16,
+            "total": 24
+        },
+        "12-13": {
+            "correct": 12,
+            "total": 17
+        },
+        "14-15": {
+            "correct": 5,
+            "total": 9
+        },
+        "16-17": {
+            "correct": 5,
+            "total": 6
+        },
+        "18-19": {
             "correct": 2,
             "total": 3
         },
-        "6-7": {
-            "correct": 12,
-            "total": 16
-        },
-        "8-9": {
-            "correct": 3,
-            "total": 5
-        },
-        "10-11": {
-            "correct": 7,
-            "total": 9
-        },
-        "12-13": {
-            "correct": 3,
-            "total": 4
-        },
-        "14-15": {
-            "correct": 1,
-            "total": 1
-        },
-        "16-17": {
-            "correct": 2,
-            "total": 2
-        },
-        "18-19": {
-            "correct": 0,
-            "total": 2
-        },
         "20-21": {
-            "correct": 0,
+            "correct": 1,
             "total": 0
         },
         "22-23": {
@@ -332,40 +380,40 @@
     },
     "num_nodes_50_bin_accuracies": {
         "0-49": {
-            "correct": 14,
-            "total": 19
+            "correct": 23,
+            "total": 32
         },
         "50-99": {
-            "correct": 5,
-            "total": 9
+            "correct": 32,
+            "total": 44
         },
         "100-149": {
-            "correct": 4,
-            "total": 5
+            "correct": 10,
+            "total": 21
         },
         "150-199": {
-            "correct": 3,
-            "total": 3
+            "correct": 10,
+            "total": 12
         },
         "200-249": {
-            "correct": 1,
-            "total": 1
+            "correct": 3,
+            "total": 7
         },
         "250-299": {
             "correct": 0,
             "total": 0
         },
         "300-349": {
-            "correct": 2,
-            "total": 3
+            "correct": 3,
+            "total": 4
         },
         "350-399": {
-            "correct": 1,
-            "total": 2
+            "correct": 4,
+            "total": 4
         },
         "400-449": {
-            "correct": 1,
-            "total": 1
+            "correct": 2,
+            "total": 2
         },
         "450-499": {
             "correct": 0,
@@ -382,52 +430,52 @@
     },
     "num_nodes_20_bin_accuracies": {
         "0-19": {
-            "correct": 1,
-            "total": 1
+            "correct": 2,
+            "total": 2
         },
         "20-39": {
-            "correct": 5,
-            "total": 8
+            "correct": 9,
+            "total": 15
         },
         "40-59": {
-            "correct": 8,
-            "total": 10
+            "correct": 23,
+            "total": 26
         },
         "60-79": {
-            "correct": 4,
-            "total": 8
+            "correct": 16,
+            "total": 24
         },
         "80-99": {
-            "correct": 1,
-            "total": 1
+            "correct": 5,
+            "total": 9
         },
         "100-119": {
-            "correct": 3,
-            "total": 4
+            "correct": 7,
+            "total": 12
         },
         "120-139": {
-            "correct": 1,
-            "total": 1
+            "correct": 3,
+            "total": 6
         },
         "140-159": {
-            "correct": 1,
-            "total": 1
+            "correct": 2,
+            "total": 6
         },
         "160-179": {
-            "correct": 1,
-            "total": 1
+            "correct": 4,
+            "total": 5
         },
         "180-199": {
-            "correct": 1,
-            "total": 1
+            "correct": 4,
+            "total": 4
         },
         "200-219": {
-            "correct": 1,
-            "total": 1
-        },
-        "220-239": {
             "correct": 0,
             "total": 0
+        },
+        "220-239": {
+            "correct": 3,
+            "total": 7
         },
         "240-259": {
             "correct": 0,
@@ -442,28 +490,28 @@
             "total": 0
         },
         "300-319": {
-            "correct": 1,
-            "total": 1
-        },
-        "320-339": {
             "correct": 0,
             "total": 0
+        },
+        "320-339": {
+            "correct": 2,
+            "total": 2
         },
         "340-359": {
             "correct": 1,
             "total": 2
         },
         "360-379": {
-            "correct": 0,
-            "total": 1
+            "correct": 3,
+            "total": 3
         },
         "380-399": {
             "correct": 1,
             "total": 1
         },
         "400-419": {
-            "correct": 0,
-            "total": 0
+            "correct": 1,
+            "total": 1
         },
         "420-439": {
             "correct": 1,

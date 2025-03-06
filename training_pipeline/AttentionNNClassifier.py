@@ -271,13 +271,13 @@ validation_steps = math.floor(number_lines_valid / batch_size)
 
 early_stopping = EarlyStopping(
     monitor='val_loss',  
-    patience=3,  
+    patience=10,  
     restore_best_weights=True, 
     verbose=1
 )
 history = model.fit(
     dataset_train,
-    epochs=15,
+    epochs=25,
     steps_per_epoch=steps_per_epoch,
     validation_data=dataset_valid,
     validation_steps=validation_steps,
