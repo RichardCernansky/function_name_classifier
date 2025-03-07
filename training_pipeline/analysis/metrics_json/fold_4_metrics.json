@@ -1,8 +1,8 @@
 {
-    "accuracy": 0.6162361623616236,
-    "precision": 0.6560626102292768,
-    "recall": 0.6142255892255893,
-    "f1": 0.6211218698527942,
+    "accuracy": 0.5826771653543307,
+    "precision": 0.662808782126964,
+    "recall": 0.5883264462809918,
+    "f1": 0.5829797080824549,
     "classification_report": {
         "<PAD>": {
             "precision": 0.0,
@@ -10,206 +10,110 @@
             "f1-score": 0.0,
             "support": 0.0
         },
-        ".bf": {
-            "precision": 0.7,
-            "recall": 0.7777777777777778,
-            "f1-score": 0.7368421052631579,
-            "support": 9.0
-        },
-        "0xFACE": {
-            "precision": 1.0,
-            "recall": 0.5,
-            "f1-score": 0.6666666666666666,
-            "support": 8.0
-        },
-        "Akerfeldt": {
-            "precision": 0.5555555555555556,
-            "recall": 0.5,
-            "f1-score": 0.5263157894736842,
-            "support": 10.0
-        },
-        "BeerCode": {
-            "precision": 0.375,
-            "recall": 0.375,
-            "f1-score": 0.375,
-            "support": 8.0
-        },
         "DQUADROS": {
-            "precision": 0.6923076923076923,
-            "recall": 0.75,
-            "f1-score": 0.72,
-            "support": 12.0
-        },
-        "Eduardopa": {
-            "precision": 0.7692307692307693,
-            "recall": 1.0,
-            "f1-score": 0.8695652173913043,
-            "support": 10.0
-        },
-        "FurtherLee": {
-            "precision": 0.5,
-            "recall": 0.5,
-            "f1-score": 0.5,
-            "support": 10.0
+            "precision": 0.6666666666666666,
+            "recall": 0.5454545454545454,
+            "f1-score": 0.6,
+            "support": 11.0
         },
         "Hearson": {
-            "precision": 0.6666666666666666,
+            "precision": 1.0,
             "recall": 0.2,
-            "f1-score": 0.3076923076923077,
-            "support": 10.0
-        },
-        "Herty": {
-            "precision": 0.875,
-            "recall": 0.7,
-            "f1-score": 0.7777777777777778,
+            "f1-score": 0.3333333333333333,
             "support": 10.0
         },
         "Hiroshi": {
-            "precision": 0.4375,
-            "recall": 0.6363636363636364,
-            "f1-score": 0.5185185185185185,
+            "precision": 0.42857142857142855,
+            "recall": 0.2727272727272727,
+            "f1-score": 0.3333333333333333,
             "support": 11.0
         },
         "Ioannis70": {
-            "precision": 0.7,
-            "recall": 0.6363636363636364,
-            "f1-score": 0.6666666666666666,
-            "support": 11.0
-        },
-        "Karun": {
-            "precision": 1.0,
-            "recall": 0.75,
-            "f1-score": 0.8571428571428571,
-            "support": 8.0
+            "precision": 0.3333333333333333,
+            "recall": 0.9,
+            "f1-score": 0.4864864864864865,
+            "support": 10.0
         },
         "KennyKwok": {
-            "precision": 0.8333333333333334,
-            "recall": 0.8333333333333334,
-            "f1-score": 0.8333333333333334,
+            "precision": 0.8181818181818182,
+            "recall": 0.75,
+            "f1-score": 0.782608695652174,
             "support": 12.0
         },
-        "StephenChen": {
-            "precision": 0.8333333333333334,
-            "recall": 0.625,
-            "f1-score": 0.7142857142857143,
-            "support": 8.0
-        },
         "Vitaliy": {
-            "precision": 0.6363636363636364,
-            "recall": 0.6363636363636364,
-            "f1-score": 0.6363636363636364,
+            "precision": 0.625,
+            "recall": 0.45454545454545453,
+            "f1-score": 0.5263157894736842,
             "support": 11.0
         },
         "Yao": {
-            "precision": 0.8181818181818182,
-            "recall": 0.6,
-            "f1-score": 0.6923076923076923,
+            "precision": 0.75,
+            "recall": 0.8,
+            "f1-score": 0.7741935483870968,
             "support": 15.0
         },
         "alan790712": {
-            "precision": 0.3888888888888889,
-            "recall": 0.5833333333333334,
-            "f1-score": 0.4666666666666667,
-            "support": 12.0
+            "precision": 0.5384615384615384,
+            "recall": 0.6363636363636364,
+            "f1-score": 0.5833333333333334,
+            "support": 11.0
         },
         "along": {
-            "precision": 0.5454545454545454,
-            "recall": 0.6,
-            "f1-score": 0.5714285714285714,
+            "precision": 0.8181818181818182,
+            "recall": 0.9,
+            "f1-score": 0.8571428571428571,
             "support": 10.0
-        },
-        "darkraven": {
-            "precision": 0.7142857142857143,
-            "recall": 0.5,
-            "f1-score": 0.5882352941176471,
-            "support": 10.0
-        },
-        "ferruhy": {
-            "precision": 0.38461538461538464,
-            "recall": 0.5555555555555556,
-            "f1-score": 0.45454545454545453,
-            "support": 9.0
-        },
-        "goober": {
-            "precision": 0.15384615384615385,
-            "recall": 0.2,
-            "f1-score": 0.17391304347826086,
-            "support": 10.0
-        },
-        "mtsay": {
-            "precision": 0.75,
-            "recall": 0.75,
-            "f1-score": 0.75,
-            "support": 8.0
-        },
-        "peterpan": {
-            "precision": 0.5555555555555556,
-            "recall": 0.625,
-            "f1-score": 0.5882352941176471,
-            "support": 8.0
-        },
-        "ravi00ei51": {
-            "precision": 0.8571428571428571,
-            "recall": 0.75,
-            "f1-score": 0.8,
-            "support": 8.0
-        },
-        "sungyz": {
-            "precision": 0.5714285714285714,
-            "recall": 0.5,
-            "f1-score": 0.5333333333333333,
-            "support": 8.0
         },
         "trainsick": {
-            "precision": 0.5,
-            "recall": 0.6,
-            "f1-score": 0.5454545454545454,
-            "support": 15.0
+            "precision": 0.3125,
+            "recall": 0.3125,
+            "f1-score": 0.3125,
+            "support": 16.0
         },
         "tutty": {
-            "precision": 0.9,
-            "recall": 0.9,
-            "f1-score": 0.9,
+            "precision": 1.0,
+            "recall": 0.7,
+            "f1-score": 0.8235294117647058,
             "support": 10.0
         },
-        "accuracy": 0.6162361623616236,
+        "accuracy": 0.5826771653543307,
         "macro avg": {
-            "precision": 0.6326318027210884,
-            "recall": 0.592288961038961,
-            "f1-score": 0.59893894592948,
-            "support": 271.0
+            "precision": 0.607574716949717,
+            "recall": 0.5392992424242424,
+            "f1-score": 0.5343980657422503,
+            "support": 127.0
         },
         "weighted avg": {
-            "precision": 0.6507793405856137,
-            "recall": 0.6162361623616236,
-            "f1-score": 0.6198987069362119,
-            "support": 271.0
+            "precision": 0.6490474748348763,
+            "recall": 0.5826771653543307,
+            "f1-score": 0.5785979171531512,
+            "support": 127.0
         }
     },
     "num_tokens_50_bin_accuracies": {
         "0-49": {
-            "correct": 91,
-            "total": 150
+            "correct": 34,
+            "total": 69
         },
         "50-99": {
-            "correct": 43,
-            "total": 75
+            "correct": 21,
+            "total": 34
         },
         "100-149": {
-            "correct": 19,
-            "total": 24
+            "correct": 5,
+            "total": 7
         },
         "150-199": {
-            "correct": 12,
-            "total": 15
+            "correct": 10,
+            "total": 11
         },
         "200-249": {
-            "correct": 0,
+            "correct": 2,
             "total": 3
         },
         "250-299": {
-            "correct": 2,
-            "total": 1
+            "correct": 1,
+            "total": 0
         },
         "300-349": {
             "correct": 0,
@@ -230,63 +134,63 @@
     },
     "num_tokens_20_bin_accuracies": {
         "0-19": {
-            "correct": 21,
-            "total": 50
+            "correct": 7,
+            "total": 20
         },
         "20-39": {
-            "correct": 61,
-            "total": 84
+            "correct": 20,
+            "total": 36
         },
         "40-59": {
-            "correct": 23,
-            "total": 43
-        },
-        "60-79": {
             "correct": 12,
             "total": 20
         },
-        "80-99": {
-            "correct": 17,
-            "total": 28
-        },
-        "100-119": {
-            "correct": 10,
+        "60-79": {
+            "correct": 6,
             "total": 12
         },
+        "80-99": {
+            "correct": 10,
+            "total": 15
+        },
+        "100-119": {
+            "correct": 4,
+            "total": 4
+        },
         "120-139": {
-            "correct": 7,
-            "total": 8
+            "correct": 0,
+            "total": 2
         },
         "140-159": {
-            "correct": 4,
-            "total": 7
+            "correct": 2,
+            "total": 2
         },
         "160-179": {
             "correct": 4,
             "total": 4
         },
         "180-199": {
-            "correct": 6,
-            "total": 8
+            "correct": 5,
+            "total": 6
         },
         "200-219": {
             "correct": 0,
-            "total": 2
+            "total": 1
         },
         "220-239": {
             "correct": 0,
-            "total": 1
+            "total": 0
         },
         "240-259": {
             "correct": 2,
-            "total": 1
+            "total": 2
         },
         "260-279": {
             "correct": 0,
             "total": 0
         },
         "280-299": {
-            "correct": 0,
+            "correct": 1,
             "total": 0
         },
         "300-319": {
@@ -332,20 +236,20 @@
     },
     "ast_depth_5_bin_accuracies": {
         "0-4": {
-            "correct": 3,
-            "total": 9
+            "correct": 1,
+            "total": 4
         },
         "5-9": {
-            "correct": 80,
-            "total": 129
+            "correct": 31,
+            "total": 57
         },
         "10-14": {
-            "correct": 62,
-            "total": 101
+            "correct": 27,
+            "total": 47
         },
         "15-19": {
-            "correct": 19,
-            "total": 26
+            "correct": 11,
+            "total": 13
         },
         "20-24": {
             "correct": 3,
@@ -379,47 +283,47 @@
         },
         "2-3": {
             "correct": 0,
-            "total": 1
+            "total": 0
         },
         "4-5": {
-            "correct": 6,
-            "total": 18
+            "correct": 3,
+            "total": 8
         },
         "6-7": {
-            "correct": 40,
-            "total": 59
+            "correct": 18,
+            "total": 34
         },
         "8-9": {
-            "correct": 37,
-            "total": 60
+            "correct": 11,
+            "total": 19
         },
         "10-11": {
-            "correct": 32,
-            "total": 50
+            "correct": 14,
+            "total": 24
         },
         "12-13": {
-            "correct": 28,
-            "total": 45
+            "correct": 11,
+            "total": 21
         },
         "14-15": {
-            "correct": 8,
-            "total": 13
+            "correct": 6,
+            "total": 7
         },
         "16-17": {
-            "correct": 10,
-            "total": 15
+            "correct": 3,
+            "total": 5
         },
         "18-19": {
-            "correct": 3,
-            "total": 4
-        },
-        "20-21": {
-            "correct": 3,
+            "correct": 4,
             "total": 3
         },
+        "20-21": {
+            "correct": 1,
+            "total": 2
+        },
         "22-23": {
-            "correct": 0,
-            "total": 1
+            "correct": 2,
+            "total": 2
         },
         "24-25": {
             "correct": 0,
@@ -476,44 +380,44 @@
     },
     "num_nodes_50_bin_accuracies": {
         "0-49": {
-            "correct": 42,
-            "total": 78
+            "correct": 19,
+            "total": 37
         },
         "50-99": {
-            "correct": 46,
-            "total": 68
+            "correct": 14,
+            "total": 30
         },
         "100-149": {
-            "correct": 25,
-            "total": 44
+            "correct": 7,
+            "total": 14
         },
         "150-199": {
-            "correct": 19,
-            "total": 33
+            "correct": 15,
+            "total": 20
         },
         "200-249": {
-            "correct": 13,
-            "total": 15
-        },
-        "250-299": {
-            "correct": 6,
-            "total": 8
-        },
-        "300-349": {
-            "correct": 7,
-            "total": 10
-        },
-        "350-399": {
-            "correct": 5,
+            "correct": 4,
             "total": 6
         },
-        "400-449": {
-            "correct": 2,
-            "total": 4
-        },
-        "450-499": {
+        "250-299": {
             "correct": 0,
             "total": 1
+        },
+        "300-349": {
+            "correct": 6,
+            "total": 7
+        },
+        "350-399": {
+            "correct": 4,
+            "total": 4
+        },
+        "400-449": {
+            "correct": 1,
+            "total": 3
+        },
+        "450-499": {
+            "correct": 2,
+            "total": 2
         },
         "500-549": {
             "correct": 0,
@@ -526,88 +430,88 @@
     },
     "num_nodes_20_bin_accuracies": {
         "0-19": {
-            "correct": 3,
-            "total": 14
+            "correct": 0,
+            "total": 5
         },
         "20-39": {
-            "correct": 17,
-            "total": 32
+            "correct": 6,
+            "total": 11
         },
         "40-59": {
-            "correct": 40,
-            "total": 54
+            "correct": 17,
+            "total": 27
         },
         "60-79": {
-            "correct": 22,
-            "total": 31
+            "correct": 4,
+            "total": 12
         },
         "80-99": {
             "correct": 6,
-            "total": 15
+            "total": 12
         },
         "100-119": {
-            "correct": 15,
-            "total": 22
+            "correct": 6,
+            "total": 8
         },
         "120-139": {
-            "correct": 6,
-            "total": 17
-        },
-        "140-159": {
-            "correct": 6,
-            "total": 10
-        },
-        "160-179": {
-            "correct": 9,
-            "total": 13
-        },
-        "180-199": {
-            "correct": 8,
-            "total": 15
-        },
-        "200-219": {
-            "correct": 4,
-            "total": 5
-        },
-        "220-239": {
-            "correct": 6,
-            "total": 7
-        },
-        "240-259": {
-            "correct": 4,
+            "correct": 0,
             "total": 4
         },
-        "260-279": {
+        "140-159": {
             "correct": 4,
             "total": 6
         },
-        "280-299": {
+        "160-179": {
+            "correct": 5,
+            "total": 8
+        },
+        "180-199": {
+            "correct": 7,
+            "total": 8
+        },
+        "200-219": {
             "correct": 1,
-            "total": 1
-        },
-        "300-319": {
-            "correct": 4,
-            "total": 5
-        },
-        "320-339": {
-            "correct": 1,
-            "total": 2
-        },
-        "340-359": {
-            "correct": 2,
             "total": 3
         },
-        "360-379": {
+        "220-239": {
             "correct": 3,
             "total": 3
         },
+        "240-259": {
+            "correct": 0,
+            "total": 0
+        },
+        "260-279": {
+            "correct": 0,
+            "total": 1
+        },
+        "280-299": {
+            "correct": 0,
+            "total": 0
+        },
+        "300-319": {
+            "correct": 1,
+            "total": 2
+        },
+        "320-339": {
+            "correct": 1,
+            "total": 1
+        },
+        "340-359": {
+            "correct": 4,
+            "total": 4
+        },
+        "360-379": {
+            "correct": 2,
+            "total": 2
+        },
         "380-399": {
             "correct": 2,
-            "total": 3
+            "total": 2
         },
         "400-419": {
-            "correct": 2,
-            "total": 3
+            "correct": 1,
+            "total": 2
         },
         "420-439": {
             "correct": 0,
@@ -615,15 +519,15 @@
         },
         "440-459": {
             "correct": 0,
-            "total": 1
+            "total": 0
         },
         "460-479": {
             "correct": 0,
             "total": 0
         },
         "480-499": {
-            "correct": 0,
-            "total": 0
+            "correct": 2,
+            "total": 2
         },
         "500-519": {
             "correct": 0,
