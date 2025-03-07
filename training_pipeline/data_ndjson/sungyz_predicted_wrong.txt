@@ -1,0 +1,1899 @@
+ 
+ 
+ 
+ void quickSort(int a[],int l,int r){
+    int j;
+ 
+    if(l<r){
+       j = partition( a, l, r);
+       quickSort( a, l, j-1);
+       quickSort( a, j+1, r);
+       }
+ } 
+ void resolve(void)
+ {
+ 	int S, Q;
+ 	int i, nr;
+ 
+ 	fgets(buf, BUFSZ, stdin);
+ 	S = atoi(buf);
+ 	for (i = 0; i < S; i++) {
+ 		fgets(buf, BUFSZ, stdin);
+ 		engines[i] = strdup(buf);
+ 	}
+ 
+ 	clear_used(S);
+ 
+ 	nr = 0;
+ 	fgets(buf, BUFSZ, stdin);
+ 	Q = atoi(buf);
+ 	for (i = 0; i < Q; i++) {
+ 		fgets(buf, BUFSZ, stdin);
+ 		if (check_used(S, buf)) {
+ 			++nr;
+ 			clear_used(S);
+ 			check_used(S, buf);
+ 		}
+ 	}
+ 
+ 	printf("%d\n", nr);
+ } 
+ void init() { 
+     int i,j; 
+     for(i=2;i<MAXN;i++) { 
+         if (!b[i]) p[np++]=i; 
+         for(j=0;j<np && i*p[j]<MAXN;j++) { 
+             b[i*p[j]]=1; 
+             if (i%p[j]==0) break; 
+         }
+     } 
+ } 
+ int compareString(const void *str1, const void *str2)
+ {
+    return( strcmp( *(char * const *)str1, *(char * const *)str2 ) );
+ } 
+ void print_data(int caseId) {
+ 	int i, j;
+ 	
+ 	printf("Case #%d:\n", caseId);
+ 	
+ 	for (i=0; i<H; i++) {
+ 		for (j=0; j<W; j++) {
+ 			printf("%c", map[i][j].label);
+ 			if (j < W-1) {
+ 				printf(" ");
+ 			}
+ 		}
+ 		printf("\n");
+ 	}
+ } 
+ void follow(int x, int y)
+ {
+ 	if(connects[x][y].connected == 1)
+ 	{
+ 		map[connects[x][y].x][connects[x][y].y].label = map[x][y].label;
+ 		follow(connects[x][y].x,connects[x][y].y);
+ 	}
+ } 
+ int main(int argc, char *argv[])
+ {
+ 	char *tmp, *endPar;
+ 	char buf[32000];
+ 	int i, j, numChars;
+ 
+ 
+ 	gets(buf);
+ 	sscanf(buf, "%d %d %d", &L, &D, &N);
+ 	for(i=0; i<D; i++)
+ 	{
+ 		gets(buf);
+ 		sscanf(buf, "%s", words[i]);
+ 		wordList[i] = words[i];
+ 	}
+ 
+ 	qsort(wordList, D, sizeof(char *), compare);
+ 
+ 	for(i=0; i<N; i++)
+ 	{
+ 		gets(buf);
+ 		sscanf(buf, "%s", tests[i]);
+ 	}
+ 
+ 	for(i=0; i<N; i++)
+ 	{
+ 		numCandidates=0;
+ 		tmp = tests[i];
+ 		pos = 0;
+ 		while(tmp[0] != '\0')
+ 		{
+ 			if(tmp[0] == '(')
+ 			{
+ 				endPar = strchr(tmp, ')');
+ 				numChars = endPar - tmp + 1;
+ 				memcpy(charList,tmp+1,numChars-2);
+ 				charList[numChars-2] = '\0';
+ 				numLits = numChars-2;
+ 			}
+ 			else
+ 			{
+ 				charList[0] = tmp[0];
+ 				charList[1] = '\0';
+ 				numChars = 1;
+ 				numLits = numChars;
+ 			}
+ 			
+ 			
+ 			filter();
+ 			tmp += numChars;
+ 			pos++;
+ 		}
+ 		printf("Case #%d: %d\n",i+1,numAlts);
+ 	}
+ 	
+ 	return 0;
+ } 
+ int main()
+ {
+ 	int L, D, N, t, i;
+ 
+ 	scanf("%d %d %d ", &L, &D, &N);
+ 	for (i=0; i<D; i++)
+ 		scanf("%s", dict[i]);
+ 
+ 	for (t=1; t<=N; t++)
+ 	{
+ 		int cnt;
+ 		char patt[15*28+1];
+ 		int i, j;
+ 		char *p;
+ 	
+ 		scanf("%s", patt);
+ 
+ 		memset(good, 0, sizeof(good));
+ 		j = 0;
+ 		for (p = patt; *p; p++)
+ 		{
+ 			if (*p != '(')
+ 				good[j][*p - 'a'] = 1;
+ 			else
+ 			{
+ 				for (p++; *p != ')'; p++)
+ 					good[j][*p - 'a'] = 1;
+ 			}
+ 			j++;
+ 		}
+ 
+ 		cnt = 0;
+ 		for (i=0; i<D; i++)
+ 		{
+ 			for (j=0; j<L; j++)
+ 				if (!good[j][dict[i][j] - 'a'])
+ 					break;
+ 			if (j >= L)
+ 				cnt++;
+ 		}
+ 		printf("Case #%d: %d\n", t, cnt);
+ 	}
+ 	return 0;
+ } 
+ void solve(void)
+ {
+ 	char buf[SZ];
+ 	int i, x;
+ 
+ 	for (i = 0; i < N; i++) {
+ 		fgets(buf, SZ, stdin);
+ 		x = solve_one(buf);
+ 		printf("Case #%d: %04d\n", i + 1, x);
+ 	}
+ } 
+ int main()
+ {
+ 	int i,t;
+ 	freopen(infile,"r",stdin);
+ 	freopen(outfile,"w",stdout);
+ 	
+ 	scanf("%d\n",&t);
+ 	for(i=1;i<=t;i++)
+ 	{
+ 		read();
+ 		solve();
+ 		printf("Case #%d: %lf %lf\n",i,sqrt(dmin),tmin);
+ 	}
+ 	
+ 	fclose(stdin);
+ 	fclose(stdout);
+ 	return 0;
+ } 
+ int solve(int P, int Q, int *seq, int *cell)
+ {
+ 	int sum = 0;
+ 	int pos = *seq;
+ //printf("%d pos = %d\n", P, pos);
+ 	for (int i = pos - 1; i > 0; i--)
+ 	{
+ 		if (cell[i] == 1)
+ 		{
+ 			sum++;
+ 		}
+ 		else
+ 		{
+ 			break;
+ 		}
+ 	}
+ //printf("sum = %d\n", sum);
+ 	for (int i = pos + 1; i <= P; i++)
+ 	{
+ //printf("i = %d\n", i);
+ 		if (cell[i] == 1)
+ 		{
+ 			sum++;
+ 		}
+ 		else
+ 		{
+ 			break;
+ 		}
+ 	}
+ //printf("sum = %d\n", sum);
+ 	cell[pos] = 0;
+ 
+ 	if (Q > 1)
+ 	{
+ 		sum += solve(P, Q-1, seq+1, cell);
+ 	}
+ 
+ 	return sum;
+ } 
+ void single_case() {
+ 	read();
+ 	solve();
+ } 
+ void solve() {
+ 	int c, i;
+ 	unsigned long long r = 0, b = 1;
+ 	
+ 	c = 0;
+ 	
+ 	for (i=0; i<strlen(s); i++) {
+ 		if (m[s[i]] == -1) {
+ 			m[s[i]] = c++;
+ 		}
+ 	}
+ 	
+ 	for (i=0; i<256; i++) {
+ 		if (m[i] == 0) {
+ 			m[i] = 1;
+ 		} else if (m[i] == 1) {
+ 			m[i] = 0;
+ 		}
+ 	}
+ 	
+ 	for (i=strlen(s)-1; i>=0; i--) {
+ 		r += b * m[s[i]];
+ 		b *= base;
+ 	}
+ 	
+ 	printf("%qd\n", r);
+ } 
+ void solve_one(void)
+ {
+ 	char buf[SZ];
+ 	char *p;
+ 	int i;
+ 	long x;
+ 	long c, s;
+ 
+ 	fgets(buf, SZ, stdin);
+ 	P = strtol(buf, &p, 0);
+ 	Q = strtol(p, NULL, 0);
+ 
+ 	fgets(buf, SZ, stdin);
+ 	p = buf;
+ 	for (i = 0; i < Q; i++)
+ 		R[i] = strtol(p, &p, 0);
+ 
+ 	x = 1;
+ 	for (i = 2; i <= Q; i++)
+ 		x *= i;
+ 
+ 	c = -1;
+ 	for (T = 0; T < x; T++) {
+ 		gen_order();
+ 		s = calc_bribe(T);
+ 		if (c == -1)
+ 			c = s;
+ 		else if (s < c)
+ 			c = s;
+ 	}
+ 
+ 	printf("%ld", c);
+ } 
+ void solve(void)
+ {
+ 	int i;
+ 
+ 	for (i = 1; i <= CASES; i++) {
+ 		printf("Case #%d: ", i);
+ 		solve_one();
+ 		printf("\n");
+ 	}
+ } 
+ int process(int k)
+ {
+     int i;
+     int f[10];
+     int g[10];
+     int j;
+     int matched;
+     int result = -1;
+ 
+     // 1. init
+     for (i = 0; i < 10; i++)
+         f[i] = 0;
+ 
+     // 2. make freq.
+     i = k;
+     while (i > 0)
+     {
+         int v = i % 10;
+         f[v]++;
+         i /= 10;
+     }
+ 
+     j = k+1;
+     while (1)
+     {
+         for (i = 0; i < 10; i++)
+             g[i] = 0;
+ 
+         i = j;
+         while (i > 0)
+         {
+             int v = i % 10;
+             g[v]++;
+             i /= 10;
+         }
+ 
+         matched = 1;
+         for (i = 1; i < 10; i++)
+         {
+             if (f[i] == g[i])
+             {
+                 // nothing
+             }
+             else
+             {
+                 matched = 0;
+                 break; // for i
+             }
+         }
+ 
+         if (matched)
+         {
+             result = j;
+             break; // while)
+         }
+         else
+         {
+             j++;
+         }
+     }
+ 
+     return result;
+ 
+ } 
+ void leArvore (Tree * base, FILE * arq)
+ {
+ 	int aux;
+ 	int lendo1;
+ 	int i;
+ 
+ 
+ 	base->first = NULL;
+ 	base->second = NULL;
+ 	fscanf (arq, "%f", &base->weight);
+ 	lendo1 = 1;
+ 	while (1)
+ 	{
+ 		aux = fgetc(arq);
+ 		if (aux == '(')
+ 		{
+ 			if (lendo1)
+ 			{
+ 				addTree (base, 1);
+ 				leArvore (base->first, arq);
+ 				lendo1 = 0;
+ 			}
+ 			else
+ 			{
+ 				addTree (base, 2);
+ 				leArvore(base->second, arq);
+ 			}
+ 		}
+ 		else if (aux == ')')
+ 			return;
+ 		else if (aux != ' ' && aux != '\n')
+ 		{
+ 			i = 0;
+ 			do
+ 			{
+ 				base->feature[i++] = aux;
+ 				aux = fgetc(arq);
+ 			} while (aux != ' ' && aux != '\n');
+ 			base->feature[i++] = '\0';
+ 		}
+ 	}
+ 	
+ } 
+ 
+ int nextNum(int ini)
+ {
+ 	int i,j;
+ 	int hasMore = 0;
+ 
+ 	for (i=0;i<10;i++)
+ 		hasMore += numCount[i];
+ 
+ 	if (wasInput && !hasMore && strcmp(outputNum, inputNum) != 0)
+ 		return 1;
+ 	if (strcmp(outputNum, inputNum) == 0)
+ 		wasInput = 1;
+ 
+ 
+ 	if (ini == 0)
+ 		j = 1;
+ 	else
+ 		j = 0;
+ 	for (;j<10;j++)
+ 	{
+ 		if (numCount[j] > 0)
+ 		{
+ 			outputNum[ini] = j + '0';
+ 			numCount[j]--;
+ 			if (nextNum (ini + 1))
+ 				break;
+ 			numCount[j]++;
+ 		}
+ 	}
+ 	return (j!=10);
+ } 
+ double GetWeight ()
+ {
+     GetToken();
+     return atof (token);
+ } 
+ int test(int mz, int m[60][60], int K)
+ {
+ // 01 R
+ // 10 B
+ int res = 0;
+ 	REP(i, mz)
+ 	{
+ 	REP(j, mz)
+ 	{
+ if (!(m[i][j] == 'B' || m[i][j] == 'R')) continue;
+ if (m[i][j] == 'B' && (res & 0x10)) continue;
+ if (m[i][j] == 'R' && (res & 0x01)) continue;
+ //printf("K:%d\n", K);
+ int match = 0;
+ if (i+K < mz)	// ---
+ {
+ 	int x = 1;
+ 	for (int k = i; k <= i+K; k++)
+ 	{
+ 		if (m[k][j] != m[i][j]) { x = 0; break; }
+ 	}
+ 	if (x) match = 1;
+ //printf("Match |? %d\n", x);
+ }
+ if (j+K < mz)   // ||
+ {
+ 	int x = 1;
+ 	for (int k = j; k <= j+K; k++)
+ 	{
+ 		if (m[i][k] != m[i][j]) { x = 0; 
+ //printf("i j k %d %d %d Failed\n", i, j, k);
+ break; }
+ 	}
+ //printf("x = %d\n", x);
+ 	if (x) match = 1;
+ //printf("Match -? %d\n", x);
+ }
+ if (i+K < mz && j+K < mz)   //
+ {
+ 	int x = 1;
+ 	for (int k = 0; k <= K; k++)
+ 	{
+ 		if (m[i][j] != m[i+k][j+k]) { x = 0; break; }
+ 	}
+ 	if (x) match = 1;
+ //printf("Match \? %d\n", x);
+ }
+ if (i-K >= 0 && j+K < mz)
+ {
+ 	int x = 1;
+ 	for (int k = 0; k <= K; k++)
+ 	{
+ 		if (m[i][j] != m[i-k][j+k]) { x = 0; break; }
+ 	}
+ 	if (x) match = 1;
+ //printf("Match /? %d\n", x);
+ }
+ //		printf("%c", (m[i][j] == 0? '.': m[i][j]));
+ if (match)
+ {
+ 	res |= (m[i][j] == 'B'? 0x10: 0x01);
+ }
+ //printf("res(%d,%d): %d\n", i, j, res);
+ if (res == 0x11) break;
+ 	}
+ //	printf("\n");
+ 	}
+ //printf("res: %d\n", res);
+ return res;
+ } 
+ int main()
+ {
+   int T, t;
+ 
+   scanf ("%d", &T);
+ 
+   for (t = 1; t <= T; t++)
+     {
+       int N, M;
+ 
+       int sum = 0;
+ 
+       reset_nodes();
+ 
+       scanf ("%d %d", &N, &M);
+ 
+       while (N--)
+ 	{
+ 	  scanf ("%s", buf);
+ 
+ 	  create_path(buf);
+ 	}
+ 
+       while (M--)
+ 	{
+ 	  scanf ("%s", buf);
+ 
+ 	  sum += create_path(buf);
+ 	}
+ 
+       printf ("Case #%d: %d\r\n", t, sum);
+     }
+ 
+   return 1;
+ } 
+ int main(int argc, char **argv)
+ {
+ 	int i, T;
+ 
+ 	T = get_T();
+ 	for (i = 1; i <= T; i++)
+ 		solve(i);
+ 
+ 	return 0;
+ } 
+ void solve() {
+     int r, i, j;
+     int start = 0;
+     int capacity = 0;
+     __int64 sum = 0;
+     for (r = 0; r < R; r++) {
+         capacity = 0;
+         i = start;
+         while (capacity <= K) {
+             if (capacity + G[i] <= K) {
+                 capacity += G[i];
+                 i = (i + 1) % N;
+                 if (i == start)
+                     break;
+             }
+             else {
+                 break;
+             }
+         }
+         sum += capacity;
+         start = i;
+         
+         if (0 == start) {
+             int div = R / (r + 1);
+             int mod = R % (r + 1);
+             sum = sum * div;
+             r = (r + 1) * div - 1;
+         }
+         
+     }
+     printf("%I64d\n", sum);
+ } 
+ void gcdMpzArr(mpz_t res, mpz_t a[], int n)
+ {
+  	int i;
+  	
+  	if(n<2)
+  	{
+        mpz_abs(res,a[0]);
+   	   return;
+     }
+     mpz_gcd(res,a[0],a[1]);
+     for(i=2;i<n;i++)
+     {
+        mpz_gcd(res,res,a[i]);
+        if(mpz_cmp_si(res,1) == 0)
+           break;
+ 	}
+ } 
+ int main()
+ {
+ 	int t, c;
+ 	scanf("%d", &t);
+ 	for (c = 1; c <= t; c++)
+ 	{
+ 		int m, n, k;
+ 		scanf("%d %d", &n, &k);
+ 		m = (1<<n) - 1;
+ 		printf("Case #%d: %s\n", c, (k&m) == m?"ON":"OFF");
+ 	}
+ 	return 0;
+ } 
+ int intersect(struct dreapta a, struct dreapta b)
+ {
+ 	if(a.st>b.st && a.dr<b.dr) return 1;
+ 	if(a.st<b.st && a.dr>b.dr) return 1;
+ 	return 0;
+ } 
+ void dinamica()
+ {
+ 	int i,j;
+ 
+ 	//facem dinamica
+ 	for(i=n;i>0;i--)
+ 		for(j=m;j>0;j--)
+ 			if(h[i][j]==-1) dp[i][j]=down[i][j]=right[i][j]=0;
+ 			else
+ 			{
+ 				//down
+ 				if(i==n) down[i][j]=1;
+ 				else if(h[i][j]!=h[i+1][j]) down[i][j]=down[i+1][j]+1;
+ 				else down[i][j]=1;
+ 
+ 				//right
+ 				if(j==m) right[i][j]=1;
+ 				else if(h[i][j]!=h[i][j+1]) right[i][j]=right[i][j+1]+1;
+ 				else right[i][j]=1;
+ 
+ 				//dinamica
+ 				if(i==n || j==m) dp[i][j]=1;
+ 				else if(h[i][j]!=h[i+1][j+1]) dp[i][j]=1;
+ 				else dp[i][j]=min(dp[i+1][j+1]+1,min(down[i][j],right[i][j]));
+ 			}
+ } 
+ int main()
+ {
+ 	freopen(infile,"r",stdin);
+ 	freopen(outfile,"w",stdout);
+ 	int i,t;
+ 
+ 	scanf("%d\n",&t);
+ 	for(i=1;i<=t;i++)
+ 	{
+ 		read();
+ 		init();
+ 		solve();
+ 		write(i);
+ 	}
+ 
+ 	fclose(stdin);
+ 	fclose(stdout);
+ 	return 0;
+ } 
+ void read()
+ {
+ 	int i,j;
+ 	scanf("%d\n",&p);
+ 	n=(1<<p);
+ 	for(i=1;i<=n;i++)
+ 	{
+ 		scanf("%d",&j);
+ 		m[i]=p-j;
+ 	}
+ 	for(i=1;i<=p;i++)
+ 		for(j=1;j<=(1<<(p-i));j++)
+ 			scanf("%d",&co[i][j]);
+ } 
+ int gen(void)
+ {
+ int yes = 0;
+ 	int nnew[102][102];
+ 	memset(nnew, 0, sizeof(nnew));
+ 	for (int j = 1; j <= maxy; j++)
+ 	{
+ 		for (int i = 1; i <= maxx; i++)
+ 		{
+ 			if (!m[i-1][j] && !m[i][j-1])
+ 			{
+ 				nnew[i][j] = 0;
+ 			}
+ 			else if (m[i-1][j] && m[i][j-1])
+ 			{
+ 				nnew[i][j] = 1;
+ 			}
+ 			else
+ 			{
+ 				nnew[i][j] = m[i][j];
+ 			}
+ 			if (nnew[i][j]) yes = 1;
+ //			printf(" %d", m[i][j]);
+ 		}
+ //		printf("\n");
+ 	}
+ 	memcpy(m, nnew, sizeof(nnew));
+ //printmap();
+ //printf("\n");
+ 	return yes;
+ } 
+ int simulate()
+ {
+   int turns = 0, moreWork;
+   int src = 0, dest = 1;
+ 
+ #ifdef DEBUG
+   printf ("%d, %d\n", rows, cols);
+ #endif
+ 
+   do
+     {
+       int x, y;
+ 
+       moreWork = 0;
+ 
+ #ifdef DEBUG
+       for (y = 0; y <= rows; y++)
+ 	{
+ 	  for (x = 0; x <= cols; x++)
+ 	    printf("%d", cells [src][x][y]);
+ 
+ 	  printf ("\n");
+ 	}
+ 
+       printf ("\n");
+ #endif
+ 
+       for (x = 1; x <= cols; x++)
+ 	for (y = 1; y <= rows; y++)
+ 	  if ((cells[dest][x][y] = live(src, x, y)) && !moreWork)
+ 	    moreWork = 1;
+ 
+       src = dest;
+       dest = !src;
+ 
+       turns++;
+     }
+   while (moreWork);
+ 
+   return turns;
+ } 
+ int main()
+ {
+   int C, c;
+ 
+   scanf ("%d", &C);
+ 
+   for (c = 1; c <= C; c++)
+     {
+       int R, r;
+ 
+       scanf ("%d", &R);
+ 
+       for (r = 0; r < R; r++)
+ 	{
+ 	  int x1, y1, x2, y2, x, y;
+ 
+ 	  scanf ("%d %d %d %d", &x1, &y1, &x2, &y2);
+ 
+ 	  for (x = x1; x <= x2; x++)
+ 	    for (y = y1; y <= y2; y++)
+ 	      cells[0][x][y] = 1;
+ 
+ 	  if (x2 > cols)
+ 	    cols = x2;
+ 
+ 	  if (y2 > rows)
+ 	    rows = y2;
+ 	}
+ 
+       printf ("Case #%d: %d\n", c, simulate());
+ 
+       memset(cells, 0, (long)ROWS * (long)COLS * sizeof(int));
+ 
+       rows = cols = 0;
+     }
+ } 
+ 
+ char is_in_combined_list(char c, char tmp, int C) {
+ 	int i;
+ 
+ 	for (i = 0; i < C; i++) {
+ 		if (((c == combined[i][0]) && (tmp == combined[i][1]))
+ 				|| ((c == combined[i][1]) && (tmp == combined[i][0]))) {
+ 			c = combined[i][2];
+ 			return c;
+ 		}
+ 	}
+ 	return c;
+ } 
+ void init()
+ {
+   blue.position = orange.position = 1;
+   blue.time = orange.time = result = 0;
+ } 
+ int main(int argc, char** argv)
+ {
+   int T, i;
+ 
+   scanf ("%d", &T);
+ 
+   init();
+ 
+   for (i = 1; i <= T; i++)
+     {
+       int C, D, N, j;
+ 
+       init_round();
+ 
+       scanf ("%d ", &C);
+ 
+       for (j = 0; j < C; j++)
+ 	{
+ 	  char p, q, r;
+ 
+ 	  scanf("%c%c%c ", &p, &q, &r);
+ 
+ 	  add_combine_rule(p, q, r);
+ 	}
+ 
+       scanf ("%d ", &D);
+ 
+       for (j = 0; j < D; j++)
+ 	{
+ 	  char p, q;
+ 
+ 	  scanf("%c%c ", &p, &q);
+ 
+ 	  add_oppose_rule(p, q);
+ 	}
+ 
+       scanf ("%d ", &N);
+ 
+       for (j = 0; j < N; j++)
+ 	{
+ 	  char c;
+ 
+ 	  scanf("%c", &c);
+ 
+ 	  invoke(c);
+ 	}
+ 
+       print_result(i);
+     }
+ 
+   return 0;
+ } 
+ void processO(int i){
+ 	if (state[i]==DONE){
+ 		dprintf("%d Stay at postion %d\n", i, position[i]);
+ 		return;
+ 	}
+ 
+ 	if (O[i][target[i]]==0){
+ 		dprintf("%d DONE\n", i);
+ 		state[i] = DONE;
+ 	}else{
+ 		if (O[i][target[i]] == position[i]){
+ 			state[i] = PRESS;
+ 		}else{
+ 			if (O[i][target[i]] > position[i]){
+ 				state[i] = MOVE_FORWARD;
+ 			}
+ 			else{
+ 				if (O[i][target[i]] < position[i]){
+ 							state[i] = MOVE_BACKWARD;
+ 				}
+ 				else{
+ 					state[i] = DONE;
+ 					dprintf("%d Stay at postion %d\n", i, position[i]);
+ 				}
+ 			}
+ 		}
+ 	}
+ 
+ 	switch (state[i]){
+ 		case PRESS:
+ 			if ( (turn[turn_index] == i) && (button_press_time < current_time)){
+ 				dprintf("%d Press button %d\n", i, O[i][target[i]]);
+ 				target[i]++;
+ 				turn_index++;
+ 				button_press_time = current_time;
+ 				if (O[i][target[i]] == 0){
+ 					dprintf("%d DONE\n", i);
+ 					state[i] = DONE;
+ 				}
+ 			}else{
+ 				dprintf("%d Stay at postion %d\n", i, position[i]);
+ 			}
+ 		break;
+ 
+ 		case MOVE_FORWARD:
+ 			position[i]++;
+ 			dprintf("%d Move to %d\n", i, position[i]);
+ 		break;
+ 
+ 		case MOVE_BACKWARD:
+ 					position[i]--;
+ 					dprintf("%d Move to %d\n", i, position[i]);
+ 		break;
+ 	}
+ 
+ } 
+ int main(int argc, char *argv[])
+ {
+ 	int numcombines;
+ 	Combine *combines;
+ 	int numclears;
+ 	Clear *clears;
+ 	char clearlist[65536], *clearlist_p;
+ 	char outlist[65536], lastchar;
+ 	char buf[65536], *pch, *p1, *p2;
+ 	char tempbuf[2], clearchar;
+ 	int i, j, k, l, T, C, D, N, outlistlen;
+ 
+ 	gets(buf);
+ 	sscanf(buf, "%d", &T);
+ 	for(i=0; i<T; i++)
+ 	{
+ 		gets(buf);
+ 		pch = strtok (buf," ");
+ 
+ 		numcombines=0;
+ 		combines=NULL;
+ 		C = atoi(pch);
+ 		for(j=0; j<C; j++)
+ 		{
+ 			pch = strtok (NULL," ");
+ 			numcombines++;
+ 			combines = realloc(combines,numcombines*sizeof(Combine));
+ 			memcpy(combines[numcombines-1].string,pch,3);
+ 			combines[numcombines-1].string[3] = '\0';
+ 
+ 			memcpy(combines[numcombines-1].sources,pch,2);
+ 			combines[numcombines-1].sources[2] = '\0';
+ 		}
+ 
+ 		numclears=0;
+ 		clears=NULL;
+ 		pch = strtok (NULL," ");
+ 		D = atoi(pch);
+ 		for(j=0; j<D; j++)
+ 		{
+ 			pch = strtok (NULL," ");
+ 			numclears++;
+ 			clears = realloc(clears,numclears*sizeof(Clear));
+ 			memcpy(clears[numclears-1].string,pch,2);
+ 			clears[numclears-1].string[2] = '\0';
+ 		}
+ 
+ 		pch = strtok (NULL," ");
+ 		N = atoi(pch);
+ 		pch = strtok (NULL," ");
+ 
+ 		clearlist[0]='\0';
+ 		tempbuf[1]='\0';
+ 		outlist[0]='\0';
+ 		lastchar = '\0';
+ 		outlistlen=0;
+ 		for(j=0; j<N; j++)
+ 		{
+ retry:
+ 			if(lastchar != '\0')
+ 			{
+ 				for(k=0; k<numcombines; k++)
+ 				{
+ 					p1 = strchr(combines[k].sources, pch[j]);
+ 					p2 = strrchr(combines[k].sources, lastchar);
+ 					if(p1 != NULL && p2 != NULL && (p1 != p2))
+ 					{
+ 						pch[j] = combines[k].string[2];
+ 						(strchr(outlist,'\0')-1)[0] = '\0';
+ 						lastchar = (strchr(outlist,'\0')-1)[0];
+ 						goto retry;
+ 					}
+ 				}
+ 			}
+ 
+ 			outlistlen = strlen(outlist);
+ 			clearlist[0]='\0';
+ 			for(l=0; l<outlistlen; l++)
+ 			{
+ 				for(k=0; k<numclears; k++)
+ 				{
+ 					clearlist_p = strchr(clears[k].string, outlist[l]);
+ 					if(clearlist_p != NULL)
+ 					{
+ 						if(clearlist_p[1] == '\0')
+ 							clearchar = *(clearlist_p-1);
+ 						else
+ 							clearchar = clearlist_p[1];
+ 
+ 						if(strchr(clearlist, clearchar) == NULL)
+ 						{
+ 							tempbuf[0] = clearchar;
+ 							strcat(clearlist,tempbuf);
+ 						}
+ 					}
+ 				}
+ 			}
+ 			
+ 			if(strchr(clearlist, pch[j]) != NULL)
+ 			{
+ 				outlist[0]='\0';
+ 				clearlist[0]='\0';
+ 				lastchar='\0';
+ 			}
+ 			else
+ 			{
+ 				lastchar = pch[j];
+ 				tempbuf[0] = pch[j];
+ 				strcat(outlist,tempbuf);
+ 			}
+ 		}
+ 
+ 		pch = outlist;
+ 		printf("Case #%d: [",i+1);
+ 		if(*pch != '\0')
+ 			printf("%c",*pch);
+ 		while(*pch != '\0')
+ 		{
+ 			pch++;
+ 			if(*pch != '\0')
+ 				printf(", %c",*pch);
+ 		}
+ 		printf("]\n");
+ 	}
+ 
+ 	return 0;
+ }    
+ 
+ 
+ void sort(int *a1,int num)
+ {
+ 	int  temp, i, j;
+ 	for(i=1; i < num; i++)
+ 	{
+ 		temp = a1[i];
+ 		j = i-1;
+ 		while(temp<a1[j] && j>=0)
+ 		{
+ 			a1[j+1] = a1[j];
+ 			j = j-1;
+ 		}
+ 		a1[j+1] = temp;
+ 	}
+ } 
+ int main() {
+ 	int N,cs=0;
+ 	for(scanf("%d",&N);N--;) {
+ 		scanf("%d %d %d %d",&w,&L,&U,&g);
+ 		for(int i=0;i<L;i++) scanf("%d %d",&x1[i],&a[i]);
+ 		for(int i=0;i<U;i++) scanf("%d %d",&x2[i],&b[i]);
+ 		double A=area(w);
+ //		printf("%lf %lf %lf\n",A,area(5),area(10));
+ 		printf("Case #%d:\n",++cs);
+ 		for(int i=1;i<g;i++) {
+ 			double s=A/g*i,l=0,r=w;
+ 			for(int i=0;r-l>1e-12 && i<100;i++) {
+ 				if (area((l+r)/2)>s) r=(l+r)/2; else l=(l+r)/2;
+ 			}
+ 			printf("%.20lf\n",(l+r)/2);
+ 		}
+ 	}
+ 	return 0;
+ } 
+ int main()
+ {
+   int T;
+   scanf("%d", &T);
+   for (int t=1; t<=T; t++)
+   {
+     scanf("%s", &num);
+     bag(0, 0);
+     printf("Case #%d: %s\n", t, num);
+   }
+   return 0;
+ } int main(){
+     int i,j,t,Case;
+     double x,s,r;
+     int n;
+     double rT;
+     double time,temp;
+     scanf(" %d",&Case);
+     for(t=1;t<=Case;++t){
+         scanf(" %lf %lf %lf %lf %d",&x,&s,&r,&rT,&n);
+         for(i=0;i<n;++i){
+             scanf(" %lf %lf %lf",&walk[i].b,&walk[i].e,&walk[i].w);
+             walk[i].len = walk[i].e - walk[i].b;
+             x -= (walk[i].e - walk[i].b);
+         }
+         qsort(walk,n,sizeof(struct Walk),cmp);
+         time = 0;
+         if(x >= rT*r){
+             time += rT;
+             x -= rT*r;
+             time += (x)/(s);
+             rT = 0;
+         }else {
+             time += (x)/(r);
+             rT -= (x)/(r);
+         }
+         for(i=0;i<n;++i){
+             if(rT > 0.0){
+                 if(walk[i].len >= (walk[i].w+r)*rT ){
+                     time += rT;
+                     walk[i].len -= (walk[i].w+r)*rT;
+                     time += walk[i].len/(walk[i].w+s);
+                     rT = 0;
+                 }else {
+                     time += walk[i].len/(walk[i].w+r);
+                     rT -= walk[i].len/(walk[i].w+r);
+                 }
+             }else {
+                 time += (double)(walk[i].len)/(double)(walk[i].w+s);
+             }
+         }
+         printf("Case #%d: %lf\n",t,time);
+ 
+     }
+ 
+ 
+     return 0;
+ } 
+ int getlinesum_c(int i, int j, int j2)
+ {
+ 	if (j > 0)
+ 		return sum_c[i][j2] - sum_c[i][j-1];
+ 	else
+ 		return sum_c[i][j2];
+ } 
+ int main()
+ {
+   int T;
+   scanf("%d", &T);
+   for (int t=1; t<=T; t++)
+   {
+     int n;
+     scanf("%d", &n);
+     int attacks = 0;
+     for (int i=0; i<n; i++)
+     {
+       int ni, di, wi, si, ei, ddi, dpi, dsi;
+       scanf("%d %d %d %d %d %d %d %d", &di, &ni, &wi, &ei, &si, &ddi, &dpi, &dsi);
+       for (int j=0; j<ni; j++)
+       {
+         attack[attacks].time = di;
+         attack[attacks].west = wi + 10000;
+         attack[attacks].east = ei + 10000;
+         attack[attacks].strength = si;
+         attacks++;
+         di += ddi;
+         wi += dpi;
+         ei += dpi;
+         si += dsi;
+       }
+     }
+     qsort(attack, attacks, sizeof(ATTACK), cmp);
+ 
+     memset(a, 0, sizeof(a));
+     int res = 0;
+     int i = 0;
+     while(i < attacks)
+     {
+       int curtime = attack[i].time;
+       for (int j=i; j<attacks && attack[j].time == curtime; j++)
+         res += check(attack[j].west, attack[j].east, attack[j].strength);
+       for (int j=i; j<attacks && attack[j].time == curtime; j++, i++)
+         update(attack[j].west, attack[j].east, attack[j].strength);
+     }
+     
+     printf("Case #%d: %d\n", t, res);
+   }
+   return 0;
+ } 
+ void add (struct vertex *v, char *s) {
+   if (!*s) { 
+     v->flags |= 1;
+     return; 
+   }
+   int i = (*s) - 'a';
+   if (v->child[i] == -1) {
+     v->child[i] = alloc_vertex ();
+   }
+   add (ver[v->child[i]], s + 1);
+ } 
+ void solve (void) {
+   scanf ("%d", &n);
+   assert (n <= 100);
+   int i, j, k;
+   for (i = 0; i < n; i++) {
+     scanf ("%d", &a[i]);
+   }
+   int ok = 0;
+   for (i = 1; i < n; i++) {
+     if (a[i] > a[i - 1]) {
+       ok = 1;
+       break;
+     }
+   }
+   if (!ok) {
+     printf (" 1\n");
+     return;
+   }
+   memset (r, 0, sizeof (r));
+   int res = 0;
+   int fac = 1;
+   for (i = 0; i < n; i++) {
+     r[i][1][0] = 1;
+     for (j = 0; j < i; j++) {
+       if (a[i] > a[j]) {
+         r[i][1][1] ++;
+       }
+     }
+     int count = 0;
+     for (j = i - 1; j >= 0; j--) {
+       if (a[i] > a[j]) {
+         for (k = 0; k < n; k++) {
+           r[j][k][1] += r[j][k][0];
+           if (r[j][k][1] >= MOD) {
+             r[j][k][1] -= MOD;
+           }
+         }
+         count ++;
+       } else {
+         for (k = 2; k < n; k++) {
+           r[i][k][0] += r[j][k - 1][0];
+           if (r[i][k][0] >= MOD) {
+             r[i][k][0] -= MOD;
+           }
+           r[i][k][1] = (r[i][k][1] + r[j][k - 1][1] + count * r[j][k - 1][0]) % MOD;
+         }
+       }
+     }
+   }
+   fac = 1;
+   for (i = n - 1; i >= 1; i--) {
+     for (j = 0; j < n; j++) {
+       res = (res + r[j][i][1] * fac) % MOD;
+     }
+     fac = (fac * (n - i)) % MOD;
+   }
+   printf (" %d\n", res);
+   /*for (i = 0; i < n; i++) {
+     for (j = 1; j < n; j++) {
+       printf ("%d:%d ", r[i][j][0], r[i][j][1]);
+     }
+     printf ("\n");
+   }*/
+     
+ } 
+ int main ()
+ {
+     getData ();
+ } 
+ int main ()
+ {
+     getData();
+ } 
+ 
+ int palindromCheck (unsigned int x)
+ {
+     int val = FALSE;
+     unsigned int y = 0;
+     unsigned int tmp;
+     unsigned int i,j;
+     tmp = x;
+ 
+     while (tmp > 0)
+     {
+         y = y + tmp%10;
+         y=10*y;
+         tmp = tmp/10;
+     }
+     y = y/10;
+ 
+     if (y == x)
+       val = TRUE;
+     return val;
+ } 
+ int isPalLL(long long n)
+ {
+ 	int i,j;
+ 
+ 	i=0;
+ 	while(n)
+ 	{
+ 		buffer[i++]=n%10;
+ 		n/=10;
+ 	}
+ 	i--;
+ 	for(j=0;j<i;j++,i--)
+ 		if(buffer[j]!=buffer[i])
+ 			return 0;
+ 	return 1;
+ } 
+ int remove_lowest(int a[][100], int N, int M, int row, int column, int *remove_count){
+     int i, cannot_remove=0;
+     
+     /* Check if can be removed rowwise */
+     for (i=0; i<M; i++){
+         if ( (a[row][i] != -1) && (a[row][i] != a[row][column]) ){
+             cannot_remove = 1;
+             break;
+         }
+     }
+     
+     if (!(cannot_remove)){
+         /* Remove row */
+         for (i=0; i<M; i++){
+             if (a[row][i] !=-1){
+                 a[row][i] = -1;
+                 (*remove_count)++;
+             }
+         }
+         return 1;
+     }
+     
+     cannot_remove=0;
+     /* Check if can be removed columnwise */
+     for (i=0; i<N; i++){
+         if ( (a[i][column] != -1) && (a[i][column] != a[row][column]) ){
+             cannot_remove = 1;
+             break;
+         }
+     }
+     
+     if (!(cannot_remove)){
+         /*Remove Column*/
+         for(i=0; i<N; i++){
+             if (a[i][column] != -1){
+                 a[i][column] = -1;
+                 (*remove_count)++;
+             }
+         }
+         return 1;
+     }
+     
+     return 0;
+ } 
+ int main(int argc, char **argv) {
+     int i,t;
+     scanf("%d",&t);
+     for (i=1;i<=t;i++) {
+         printf("Case #%d: ",i);
+         tic();
+     }
+     return 0;
+ } 
+ 
+ int gen_cmp(char *s) {
+     int len;
+     len=strlen(s);
+     if (len==1) return gencmp1(s);
+     else if (len==2) return gencmp2(s);
+     else if (len==3) return gencmp3(s);
+     else if (len & 1) return gencmpodd(s,len);
+     else return gencmpeven(s,len);
+ } int swapdig(int s,int i)
+ {
+   int d = dig(s); 
+   int j = d - i;
+   int back = s/paw(j); 
+   int front = (s%paw(j))*paw(i);
+   //printf("swap: s:%d d:%d i:%d j:%d back:%d front:%d result:%d\n",s,d,i,j,back,front,back+front);
+   return back+front;
+ } int findarr(int s,int s2)
+ {
+   int i=0;
+   for(i=0;i<carr;i++)
+      if(arr[i][0] == s && arr[i][1] == s2)
+      {
+         //printf("%d %d !!!!!!!!!!!!!!!!!\n",s,s2);
+         return 1;
+      }
+ 
+   return 0;
+ } int printarr() {
+     int i , j;
+    for(i=0;i<4;i++)
+    {
+    for(j=0;j<4;j++){
+     printf("%d ",arr[i][j]);
+    }
+     printf("\n");
+    }
+     printf("\n");
+ } int main() {
+   int caseno=1,cases,i,j,n,m,v,tid,pos,opos,bpos;
+   int omove,bmove,pushed;
+   int s,e;
+   int raw = 4,col =4;
+   char ch;
+   int c = 0;
+   int a,b;
+   int k;
+   double sq;
+   int sum=0;
+   int r;
+   int x,y;
+   int run = 0;
+   char line[65534];
+   scanf("%d\n",&cases);
+   i = 0;
+   c = 0;
+   while(cases--) {
+      c++;
+ printf("Case #%d: ",c);
+     scanf("%d %d\n",&k,&n);
+     //printf("k:%d n:%d\n",k,n);
+     clearkey();
+     for (i=0;i<k;i++)
+        scanf("%d",&key[i]);
+        scanf("\n");
+ /*
+     for (i=0;i<k;i++)
+        printf("%d ",key[i]);
+        printf("\n");
+ */
+     sum = 0; 
+     for (i=0;i<n;i++) {
+        scanf("%d",&roomkey[i]);
+        //num of keys
+        scanf("%d",&roomnu[i]);
+        sum += roomnu[i];
+        for (j=0;j<roomnu[i];j++) {
+          scanf("%d",&roomnukeys[i][j]);
+        }
+        scanf("\n");
+     }
+ /*
+     for (i=0;i<n;i++) {
+       printf("num %d key:%d numcontain:%d",i,roomkey[i],roomnu[i]);
+     for (j=0;j<roomnu[i];j++) {
+       printf(" %d",roomnukeys[i][j]);
+     }
+        printf("\n");
+     }
+ */
+     sprintf(line,"");
+    // if (k + sum < n )
+    //   printf("IMPOSSIBLE");
+    // else {
+      if (1) {
+        run = n; 
+        while(run --) {
+ 
+             r = 0;
+        for (i=0;i<n;i++) {
+          if (roomkey[i] == 0) {
+             continue;
+          }
+          else if (run != 0 && k == 1 && roomnu[i] == 0)
+          {
+             continue;
+          }
+          else {
+             r = 0;
+             j = k;
+             s = 0;
+             while(j > 0 ) {
+               if (key[s]!= 0) {
+                  j--;
+                  if (roomkey[i] == key[s]) {
+                      if (onlykey(key[s],k) && keyinroom(key[s],i)!=1 && keyneedforother(key[s],i,n))
+                      {
+ //printf("cannot :%d\n",i);
+                           break;
+                      }
+                      r = 1;
+                      break;
+                  }
+                  else
+                     s++;
+ 
+               }
+               else
+                 s++;
+             }
+            if (r == 1)
+            {
+              //printf("-->%d ",i+1);
+              sprintf(line + strlen(line),"%d ", i+1 );
+              //open room;
+              roomkey[i] = 0;
+              k--;
+              key[s] = 0;
+              //add keys
+ //printf("add %d keys\n",roomnu[i]);
+              for (x = 0 ; x < roomnu[i] ;x++)
+              {
+                 y = 0 ;
+                 while(key[y] != 0) {
+                   y++;
+                 }
+                 key[y] = roomnukeys[i][x];
+ //printf("add[%d] %d,",y,key[y]);
+              }
+              k+= roomnu[i];
+ /*
+ printf("(keys:%d)\n",k);
+              for (x = 0 ; x < 40 ; x++) {
+                    if(key[x] != 0)
+                     printf("[%d],",key[x]);
+              }
+ */
+              /* 
+               for (x=0,y=0;y<k;){
+                  if (key[x] == 0)
+                  {
+                     x++;
+                  }
+                  else {
+                     printf("[%d],",key[x]);
+                     y++;
+                     x++;
+                  }
+               }
+              */
+              break;
+            }
+ 
+          }
+        }
+ 
+        }
+        if (r == 0 && i == n)
+       printf("IMPOSSIBLE");
+        else
+       printf("%s",line);
+     }
+        printf("\n");
+ 
+   }
+   return 0;
+ }
+ int keyneedforother(int k, int r, int n) {
+  int i ;
+  for(i = 0 ; i <  n ; i ++ ) {
+      if (i != r && roomkey[i] != 0 && roomkey[i] == k)
+          return 1;
+  }
+  return 0;
+ }
+ int keyinroom(int k,int r) {
+  int i;
+  for (i = 0 ; i < roomnu[r] ; i++ ) {
+       if (roomnukeys[r][i] == k)
+           return 1;
+  }
+  return 0;
+ }
+ int onlykey(int k, int num) {
+   int i = num;
+   int s = 0;
+   int sum = 0;
+   while(i > 0 ) {
+      if (key[s] == 0) {
+      
+      }
+      else {
+        if (key[s] == k)
+         sum++;
+        i --;
+      }
+      s++;
+   }
+   if (sum >= 2)
+      return 0;
+   return 1;
+ }
+ int checkrooms(int n) {
+   int i;
+   for(i = 0 ; i < n ; i++) {
+      findkeyo(i,roomkey[i]);
+   }
+ }
+ int findkeyo(int r, int key){
+   int i,j;
+ }
+ 
+ int rectext(int num) {
+   int dig = 0;
+   int n = num;
+   int m;
+   int digarr[110];
+   int i = 0;
+    digarr[0] = n%10;
+    dig = 1; 
+   while(n/10 > 0 ) {
+     digarr[++i] = (n/10)%10; 
+     n = n/10;
+     dig ++;
+   }
+     m = dig/2;
+   for (i = 0 ; i < m ;i ++ ) {
+     if (digarr[i] != digarr[dig - i - 1])
+         return 0;
+   }
+ /*
+   for (i = 0 ; i < dig; i ++ ) {
+    printf("%d",digarr[dig - i - 1]);
+   }
+   printf(" is %d dig",dig);
+ */
+   return 1;
+ }
+ int sol(int n,int m) {
+ 
+    clearre(n,m);
+    int i,j,st = 0;
+    for(i=0;i<n;i++)
+    {
+    st = 0;
+    for(j=0;j<m;j++)
+    {
+        if (f[i][j] == 1)
+          if (checkrec(n,m,i,j,f[i][j]) == 0 )
+               return 0;
+    }
+    } 
+              printf("YES");
+ }
+ int clearkey(){
+   int i ;
+   for (i =0 ; i < 400 ; i ++ ) {
+      key[i] = 0;
+   }
+ }
+ int clearre(int n,int m){
+    int i,j;
+    for(i = 0 ; i < n ; i++)
+    for(j = 0 ; j < m ; j++)
+         re[i][j] = 0;
+ }
+ int checkrec(int n, int m,int i, int j, int v) {
+ 
+    int x,y;
+    int col = 1,raw = 1;
+    for (x = 0;x < n; x ++)
+       if (f[x][j] != v)
+         col = 0;
+    for (y = 0;y < m; y ++)
+       if (f[i][y] != v)
+         raw = 0;
+        
+   if (raw == 0 && col == 0)
+   {
+ 
+              printf("NO");
+     return 0;
+    }
+    return 1;
+ }
+ int ckraw(int n,int m,int i, int j,int st,int v){
+   int y;
+   for(y = 0 ; y < m ; y++){
+     if (f[i][y] != v) {
+ //      if (ckcol(n,m,i,y,v ,f[i][y]) != 1 ) {
+          return 0;
+ //      }
+     }
+   }
+  return 1;
+ }
+ int ckcol(int n,int m,int i, int j,int st,int v){
+   int x;
+ //printf(" check:%d for %d ",j , st);
+   for(x = 0 ; x < n ; x++){
+     if (f[x][j] != v) {
+       if (ckraw(n,m,x,j,v ,f[x][j]) != 1 ) {
+          return 0;
+       }
+     }
+   }
+  return 1;
+ }
+ int printarr(int n, int m) {
+     int i , j;
+    for(i=0;i<n;i++)
+    {
+    for(j=0;j<m;j++){
+     printf("%d ",f[i][j]);
+    }
+     printf("\n");
+    }
+     printf("\n");
+ }
+ 
+ 
+ void solve (void) {
+   int n;
+   long long b;
+   static long long x[37];
+   scanf ("%lld%d", &b, &n);
+   int s = 37 - n;
+   int i, j;
+   for (i = 0; i < n; i++) {
+     scanf ("%lld", &x[i]);
+   }
+   for (i = 0; i < n; i++)
+     for (j = i + 1; j < n; j++)
+       if (x[i] > x[j]) {
+         int t = x[i]; x[i] = x[j]; x[j] = t;
+       }
+   for (i = n - 1; i >= 0; i--) {
+     x[i + s] = x[i];
+   }
+   for (i = 0; i < s; i++)
+     x[i] = 0;
+   double best = 0;
+   for (i = 1; i <= 36; i++) {
+     long long l = x[i - 1] - 1;
+     long long r = x[36];
+     long long be = -1;
+     long long bf = -1;
+     while (r - l > 1) {
+       long long t = (r + l) >> 1;
+       long long e = 0;
+       long long f = 0;
+       for (j = 0; j < i; j++) {
+         assert (x[j] <= t);
+         e += t - x[j];
+       }
+       for (j = i; j <= 36; j ++) if (x[j] <= t + 1) {
+         f += t + 1 - x[j];
+       }
+       if (e + f <= b) {
+         l = t;
+         be = e;
+         bf = f;
+       } else {
+         r = t;
+       }
+     }
+     if (l >= x[i - 1]) {
+       double b = (be * 36) * 1.0 / i - bf - be;
+       if (b > best) {
+         best = b;
+       }
+     }
+   }
+   printf ("%lf\n", best);
+ } 
+ void print_cake()
+ {
+ 	int i, j;
+ 	for (i = 0;i < R;i++)
+ 	{
+ 		for (j = 0;j < C;j++)
+ 			printf("%c", cake[i][j]);
+ 		printf("\n");
+ 	}
+ } 
+ int main(int argc, char *argv[])
+ {
+ 	uint32_t T;
+ 	uint64_t N, K;
+ 	uint64_t i;
+ 
+ 	scanf("%u\n", &T);
+ 
+ 	for (i = 0; i < T; i++) {
+ 		printf("Case #%d: ", i+1);
+ 		scanf("%u %u\n", &N, &K);
+ #if DEBUG
+ 		printf("n:%u k:%u\n", N, K);
+ #endif
+ 		memset(S, 0, MAX_N);
+ 		idx = 0;
+ 
+ 		solve(N, K);
+ 	}
+ 
+ 	return 0;
+ } 
+ int main(int argc, char *argv[])
+ {
+ 	uint32_t T;
+ 	uint32_t N, K;
+ 	uint32_t i;
+ 	uint32_t index;
+ 	struct stall s;
+ 
+ 	scanf("%u\n", &T);
+ 
+ 	for (i = 0; i < T; i++) {
+ 		printf("Case #%d: ", i+1);
+ 		scanf("%u %u\n", &N, &K);
+ #if DEBUG
+ 		printf("n:%u k:%u\n", N, K);
+ #endif
+ 
+ 		memset(S, 0, MAX_N);
+ 		S[0].occupied = 1;
+ 		S[N + 1].occupied = 1;
+ 		index = solve(N, K);
+ 		s = S[index];
+ 
+ 		printf("%u %u\n", MAX(s.L, s.R), MIN(s.L, s.R));
+ 	}
+ 
+ 	return 0;
+ } 
+ void flip(int pos) {
+     int i;
+     for (i=0; i<K; i++) {
+         if (S[pos + i] == '-') {
+             S[pos + i] = '+'; 
+         }
+         else {
+             S[pos + i] = '-';
+         }
+     }
+ } 
+ int process() {
+ 
+     int N, K, W;
+     priority_queue<int> pq1;
+ 
+     scanf("%d ", &N);
+     scanf("%d\n", &K);
+ 
+     pq1.push(N);
+     while (K) {
+         W = pq1.top();
+         pq1.pop();
+         if (W%2) {
+             pq1.push(W/2);
+             pq1.push(W/2);
+         } else {
+             pq1.push(W/2);
+             pq1.push(W/2 - 1);
+         }
+         K--;
+     }
+     if (W%2) {
+         printf("%d ", W/2);
+         printf("%d\n", W/2);
+     } else {
+         printf("%d ", W/2);
+         printf("%d\n", W/2 - 1);
+     }
+ } 
+ int get_random_row()
+ {
+ 	int u = (int)(((double)rand()) / (RAND_MAX + 1) * N);
+ 	return u;
+ } 
+ 
+ void solve_problem()
+ {
+ 	t = 0;
+ 	
+ 	while (K[N-1]< D - 0.000001)
+ 		next_t();
+ 
+ //	printf("%f\t%f\n", t, D / t);
+ 	free(K);
+ 	free(S);
+ 
+ }

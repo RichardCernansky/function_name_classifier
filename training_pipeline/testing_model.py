@@ -166,6 +166,8 @@ num_nodes_bins_20, num_nodes_bin_labels_20, num_nodes_correct_20, num_nodes_tota
 
 
 lengths_tokens = []
+source_codes = []
+num_tokens_arr = []
 # process the test data and gather predictions and bin information
 with open(test_file, 'r') as f:
     data = ndjson.load(f)
@@ -175,7 +177,10 @@ with open(test_file, 'r') as f:
             ast_depth = line.get("ast_depth")
             num_nodes = line.get("num_nodes")
             source_code = line.get("source_code")
-            lengths_tokens.append(compute_halstead(source_code))
+            source_codes.append(source_code)
+            lengths_tokens.append(num_tokens)
+            # lengths_tokens.append(compute_halstead(source_code)) #for halstead complexity
+            num_tokens_arr.append(num_tokens)
             
             
             if any(value is None for value in [num_tokens, ast_depth, num_nodes]):
@@ -320,12 +325,22 @@ lengths_misclassified = []
 for i in range(len(predicted_labels)):
     if predicted_labels[i] != true_labels[i]: lengths_misclassified.append(lengths_tokens[i])
 
+sungyz_container = 0
+sungyz_counter = 0
+with open("data_ndjson/sungyz_predicted_wrong.txt", 'w') as f:
+    for i in range(len(predicted_labels)):
+        if reverse_tags_vocab[true_labels[i]] != "sungyz" and reverse_tags_vocab[predicted_labels[i]] == "sungyz":
+            f.write(source_codes[i])
+            sungyz_counter = sungyz_counter + num_tokens_arr[i]
+            sungyz_container = sungyz_container + 1
+print("Average sungyz token length: ", sungyz_counter/sungyz_container)   
 
-# ml_json_filename = "../misclass_halstead.json"
-# with open(ml_json_filename) as f:
-#     file_dict = json.load(f)
 
-# file_dict["att-nn"] += lengths_misclassified
+ml_json_filename = "../misclass_lens.json"
+with open(ml_json_filename) as f:
+    file_dict = json.load(f)
 
-# with open(ml_json_filename, "w") as f:
-#     json.dump(file_dict, f)
+file_dict["att-nn"] += lengths_misclassified
+
+with open(ml_json_filename, "w") as f:
+    json.dump(file_dict, f)

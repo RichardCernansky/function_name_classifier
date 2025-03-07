@@ -92,7 +92,6 @@ else:
             subprocess.run(["python", "AttentionNNClassifier.py", str(fold_index+1)], check=True)
             # Test the model on the current fold's test file
             subprocess.run(["python", "testing_model.py", str(fold_index+1)], check=True)
-            break
 
             print(f"Completed processing for Fold {fold_index}")
 
