@@ -9,7 +9,7 @@ import random
 import sys
 import pandas as pd
 import json
-from radon.metrics import halstead
+import os
 
 import tensorflow as tf
 from tensorflow import keras
@@ -25,6 +25,9 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
 
 from NodeToNodePaths import json_to_tree, find_leaf_to_leaf_paths_iterative
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from code_metrics import compute_halstead
 
 if len(sys.argv) < 2:
     print("Usage: python AttentionCNNclassifier.py <fold_idx>")
@@ -169,9 +172,12 @@ with open(test_file, 'r') as f:
     for line in data:
         try:
             num_tokens = line.get("num_tokens")
-            lengths_tokens.append(num_tokens)
             ast_depth = line.get("ast_depth")
             num_nodes = line.get("num_nodes")
+            source_code = line.get("source_code")
+            lengths_tokens.append(compute_halstead(source_code))
+            
+            
             if any(value is None for value in [num_tokens, ast_depth, num_nodes]):
                 continue  # skip if any of them is missing
 
@@ -315,11 +321,11 @@ for i in range(len(predicted_labels)):
     if predicted_labels[i] != true_labels[i]: lengths_misclassified.append(lengths_tokens[i])
 
 
-ml_json_filename = "../misclass_halstead.json"
-with open(ml_json_filename) as f:
-    file_dict = json.load(f)
+# ml_json_filename = "../misclass_halstead.json"
+# with open(ml_json_filename) as f:
+#     file_dict = json.load(f)
 
-file_dict["att-nn"] += lengths_misclassified
+# file_dict["att-nn"] += lengths_misclassified
 
-with open(ml_json_filename, "w") as f:
-    json.dump(file_dict, f)
+# with open(ml_json_filename, "w") as f:
+#     json.dump(file_dict, f)

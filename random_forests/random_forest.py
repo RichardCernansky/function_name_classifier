@@ -8,7 +8,7 @@ import pickle
 import random
 import time
 import seaborn as sns
-from radon.metrics import halstead
+
 from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -24,6 +24,7 @@ from sklearn.metrics import classification_report, accuracy_score, precision_sco
 
 sys.path.append(os.path.abspath("/home/jovyan/function_name_classifier"))  # Add this modules path to sys
 
+from code_metrics import compute_halstead
 
 if len(sys.argv) < 2:
     print("Usage: python random_forest.py <fold_idx>")
@@ -141,7 +142,7 @@ for idx in misclassified_indices:
     # print(f"\nSample {idx}:")
     # print(f"True Label: {true_label} | Predicted Label: {predicted_label}")
     # print(f"Text: {test_texts[idx]}")
-    misclassified_lengths.append(halstead(test_texts[idx]))
+    misclassified_lengths.append(compute_halstead(test_texts[idx]))
 
 ml_json_filename = "../misclass_halstead.json"
 with open(ml_json_filename) as f:

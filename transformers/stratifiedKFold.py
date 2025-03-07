@@ -84,7 +84,9 @@ else:
                 outfile.write('\n')
 
         print(f"Fold {fold_index} saved as NDJSON files.")
+    
         try:
+            
             subprocess.run(["python", "../training_pipeline/train_valid_strat.py"], check=True)
             subprocess.run(["python", "../training_pipeline/generate_vocabs.py", str(fold_index+1)], check=True)
             subprocess.run(["python", "source_code_bert.py", str(fold_index+1)], check=True)

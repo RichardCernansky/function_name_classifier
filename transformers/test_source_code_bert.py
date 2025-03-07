@@ -7,7 +7,6 @@ import pickle
 import random
 import time
 import re
-from radon.metrics import halstead
 from collections import Counter
 import matplotlib.pyplot as plt
 import torch
@@ -20,6 +19,8 @@ from transformers import RobertaForSequenceClassification, Trainer, TrainingArgu
 from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
 sys.path.append(os.path.abspath("/home/jovyan/function_name_classifier"))  # Add this modules path to sys
+from code_metrics import compute_halstead
+
 
 from training_pipeline.extract_functions import Node
 from training_pipeline.NodeToNodePaths import json_to_tree, pre_order_traversal
@@ -47,10 +48,11 @@ def get_data(tags_vocab: dict, data_file):
         np.random.shuffle(data)
 
         bert_data = []
-        lenghts_tokens = []
+        lengths_tokens = []
         for func_json in data:
             tag = func_json.get("tag")
-            lenght_tokens = len(func_json.get("source_code").split())
+            # length_tokens = len(func_json.get("source_code").split())
+            length_tokens = compute_halstead(func_json.get("source_code"))
            
         
             tokens_joined = preprocess_code(func_json.get("source_code"))
@@ -58,9 +60,9 @@ def get_data(tags_vocab: dict, data_file):
 
             data_dict = {"source_code": tokens_joined, "author": author_id}
             bert_data.append(data_dict)
-            lenghts_tokens.append(lenght_tokens)
+            lengths_tokens.append(length_tokens)
 
-        return bert_data, lenghts_tokens
+        return bert_data, lengths_tokens
 
 
 #-----TEST------
