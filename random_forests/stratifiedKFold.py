@@ -49,7 +49,7 @@ else:
     X = df_name_ast[['AST', 'NumTokens', 'ASTDepth', 'NumNodes', 'SourceCode']].values  # Features (AST as strings and num_tokens)
     y = df_name_ast['FunctionName'].values  # Labels for stratification
 
-    strat_kfold = StratifiedKFold(n_splits=NUM_FOLDS, shuffle=True, random_state=40)
+    strat_kfold = StratifiedKFold(n_splits=NUM_FOLDS, shuffle=True)
 
     for fold_index, (train_valid_index, test_index) in enumerate(strat_kfold.split(X, y)):
         X_train_valid, X_test = X[train_valid_index], X[test_index]
@@ -90,12 +90,11 @@ else:
             subprocess.run(["python", "random_forest.py", str(fold_index+1)], check=True)
 
             print(f"Completed processing for Fold {fold_index}")
+            break
 
         except subprocess.CalledProcessError as e:
             print(f"Error occurred during processing of Fold {fold_index}: {e}")
 
-    #aggregation script - compute average across reports and create the plots
-    subprocess.run(["python", "aggregated_avg.py"], check=True)
 
 
 

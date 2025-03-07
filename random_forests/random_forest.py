@@ -1,12 +1,14 @@
 import os
 import sys
 import ndjson
+import json
 import re
 import numpy as np
 import pickle
 import random
 import time
 import seaborn as sns
+from radon.metrics import halstead
 from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -18,8 +20,6 @@ from sklearn.model_selection import RandomizedSearchCV
 from datasets import Dataset
 import time
 import evaluate
-from transformers import RobertaTokenizer
-from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, EarlyStoppingCallback
 from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
 sys.path.append(os.path.abspath("/home/jovyan/function_name_classifier"))  # Add this modules path to sys
@@ -88,6 +88,7 @@ param_grid = {
 
 rf_model = RandomForestClassifier(random_state=42)
 
+print("Training ...")
 random_search = RandomizedSearchCV(
     rf_model, param_grid, n_iter=20, cv=5, scoring="accuracy", n_jobs=-1, verbose=0
 )
@@ -125,4 +126,30 @@ sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5, x
 plt.xlabel("Predicted Labels")
 plt.ylabel("True Labels")
 plt.title("Confusion Matrix Heatmap")
-plt.savefig("conf_matrix")
+plt.savefig("conf_matrix.pdf", format="pdf", bbox_inches="tight")
+
+
+name_idx = label_encoder.transform(["trainsick"])[0]
+misclassified_indices = np.where(y_pred != y_test)[0]
+# Print misclassified samples
+
+
+misclassified_lengths = []
+for idx in misclassified_indices:
+    true_label = label_encoder.inverse_transform([y_test[idx]])[0]
+    predicted_label = label_encoder.inverse_transform([y_pred[idx]])[0]
+    # print(f"\nSample {idx}:")
+    # print(f"True Label: {true_label} | Predicted Label: {predicted_label}")
+    # print(f"Text: {test_texts[idx]}")
+    misclassified_lengths.append(halstead(test_texts[idx]))
+
+ml_json_filename = "../misclass_halstead.json"
+with open(ml_json_filename) as f:
+    file_dict = json.load(f)
+
+file_dict["rf"] += misclassified_lengths
+
+with open(ml_json_filename, "w") as f:
+    json.dump(file_dict, f)
+
+    

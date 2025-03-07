@@ -43,7 +43,7 @@
         Overfit ratio:  1.4144575827428214
     
     TAG_SIZE = 27
-        Training completed in 1949.25 seconds (32.49 minutes)
+       raining completed in 724.65 seconds (12.08 minutes)
         Test Accuracy: 0.8272
         Test Precision: 0.8466
         Test Recall: 0.8225
@@ -104,6 +104,11 @@
     TAG_SIZE = 110
     
     TAG_SIZE = 27
+    Test Accuracy: 0.4412
+Test Precision: 0.6006
+Test Recall: 0.4471
+Test F1: 0.4609
+Training completed in (1.0464 minutes)
     
     TAG_SIZE = 11
     

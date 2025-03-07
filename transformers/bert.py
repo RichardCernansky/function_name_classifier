@@ -181,8 +181,8 @@ plt.title("Validation Accuracy")
 plt.legend()
 plt.savefig("learning_curve.png")
 
-model.save_pretrained("./codebert-authorship")
-tokenizer.save_pretrained("./codebert-authorship")
+model.save_pretrained("./bert-authorship")
+tokenizer.save_pretrained("./bert-authorship")
 
 
 

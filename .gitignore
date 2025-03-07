@@ -11,3 +11,5 @@ processAST/jupyter/functionsASTs.ndjson
 *.h5
 transformers/results
 transformers/codebert-authorship
+transformers/bert-authorship
+

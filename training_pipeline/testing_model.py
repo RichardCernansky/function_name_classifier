@@ -9,6 +9,7 @@ import random
 import sys
 import pandas as pd
 import json
+from radon.metrics import halstead
 
 import tensorflow as tf
 from tensorflow import keras
@@ -161,12 +162,14 @@ num_nodes_bins_50, num_nodes_bin_labels_50, num_nodes_correct_50, num_nodes_tota
 num_nodes_bins_20, num_nodes_bin_labels_20, num_nodes_correct_20, num_nodes_total_20 = generate_bins_and_labels(0, 600, 20)
 
 
+lengths_tokens = []
 # process the test data and gather predictions and bin information
 with open(test_file, 'r') as f:
     data = ndjson.load(f)
     for line in data:
         try:
             num_tokens = line.get("num_tokens")
+            lengths_tokens.append(num_tokens)
             ast_depth = line.get("ast_depth")
             num_nodes = line.get("num_nodes")
             if any(value is None for value in [num_tokens, ast_depth, num_nodes]):
@@ -246,7 +249,7 @@ sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5, x
 plt.xlabel("Predicted Labels")
 plt.ylabel("True Labels")
 plt.title("Confusion Matrix Heatmap")
-plt.savefig("conf_matrix")
+plt.savefig("conf_matrix.pdf", format="pdf", bbox_inches="tight")
 
 fold_metrics = {
     "accuracy": accuracy,
@@ -306,3 +309,17 @@ print(f"Test Accuracy: {accuracy:.4f}")
 print(f"Test Precision: {precision:.4f}")
 print(f"Test Recall: {recall:.4f}")
 print(f"Test F1: {f1:.4f}")
+
+lengths_misclassified = []
+for i in range(len(predicted_labels)):
+    if predicted_labels[i] != true_labels[i]: lengths_misclassified.append(lengths_tokens[i])
+
+
+ml_json_filename = "../misclass_halstead.json"
+with open(ml_json_filename) as f:
+    file_dict = json.load(f)
+
+file_dict["att-nn"] += lengths_misclassified
+
+with open(ml_json_filename, "w") as f:
+    json.dump(file_dict, f)

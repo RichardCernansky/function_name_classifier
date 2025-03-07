@@ -1,11 +1,13 @@
 import os
 import sys
 import ndjson
+import json
 import numpy as np
 import pickle
 import random
 import time
 import re
+from radon.metrics import halstead
 from collections import Counter
 import matplotlib.pyplot as plt
 import torch
@@ -45,16 +47,21 @@ def get_data(tags_vocab: dict, data_file):
         np.random.shuffle(data)
 
         bert_data = []
+        lenghts_tokens = []
         for func_json in data:
             tag = func_json.get("tag")
+            lenght_tokens = len(func_json.get("source_code").split())
+           
         
             tokens_joined = preprocess_code(func_json.get("source_code"))
             author_id = tags_vocab[tag]
 
             data_dict = {"source_code": tokens_joined, "author": author_id}
             bert_data.append(data_dict)
+            lenghts_tokens.append(lenght_tokens)
 
-        return bert_data
+        return bert_data, lenghts_tokens
+
 
 #-----TEST------
 vocabs_pkl = f'trained_models/vocabs_fold_1.pkl'
@@ -65,7 +72,8 @@ tokenizer = RobertaTokenizer.from_pretrained(model_path)
 model.eval()
 
 test_file = "data_ndjson/test_fold.ndjson"
-test_data = get_data(tags_vocab, test_file)
+test_data, lengths_tokens = get_data(tags_vocab, test_file)
+
 dataset3 = Dataset.from_list(test_data)
 test_dataset = dataset3.map(tokenize_function, batched=True)
 
@@ -93,8 +101,6 @@ print(f"Test Recall: {recall:.4f}")
 print(f"Test F1: {f1:.4f}")
 
 
-
-
 conf_matrix = confusion_matrix(true_labels, predicted_labels)
 inverted_tags_vocab = {value: key for key,value in tags_vocab.items()}
 decoded_labels_sorted = [inverted_tags_vocab[i] for i in sorted(inverted_tags_vocab.keys()) if i != 0]
@@ -103,4 +109,17 @@ sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5, x
 plt.xlabel("Predicted Labels")
 plt.ylabel("True Labels")
 plt.title("Confusion Matrix Heatmap")
-plt.savefig("conf_matrix")
+plt.savefig("conf_matrix.pdf", format="pdf", bbox_inches="tight")
+
+
+misclassified_preds = np.where(predicted_labels != true_labels)[0]
+lengths_misclassified = np.array(lengths_tokens)[misclassified_preds]
+
+ml_json_filename = "../misclass_halstead.json"
+with open(ml_json_filename) as f:
+    file_dict = json.load(f)
+
+file_dict["bert-source_code"] += lengths_misclassified.tolist()
+
+with open(ml_json_filename, "w") as f:
+    json.dump(file_dict, f)

@@ -1,6 +1,7 @@
 import os
 import sys
 import ndjson
+import json
 import numpy as np
 import pickle
 import random
@@ -38,9 +39,11 @@ def get_data(tags_vocab: dict, data_file):
         np.random.shuffle(data)
 
         bert_data = []
+        lengths_tokens = []
         for func_json in data:
             tag = func_json.get("tag")
             ast_json = func_json.get("ast")
+            length_tokens = len(func_json.get("source_code").split())
             func_root = json_to_tree(ast_json)
             traversal = pre_order_traversal(func_root)  # Get all contexts
 
@@ -49,19 +52,20 @@ def get_data(tags_vocab: dict, data_file):
 
             data_dict = {"ast_paths": tokens, "author": author_id}
             bert_data.append(data_dict)
+            lengths_tokens.append(length_tokens)
 
-        return bert_data
+        return bert_data, lengths_tokens
 
 #-----TEST------
 vocabs_pkl = f'trained_models/vocabs_fold_1.pkl'
 _, _, tags_vocab, _ = get_vocabs(vocabs_pkl)
-model_path = "./codebert-authorship"
+model_path = "./bert-authorship"
 model = RobertaForSequenceClassification.from_pretrained(model_path)
 tokenizer = RobertaTokenizer.from_pretrained(model_path)
 model.eval()
 
 test_file = "data_ndjson/test_fold.ndjson"
-test_data = get_data(tags_vocab, test_file)
+test_data, lengths_tokens = get_data(tags_vocab, test_file)
 dataset3 = Dataset.from_list(test_data)
 test_dataset = dataset3.map(tokenize_function, batched=True)
 
@@ -96,4 +100,17 @@ sns.heatmap(conf_matrix, annot=True, fmt='d', cmap="coolwarm", linewidths=0.5, x
 plt.xlabel("Predicted Labels")
 plt.ylabel("True Labels")
 plt.title("Confusion Matrix Heatmap")
-plt.savefig("conf_matrix")
+plt.savefig("conf_matrix.pdf", format="pdf", bbox_inches="tight")
+
+
+misclassified_preds = np.where(predicted_labels != true_labels)[0]
+lengths_misclassified = np.array(lengths_tokens)[misclassified_preds]
+
+ml_json_filename = "../misclass_halstead.json"
+with open(ml_json_filename) as f:
+    file_dict = json.load(f)
+
+file_dict["bert-ast"] += lengths_misclassified.tolist()
+
+with open(ml_json_filename, "w") as f:
+    json.dump(file_dict, f)
