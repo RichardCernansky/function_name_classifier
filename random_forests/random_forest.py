@@ -63,7 +63,7 @@ print("Data loaded successfully.")
 
 vectorizer = TfidfVectorizer(
     analyzer="word",  #code as a bag of words
-    token_pattern=r"\b\w+\b",  # extract tokens
+    token_pattern=r"\b\w+\b",  # extract tokens, one or more word characters – Matches words made up of letters (A-Za-z), numbers (0-9), and underscores (_).
     max_features=5000  # limit features to 5000 most important tokens
 )
 

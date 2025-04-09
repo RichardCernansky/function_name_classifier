@@ -98,7 +98,9 @@ for output_ndjson_file in output_files:
 df = pd.DataFrame(data)
 print(df.head())
 # sort the dataframe by frequency in descending order
-df = df.sort_values(by="Frequency", ascending=False)
+df =df.sort_values(by="Frequency", ascending=False)
+
+print("Size of dataset:", total_functions)
 
 #NAMES
 #Shapiro-Wilk test on name frequencies
@@ -128,7 +130,7 @@ for bar, value in zip(bars, df[column_name]):
     plt.text(bar.get_x() + bar.get_width() / 2,  # Center text
              value + 2,  # Slightly above bar
              f"{int(value)}",  # Format as integer
-             ha="center", va="bottom", fontsize=10, fontweight="bold", color="black")
+             ha="center", va="bottom", fontsize=7, fontweight="bold", color="black")
 plt.title(f'Distribution of Number of Functions per Author. Total number of functions = {total_functions}', fontsize=16, fontweight="bold")
 
 plt.xlabel('Function Name', fontsize=14)

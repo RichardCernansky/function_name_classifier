@@ -58,14 +58,14 @@ if FILE == JSON_FILE_HAL:
         index = len(root["bert-source_code"]) / len(measures) if len(measures) > 0 else 0  # Compute scaling factor
         print(f"Scaling factor for {name}: {index}")
     
-        if name != "att-nn":  # Skip "att-nn"
+        if name != "att-nn": 
             values = [compute_halstead(measure, min_vals, max_vals) for measure in measures]
     
-            # Compute histogram manually
+
             counts, bin_edges = np.histogram(values, bins=NUM_BINS)
-            scaled_counts = counts * index  # Scale the frequencies
+            scaled_counts = counts * index  
     
-            # Plot scaled histogram without clearing previous ones
+
             plt.bar(bin_edges[:-1], scaled_counts, width=np.diff(bin_edges), alpha=0.5, color=colors[name], label=name)
 
 

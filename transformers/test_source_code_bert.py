@@ -71,6 +71,7 @@ _, _, tags_vocab, _ = get_vocabs(vocabs_pkl)
 model_path = "./codebert-authorship"
 model = RobertaForSequenceClassification.from_pretrained(model_path)
 tokenizer = RobertaTokenizer.from_pretrained(model_path)
+print(model.config)
 model.eval()
 
 test_file = "data_ndjson/test_fold.ndjson"
