@@ -15,8 +15,8 @@ from transformers import RobertaForSequenceClassification, Trainer, TrainingArgu
 
 sys.path.append(os.path.abspath("/home/jovyan/function_name_classifier"))  # Add this modules path to sys
 
-from training_pipeline.extract_functions import Node
-from training_pipeline.NodeToNodePaths import json_to_tree, pre_order_traversal
+from attention_nn.extract_functions import Node
+from attention_nn.NodeToNodePaths import json_to_tree, pre_order_traversal
 
 
 if len(sys.argv) < 2:

@@ -5,7 +5,7 @@ from sklearn.model_selection import StratifiedKFold
 import subprocess
 
 NUM_FOLDS = 5
-ndjson_file = "data_ndjson/dropped_lower_10.ndjson"
+ndjson_file = "data_ndjson/dropped_lower.ndjson"
 
 # load the data from NDJSON
 name_ast = []
@@ -85,7 +85,7 @@ else:
 
         print(f"Fold {fold_index} saved as NDJSON files.")
         try:
-            subprocess.run(["python", "../training_pipeline/train_valid_strat.py"], check=True)
+            subprocess.run(["python", "../attention_nn/train_valid_strat.py"], check=True)
             
             subprocess.run(["python", "random_forest.py", str(fold_index+1)], check=True)
 

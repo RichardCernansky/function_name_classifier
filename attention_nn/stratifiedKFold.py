@@ -5,7 +5,7 @@ from sklearn.model_selection import StratifiedKFold
 import subprocess
 
 NUM_FOLDS = 5
-ndjson_file = "data_ndjson/dropped_lower_10.ndjson"
+ndjson_file = "data_ndjson/dropped_lower.ndjson"
 
 # load the data from NDJSON
 name_ast = []

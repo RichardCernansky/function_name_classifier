@@ -1,4 +1,0 @@
-- save true_lab and predicted_lab through the folds and just concat and confusion_matrix on the concatenated arr
-- edit extract_data to extract also the raw source code and feed BERT 
-- setup BERT to get the average accuracy, precision, recall, confusion matrix 
-- setup random forests on TF-IDF

@@ -5,7 +5,7 @@ from sklearn.model_selection import StratifiedKFold
 import subprocess
 
 NUM_FOLDS = 5
-ndjson_file = "data_ndjson/dropped_lower_10.ndjson"
+ndjson_file = "data_ndjson/dropped_lower.ndjson"
 
 # load the data from NDJSON
 name_ast = []
@@ -87,8 +87,8 @@ else:
     
         try:
             
-            subprocess.run(["python", "../training_pipeline/train_valid_strat.py"], check=True)
-            subprocess.run(["python", "../training_pipeline/generate_vocabs.py", str(fold_index+1)], check=True)
+            subprocess.run(["python", "../attention_nn/train_valid_strat.py"], check=True)
+            subprocess.run(["python", "../attention_nn/generate_vocabs.py", str(fold_index+1)], check=True)
             subprocess.run(["python", "source_code_bert.py", str(fold_index+1)], check=True)
             subprocess.run(["python", "test_source_code_bert.py"])
             break

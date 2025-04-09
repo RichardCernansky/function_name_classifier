@@ -18,9 +18,9 @@ pdf_postfix = ".pdf"
 input_ndjson_file = "../data_ndjson/gcj-dataset.ndjson"
 #input_ndjson_file = "../data_ndjson/contests.ndjson"
 #input_ndjson_file = "../data_ndjson/merged_without_noise.ndjson"
-output_ndjson_file1 = "../data_ndjson/dropped_lower_10.ndjson"
-output_ndjson_file2 = "../../transformers/data_ndjson/dropped_lower_10.ndjson"
-output_ndjson_file3 = "../../random_forests/data_ndjson/dropped_lower_10.ndjson"
+output_ndjson_file1 = "../data_ndjson/dropped_lower.ndjson"
+output_ndjson_file2 = "../../transformers/data_ndjson/dropped_lower.ndjson"
+output_ndjson_file3 = "../../random_forests/data_ndjson/dropped_lower.ndjson"
 output_files = [output_ndjson_file1, output_ndjson_file2, output_ndjson_file3]
 basename_without_extension = get_basename_without_extension(input_ndjson_file)
 

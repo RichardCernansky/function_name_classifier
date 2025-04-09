@@ -19,8 +19,8 @@ from sklearn.metrics import classification_report, accuracy_score, precision_sco
 
 sys.path.append(os.path.abspath("/home/jovyan/function_name_classifier"))  # Add this modules path to sys
 
-from training_pipeline.extract_functions import Node
-from training_pipeline.NodeToNodePaths import json_to_tree, pre_order_traversal
+from attention_nn.extract_functions import Node
+from attention_nn.NodeToNodePaths import json_to_tree, pre_order_traversal
 
 def get_vocabs(vocabs_pkl):
     with open(vocabs_pkl, 'rb') as f:
